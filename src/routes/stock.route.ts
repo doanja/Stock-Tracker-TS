@@ -2,7 +2,7 @@ import { Router } from 'express';
 // import { addFavorite, getFavorites, removeFavorite } from '../controllers/recipe.controller';
 import { verifyAccessToken } from '../middleware/verifyToken';
 
-export default class RecipeRoute {
+export default class StockRoute {
   public router: Router = Router();
 
   constructor() {

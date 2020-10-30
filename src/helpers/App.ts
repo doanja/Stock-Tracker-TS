@@ -5,7 +5,7 @@ import passport from 'passport';
 import { Route } from '../@types';
 import { createClient, RedisClient } from 'redis';
 import EnvVariables from './EnvVariables';
-import { AuthRoute, RecipeRoute, UserRoute } from '../routes';
+import { AuthRoute, UserRoute } from '../routes';
 import { Server } from 'http';
 
 class App {
@@ -15,7 +15,7 @@ class App {
   private readonly environment: string | undefined;
   public redisClient: RedisClient;
 
-  constructor(env: EnvVariables = new EnvVariables(), routes: Route[] = [new RecipeRoute(), new UserRoute(), new AuthRoute()]) {
+  constructor(env: EnvVariables = new EnvVariables(), routes: Route[] = [new UserRoute(), new AuthRoute()]) {
     this.app = express();
     this.port = env.port;
     this.environment = env.enviroment;
