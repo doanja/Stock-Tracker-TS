@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { User } from '../models';
 import { IUser } from '../@types';
-import { generatePrices, getNextPrice } from '../helpers/stock';
+import { generatePrices } from '../helpers/stock';
 
 export const getFavorites = async (req: Request, res: Response): Promise<void> => {
   try {
@@ -40,11 +40,29 @@ export const removeFavorite = async (req: Request, res: Response): Promise<void>
   }
 };
 
-export const test = async (req: Request, res: Response): Promise<void> => {
-  try {
-    const prices = generatePrices();
+// export const getDailyPrices = async (req: Request, res: Response): Promise<void> => {
+//   try {
+//     const prices = generatePrices();
 
-    res.status(200).json({ prices });
+//     res.status(200).json({ prices });
+//   } catch (error) {
+//     res.status(401).json(error);
+//   }
+// };
+
+// export const getWeeklyPrices = async (req: Request, res: Response): Promise<void> => {
+//   try {
+//     const prices = parseArr(generatePrices(), 52);
+
+//     res.status(200).json({ prices });
+//   } catch (error) {
+//     res.status(401).json(error);
+//   }
+// };
+
+export const getStockPrices = async (req: Request, res: Response): Promise<void> => {
+  try {
+    res.status(200).json({ prices: generatePrices() });
   } catch (error) {
     res.status(401).json(error);
   }
