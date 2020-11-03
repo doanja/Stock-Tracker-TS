@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { addFavorite, getFavorites, removeFavorite } from '../controllers/stock.controller';
+import { addFavorite, getFavorites, removeFavorite, test } from '../controllers/stock.controller';
 import { verifyAccessToken } from '../middleware/verifyToken';
 
 export default class StockRoute {
@@ -17,5 +17,6 @@ export default class StockRoute {
     this.router.get('/stock/day/:sampleSize'); // show 7 to represent 1 week
     this.router.get('/stock/week/:sampleSize'); // show 4 to represent 1 month
     this.router.get('/stock/month/:sampleSize'); // show 12 to represent 1 year
+    this.router.get('/test', test);
   }
 }

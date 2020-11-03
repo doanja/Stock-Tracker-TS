@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { User } from '../models';
 import { IUser } from '../@types';
+import { genRandomNumArr, getNextPrice } from '../helpers/stock';
 
 export const getFavorites = async (req: Request, res: Response): Promise<void> => {
   try {
@@ -34,6 +35,16 @@ export const removeFavorite = async (req: Request, res: Response): Promise<void>
     const user: IUser | null = await User.findOneAndUpdate({ _id: req.accessToken?._id }, { $pull: { watchlist: ticker } }, { new: true });
 
     res.status(200).json({ watchlist: user!.watchlist });
+  } catch (error) {
+    res.status(401).json(error);
+  }
+};
+
+export const test = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const prices = genRandomNumArr(3, 12, 13).map(num => (num = getNextPrice(num)));
+
+    res.status(200).json({ prices });
   } catch (error) {
     res.status(401).json(error);
   }
