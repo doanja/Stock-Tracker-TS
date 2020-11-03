@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { User } from '../models';
 import { IUser } from '../@types';
-import { genRandomNumArr, getNextPrice } from '../helpers/stock';
+import { generatePrices, getNextPrice } from '../helpers/stock';
 
 export const getFavorites = async (req: Request, res: Response): Promise<void> => {
   try {
@@ -42,7 +42,7 @@ export const removeFavorite = async (req: Request, res: Response): Promise<void>
 
 export const test = async (req: Request, res: Response): Promise<void> => {
   try {
-    const prices = genRandomNumArr(3, 12, 13).map(num => (num = getNextPrice(num)));
+    const prices = generatePrices();
 
     res.status(200).json({ prices });
   } catch (error) {
