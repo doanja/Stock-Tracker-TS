@@ -12,7 +12,7 @@ export const setIsLoading = () => {
   return { type: StockActionTypes.SET_IS_LOADING };
 };
 
-export const getTicker: AppThunk = () => {
+export const getTickerPrices: AppThunk = () => {
   return async (dispatch: Dispatch) => {
     dispatch(setIsLoading());
     try {

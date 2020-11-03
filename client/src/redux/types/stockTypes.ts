@@ -1,5 +1,5 @@
 export interface StockState {
-  readonly tickerPrices: [{ ticker: string; prices: number[] }];
+  readonly tickerPrices: TickerPrices;
   readonly watchlist: string[];
   readonly error?: string;
   readonly token: string;
