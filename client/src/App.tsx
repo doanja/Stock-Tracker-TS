@@ -1,26 +1,37 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { Home, Login, Signup, PageNotFound, Saved } from './pages';
+import { CustomModal } from './components';
 
-function App() {
+// redux
+import { useSelector, useDispatch } from 'react-redux';
+import { RootStore } from './redux/Store';
+import { toggleModal } from './redux/actions/modalActions';
+
+const App: React.FC = () => {
+  // redux
+  const { showModal, modalBody, modalTitle } = useSelector((state: RootStore) => state.modal);
+  const dispatch = useDispatch();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='wrap'>
+      <CustomModal
+        showModal={showModal}
+        toggleModal={() => dispatch(toggleModal(!showModal, modalBody, 'Error'))}
+        title={modalTitle}
+        body={<p>{modalBody}</p>}
+      />
+      <Router>
+        <Switch>
+          <Route exact path='/' component={Home} />
+          <Route exact path='/login' component={Login} />
+          <Route exact path='/signup' component={Signup} />
+          <Route exact path='/saved' component={Saved} />
+          <Route path='*' component={PageNotFound} />
+        </Switch>
+      </Router>
     </div>
   );
-}
+};
 
 export default App;
