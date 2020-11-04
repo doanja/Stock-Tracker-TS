@@ -41,7 +41,7 @@ export const clearSearchQuery = () => {
   return { type: StockActionTypes.CLEAR_SEARCH_QUERY };
 };
 
-export const setTicker = (ticker: Ticker) => {
+export const setTicker = (ticker: string) => {
   return { type: StockActionTypes.SET_TICKER, payload: ticker };
 };
 

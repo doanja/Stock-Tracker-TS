@@ -27,6 +27,7 @@ const App: React.FC = () => {
           <Route exact path='/login' component={Login} />
           <Route exact path='/signup' component={Signup} />
           <Route exact path='/watchlist' component={Watchlist} />
+          {/* <Route exact path='/detailed/:stock' component={DetailedTicker}/> */}
           <Route path='*' component={PageNotFound} />
         </Switch>
       </Router>

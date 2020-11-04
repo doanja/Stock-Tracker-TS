@@ -1,7 +1,7 @@
 export interface StockState {
   // readonly tickerPrices: TickerPrices;
   readonly searchQuery: string; // current searched ticker
-  readonly ticker: Ticker | null; // used to display detailed stock info
+  readonly ticker: string | null; // used to display detailed stock info
 
   readonly watchlist: string[];
   readonly error?: string;

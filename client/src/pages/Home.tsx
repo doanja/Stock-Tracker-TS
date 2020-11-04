@@ -1,7 +1,13 @@
-import React, { useState, useEffect, Fragment } from 'react';
+import React, { useEffect, Fragment } from 'react';
 import { SearchBar, NavigationBar } from '../components';
+import { useHistory } from 'react-router-dom';
 import { StockService } from '../services';
 import Container from 'react-bootstrap/Container';
+
+// redux
+import { useSelector, useDispatch } from 'react-redux';
+import { RootStore } from '../redux/Store';
+import { setTicker } from '../redux/actions/stockActions';
 
 interface HomeProps {
   watchlist?: string[];
@@ -9,31 +15,29 @@ interface HomeProps {
 
 const Home: React.FC<HomeProps> = ({ watchlist }) => {
   const api = new StockService();
+  const history = useHistory();
 
-  // modal
-  const [showModal, setShowModal] = useState(false);
-  const toggleModal: ToggleModal = () => setShowModal(!showModal);
+  // redux
+  const { ticker } = useSelector((state: RootStore) => state.stock);
 
-  const getTickerPrice: GetTickerPrice = ticker => {
-    api
-      .getTickerPrice(ticker)
-      .then(res => {
-        if (res.data.results.length === 0) {
-          setShowModal(true);
-          // dispatch(clearSearchQuery());
-        } else {
-          // dispatch(setRecipeIds(res.data.results.map((recipe: any) => recipe.id)));
-        }
-      })
-      .catch(err => console.log(err));
-  };
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (ticker) history.push(`/stock/${ticker}`);
+  }, [ticker]);
+
+  // renders a single ticker
+  const loadTicker: LoadTicker = ticker => dispatch(setTicker(ticker));
 
   return (
     <Fragment>
       <NavigationBar />
       <Container>
-        <SearchBar getTickerPrice={getTickerPrice} />
+        <SearchBar />
         {/* TODO: create stock dashboard here */}
+        {/* TODO: need conditional on dashboard to display user's watchlist or default watchlist */}
+        {/* TODO: create a component to display a single ticker  */}
+        {/* {ticker ? <Watchlists watchlist={watchlist} /> : watchlist ? <TickerDetails ticker={ticker} /> : null} */}
       </Container>
     </Fragment>
   );
