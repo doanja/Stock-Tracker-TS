@@ -33,6 +33,22 @@ export const setIsLoading = () => {
 //   };
 // };
 
+export const setSearchQuery = (searchQuery: string) => {
+  return { type: StockActionTypes.SET_SEARCH_QUERY, payload: searchQuery };
+};
+
+export const clearSearchQuery = () => {
+  return { type: StockActionTypes.CLEAR_SEARCH_QUERY };
+};
+
+export const setTicker = (ticker: Ticker) => {
+  return { type: StockActionTypes.SET_TICKER, payload: ticker };
+};
+
+export const clearTicker = () => {
+  return { type: StockActionTypes.CLEAR_TICKER };
+};
+
 export const getWatchlist: AppThunk = () => {
   return async (dispatch: Dispatch) => {
     dispatch(setIsLoading());

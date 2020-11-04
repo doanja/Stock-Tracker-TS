@@ -1,6 +1,11 @@
-type TickerPrices = TickerPrice[];
+// type TickerPrices = TickerPrice[];
 
-type TickerPrice = { ticker: string; prices: number[] };
+// type TickerPrice = { ticker: string; prices: number[] };
+
+type Ticker = {
+  symbol: string;
+  prices: { date: string; price: number };
+};
 
 type GetTickerPrice = (ticker: string) => void;
 
