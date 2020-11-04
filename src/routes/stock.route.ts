@@ -16,6 +16,6 @@ export default class StockRoute {
     // this.router.get('/stock/day/:sampleSize', getDailyPrices); // show 7 to represent 1 week
     // this.router.get('/stock/week/:sampleSize', getWeeklyPrices); // show 4 to represent 1 month
     // this.router.get('/stock/month/:sampleSize'); // show 12 to represent 1 year
-    this.router.get('/stock', getStockPrices);
+    this.router.get('/stock/:ticker', getStockPrices);
   }
 }

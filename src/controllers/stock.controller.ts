@@ -62,6 +62,7 @@ export const removeFavorite = async (req: Request, res: Response): Promise<void>
 
 export const getStockPrices = async (req: Request, res: Response): Promise<void> => {
   try {
+    // todo: validate if the ticker is valid?
     res.status(200).json({ prices: generatePrices() });
   } catch (error) {
     res.status(401).json(error);
