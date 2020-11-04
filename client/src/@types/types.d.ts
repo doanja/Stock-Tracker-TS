@@ -2,6 +2,8 @@ type TickerPrices = TickerPrice[];
 
 type TickerPrice = { ticker: string; prices: number[] };
 
+type GetTickerPrice = (ticker: string) => void;
+
 type ToggleModal = (errorText?: string) => void;
 
 type SignupFormValues = {

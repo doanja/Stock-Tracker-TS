@@ -2,7 +2,7 @@ import React, { useState, useEffect, Fragment } from 'react';
 import { useHistory } from 'react-router-dom';
 import { AuthService } from '../services';
 import { CustomModal } from '../components';
-import { Home } from '../pages';
+import { Home } from '.';
 import axios from 'axios';
 
 // redux
@@ -12,7 +12,7 @@ import { getWatchlist } from '../redux/actions/stockActions';
 import { clearAccessToken, clearLoginStatus, clearRefreshToken, setAccessToken } from '../redux/actions/authActions';
 import { checkTokenExp } from '../helper';
 
-const Saved: React.FC = () => {
+const Watchlist: React.FC = () => {
   const api = new AuthService();
   const history = useHistory();
 
@@ -81,4 +81,4 @@ const Saved: React.FC = () => {
   );
 };
 
-export default Saved;
+export default Watchlist;

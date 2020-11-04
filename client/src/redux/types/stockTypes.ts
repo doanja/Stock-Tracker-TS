@@ -1,5 +1,5 @@
 export interface StockState {
-  readonly tickerPrices: TickerPrices;
+  // readonly tickerPrices: TickerPrices;
   readonly watchlist: string[];
   readonly error?: string;
   readonly token: string;
@@ -11,7 +11,7 @@ export interface Watchlist {
 }
 
 export enum StockActionTypes {
-  GET_TICKER = 'GET_TICKER',
+  // GET_TICKER_PRICES = 'GET_TICKER_PRICES',
   GET_WATCHLIST = 'GET_WATCHLIST',
   ADD_TICKER = 'ADD_TICKER',
   REMOVE_TICKER = 'REMOVE_TICKER',

@@ -9,7 +9,7 @@ import { RootStore } from '../redux/Store';
 import { addToWatchlist, removeFromWatchlist } from '../redux/actions/stockActions';
 
 interface SaveIconProps {
-  ticker: number;
+  ticker: string;
 }
 
 const SaveIcon: React.FC<SaveIconProps> = ({ ticker }) => {

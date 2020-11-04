@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { Form, InputGroup, Button } from 'react-bootstrap';
 
 interface SearchBarProps {
-  getRecipeId: GetRecipeId;
+  getTickerPrice: GetTickerPrice;
 }
 
-const SearchBar: React.FC<SearchBarProps> = ({ getRecipeId }) => {
+const SearchBar: React.FC<SearchBarProps> = ({ getTickerPrice }) => {
   const [input, setInput] = useState('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -14,7 +14,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ getRecipeId }) => {
 
   const handleSubmit = (e: React.FormEvent): void => {
     e.preventDefault();
-    getRecipeId(input);
+    getTickerPrice(input);
     setInput('');
   };
 
@@ -23,7 +23,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ getRecipeId }) => {
       <InputGroup className='mt-3'>
         <Form.Control
           type='text'
-          placeholder='Search a recipe'
+          placeholder='Search for stocks, ETFs and more'
           value={input}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e)}
         />

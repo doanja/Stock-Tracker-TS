@@ -2,7 +2,7 @@ import { StockState, StockActionTypes } from '../types/stockTypes';
 import { Reducer } from 'redux';
 
 const initialState: StockState = {
-  tickerPrices: [],
+  // tickerPrices: [],
   watchlist: [],
   error: undefined,
   token: '',
@@ -11,8 +11,9 @@ const initialState: StockState = {
 
 const stockReducer: Reducer<StockState> = (state = initialState, action) => {
   switch (action.type) {
-    case StockActionTypes.GET_TICKER:
-      return { ...state, error: state.error, isLoading: false, tickerPrices: [...action.payload], token: action.token };
+    // case StockActionTypes.GET_TICKER:
+    //   // TODO: check this case
+    //   return { ...state, error: state.error, isLoading: false, tickerPrices: [...action.payload], token: action.token };
     case StockActionTypes.GET_WATCHLIST:
       return { ...state, error: state.error, isLoading: false, watchlist: action.payload, token: action.token };
     case StockActionTypes.ADD_TICKER:
