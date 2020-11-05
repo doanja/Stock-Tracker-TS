@@ -1,6 +1,6 @@
 import SaveIcon from './SaveIcon';
 import SearchBar from './SearchBar';
 import CustomModal from './CustomModal';
-import NavigationBar from './NavigationBar';
+import CustomNavbar from './CustomNavbar';
 
-export { SaveIcon, SearchBar, CustomModal, NavigationBar };
+export { SaveIcon, SearchBar, CustomModal, CustomNavbar };

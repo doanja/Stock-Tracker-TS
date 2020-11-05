@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Form, InputGroup, Button } from 'react-bootstrap';
-import { valid } from 'check-ticker-symbol';
+import { validateTicker } from '../helper';
 
 // redux
 import { useSelector, useDispatch } from 'react-redux';
@@ -17,21 +17,22 @@ const SearchBar: React.FC = () => {
   const dispatch = useDispatch();
 
   const searchTicker = (ticker: string) => {
-    dispatch(setSearchQuery(ticker));
-    dispatch(clearTicker());
+    validateTicker(ticker);
+    // dispatch(setSearchQuery(ticker));
+    // dispatch(clearTicker());
 
-    // if ticker is invalid
-    if (!valid(ticker)) {
-      // dispatch(toggleModal(!showModal, `No results found for '${searchQuery}'.`, `Error searching for ${searchQuery}`));
-      // dispatch(clearSearchQuery());
-      console.log('error');
-    }
+    // // if ticker is invalid
+    // if (!validateTicker(ticker)) {
+    //   // dispatch(toggleModal(!showModal, `No results found for '${searchQuery}'.`, `Error searching for ${searchQuery}`));
+    //   // dispatch(clearSearchQuery());
+    //   console.log('error');
+    // }
 
-    // otherwise dispatch action to set ticker
-    else {
-      // dispatch(setTicker(ticker));
-      console.log(ticker);
-    }
+    // // otherwise dispatch action to set ticker
+    // else {
+    //   // dispatch(setTicker(ticker));
+    //   console.log(ticker);
+    // }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {

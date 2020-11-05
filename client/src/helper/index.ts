@@ -1,5 +1,6 @@
 import { decode } from 'jsonwebtoken';
 import * as Yup from 'yup';
+import tickers from '../tickers.json';
 
 /**
  * function to check JWT expiration
@@ -24,3 +25,13 @@ export const signupSchema = Yup.object({
     .required('Must confirm password.')
     .oneOf([Yup.ref('password'), 'null'], 'Passwords must match.'),
 });
+
+export const validateTicker = (ticker: string) => {
+  ticker = ticker.toUpperCase();
+
+  const symbol: Ticker | undefined = tickers.find((obj: Ticker) => obj.Symbol === ticker);
+
+  return symbol;
+};
+
+export const validateCompanyName = (companyName: string) => {};

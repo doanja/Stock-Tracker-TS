@@ -7,6 +7,11 @@
 //   prices: { date: string; price: number };
 // };
 
+type Ticker = {
+  'Company Name': string;
+  Symbol: string;
+};
+
 type LoadTicker = (ticker: string) => void;
 
 type GetTickerPrice = (ticker: string) => void;
@@ -23,7 +28,3 @@ type LoginFormValues = {
   email: string;
   password: string;
 };
-
-declare module 'check-ticker-symbol' {
-  export function valid(ticker: string): boolean;
-}

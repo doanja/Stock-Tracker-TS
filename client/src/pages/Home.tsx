@@ -1,5 +1,5 @@
 import React, { useEffect, Fragment } from 'react';
-import { SearchBar, NavigationBar } from '../components';
+import { SearchBar, CustomNavbar } from '../components';
 import { useHistory } from 'react-router-dom';
 import { StockService } from '../services';
 import Container from 'react-bootstrap/Container';
@@ -31,7 +31,7 @@ const Home: React.FC<HomeProps> = ({ watchlist }) => {
 
   return (
     <Fragment>
-      <NavigationBar />
+      <CustomNavbar />
       <Container>
         <SearchBar />
         {/* TODO: create stock dashboard here */}
