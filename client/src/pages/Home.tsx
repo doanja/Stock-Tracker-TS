@@ -1,20 +1,17 @@
 import React, { useEffect, Fragment } from 'react';
 import { SearchBar, CustomNavbar } from '../components';
 import { useHistory } from 'react-router-dom';
-import { StockService } from '../services';
 import Container from 'react-bootstrap/Container';
 
 // redux
 import { useSelector, useDispatch } from 'react-redux';
 import { RootStore } from '../redux/Store';
-import { setTicker } from '../redux/actions/stockActions';
 
 interface HomeProps {
   watchlist?: string[];
 }
 
 const Home: React.FC<HomeProps> = ({ watchlist }) => {
-  const api = new StockService();
   const history = useHistory();
 
   // redux
@@ -23,11 +20,9 @@ const Home: React.FC<HomeProps> = ({ watchlist }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (ticker) history.push(`/stock/${ticker}`);
+    // TODO: this might not be needed? instead pass the ticker into the dashboard as a parameter
+    // if (ticker) history.push(`/stock/${ticker}`);
   }, [ticker]);
-
-  // renders a single ticker
-  const loadTicker: LoadTicker = ticker => dispatch(setTicker(ticker));
 
   return (
     <Fragment>

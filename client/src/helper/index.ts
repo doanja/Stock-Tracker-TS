@@ -26,12 +26,15 @@ export const signupSchema = Yup.object({
     .oneOf([Yup.ref('password'), 'null'], 'Passwords must match.'),
 });
 
-export const validateTicker = (ticker: string) => {
-  ticker = ticker.toUpperCase();
+export const validateTicker = (input: string) => {
+  input = input.toUpperCase();
 
-  const symbol: Ticker | undefined = tickers.find((obj: Ticker) => obj.Symbol === ticker);
+  let ticker: Ticker | undefined = tickers.find((obj: Ticker) => obj.Symbol === input);
 
-  return symbol;
+  // if symbol not found, search by company name
+  if (!ticker) {
+    ticker = tickers.find((obj: Ticker) => obj['Company Name'].toUpperCase().indexOf(input) > -1);
+  }
+
+  return ticker;
 };
-
-export const validateCompanyName = (companyName: string) => {};

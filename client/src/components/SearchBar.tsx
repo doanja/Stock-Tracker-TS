@@ -16,25 +16,6 @@ const SearchBar: React.FC = () => {
   const { showModal } = useSelector((state: RootStore) => state.modal);
   const dispatch = useDispatch();
 
-  const searchTicker = (ticker: string) => {
-    validateTicker(ticker);
-    // dispatch(setSearchQuery(ticker));
-    // dispatch(clearTicker());
-
-    // // if ticker is invalid
-    // if (!validateTicker(ticker)) {
-    //   // dispatch(toggleModal(!showModal, `No results found for '${searchQuery}'.`, `Error searching for ${searchQuery}`));
-    //   // dispatch(clearSearchQuery());
-    //   console.log('error');
-    // }
-
-    // // otherwise dispatch action to set ticker
-    // else {
-    //   // dispatch(setTicker(ticker));
-    //   console.log(ticker);
-    // }
-  };
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setInput(e.target.value);
   };
@@ -43,6 +24,20 @@ const SearchBar: React.FC = () => {
     e.preventDefault();
     searchTicker(input);
     setInput('');
+  };
+
+  const searchTicker = (input: string) => {
+    dispatch(setSearchQuery(input));
+    dispatch(clearTicker());
+
+    // if ticker is invalid
+    if (!validateTicker(input)) {
+      dispatch(toggleModal(!showModal, `No results found for '${searchQuery}'.`, `Error searching for ${searchQuery}`));
+      dispatch(clearSearchQuery());
+    }
+
+    // otherwise dispatch action to set ticker
+    else dispatch(setTicker(input));
   };
 
   return (
