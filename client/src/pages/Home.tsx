@@ -21,7 +21,7 @@ const Home: React.FC<HomeProps> = ({ watchlist }) => {
 
   useEffect(() => {
     // TODO: this might not be needed? instead pass the ticker into the dashboard as a parameter
-    // if (ticker) history.push(`/stock/${ticker}`);
+    // if (ticker) history.push(`/quote/${ticker}`);
   }, [ticker]);
 
   return (
