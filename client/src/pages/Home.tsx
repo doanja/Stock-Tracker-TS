@@ -1,5 +1,5 @@
 import React, { useEffect, Fragment } from 'react';
-import { SearchBar, CustomNavbar } from '../components';
+import { SearchBar, CustomNavbar, TickerLine } from '../components';
 import { useHistory } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
 
@@ -8,7 +8,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootStore } from '../redux/Store';
 
 interface HomeProps {
-  watchlist?: string[];
+  watchlist?: Ticker[];
 }
 
 const Home: React.FC<HomeProps> = ({ watchlist }) => {
@@ -18,6 +18,13 @@ const Home: React.FC<HomeProps> = ({ watchlist }) => {
   const { ticker } = useSelector((state: RootStore) => state.stock);
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    watchlist = [
+      { Symbol: 'AMD', 'Company Name': 'Advance Micro Devices Inc.' },
+      { Symbol: 'GOOG', 'Company Name': 'Google Inc.' },
+    ];
+  });
 
   useEffect(() => {
     // TODO: this might not be needed? instead pass the ticker into the dashboard as a parameter
@@ -30,6 +37,7 @@ const Home: React.FC<HomeProps> = ({ watchlist }) => {
       <Container>
         <SearchBar />
         {/* TODO: create stock dashboard here */}
+        <TickerLine watchlist={watchlist} />
         {/* TODO: need conditional on dashboard to display user's watchlist or default watchlist */}
         {/* TODO: create a component to display a single ticker  */}
         {/* {ticker ? <Watchlists watchlist={watchlist} /> : watchlist ? <TickerDetails ticker={ticker} /> : null} */}
