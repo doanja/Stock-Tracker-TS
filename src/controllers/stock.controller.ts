@@ -3,7 +3,7 @@ import { User } from '../models';
 import { IUser } from '../@types';
 import { generatePrices } from '../helpers/stock';
 
-export const getFavorites = async (req: Request, res: Response): Promise<void> => {
+export const getWatchlist = async (req: Request, res: Response): Promise<void> => {
   try {
     const user: IUser | null = await User.findById(req.accessToken?._id);
 
@@ -13,12 +13,21 @@ export const getFavorites = async (req: Request, res: Response): Promise<void> =
   }
 };
 
-export const addFavorite = async (req: Request, res: Response): Promise<void> => {
+export const addToWatchlist = async (req: Request, res: Response): Promise<void> => {
   try {
     const { ticker } = req.body;
+
     if (!ticker) res.status(401);
 
     const user: IUser | null = await User.findOneAndUpdate({ _id: req.accessToken?._id }, { $addToSet: { watchlist: ticker } }, { new: true });
+
+    // User.findOneAndUpdate({ _id: req.accessToken?._id }, { $addToSet: { watchlist: ticker } }, { new: true })
+    //   .then(user => {
+    //     res.status(200).json({ watchlist: user!.watchlist });
+    //   })
+    //   .catch(error => {
+    //     res.status(401).json(error);
+    //   });
 
     res.status(200).json({ watchlist: user!.watchlist });
   } catch (error) {
@@ -26,7 +35,7 @@ export const addFavorite = async (req: Request, res: Response): Promise<void> =>
   }
 };
 
-export const removeFavorite = async (req: Request, res: Response): Promise<void> => {
+export const removeFromWatchlist = async (req: Request, res: Response): Promise<void> => {
   try {
     const { ticker } = req.body;
 
