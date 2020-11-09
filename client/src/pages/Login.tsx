@@ -40,11 +40,9 @@ const Login: React.FC = () => {
         dispatch(setLoginStatus(true));
 
         axios.defaults.headers.common.Authorization = accessToken;
-        history.push('/');
+        history.push('/watchlist');
       })
       .catch(err => {
-        console.log('err :>> ', err);
-        console.log('err.response.data :>> ', err.response.data);
         dispatch(toggleModal(!showModal, err.response.data.error.message, 'Error Logging In'));
       });
   };

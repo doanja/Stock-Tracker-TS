@@ -126,3 +126,91 @@ body {
 .brand {
   font-family: 'Arvo', serif;
 }
+
+* {
+  box-sizing: border-box;
+}
+
+@-webkit-keyframes ticker {
+  0% {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    visibility: visible;
+  }
+
+  100% {
+    -webkit-transform: translate3d(-100%, 0, 0);
+    transform: translate3d(-100%, 0, 0);
+  }
+}
+
+@keyframes ticker {
+  0% {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    visibility: visible;
+  }
+
+  100% {
+    -webkit-transform: translate3d(-100%, 0, 0);
+    transform: translate3d(-100%, 0, 0);
+  }
+}
+
+.ticker-wrap {
+  /* position: fixed; */
+  /* bottom: 0; */
+  width: 100vw;
+  overflow: hidden;
+  height: 7rem;
+  padding-left: 100%;
+  box-sizing: content-box;
+  background-color: rgb(30, 50, 73);
+  text-align: center;
+}
+
+.ticker {
+  display: inline-block;
+  height: 100%;
+  white-space: nowrap;
+  padding-right: 100%;
+  box-sizing: content-box;
+
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
+  animation-timing-function: linear;
+  -webkit-animation-name: ticker;
+  animation-name: ticker;
+  -webkit-animation-duration: 30s;
+  animation-duration: 30s;
+}
+
+.ticker__item {
+  display: inline-block;
+  padding: 1.2rem 0;
+  color: white;
+  height: 100%;
+  background-color: rgb(30, 50, 73);
+  width: 12rem;
+}
+
+.ticker__item:hover {
+  background-color: rgb(33, 59, 88);
+  border-bottom: 0.25rem solid rgb(66, 182, 246);
+}
+
+h1,
+h2,
+p {
+  padding: 0 5%;
+}
+
+h4 {
+  font-size: 2rem;
+}
+
+p {
+  font-size: 1rem;
+  color: white;
+}

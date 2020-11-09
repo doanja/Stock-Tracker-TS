@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { Home, Login, Signup, PageNotFound, Watchlist } from './pages';
+import { Home, Login, Signup, PageNotFound, Watchlist, Quote } from './pages';
 import { CustomModal } from './components';
 
 // redux
@@ -27,7 +27,7 @@ const App: React.FC = () => {
           <Route exact path='/login' component={Login} />
           <Route exact path='/signup' component={Signup} />
           <Route exact path='/watchlist' component={Watchlist} />
-          {/* <Route exact path='/quote/:stock' component={Quote}/> */}
+          <Route exact path='/quote/:stock' component={Quote} />
           <Route path='*' component={PageNotFound} />
         </Switch>
       </Router>

@@ -34,7 +34,7 @@ const Watchlist: React.FC = () => {
   }, [error]);
 
   useEffect(() => {
-    if (!loginStatus) history.push('/');
+    if (!loginStatus) history.push('/login');
 
     dispatch(getWatchlist());
   }, []);
@@ -75,8 +75,7 @@ const Watchlist: React.FC = () => {
   return (
     <Fragment>
       <CustomModal showModal={showModal} toggleModal={logout} title={'Session Error'} body={<p>{errorText}</p>} />
-
-      {/* <Home watchlist={watchlist} /> */}
+      <Home watchlist={watchlist} />
     </Fragment>
   );
 };
