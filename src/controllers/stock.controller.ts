@@ -40,29 +40,8 @@ export const removeFavorite = async (req: Request, res: Response): Promise<void>
   }
 };
 
-// export const getDailyPrices = async (req: Request, res: Response): Promise<void> => {
-//   try {
-//     const prices = generatePrices();
-
-//     res.status(200).json({ prices });
-//   } catch (error) {
-//     res.status(401).json(error);
-//   }
-// };
-
-// export const getWeeklyPrices = async (req: Request, res: Response): Promise<void> => {
-//   try {
-//     const prices = parseArr(generatePrices(), 52);
-
-//     res.status(200).json({ prices });
-//   } catch (error) {
-//     res.status(401).json(error);
-//   }
-// };
-
 export const getStockPrices = async (req: Request, res: Response): Promise<void> => {
   try {
-    // todo: validate if the ticker is valid?
     res.status(200).json({ prices: generatePrices() });
   } catch (error) {
     res.status(401).json(error);

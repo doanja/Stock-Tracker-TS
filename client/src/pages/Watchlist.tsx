@@ -76,7 +76,7 @@ const Watchlist: React.FC = () => {
     <Fragment>
       <CustomModal showModal={showModal} toggleModal={logout} title={'Session Error'} body={<p>{errorText}</p>} />
 
-      <Home watchlist={watchlist} />
+      {/* <Home watchlist={watchlist} /> */}
     </Fragment>
   );
 };

@@ -14,10 +14,8 @@ export const getNextPrice = (oldPrice: number): number => {
 
 export const generatePrices = (days: number = 1825): number[] => {
   const prices: number[] = [];
-  const min = Math.random() * 6 + 300;
-  let max = Math.random() * 6 + 300;
-
-  if (min < max) max = min;
+  const min = Math.random() * 300;
+  const max = Math.random() * 300 + min;
 
   const initialPrice = Math.random() * (max - min + 1) + min;
 

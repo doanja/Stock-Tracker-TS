@@ -1,8 +1,8 @@
 import axios, { AxiosResponse } from 'axios';
 
 export default class StockService {
-  public getTickerPrice(ticker: string): Promise<AxiosResponse<any>> {
-    return axios.get<any>(`/stock/${ticker}`);
+  public getTickerPrice(): Promise<AxiosResponse<any>> {
+    return axios.get<any>('/stock');
   }
 
   public getWatchlist(): Promise<AxiosResponse<any>> {

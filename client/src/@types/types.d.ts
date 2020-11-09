@@ -14,7 +14,7 @@ type Ticker = {
 
 type LoadTicker = (ticker: string) => void;
 
-type GetTickerPrice = (ticker: string) => void;
+type GetTickerPrice = () => void;
 
 type ToggleModal = (errorText?: string) => void;
 
