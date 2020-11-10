@@ -8,30 +8,13 @@ const api = new StockService();
 
 export type AppThunk = ActionCreator<ThunkAction<void, StockState, null, Action<string>>>;
 
+export const setTickerPrices = (tickerPrices: TickerPrice[]) => {
+  return { type: StockActionTypes.SET_TICKER_PRICES, payload: tickerPrices };
+};
+
 export const setIsLoading = () => {
   return { type: StockActionTypes.SET_IS_LOADING };
 };
-
-// export const getTickerPrices: AppThunk = () => {
-//   return async (dispatch: Dispatch) => {
-//     dispatch(setIsLoading());
-//     try {
-//       const req: AxiosResponse<any> = await api.getTickerPrices();
-//       const prices: string[] = req.data.prices;
-
-//       return dispatch({
-//         type: StockActionTypes.GET_TICKER_PRICES,
-//         payload: prices,
-//         token: req.headers.authorization,
-//       });
-//     } catch (error) {
-//       return dispatch({
-//         type: StockActionTypes.REQUEST_FAILED,
-//         error: error.response.data.name,
-//       });
-//     }
-//   };
-// };
 
 export const setSearchQuery = (searchQuery: string) => {
   return { type: StockActionTypes.SET_SEARCH_QUERY, payload: searchQuery };

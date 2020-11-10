@@ -2,10 +2,9 @@ import { StockState, StockActionTypes } from '../types/stockTypes';
 import { Reducer } from 'redux';
 
 const initialState: StockState = {
-  // tickerPrices: [],
+  tickerPrices: [],
   searchQuery: '',
   ticker: null,
-
   watchlist: [],
   error: undefined,
   token: '',
@@ -14,9 +13,8 @@ const initialState: StockState = {
 
 const stockReducer: Reducer<StockState> = (state = initialState, action) => {
   switch (action.type) {
-    // case StockActionTypes.GET_TICKER:
-    //   // TODO: check this case
-    //   return { ...state, error: state.error, isLoading: false, tickerPrices: [...action.payload], token: action.token };
+    case StockActionTypes.SET_TICKER_PRICES:
+      return { ...state, tickerPrices: action.payload };
     case StockActionTypes.SET_SEARCH_QUERY:
       return { ...state, searchQuery: action.payload };
     case StockActionTypes.CLEAR_SEARCH_QUERY:
@@ -25,7 +23,6 @@ const stockReducer: Reducer<StockState> = (state = initialState, action) => {
       return { ...state, ticker: action.payload };
     case StockActionTypes.CLEAR_TICKER:
       return { ...state, ticker: null };
-
     case StockActionTypes.GET_WATCHLIST:
       return { ...state, error: state.error, isLoading: false, watchlist: action.payload, token: action.token };
     case StockActionTypes.ADD_TICKER:
@@ -36,7 +33,6 @@ const stockReducer: Reducer<StockState> = (state = initialState, action) => {
       return { ...state, error: action.error };
     case StockActionTypes.SET_IS_LOADING:
       return { ...state, isLoading: true };
-
     default:
       return state;
   }

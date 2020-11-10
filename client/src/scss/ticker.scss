@@ -1,0 +1,44 @@
+@import '_config';
+@import '../../node_modules/bootstrap/scss/bootstrap';
+
+.ticker {
+  display: inline-block;
+  height: 100%;
+  white-space: nowrap;
+  padding-right: 100%;
+  box-sizing: content-box;
+}
+
+.ticker-item {
+  border: 1px solid green;
+  display: inline-block;
+  padding: 1.2rem 0;
+  color: white;
+  height: 100%;
+  background-color: rgb(30, 50, 73);
+  width: 12rem;
+}
+
+.ticker-item:hover {
+  background-color: rgb(33, 59, 88);
+  border-bottom: 0.25rem solid rgb(66, 182, 246);
+}
+
+h1,
+h2,
+p {
+  padding: 0 5%;
+}
+
+h4 {
+  font-size: 2rem;
+}
+
+p {
+  font-size: 1rem;
+  color: white;
+}
+
+.test {
+  border: 1px dotted red;
+}
