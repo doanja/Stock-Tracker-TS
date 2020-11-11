@@ -5,6 +5,7 @@ type Ticker = {
 
 type TickerPrice = {
   symbol: string;
+  companyName: string;
   prices: number[];
 };
 

@@ -38,3 +38,11 @@ export const validateTicker = (input: string) => {
 
   return ticker;
 };
+
+export const getTickerName = (symbol: string) => {
+  symbol = symbol.toUpperCase();
+
+  let ticker: Ticker | undefined = tickers.find((obj: Ticker) => obj.Symbol === symbol);
+
+  return ticker ? ticker['Company Name'] : 'N/A';
+};

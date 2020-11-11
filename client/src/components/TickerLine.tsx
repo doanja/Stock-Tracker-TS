@@ -9,7 +9,7 @@ interface TickerLineProps {
 
 const TickerLine: React.FC<TickerLineProps> = ({ watchlist }) => {
   // each ticker box, needs the name, current price, how much it went up/down
-  console.log('watchlist :>> ', watchlist);
+  // console.log('watchlist :>> ', watchlist);
   return (
     <div className='mt-3 test'>
       <div className='ticker'>

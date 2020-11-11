@@ -1,6 +1,7 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import { useHistory } from 'react-router-dom';
-import { AuthService } from '../services';
+import { usePrevious } from '../helper/hooks';
+import { AuthService, StockService } from '../services';
 import { CustomModal } from '../components';
 import { Home } from '.';
 import axios from 'axios';
@@ -8,12 +9,13 @@ import axios from 'axios';
 // redux
 import { useSelector, useDispatch } from 'react-redux';
 import { RootStore } from '../redux/Store';
-import { getWatchlist } from '../redux/actions/stockActions';
+import { getWatchlist, setTickerPrices } from '../redux/actions/stockActions';
 import { clearAccessToken, clearLoginStatus, clearRefreshToken, setAccessToken } from '../redux/actions/authActions';
-import { checkTokenExp } from '../helper';
+import { checkTokenExp, getTickerName } from '../helper';
 
 const Watchlist: React.FC = () => {
   const api = new AuthService();
+  const stockAPI = new StockService();
   const history = useHistory();
 
   // redux
@@ -47,6 +49,22 @@ const Watchlist: React.FC = () => {
     }
   }, [token]);
 
+  const prevAmount = usePrevious(watchlist);
+
+  useEffect(() => {
+    const loadPrices = async () => Promise.all(watchlist.map(ticker => stockAPI.getTickerPrice()));
+
+    const obj: TickerPrice[] = [];
+
+    loadPrices().then(promise => {
+      for (let i = 0; i < promise.length; i++) {
+        obj.push({ symbol: watchlist[i], companyName: getTickerName(watchlist[i]), prices: promise[i].data.prices });
+      }
+
+      dispatch(setTickerPrices(obj));
+    });
+  }, [prevAmount]);
+
   const logout = () => {
     dispatch(clearAccessToken());
     dispatch(clearRefreshToken());
@@ -74,7 +92,7 @@ const Watchlist: React.FC = () => {
 
   return (
     <Fragment>
-      <CustomModal showModal={showModal} toggleModal={logout} title={'Session Error'} body={<p>{errorText}</p>} />
+      <CustomModal showModal={showModal} toggleModal={logout} title={'Session Error'} body={<p>{error}</p>} />
       <Home watchlist={watchlist} />
     </Fragment>
   );
