@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { usePrevious } from '../helper/hooks';
 import { AuthService, StockService } from '../services';
 import { CustomModal } from '../components';
-import { Home } from '.';
+import { Home } from './';
 import axios from 'axios';
 
 // redux
@@ -14,7 +14,7 @@ import { clearAccessToken, clearLoginStatus, clearRefreshToken, setAccessToken }
 import { checkTokenExp, getTickerName } from '../helper';
 
 const Watchlist: React.FC = () => {
-  const api = new AuthService();
+  const authAPI = new AuthService();
   const stockAPI = new StockService();
   const history = useHistory();
 
@@ -22,14 +22,11 @@ const Watchlist: React.FC = () => {
   const { loginStatus, refreshToken } = useSelector((state: RootStore) => state.auth);
   const { watchlist, error, token } = useSelector((state: RootStore) => state.stock);
   const dispatch = useDispatch();
+  const prevAmount = usePrevious(watchlist);
 
   // modal
-  const [errorText, setErrorText] = useState<string>();
   const [showModal, setShowModal] = useState(false);
-  const toggleModal: ToggleModal = errorText => {
-    setErrorText(errorText);
-    setShowModal(!showModal);
-  };
+  const toggleModal: ToggleModal = () => setShowModal(!showModal);
 
   useEffect(() => {
     if (error === 'TokenExpiredError') requestAccessToken();
@@ -48,8 +45,6 @@ const Watchlist: React.FC = () => {
       axios.defaults.headers.common.Authorization = accessToken;
     }
   }, [token]);
-
-  const prevAmount = usePrevious(watchlist);
 
   useEffect(() => {
     const loadPrices = async () => Promise.all(watchlist.map(ticker => stockAPI.getTickerPrice()));
@@ -75,10 +70,9 @@ const Watchlist: React.FC = () => {
 
   const requestAccessToken = () => {
     // check refresh token expiry
-    if (!checkTokenExp(refreshToken)) {
-      toggleModal('Your session has expired. Please login again.');
-    } else {
-      api
+    if (!checkTokenExp(refreshToken)) toggleModal();
+    else {
+      authAPI
         .getAccessToken(refreshToken)
         .then(res => {
           const accessToken = `Bearer ${res.data.accessToken}`;
@@ -86,13 +80,18 @@ const Watchlist: React.FC = () => {
           axios.defaults.headers.common.Authorization = accessToken;
           dispatch(getWatchlist());
         })
-        .catch(err => toggleModal('Your session has expired. Please login again.'));
+        .catch(err => toggleModal());
     }
   };
 
   return (
     <Fragment>
-      <CustomModal showModal={showModal} toggleModal={logout} title={'Session Error'} body={<p>{error}</p>} />
+      <CustomModal
+        showModal={showModal}
+        toggleModal={logout}
+        title={'Session Error'}
+        body={<p className='my-3 text-dark'>Your session has expired. Please login again.</p>}
+      />
       <Home watchlist={watchlist} />
     </Fragment>
   );
