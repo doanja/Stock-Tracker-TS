@@ -1,3 +1,9 @@
+type Prices = {
+  price: number;
+  changePercent: number;
+  priceChange: number;
+};
+
 type Ticker = {
   'Company Name': string;
   Symbol: string;
@@ -6,7 +12,7 @@ type Ticker = {
 type TickerPrice = {
   symbol: string;
   companyName: string;
-  prices: number[];
+  prices: Prices[];
 };
 
 type LoadTicker = (ticker: string) => void;
