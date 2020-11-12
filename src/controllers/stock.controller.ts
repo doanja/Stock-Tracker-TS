@@ -21,14 +21,6 @@ export const addToWatchlist = async (req: Request, res: Response): Promise<void>
 
     const user: IUser | null = await User.findOneAndUpdate({ _id: req.accessToken?._id }, { $addToSet: { watchlist: ticker } }, { new: true });
 
-    // User.findOneAndUpdate({ _id: req.accessToken?._id }, { $addToSet: { watchlist: ticker } }, { new: true })
-    //   .then(user => {
-    //     res.status(200).json({ watchlist: user!.watchlist });
-    //   })
-    //   .catch(error => {
-    //     res.status(401).json(error);
-    //   });
-
     res.status(200).json({ watchlist: user!.watchlist });
   } catch (error) {
     res.status(401).json(error);
@@ -49,7 +41,7 @@ export const removeFromWatchlist = async (req: Request, res: Response): Promise<
   }
 };
 
-export const getStockPrices = async (req: Request, res: Response): Promise<void> => {
+export const getTickerPrices = async (req: Request, res: Response): Promise<void> => {
   try {
     res.status(200).json({ prices: generatePrices() });
   } catch (error) {
