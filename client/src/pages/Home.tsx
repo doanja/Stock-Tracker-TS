@@ -7,16 +7,12 @@ import Container from 'react-bootstrap/Container';
 import { useSelector } from 'react-redux';
 import { RootStore } from '../redux/Store';
 
-interface HomeProps {
-  watchlist?: string[];
-}
-
-const Home: React.FC<HomeProps> = ({ watchlist }) => {
+const Home: React.FC = () => {
   const history = useHistory();
 
   // redux
   const { loginStatus } = useSelector((state: RootStore) => state.auth);
-  const { ticker } = useSelector((state: RootStore) => state.stock);
+  const { watchlist, ticker, tickerPrices } = useSelector((state: RootStore) => state.stock);
 
   useEffect(() => {
     if (loginStatus) history.push('/watchlist');
@@ -39,7 +35,7 @@ const Home: React.FC<HomeProps> = ({ watchlist }) => {
         {/* TODO: create stock dashboard here */}
 
         {/* optional pass in watchlist,  */}
-        <TickerLine watchlist={watchlist} />
+        <TickerLine tickerPrices={tickerPrices} />
 
         {/* TODO: need conditional on dashboard to display user's watchlist or default watchlist */}
         {/* TODO: create a component to display a single ticker  */}

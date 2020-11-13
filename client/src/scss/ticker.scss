@@ -2,7 +2,7 @@
 @import '../../node_modules/bootstrap/scss/bootstrap';
 
 .ticker {
-  display: inline-block;
+  display: inline;
   height: 100%;
   white-space: nowrap;
   padding-right: 100%;
@@ -22,21 +22,6 @@
 .ticker-item:hover {
   background-color: rgb(33, 59, 88);
   border-bottom: 0.25rem solid rgb(66, 182, 246);
-}
-
-h1,
-h2,
-p {
-  padding: 0 5%;
-}
-
-h4 {
-  font-size: 2rem;
-}
-
-p {
-  font-size: 1rem;
-  color: white;
 }
 
 .test {

@@ -4,25 +4,25 @@ import { Link } from 'react-router-dom';
 import '../styles/ticker.min.css';
 
 interface TickerLineProps {
-  watchlist?: string[];
+  tickerPrices?: TickerPrice[];
 }
 
-const TickerLine: React.FC<TickerLineProps> = ({ watchlist }) => {
+const TickerLine: React.FC<TickerLineProps> = ({ tickerPrices }) => {
   // each ticker box, needs the name, current price, how much it went up/down
-  console.log('watchlist :>> ', watchlist);
+
   return (
-    <div className='mt-3 test'>
-      <div className='ticker'>
-        {watchlist?.map(ticker => (
-          <Link to={`/quote/${ticker}`} key={ticker}>
+    <Container className='mt-3 test'>
+      <div className='d-inline'>
+        {tickerPrices?.map(ticker => (
+          <Link to={`/quote/${ticker.symbol}`} key={ticker.symbol}>
             <div className='ticker-item'>
-              <h3 className='text-white text-center'>{ticker}</h3>
-              <p>{/* {stock.price} ({stock.changePercent}) */}</p>
+              <h3 className='text-white text-center'>{ticker.symbol}</h3>
+              <h3 className='text-white text-center'>{ticker.prices[1].price}</h3>
             </div>
           </Link>
         ))}
       </div>
-    </div>
+    </Container>
   );
 };
 

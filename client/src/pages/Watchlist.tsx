@@ -92,7 +92,7 @@ const Watchlist: React.FC = () => {
         title={'Session Error'}
         body={<p className='my-3 text-dark'>Your session has expired. Please login again.</p>}
       />
-      <Home watchlist={watchlist} />
+      <Home />
     </Fragment>
   );
 };
