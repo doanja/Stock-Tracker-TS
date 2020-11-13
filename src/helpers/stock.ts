@@ -13,6 +13,8 @@ export const getNextPrice = (oldPrice: number): Prices => {
 
   if (changePercent > volatility) changePercent -= 2 * volatility;
 
+  changePercent = roundDecimals(changePercent);
+
   const changeAmount: number = (oldPrice * changePercent) / 100;
   const price: number = roundDecimals(oldPrice + changeAmount); // new price
   const priceChange: number = roundDecimals(price - oldPrice);

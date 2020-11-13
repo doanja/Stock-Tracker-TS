@@ -18,6 +18,14 @@ const TickerLine: React.FC<TickerLineProps> = ({ tickerPrices }) => {
             <div className='ticker-item'>
               <h3 className='text-white text-center'>{ticker.symbol}</h3>
               <h3 className='text-white text-center'>{ticker.prices[1].price}</h3>
+
+              {ticker.prices[1].priceChange < 0 ? (
+                <h3 className='text-white text-center'>-${ticker.prices[1].priceChange * -1}</h3>
+              ) : (
+                <h3 className='text-white text-center'>${ticker.prices[1].priceChange}</h3>
+              )}
+
+              <h3 className='text-white text-center'>{ticker.prices[1].changePercent}%</h3>
             </div>
           </Link>
         ))}

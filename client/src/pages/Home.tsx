@@ -12,20 +12,13 @@ const Home: React.FC = () => {
 
   // redux
   const { loginStatus } = useSelector((state: RootStore) => state.auth);
-  const { watchlist, ticker, tickerPrices } = useSelector((state: RootStore) => state.stock);
+  const { tickerPrices } = useSelector((state: RootStore) => state.stock);
 
   useEffect(() => {
     if (loginStatus) history.push('/watchlist');
+
+    // TODO: else if not login, generate some sample stocks
   }, []);
-
-  // useEffect(() => {
-  //   console.log('watchlist :>> ', watchlist);
-  // }, [watchlist]);
-
-  useEffect(() => {
-    // TODO: this might not be needed? instead pass the ticker into the dashboard as a parameter
-    // if (ticker) history.push(`/quote/${ticker}`);
-  }, [ticker]);
 
   return (
     <Fragment>
@@ -37,7 +30,6 @@ const Home: React.FC = () => {
         {/* optional pass in watchlist,  */}
         <TickerLine tickerPrices={tickerPrices} />
 
-        {/* TODO: need conditional on dashboard to display user's watchlist or default watchlist */}
         {/* TODO: create a component to display a single ticker  */}
         {/* {ticker ? <Watchlists watchlist={watchlist} /> : watchlist ? <TickerDetails ticker={ticker} /> : null} */}
       </Container>
