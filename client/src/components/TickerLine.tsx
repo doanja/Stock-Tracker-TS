@@ -11,11 +11,13 @@ interface TickerLineProps {
 }
 
 const TickerLine: React.FC<TickerLineProps> = ({ tickerPrices }) => {
+  tickerPrices = tickerPrices?.slice(0, 5);
+
   return (
     <Container className='mt-3'>
       <Row>
-        {tickerPrices?.map(ticker => (
-          <Col md='2' className='ticker-item'>
+        {tickerPrices?.map((ticker: TickerPrice) => (
+          <Col md={true} sm={12} xs={12} className='ticker-item'>
             <Link to={`/quote/${ticker.symbol}`} style={{ textDecoration: 'none' }} key={ticker.symbol}>
               {ticker.prices[1].priceChange < 0 ? (
                 <Row>
