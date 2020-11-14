@@ -17,8 +17,8 @@ const TickerLine: React.FC<TickerLineProps> = ({ tickerPrices }) => {
     <Container className='mt-3'>
       <Row>
         {tickerPrices?.map((ticker: TickerPrice) => (
-          <Col md={true} sm={12} xs={12} className='ticker-item'>
-            <Link to={`/quote/${ticker.symbol}`} style={{ textDecoration: 'none' }} key={ticker.symbol}>
+          <Col md={true} sm={12} xs={12} className='ticker-item' key={ticker.symbol}>
+            <Link to={`/quote/${ticker.symbol}`} style={{ textDecoration: 'none' }}>
               {ticker.prices[1].priceChange < 0 ? (
                 <Row>
                   <Col xs={2}>
