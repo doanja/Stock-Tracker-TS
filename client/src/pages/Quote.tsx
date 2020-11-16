@@ -1,9 +1,11 @@
 import React from 'react';
 
-interface QuoteProps {}
+interface QuoteProps {
+  tickerPrice: TickerPrice;
+}
 
-const Quote: React.FC<QuoteProps> = ({}) => {
-  return <h1>test</h1>;
+const Quote: React.FC<QuoteProps> = ({ tickerPrice }) => {
+  return <h1>quote</h1>;
 };
 
 export default Quote;

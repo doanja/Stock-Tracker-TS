@@ -25,13 +25,9 @@ const Home: React.FC = () => {
       <CustomNavbar />
       <Container>
         <SearchBar />
-        {/* TODO: create stock dashboard here */}
-
-        {/* optional pass in watchlist,  */}
         <TickerLine tickerPrices={tickerPrices} />
 
-        {/* TODO: create a component to display a single ticker  */}
-        {/* {ticker ? <Watchlists watchlist={watchlist} /> : watchlist ? <TickerDetails ticker={ticker} /> : null} */}
+        {/* either show quote component or home component () */}
       </Container>
     </Fragment>
   );
