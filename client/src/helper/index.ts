@@ -46,3 +46,8 @@ export const getTickerName = (symbol: string) => {
 
   return ticker ? ticker['Company Name'] : 'N/A';
 };
+
+export const generateWatchlist = (count: number) => {
+  let sampleWatchlist = [...tickers];
+  return [...Array(count)].map(() => sampleWatchlist.splice(Math.floor(Math.random() * sampleWatchlist.length), 1)[0].Symbol);
+};

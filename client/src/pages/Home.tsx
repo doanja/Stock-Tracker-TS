@@ -3,7 +3,7 @@ import { SearchBar, CustomNavbar, TickerLine, TickerContainer, TickerHome } from
 import { StockService } from '../services';
 import { useHistory } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
-import { getTickerName } from '../helper';
+import { getTickerName, generateWatchlist } from '../helper';
 
 // redux
 import { useSelector, useDispatch } from 'react-redux';
@@ -23,7 +23,7 @@ const Home: React.FC = () => {
     if (loginStatus) history.push('/watchlist');
     //  else if not login, generate some watchlist
     else {
-      const sampleWatchlist = ['DJI', 'SP', 'NASDAQ', 'RUT', 'VIX'];
+      const sampleWatchlist = generateWatchlist(5);
 
       const loadPrices = async () => Promise.all(sampleWatchlist.map(ticker => stockAPI.getTickerPrices()));
 
