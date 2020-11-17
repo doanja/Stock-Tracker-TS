@@ -5,13 +5,13 @@ import { AuthService, StockService } from '../services';
 import { CustomModal } from '../components';
 import { Home } from './';
 import axios from 'axios';
+import { checkTokenExp, getTickerName } from '../helper';
 
 // redux
 import { useSelector, useDispatch } from 'react-redux';
 import { RootStore } from '../redux/Store';
 import { getWatchlist, setTickerPrices } from '../redux/actions/stockActions';
 import { clearAccessToken, clearLoginStatus, clearRefreshToken, setAccessToken } from '../redux/actions/authActions';
-import { checkTokenExp, getTickerName } from '../helper';
 
 const Watchlist: React.FC = () => {
   const authAPI = new AuthService();
