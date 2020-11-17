@@ -8,6 +8,10 @@ const api = new StockService();
 
 export type AppThunk = ActionCreator<ThunkAction<void, StockState, null, Action<string>>>;
 
+export const setTickerPrice = (tickerPrice: TickerPrice) => {
+  return { type: StockActionTypes.SET_TICKER_PRICE, payload: tickerPrice };
+};
+
 export const setTickerPrices = (tickerPrices: TickerPrice[]) => {
   return { type: StockActionTypes.SET_TICKER_PRICES, payload: tickerPrices };
 };

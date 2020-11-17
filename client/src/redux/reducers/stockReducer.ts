@@ -2,6 +2,7 @@ import { StockState, StockActionTypes } from '../types/stockTypes';
 import { Reducer } from 'redux';
 
 const initialState: StockState = {
+  tickerPrice: null,
   tickerPrices: [],
   searchQuery: '',
   ticker: null,
@@ -13,6 +14,8 @@ const initialState: StockState = {
 
 const stockReducer: Reducer<StockState> = (state = initialState, action) => {
   switch (action.type) {
+    case StockActionTypes.SET_TICKER_PRICE:
+      return { ...state, tickerPrice: action.payload };
     case StockActionTypes.SET_TICKER_PRICES:
       return { ...state, tickerPrices: action.payload };
     case StockActionTypes.SET_SEARCH_QUERY:
