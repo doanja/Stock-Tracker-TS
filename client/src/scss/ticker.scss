@@ -5,12 +5,20 @@
   height: 100%;
 }
 
-.ticker-icon-green {
+.font-green {
   color: rgb(92, 184, 92);
 }
 
-.ticker-icon-red {
+.font-green-dark {
+  color: rgb(19, 115, 51);
+}
+
+.font-red {
   color: rgb(217, 83, 79);
+}
+
+.font-red-dark {
+  color: rgb(165, 14, 14);
 }
 
 .ticker-item {
@@ -27,4 +35,54 @@
 
 p {
   font-size: 16px;
+}
+
+.ticker-container {
+  border: 1px solid red;
+  background-color: white;
+  border-radius: 2.5px;
+}
+
+.ticker-header {
+  font-size: 1.5rem;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 2rem;
+}
+
+.ticker-price {
+  font-size: 2.75rem;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 3.2rem;
+}
+
+.ticker-badge-green {
+  border: 1px solid rgb(230, 244, 234);
+  background-color: rgb(230, 244, 234);
+}
+
+.ticker-badge-red {
+  border: 1px solid rgb(252, 232, 230);
+  background-color: rgb(252, 232, 230);
+}
+
+.ticker-price-percent {
+  letter-spacing: 0.00625em;
+  font-size: 1.25rem;
+  font-weight: 500;
+  letter-spacing: 1.5;
+  line-height: 1.5rem;
+  padding: 4px;
+  border-radius: 2.5px;
+}
+
+.ticker-price-change {
+  letter-spacing: 0.00625em;
+  font-size: 1.25rem;
+  font-weight: 500;
+  letter-spacing: 1.5;
+  margin-left: 8px;
+  line-height: 1.5rem;
+  word-spacing: 1px;
 }

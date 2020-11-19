@@ -1,6 +1,6 @@
 import React from 'react';
-import { TickerHeader } from './';
-import '../styles/tickerHeader.min.css';
+import { TickerHeader, TickerPrice } from './';
+import '../styles/ticker.min.css';
 
 interface TickerContainerProps {
   tickerPrice: TickerPrice;
@@ -8,8 +8,9 @@ interface TickerContainerProps {
 
 const TickerContainer: React.FC<TickerContainerProps> = ({ tickerPrice }) => {
   return (
-    <div className='mt-3 p-3 test'>
+    <div className='mt-3 p-3 ticker-container'>
       <TickerHeader tickerPrice={tickerPrice} />
+      <TickerPrice tickerPrice={tickerPrice} />
     </div>
   );
 };

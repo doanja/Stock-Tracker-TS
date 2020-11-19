@@ -7,13 +7,11 @@ interface TickerHeaderProps {
 
 const TickerHeader: React.FC<TickerHeaderProps> = ({ tickerPrice }) => {
   return (
-    <div className='d-inline'>
-      <h1>
-        {tickerPrice.companyName}
-        <Badge variant='primary' className='float-right'>
-          {tickerPrice.symbol}
-        </Badge>
-      </h1>
+    <div className='d-inline ticker-header'>
+      {tickerPrice.companyName}
+      <Badge variant='primary' className='float-right'>
+        {tickerPrice.symbol}
+      </Badge>
     </div>
   );
 };
