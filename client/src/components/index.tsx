@@ -7,5 +7,6 @@ import TickerHeader from './TickerHeader';
 import TickerContainer from './TickerContainer';
 import TickerHome from './TickerHome';
 import TickerPrice from './TickerPrice';
+import TickerGraphButtons from './TickerGraphButtons';
 
-export { SaveIcon, SearchBar, CustomModal, CustomNavbar, TickerLine, TickerContainer, TickerHeader, TickerHome, TickerPrice };
+export { SaveIcon, SearchBar, CustomModal, CustomNavbar, TickerLine, TickerContainer, TickerHeader, TickerHome, TickerPrice, TickerGraphButtons };
