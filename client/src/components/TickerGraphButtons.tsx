@@ -9,7 +9,7 @@ const TickerGraphButtons: React.FC<TickerGraphButtonsProps> = ({}) => {
   return (
     <div className='mt-3'>
       {arr.map(value => (
-        <div className={`d-inline test ${current === value ? 'active' : 'nonactive'}`} onClick={() => setCurrent(value)}>
+        <div className={`d-inline ticker-graph-button ${current === value ? 'active' : 'nonactive'}`} onClick={() => setCurrent(value)}>
           {value}
         </div>
       ))}
