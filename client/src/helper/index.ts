@@ -51,3 +51,5 @@ export const generateWatchlist = (count: number) => {
   let sampleWatchlist = [...tickers];
   return [...Array(count)].map(() => sampleWatchlist.splice(Math.floor(Math.random() * sampleWatchlist.length), 1)[0].Symbol);
 };
+
+export const parseArr = (arr: number[], nth: number) => arr.filter((num, i) => i % nth === nth - 1);

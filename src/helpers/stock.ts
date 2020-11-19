@@ -36,8 +36,7 @@ export const generatePrices = (days: number = 1825): Prices[] => {
     prices.push({ price, changePercent, priceChange });
   }
 
+  prices.shift();
+
   return prices;
 };
-
-// TODO: move this function to front end to grab X amount of data points
-export const parseArr = (arr: number[], nth: number) => arr.filter((num, i) => i % nth === nth - 1);

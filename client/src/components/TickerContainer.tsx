@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TickerHeader, TickerPrice, TickerGraphButtons } from './';
+import { TickerHeader, TickerPrice, TickerGraphButtons, Graph } from './';
 import '../styles/ticker.min.css';
 
 interface TickerContainerProps {
@@ -14,6 +14,7 @@ const TickerContainer: React.FC<TickerContainerProps> = ({ tickerPrice }) => {
       <TickerHeader tickerPrice={tickerPrice} />
       <TickerPrice tickerPrice={tickerPrice} />
       <TickerGraphButtons timeframe={timeframe} setTimeframe={setTimeframe} />
+      <Graph chartData={[1, 2, 3, 4]} />
     </div>
   );
 };
