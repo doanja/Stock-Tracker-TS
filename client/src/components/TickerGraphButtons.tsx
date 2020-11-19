@@ -1,14 +1,17 @@
-import React from 'react';
-import { Badge } from 'react-bootstrap';
+import React, { useState } from 'react';
 
 interface TickerGraphButtonsProps {}
 
 const TickerGraphButtons: React.FC<TickerGraphButtonsProps> = ({}) => {
   const arr = ['1D', '5D', '1M', '6M', 'YTD', '1Y', '5Y'];
+  const [current, setCurrent] = useState('1D');
+
   return (
-    <div className='d-inline ticker-graph-buttons'>
+    <div className='mt-3'>
       {arr.map(value => (
-        <Badge variant='primary'>{value}</Badge>
+        <div className={`d-inline test ${current === value ? 'active' : 'nonactive'}`} onClick={() => setCurrent(value)}>
+          {value}
+        </div>
       ))}
     </div>
   );

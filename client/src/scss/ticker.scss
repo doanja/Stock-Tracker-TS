@@ -90,3 +90,23 @@ p {
 .ticker-graph-buttons {
   font-size: 1.5rem;
 }
+
+.test {
+  border-radius: 5px;
+  padding: 2px 12px;
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+.active {
+  color: rgb(71, 131, 213);
+  background-color: rgb(232, 240, 254);
+}
+
+.active:hover {
+  background-color: darken(rgb(232, 240, 254), 10%);
+}
+
+.nonactive:hover {
+  background-color: lightgrey;
+}
