@@ -6,33 +6,17 @@ interface GraphProps {
 }
 
 const Graph: React.FC<GraphProps> = ({ chartData }) => {
-  console.log('chartData :>> ', chartData);
-
   const options = {
-    title: {
-      display: true,
-      text: chartData.datasets[0].label,
-      fontSize: 25,
-      fontColor: '#fff',
-    },
+    title: { display: false },
     legend: { labels: { fontColor: '#fff' }, display: false },
     scales: {
-      yAxes: [{ ticks: { fontColor: '#fff' }, gridLines: { display: true, color: '#25425f' } }],
-      xAxes: [
-        {
-          ticks: { fontColor: '#fff', display: false },
-          gridLines: { display: true, color: '#25425f' },
-        },
-      ],
+      yAxes: [{ ticks: { fontColor: '#828282' }, gridLines: { display: true, color: '#f4edee' } }],
+      xAxes: [{ gridLines: { display: false } }],
     },
     maintainAspectRatio: false,
   };
 
-  return (
-    <div style={{ height: '50vh' }}>
-      <Line data={chartData} height={50} options={options} />
-    </div>
-  );
+  return <Line data={chartData} height={50} options={options} />;
 };
 
 export default Graph;

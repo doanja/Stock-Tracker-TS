@@ -10,26 +10,43 @@ interface TickerContainerProps {
 const TickerContainer: React.FC<TickerContainerProps> = ({ tickerPrice }) => {
   const [timeframe, setTimeframe] = useState('1D');
   const currentPrices: number[] = tickerPrice.prices.map(a => a.price);
-  let data: number[] = currentPrices.slice(0, 24);
+  let data: number[] = currentPrices.slice(0, 25);
+  const labels: string[] = [];
+
+  for (let i = 0; i < 25; i++) {
+    labels.push(`${i}`);
+  }
 
   const chartData: ChartData = {
+    labels,
     datasets: [
       {
         data,
+        fill: true,
+        backgroundColor: 'rgba(75,192,192,0.2)',
+        borderColor: 'rgba(75,192,192,1)',
       },
     ],
-    labels: [],
   };
 
-  useEffect(() => {
-    chartData.datasets[0].data = parseArr(currentPrices, 24);
-  }, [timeframe]);
+  // useEffect(() => {
+  //   chartData.datasets[0].data = parseArr(currentPrices, 24);
+
+  //   let a: string[] = [];
+  //   for (let i = 0; i < 76; i++) {
+  //     a.push(`${i}`);
+  //   }
+
+  //   chartData.labels = [...a];
+  // }, [timeframe]);
 
   return (
     <div className='mt-3 p-3 ticker-container'>
       <TickerHeader tickerPrice={tickerPrice} />
       <TickerPrice tickerPrice={tickerPrice} />
       <TickerGraphButtons timeframe={timeframe} setTimeframe={setTimeframe} />
+      {/* <Graph chartData={test} /> */}
+
       <Graph chartData={chartData} />
     </div>
   );
