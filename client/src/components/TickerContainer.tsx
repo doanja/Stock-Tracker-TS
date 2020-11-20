@@ -10,18 +10,12 @@ interface TickerContainerProps {
 const TickerContainer: React.FC<TickerContainerProps> = ({ tickerPrice }) => {
   const [timeframe, setTimeframe] = useState('1D');
   const currentPrices: number[] = tickerPrice.prices.map(a => a.price);
-  let data: number[] = currentPrices.slice(0, 25);
-  const labels: string[] = [];
-
-  for (let i = 0; i < 25; i++) {
-    labels.push(`${i}`);
-  }
 
   const chartData: ChartData = {
-    labels,
+    labels: new Array(25).fill('X'),
     datasets: [
       {
-        data,
+        data: currentPrices.slice(0, 25),
         fill: true,
         backgroundColor: 'rgba(75,192,192,0.2)',
         borderColor: 'rgba(75,192,192,1)',
@@ -29,16 +23,19 @@ const TickerContainer: React.FC<TickerContainerProps> = ({ tickerPrice }) => {
     ],
   };
 
-  // useEffect(() => {
-  //   chartData.datasets[0].data = parseArr(currentPrices, 24);
+  const setChartData = (labels: string[], data: number[]) => {
+    chartData.labels = [...labels];
+    chartData.datasets[0].data = [...data];
+  };
 
-  //   let a: string[] = [];
-  //   for (let i = 0; i < 76; i++) {
-  //     a.push(`${i}`);
-  //   }
-
-  //   chartData.labels = [...a];
-  // }, [timeframe]);
+  useEffect(() => {
+    switch (timeframe) {
+      case '1D':
+        setChartData(new Array(25).fill('X'), currentPrices.slice(0, 25));
+        break;
+      default:
+    }
+  }, [timeframe]);
 
   return (
     <div className='mt-3 p-3 ticker-container'>
