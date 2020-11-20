@@ -1,3 +1,17 @@
+type ChartData = {
+  datasets: DataSets[];
+  labels: string[];
+};
+
+type DataSets = {
+  data: number[];
+  backgroundColor?: string = 'rgba(55, 106, 135, 0.5)';
+  borderColor?: string = '#376a87';
+  fill?: boolean = true;
+  label?: string = '6-Hour Prices';
+  pointBackgroundColor?: string = '#56B4EA';
+};
+
 type Prices = {
   price: number;
   changePercent: number;

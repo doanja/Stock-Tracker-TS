@@ -2,14 +2,16 @@ import React from 'react';
 import { Line } from 'react-chartjs-2';
 
 interface GraphProps {
-  chartData: number[];
+  chartData: ChartData;
 }
 
 const Graph: React.FC<GraphProps> = ({ chartData }) => {
+  console.log('chartData :>> ', chartData);
+
   const options = {
     title: {
       display: true,
-      text: [], //props.chartData.datasets[0].label,
+      text: chartData.datasets[0].label,
       fontSize: 25,
       fontColor: '#fff',
     },

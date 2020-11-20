@@ -10,8 +10,11 @@ const TickerGraphButtons: React.FC<TickerGraphButtonsProps> = ({ timeframe, setT
 
   return (
     <div className='mt-3'>
-      {arr.map(value => (
-        <div className={`d-inline ticker-graph-button ${timeframe === value ? 'active' : 'nonactive'}`} onClick={() => setTimeframe(value)}>
+      {arr.map((value, index) => (
+        <div
+          className={`d-inline ticker-graph-button ${timeframe === value ? 'active' : 'nonactive'}`}
+          key={index}
+          onClick={() => setTimeframe(value)}>
           {value}
         </div>
       ))}
