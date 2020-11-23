@@ -13,7 +13,10 @@ const Graph: React.FC<GraphProps> = ({ chartData }) => {
       yAxes: [{ ticks: { fontColor: '#828282' }, gridLines: { display: true, color: '#f4edee' } }],
       xAxes: [{ gridLines: { display: false } }],
     },
-    maintainAspectRatio: false,
+    maintainAspectRatio: true,
+    animation: {
+      duration: 0,
+    },
   };
 
   return <Line data={chartData} height={50} options={options} />;

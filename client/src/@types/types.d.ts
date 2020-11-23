@@ -1,6 +1,6 @@
 type ChartData = {
-  datasets: DataSets[];
   labels: string[];
+  datasets: DataSets[];
 };
 
 type DataSets = {
@@ -8,8 +8,6 @@ type DataSets = {
   backgroundColor?: string = 'rgba(55, 106, 135, 0.5)';
   borderColor?: string = '#376a87';
   fill?: boolean = true;
-  label?: string = '6-Hour Prices';
-  pointBackgroundColor?: string = '#56B4EA';
 };
 
 type Prices = {
