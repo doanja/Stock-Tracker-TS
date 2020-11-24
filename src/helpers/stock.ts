@@ -22,7 +22,7 @@ export const getNextPrice = (oldPrice: number): Prices => {
   return { price, changePercent, priceChange };
 };
 
-export const generatePrices = (days: number = 1825): Prices[] => {
+export const generatePrices = (days: number = 7200): Prices[] => {
   const prices: Prices[] = [];
   const min = Math.random() * 300;
   const max = Math.random() * 300 + min;

@@ -68,6 +68,12 @@ export const generateWatchlist = (count: number): string[] => {
   return [...Array(count)].map(() => sampleWatchlist.splice(Math.floor(Math.random() * sampleWatchlist.length), 1)[0].Symbol);
 };
 
+/**
+ * function to filter array by nth number
+ * @param {number[]} arr the array to filter
+ * @param {number} nth the numberth to filter by
+ * @return {number[]} a filtered array of numbers
+ */
 export const parseArr = (arr: number[], nth: number): number[] => arr.filter((num, i) => i % nth === nth - 1);
 
 /**
@@ -77,7 +83,7 @@ export const parseArr = (arr: number[], nth: number): number[] => arr.filter((nu
  * @param {any} unit a string representing the unit of time
  * @return {string[]} an array of strings containing the timestamps
  */
-export const generateTimstamps = (num: number, amount: number, unit: any) => {
+export const generateTimstamps = (num: number, amount: number, unit: any): string[] => {
   const times = [];
   const currentDate = moment().format('lll');
   times.push(currentDate);

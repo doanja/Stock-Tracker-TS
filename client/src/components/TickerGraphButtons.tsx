@@ -6,7 +6,7 @@ interface TickerGraphButtonsProps {
 }
 
 const TickerGraphButtons: React.FC<TickerGraphButtonsProps> = ({ timeframe, setTimeframe }) => {
-  const arr = ['1D', '5D', '1M', '6M', 'YTD', '1Y', '5Y'];
+  const arr = ['1D', '5D', '1M', '6M', '1Y', '5Y'];
 
   return (
     <div className='my-3'>

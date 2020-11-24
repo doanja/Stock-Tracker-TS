@@ -16,12 +16,26 @@ const TickerContainer: React.FC<TickerContainerProps> = ({ tickerPrice }) => {
     datasets: [{ data: [] }],
   };
 
+  // 1 data point = 30min
+  // 2 data points = 1 hour
+  // 48 data points = 1 day
+  // 336 data points = 1 week
+  // 1440 data points = 1 month
+
   function reducer(state: any, action: any) {
     switch (action.type) {
       case '1D':
-        return { labels: generateTimstamps(24, 30, 'minutes'), datasets: [{ data: currentPrices.slice(0, 24) }] };
+        return { labels: generateTimstamps(24, 30, 'minutes'), datasets: [{ data: currentPrices }] };
       case '5D':
-        return { labels: generateTimstamps(60, 12, 'hours'), datasets: [{ data: currentPrices.slice(0, 60) }] };
+        return { labels: generateTimstamps(60, 2, 'hours'), datasets: [{ data: parseArr(currentPrices, 4) }] };
+      case '1M':
+        return { labels: generateTimstamps(30, 1, 'day'), datasets: [{ data: parseArr(currentPrices, 48) }] };
+      case '6M':
+        return { labels: generateTimstamps(24, 1, 'week'), datasets: [{ data: parseArr(currentPrices, 48) }] };
+      case '1Y':
+        return { labels: generateTimstamps(48, 1, 'week'), datasets: [{ data: parseArr(currentPrices, 48) }] };
+      case '5Y':
+        return { labels: generateTimstamps(20, 4, 'months'), datasets: [{ data: parseArr(currentPrices, 360) }] };
       default:
         return state;
     }
@@ -29,6 +43,7 @@ const TickerContainer: React.FC<TickerContainerProps> = ({ tickerPrice }) => {
 
   const [state, dispatch] = useReducer(reducer, initialState);
 
+  // TODO: fixed issue where selecting different ticker would not update chart
   useEffect(() => {
     dispatch({ type: timeframe });
   }, [timeframe]);
