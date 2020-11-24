@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useReducer } from 'react';
 import { TickerHeader, TickerPrice, TickerGraphButtons, Graph } from './';
 import '../styles/ticker.min.css';
-import { parseArr } from '../helper';
+import { parseArr, generateTimstamps } from '../helper';
 
 interface TickerContainerProps {
   tickerPrice: TickerPrice;
@@ -19,9 +19,9 @@ const TickerContainer: React.FC<TickerContainerProps> = ({ tickerPrice }) => {
   function reducer(state: any, action: any) {
     switch (action.type) {
       case '1D':
-        return { labels: new Array(48).fill('X'), datasets: [{ data: currentPrices.slice(0, 48) }] };
+        return { labels: generateTimstamps(24, 30, 'minutes'), datasets: [{ data: currentPrices.slice(0, 24) }] };
       case '5D':
-        return { labels: new Array(120).fill('X'), datasets: [{ data: currentPrices.slice(0, 120) }] };
+        return { labels: new Array(60).fill('X'), datasets: [{ data: currentPrices.slice(0, 60) }] };
       default:
         return state;
     }
@@ -32,6 +32,10 @@ const TickerContainer: React.FC<TickerContainerProps> = ({ tickerPrice }) => {
   useEffect(() => {
     dispatch({ type: timeframe });
   }, [timeframe]);
+
+  useEffect(() => {
+    console.log('generateTimstamps :>> ', generateTimstamps(24, 30, 'minutes'));
+  }, []);
 
   return (
     <div className='mt-3 p-3 ticker-container'>

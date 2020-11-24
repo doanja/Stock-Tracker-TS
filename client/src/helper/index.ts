@@ -1,6 +1,7 @@
 import { decode } from 'jsonwebtoken';
 import * as Yup from 'yup';
 import tickers from '../tickers.json';
+import moment from 'moment';
 
 /**
  * function to check JWT expiration
@@ -53,3 +54,17 @@ export const generateWatchlist = (count: number) => {
 };
 
 export const parseArr = (arr: number[], nth: number): number[] => arr.filter((num, i) => i % nth === nth - 1);
+
+export const generateTimstamps = (num: number, amount: number, unit: string) => {
+  const times = [];
+  const currentDate = moment().format('lll');
+  times.push(currentDate);
+
+  let m = moment(currentDate);
+
+  for (let i = 0; i < num; i++) {
+    times.push(m.subtract(amount, 'minutes').format('lll'));
+  }
+
+  return times;
+};

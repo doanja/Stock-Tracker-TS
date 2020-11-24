@@ -11,7 +11,7 @@ const Graph: React.FC<GraphProps> = ({ chartData }) => {
     legend: { labels: { fontColor: '#fff' }, display: false },
     scales: {
       yAxes: [{ ticks: { fontColor: '#828282' }, gridLines: { display: true, color: '#f4edee' } }],
-      xAxes: [{ gridLines: { display: false } }],
+      xAxes: [{ ticks: { display: false }, gridLines: { display: false } }],
     },
     maintainAspectRatio: true,
     animation: {
