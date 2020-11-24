@@ -27,7 +27,12 @@ export const signupSchema = Yup.object({
     .oneOf([Yup.ref('password'), 'null'], 'Passwords must match.'),
 });
 
-export const validateTicker = (input: string) => {
+/**
+ * validates input to verify if its a valid ticker
+ * @param {string} input the ticker to be validated
+ * @return {Ticker | undefined} returns the ticker if input is valid, undefined otherwise
+ */
+export const validateTicker = (input: string): Ticker | undefined => {
   input = input.toUpperCase();
 
   let ticker: Ticker | undefined = tickers.find((obj: Ticker) => obj.Symbol === input);
@@ -40,7 +45,12 @@ export const validateTicker = (input: string) => {
   return ticker;
 };
 
-export const getTickerName = (symbol: string) => {
+/**
+ * function to get ticker name from the symbol
+ * @param {string} symbol the ticker's symbol
+ * @return {string} the ticker's company name otherwise N/A
+ */
+export const getTickerName = (symbol: string): string => {
   symbol = symbol.toUpperCase();
 
   let ticker: Ticker | undefined = tickers.find((obj: Ticker) => obj.Symbol === symbol);
@@ -48,14 +58,26 @@ export const getTickerName = (symbol: string) => {
   return ticker ? ticker['Company Name'] : 'N/A';
 };
 
-export const generateWatchlist = (count: number) => {
+/**
+ * function to select count number of tickers
+ * @param {number} count the number of tickers to get
+ * @return {string[]} an array of strings containing count random tickers
+ */
+export const generateWatchlist = (count: number): string[] => {
   let sampleWatchlist = [...tickers];
   return [...Array(count)].map(() => sampleWatchlist.splice(Math.floor(Math.random() * sampleWatchlist.length), 1)[0].Symbol);
 };
 
 export const parseArr = (arr: number[], nth: number): number[] => arr.filter((num, i) => i % nth === nth - 1);
 
-export const generateTimstamps = (num: number, amount: number, unit: string) => {
+/**
+ * function to generate timestamps to be used as x axis labels
+ * @param {number} num the number of timeframes to generate
+ * @param {number} amount the amount for units
+ * @param {any} unit a string representing the unit of time
+ * @return {string[]} an array of strings containing the timestamps
+ */
+export const generateTimstamps = (num: number, amount: number, unit: any) => {
   const times = [];
   const currentDate = moment().format('lll');
   times.push(currentDate);
@@ -63,8 +85,8 @@ export const generateTimstamps = (num: number, amount: number, unit: string) => 
   let m = moment(currentDate);
 
   for (let i = 0; i < num; i++) {
-    times.push(m.subtract(amount, 'minutes').format('lll'));
+    times.push(m.subtract(amount, unit).format('lll'));
   }
 
-  return times;
+  return times.reverse();
 };

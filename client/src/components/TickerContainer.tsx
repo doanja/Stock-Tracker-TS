@@ -21,7 +21,7 @@ const TickerContainer: React.FC<TickerContainerProps> = ({ tickerPrice }) => {
       case '1D':
         return { labels: generateTimstamps(24, 30, 'minutes'), datasets: [{ data: currentPrices.slice(0, 24) }] };
       case '5D':
-        return { labels: new Array(60).fill('X'), datasets: [{ data: currentPrices.slice(0, 60) }] };
+        return { labels: generateTimstamps(60, 12, 'hours'), datasets: [{ data: currentPrices.slice(0, 60) }] };
       default:
         return state;
     }
@@ -32,10 +32,6 @@ const TickerContainer: React.FC<TickerContainerProps> = ({ tickerPrice }) => {
   useEffect(() => {
     dispatch({ type: timeframe });
   }, [timeframe]);
-
-  useEffect(() => {
-    console.log('generateTimstamps :>> ', generateTimstamps(24, 30, 'minutes'));
-  }, []);
 
   return (
     <div className='mt-3 p-3 ticker-container'>
