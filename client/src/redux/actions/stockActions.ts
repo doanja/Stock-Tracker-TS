@@ -3,10 +3,17 @@ import { ActionCreator, Action, Dispatch } from 'redux';
 import { ThunkAction } from 'redux-thunk';
 import { StockService } from '../../services';
 import { AxiosResponse } from 'axios';
+import { roundDecimals } from '../../helper';
 
 const api = new StockService();
 
 export type AppThunk = ActionCreator<ThunkAction<void, StockState, null, Action<string>>>;
+
+export const setTickerPriceChange = (nums: { first: number; last: number }) => {
+  const priceDiff = roundDecimals(nums.last - nums.first);
+  const percentDiff = roundDecimals(nums.last / nums.first);
+  return { type: StockActionTypes.SET_TICKER_PRICE_CHANGE, payload: { price: priceDiff, percent: percentDiff } };
+};
 
 export const setTickerPrice = (tickerPrice: TickerPrice) => {
   return { type: StockActionTypes.SET_TICKER_PRICE, payload: tickerPrice };

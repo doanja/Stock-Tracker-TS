@@ -1,3 +1,8 @@
+type TickerPriceChange = {
+  price: number;
+  percent: number;
+};
+
 type ChartData = {
   labels: string[];
   datasets: DataSets[];

@@ -96,3 +96,9 @@ export const generateTimstamps = (num: number, amount: number, unit: any): strin
 
   return times.reverse();
 };
+
+export const getFirstAndLastValues = (arr: number[]): { first: number; last: number } => {
+  return { first: arr[0], last: arr[arr.length - 1] };
+};
+
+export const roundDecimals = (num: number) => parseFloat((Math.round(num * 100) / 100).toFixed(2));

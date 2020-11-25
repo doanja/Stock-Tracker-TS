@@ -1,4 +1,5 @@
 export interface StockState {
+  readonly tickerPriceChange: TickerPriceChange;
   readonly tickerPrice: TickerPrice | null;
   readonly tickerPrices: TickerPrice[]; // array to display watchlist with prices
   readonly searchQuery: string; // current searched ticker
@@ -14,6 +15,8 @@ export interface Watchlist {
 }
 
 export enum StockActionTypes {
+  SET_TICKER_PRICE_CHANGE = 'SET_TICKER_PRICE_CHANGE',
+
   SET_TICKER_PRICE = 'SET_TICKER_PRICE',
 
   SET_TICKER_PRICES = 'SET_TICKER_PRICES',
