@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useReducer } from 'react';
 import { TickerHeader, TickerPrice, TickerGraphButtons, Graph } from './';
-import '../styles/ticker.min.css';
 import { parseArr, generateTimstamps } from '../helper';
+import '../styles/ticker.min.css';
 
 interface TickerContainerProps {
   tickerPrice: TickerPrice;
@@ -17,7 +17,7 @@ const TickerContainer: React.FC<TickerContainerProps> = ({ tickerPrice, ticker }
     datasets: [{ data: [] }],
   };
 
-  function reducer(state: any, action: any) {
+  const reducer = (state: any, action: any) => {
     switch (action.type) {
       case '1D':
         return { labels: generateTimstamps(24, 30, 'minutes'), datasets: [{ data: currentPrices }] };
@@ -34,7 +34,7 @@ const TickerContainer: React.FC<TickerContainerProps> = ({ tickerPrice, ticker }
       default:
         return state;
     }
-  }
+  };
 
   const [state, dispatch] = useReducer(reducer, initialState);
 

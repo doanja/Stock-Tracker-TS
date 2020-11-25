@@ -5,6 +5,8 @@ interface TickerHeaderProps {
   tickerPrice: TickerPrice;
 }
 
+// TODO: show actual price change instead of first
+
 const TickerHeader: React.FC<TickerHeaderProps> = ({ tickerPrice }) => {
   return (
     <div className='d-inline ticker-header'>
