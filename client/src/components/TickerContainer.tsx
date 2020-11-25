@@ -12,7 +12,7 @@ const TickerContainer: React.FC<TickerContainerProps> = ({ tickerPrice, ticker }
   const [timeframe, setTimeframe] = useState('1D');
   const currentPrices: number[] = tickerPrice.prices.map(a => a.price);
 
-  const initialState = {
+  const initialState: ChartData = {
     labels: [],
     datasets: [{ data: [] }],
   };
@@ -36,7 +36,7 @@ const TickerContainer: React.FC<TickerContainerProps> = ({ tickerPrice, ticker }
     }
   };
 
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [chartData, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
     dispatch({ type: timeframe });
@@ -47,7 +47,7 @@ const TickerContainer: React.FC<TickerContainerProps> = ({ tickerPrice, ticker }
       <TickerHeader tickerPrice={tickerPrice} />
       <TickerPrice tickerPrice={tickerPrice} />
       <TickerGraphButtons timeframe={timeframe} setTimeframe={setTimeframe} />
-      <Graph chartData={state} />
+      <Graph chartData={chartData} />
     </div>
   );
 };
