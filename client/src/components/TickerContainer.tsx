@@ -5,9 +5,10 @@ import { parseArr, generateTimstamps } from '../helper';
 
 interface TickerContainerProps {
   tickerPrice: TickerPrice;
+  ticker: string;
 }
 
-const TickerContainer: React.FC<TickerContainerProps> = ({ tickerPrice }) => {
+const TickerContainer: React.FC<TickerContainerProps> = ({ tickerPrice, ticker }) => {
   const [timeframe, setTimeframe] = useState('1D');
   const currentPrices: number[] = tickerPrice.prices.map(a => a.price);
 
@@ -15,12 +16,6 @@ const TickerContainer: React.FC<TickerContainerProps> = ({ tickerPrice }) => {
     labels: [],
     datasets: [{ data: [] }],
   };
-
-  // 1 data point = 30min
-  // 2 data points = 1 hour
-  // 48 data points = 1 day
-  // 336 data points = 1 week
-  // 1440 data points = 1 month
 
   function reducer(state: any, action: any) {
     switch (action.type) {
@@ -43,10 +38,9 @@ const TickerContainer: React.FC<TickerContainerProps> = ({ tickerPrice }) => {
 
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  // TODO: fixed issue where selecting different ticker would not update chart
   useEffect(() => {
     dispatch({ type: timeframe });
-  }, [timeframe]);
+  }, [timeframe, ticker]);
 
   return (
     <div className='mt-3 p-3 ticker-container'>

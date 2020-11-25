@@ -50,7 +50,7 @@ const Home: React.FC = () => {
         <SearchBar />
         <TickerLine tickerPrices={tickerPrices} />
 
-        {ticker && tickerPrice ? <TickerContainer tickerPrice={tickerPrice} /> : <TickerHome />}
+        {ticker && tickerPrice ? <TickerContainer tickerPrice={tickerPrice} ticker={ticker} /> : <TickerHome />}
       </Container>
     </Fragment>
   );
