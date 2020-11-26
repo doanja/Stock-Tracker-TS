@@ -1,5 +1,5 @@
 import React, { useEffect, Fragment } from 'react';
-import { SearchBar, CustomNavbar, TickerLine, TickerContainer, TickerHome } from '../components';
+import { SearchBar, CustomNavbar, TickerLine, TickerContainer, TickerHome, TickerNews } from '../components';
 import { StockService } from '../services';
 import { useHistory } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
@@ -51,6 +51,8 @@ const Home: React.FC = () => {
         <TickerLine tickerPrices={tickerPrices} />
 
         {ticker && tickerPrice ? <TickerContainer tickerPrice={tickerPrice} ticker={ticker} /> : <TickerHome />}
+
+        <TickerNews ticker={ticker} />
       </Container>
     </Fragment>
   );

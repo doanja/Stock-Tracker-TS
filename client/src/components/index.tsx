@@ -9,6 +9,7 @@ import TickerHome from './TickerHome';
 import TickerPrice from './TickerPrice';
 import TickerGraphButtons from './TickerGraphButtons';
 import Graph from './Graph';
+import TickerNews from './TickerNews';
 
 export {
   SaveIcon,
@@ -22,4 +23,5 @@ export {
   TickerPrice,
   TickerGraphButtons,
   Graph,
+  TickerNews,
 };
