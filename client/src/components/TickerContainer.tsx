@@ -69,7 +69,7 @@ const TickerContainer: React.FC<TickerContainerProps> = ({ tickerPrice, ticker }
       <TickerHeader tickerPrice={tickerPrice} />
       <TickerPrice tickerPrice={tickerPrice} tickerPriceChange={tickerPriceChange} timeframe={timeframe} />
       <TickerGraphButtons timeframe={timeframe} setTimeframe={setTimeframe} />
-      <Graph chartData={chartData} />
+      <Graph chartData={chartData} tickerPriceChange={tickerPriceChange} />
     </div>
   );
 };

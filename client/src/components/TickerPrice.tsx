@@ -19,7 +19,9 @@ const TickerPrice: React.FC<TickerPriceProps> = ({ tickerPrice, tickerPriceChang
             <FontAwesomeIcon className='ticker-icon' icon={faCaretSquareUp} /> {tickerPriceChange.percent}%
           </div>
 
-          <div className='list-inline-item ticker-price-change font-green-dark'>+{tickerPriceChange.price} Today</div>
+          <div className='list-inline-item ticker-price-change font-green-dark'>
+            +{tickerPriceChange.price} {timeframe}
+          </div>
         </div>
       ) : (
         <div className='list-inline'>
