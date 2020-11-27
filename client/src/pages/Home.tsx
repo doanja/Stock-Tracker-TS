@@ -1,8 +1,8 @@
 import React, { useEffect, Fragment } from 'react';
-import { SearchBar, CustomNavbar, TickerLine, TickerContainer, TickerHome, TickerNews } from '../components';
+import { SearchBar, CustomNavbar, TickerLine, TickerContainer, TickerHome, TickerNewsContainer } from '../components';
 import { StockService } from '../services';
 import { useHistory } from 'react-router-dom';
-import Container from 'react-bootstrap/Container';
+import { Container, Spinner } from 'react-bootstrap';
 import { getTickerName, generateWatchlist } from '../helper';
 
 // redux
@@ -48,11 +48,12 @@ const Home: React.FC = () => {
       <CustomNavbar />
       <Container>
         <SearchBar />
-        <TickerLine tickerPrices={tickerPrices} />
+
+        {tickerPrices.length > 0 ? <TickerLine tickerPrices={tickerPrices} /> : <Spinner animation='grow' variant='light' className='d-block' />}
 
         {ticker && tickerPrice ? <TickerContainer tickerPrice={tickerPrice} ticker={ticker} /> : <TickerHome />}
 
-        <TickerNews ticker={ticker} />
+        <TickerNewsContainer ticker={ticker} />
       </Container>
     </Fragment>
   );
