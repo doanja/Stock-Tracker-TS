@@ -10,6 +10,7 @@ import TickerPrice from './TickerPrice';
 import TickerGraphButtons from './TickerGraphButtons';
 import Graph from './Graph';
 import TickerNewsContainer from './TickerNewsCcontainer';
+import TickerNews from './TickerNews';
 
 export {
   SaveIcon,
@@ -24,4 +25,5 @@ export {
   TickerGraphButtons,
   Graph,
   TickerNewsContainer,
+  TickerNews,
 };

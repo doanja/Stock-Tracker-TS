@@ -1,3 +1,11 @@
+type Article = {
+  source: { name: string };
+  publishedAt: string;
+  title: string;
+  url: string;
+  urlToImage: string;
+};
+
 type TickerPriceChange = {
   price: number;
   percent: number;
