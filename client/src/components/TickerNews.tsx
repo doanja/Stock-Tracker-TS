@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Row, Col } from 'react-bootstrap';
 import '../styles/news.min.css';
 
 interface TickerNewsProps {
@@ -8,13 +9,23 @@ interface TickerNewsProps {
 
 const TickerNews: React.FC<TickerNewsProps> = ({ article }) => {
   return (
-    <div className='py-1 ticker-news'>
-      <aside>
-        {article.source.name} * {article.publishedAt}
-      </aside>
+    <div className='py-1 ticker-news d-inline'>
+      <hr />
+      <Row xs={9} noGutters={true}>
+        <Col>
+          <Link to={article.url}>
+            <div className='mb-1 pr-2'>
+              {article.source.name} - {article.publishedAt} hours ago
+            </div>
+            <br />
+            {article.title}
+          </Link>
+        </Col>
 
-      <Link to={article.url}>{article.title}</Link>
-      <img src={article.urlToImage} alt={article.url} />
+        <Col xs={3}>
+          <img src={article.urlToImage} alt={article.url} className='news-image' />
+        </Col>
+      </Row>
     </div>
   );
 };

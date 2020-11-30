@@ -1,0 +1,9 @@
+@import '_config';
+@import '../../node_modules/bootstrap/scss/bootstrap';
+
+.about-container {
+  background-color: white;
+  border-radius: 2.5px;
+  border: 1px solid white;
+  height: 250px;
+}

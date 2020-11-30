@@ -3,6 +3,7 @@ import { NewsService } from '../services';
 import moment from 'moment';
 import { TickerNews } from './';
 import '../styles/news.min.css';
+import { Col } from 'react-bootstrap';
 
 interface TickerNewsContainerProps {
   ticker: string | null;
@@ -19,21 +20,21 @@ const TickerNewsContainer: React.FC<TickerNewsContainerProps> = ({ ticker }) => 
   };
 
   useEffect(() => {
-    // if (ticker)
-    //   api.getNews(ticker).then(res => {
-    //     const articles = res.data.articles;
-    //     articles.forEach((article: Article) => (article.publishedAt = getHoursFromCurrent(article.publishedAt)));
-    //     setArticles(articles);
-    //   });
+    if (ticker)
+      api.getNews(ticker).then(res => {
+        const articles = res.data.articles;
+        articles.forEach((article: Article) => (article.publishedAt = getHoursFromCurrent(article.publishedAt)));
+        setArticles(articles);
+      });
   }, [ticker]);
 
   return (
-    <div className='mt-3 p-3 news-container'>
+    <Col md={8} className='mt-3 p-3 news-container'>
       <h3>In the news</h3>
       {articles.map(article => (
         <TickerNews article={article} />
       ))}
-    </div>
+    </Col>
   );
 };
 

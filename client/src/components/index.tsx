@@ -11,6 +11,7 @@ import TickerGraphButtons from './TickerGraphButtons';
 import Graph from './Graph';
 import TickerNewsContainer from './TickerNewsCcontainer';
 import TickerNews from './TickerNews';
+import TickerAbout from './TickerAbout';
 
 export {
   SaveIcon,
@@ -26,4 +27,5 @@ export {
   Graph,
   TickerNewsContainer,
   TickerNews,
+  TickerAbout,
 };
