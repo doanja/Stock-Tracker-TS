@@ -8,7 +8,7 @@ interface TickerAboutProps {
 
 const TickerAbout: React.FC<TickerAboutProps> = ({ ticker }) => {
   return (
-    <Col md={4} className='mt-3 p-3 about-container ml-auto'>
+    <Col md={5} sm={12} xs={12} className='mt-3 p-3 about-container ml-auto'>
       <h3>About</h3> {ticker}
     </Col>
   );

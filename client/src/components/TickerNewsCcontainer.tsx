@@ -24,12 +24,12 @@ const TickerNewsContainer: React.FC<TickerNewsContainerProps> = ({ ticker }) => 
       api.getNews(ticker).then(res => {
         const articles = res.data.articles;
         articles.forEach((article: Article) => (article.publishedAt = getHoursFromCurrent(article.publishedAt)));
-        setArticles(articles);
+        setArticles(articles.slice(0, 5));
       });
   }, [ticker]);
 
   return (
-    <Col md={8} className='mt-3 p-3 news-container'>
+    <Col md={7} sm={12} xs={12} className='mt-3 p-3 news-container'>
       <h3>In the news</h3>
       {articles.map(article => (
         <TickerNews article={article} />

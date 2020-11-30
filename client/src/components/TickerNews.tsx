@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { Row, Col } from 'react-bootstrap';
 import '../styles/news.min.css';
 
@@ -11,15 +10,15 @@ const TickerNews: React.FC<TickerNewsProps> = ({ article }) => {
   return (
     <div className='py-1 ticker-news d-inline'>
       <hr />
-      <Row xs={9} noGutters={true}>
-        <Col>
-          <Link to={article.url}>
-            <div className='mb-1 pr-2'>
+      <Row noGutters={true}>
+        <Col xs={9}>
+          <a href={article.url} className='d-block pr-1'>
+            <div className='mb-1'>
               {article.source.name} - {article.publishedAt} hours ago
             </div>
             <br />
             {article.title}
-          </Link>
+          </a>
         </Col>
 
         <Col xs={3}>
