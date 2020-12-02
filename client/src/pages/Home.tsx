@@ -39,8 +39,17 @@ const Home: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    const currentTickerPrice: TickerPrice = tickerPrices.find((tick: TickerPrice) => tick.symbol === ticker) as TickerPrice;
-    dispatch(setTickerPrice(currentTickerPrice!));
+    let currentTickerPrice: TickerPrice | undefined = tickerPrices.find((tick: TickerPrice) => tick.symbol === ticker);
+
+    // case for when searching for a stock
+    if (!currentTickerPrice && ticker) {
+      const tickerPriceData = async () => stockAPI.getTickerPrices();
+
+      tickerPriceData().then(promise => {
+        currentTickerPrice = { symbol: ticker as string, companyName: getTickerName(ticker as string), prices: promise.data.prices };
+        dispatch(setTickerPrice(currentTickerPrice));
+      });
+    }
   }, [ticker]);
 
   return (

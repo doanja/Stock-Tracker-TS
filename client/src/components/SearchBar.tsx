@@ -31,13 +31,17 @@ const SearchBar: React.FC = () => {
     dispatch(clearTicker());
 
     // if ticker is invalid
-    if (!validateTicker(input)) {
+    const ticker = validateTicker(input);
+    if (!ticker) {
       dispatch(toggleModal(!showModal, `No results found for '${searchQuery}'.`, `Error searching for ${searchQuery}`));
       dispatch(clearSearchQuery());
     }
 
     // otherwise dispatch action to set ticker
-    else dispatch(setTicker(input));
+    else {
+      dispatch(setTicker(ticker.Symbol));
+      // dispatch tickerPrice
+    }
   };
 
   return (

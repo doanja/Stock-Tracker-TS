@@ -18,6 +18,6 @@ export default class StockService {
   }
 
   public getCompanyInfo(companyName: string): Promise<AxiosResponse<any>> {
-    return axios.get<any>(`https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&explaintext=1&titles=${companyName}`);
+    return axios.get<any>(`https://en.wikipedia.org/w/api.php?origin=*&format=json&action=query&prop=extracts&explaintext=1&titles=${companyName}`);
   }
 }
