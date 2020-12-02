@@ -12,8 +12,8 @@ const TickerNews: React.FC<TickerNewsProps> = ({ article }) => {
       <hr />
       <Row noGutters={true}>
         <Col xs={9}>
-          <a href={article.url} className='d-block pr-1'>
-            <div className='mb-1'>
+          <a href={article.url} className='d-block pr-1 news-text'>
+            <div className='news-title'>
               {article.source.name} - {article.publishedAt} hours ago
             </div>
             <br />

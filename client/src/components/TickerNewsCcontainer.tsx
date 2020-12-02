@@ -30,7 +30,7 @@ const TickerNewsContainer: React.FC<TickerNewsContainerProps> = ({ ticker }) => 
 
   return (
     <Col md={7} sm={12} xs={12} className='mt-3 p-3 news-container'>
-      <h3>In the news</h3>
+      <h2 className='news-heading'>In the news</h2>
       {articles.map(article => (
         <TickerNews article={article} />
       ))}
