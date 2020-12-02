@@ -55,7 +55,7 @@ const Home: React.FC = () => {
 
         <Row noGutters={true}>
           <TickerNewsContainer ticker={ticker} />
-          <TickerAbout ticker={ticker} />
+          <TickerAbout tickerPrice={tickerPrice} />
         </Row>
       </Container>
     </Fragment>

@@ -16,4 +16,8 @@ export default class StockService {
   public removeFromWatchlist(ticker: string): Promise<AxiosResponse<any>> {
     return axios.put<any>('/watchlist/remove', { ticker });
   }
+
+  public getCompanyInfo(companyName: string): Promise<AxiosResponse<any>> {
+    return axios.get<any>(`https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&explaintext=1&titles=${companyName}`);
+  }
 }

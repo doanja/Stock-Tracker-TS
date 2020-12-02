@@ -31,8 +31,8 @@ const TickerNewsContainer: React.FC<TickerNewsContainerProps> = ({ ticker }) => 
   return (
     <Col md={7} sm={12} xs={12} className='mt-3 p-3 news-container'>
       <h2 className='news-heading'>In the news</h2>
-      {articles.map(article => (
-        <TickerNews article={article} />
+      {articles.map((article: Article, index) => (
+        <TickerNews article={article} key={index} />
       ))}
     </Col>
   );
