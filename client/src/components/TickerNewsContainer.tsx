@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { NewsService } from '../services';
 import moment from 'moment';
-import { TickerNews } from './';
+import { TickerNews } from '.';
 import '../styles/news.min.css';
 import { Col } from 'react-bootstrap';
 

@@ -9,7 +9,7 @@ import TickerHome from './TickerHome';
 import TickerPrice from './TickerPrice';
 import TickerGraphButtons from './TickerGraphButtons';
 import Graph from './Graph';
-import TickerNewsContainer from './TickerNewsCcontainer';
+import TickerNewsContainer from './TickerNewsContainer';
 import TickerNews from './TickerNews';
 import TickerAbout from './TickerAbout';
 
