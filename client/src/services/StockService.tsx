@@ -17,7 +17,9 @@ export default class StockService {
     return axios.put<any>('/watchlist/remove', { ticker });
   }
 
-  public getCompanyInfo(companyName: string): Promise<AxiosResponse<any>> {
-    return axios.get<any>(`https://en.wikipedia.org/w/api.php?origin=*&format=json&action=query&prop=extracts&explaintext=1&titles=${companyName}`);
+  public getCompanyInfo(companyName: string): Promise<any> {
+    return fetch(`https://en.wikipedia.org/w/api.php?origin=*&format=json&action=query&prop=extracts&explaintext=1&titles=${companyName}`, {
+      method: 'GET',
+    });
   }
 }
