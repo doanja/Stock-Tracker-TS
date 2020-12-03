@@ -38,10 +38,7 @@ const SearchBar: React.FC = () => {
     }
 
     // otherwise dispatch action to set ticker
-    else {
-      dispatch(setTicker(ticker.Symbol));
-      // dispatch tickerPrice
-    }
+    else dispatch(setTicker(ticker.Symbol));
   };
 
   return (
