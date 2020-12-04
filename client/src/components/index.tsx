@@ -12,6 +12,7 @@ import Graph from './Graph';
 import TickerNewsContainer from './TickerNewsContainer';
 import TickerNews from './TickerNews';
 import TickerAbout from './TickerAbout';
+import CustomFooter from './CustomFooter';
 
 export {
   SaveIcon,
@@ -28,4 +29,5 @@ export {
   TickerNewsContainer,
   TickerNews,
   TickerAbout,
+  CustomFooter,
 };

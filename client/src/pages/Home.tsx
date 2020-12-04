@@ -1,5 +1,5 @@
 import React, { useEffect, Fragment } from 'react';
-import { SearchBar, CustomNavbar, TickerLine, TickerContainer, TickerHome, TickerNewsContainer, TickerAbout } from '../components';
+import { SearchBar, CustomNavbar, TickerLine, TickerContainer, TickerHome, TickerNewsContainer, TickerAbout, CustomFooter } from '../components';
 import { StockService } from '../services';
 import { useHistory } from 'react-router-dom';
 import { Container, Spinner } from 'react-bootstrap';
@@ -67,6 +67,7 @@ const Home: React.FC = () => {
         <TickerNewsContainer ticker={ticker} />
         <TickerAbout tickerPrice={tickerPrice} />
       </Container>
+      <CustomFooter />
     </Fragment>
   );
 };
