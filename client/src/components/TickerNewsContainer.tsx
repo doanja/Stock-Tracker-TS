@@ -28,8 +28,8 @@ const TickerNewsContainer: React.FC<TickerNewsContainerProps> = ({ ticker }) => 
   }, [ticker]);
 
   return (
-    <div className='mt-3 p-3 main-container'>
-      <h2 className='main-heading'>In the news</h2>
+    <div className='mt-3 p-3 sub-container'>
+      <h2 className='sub-heading'>In the news</h2>
       {articles.map((article: Article, index) => (
         <TickerNews article={article} key={index} />
       ))}

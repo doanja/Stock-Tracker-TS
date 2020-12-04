@@ -32,8 +32,8 @@ const TickerAbout: React.FC<TickerAboutProps> = ({ tickerPrice }) => {
   }, [companyName]);
 
   return (
-    <div className='mt-3 p-3 main-container'>
-      <h3 className='main-heading'>About</h3>
+    <div className='mt-3 p-3 sub-container'>
+      <h3 className='sub-heading'>About</h3>
       <p className='about-body'>{about}</p>
     </div>
   );

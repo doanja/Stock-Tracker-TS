@@ -9,6 +9,7 @@ import { getTickerName, generateWatchlist } from '../helper';
 import { useSelector, useDispatch } from 'react-redux';
 import { setTickerPrice, setTickerPrices } from '../redux/actions/stockActions';
 import { RootStore } from '../redux/Store';
+import { DiscoverContainer } from '../components/DiscoverContainer';
 
 const Home: React.FC = () => {
   const stockAPI = new StockService();
@@ -68,6 +69,7 @@ const Home: React.FC = () => {
 
         {ticker && tickerPrice ? <TickerAbout tickerPrice={tickerPrice} /> : null}
       </Container>
+      <DiscoverContainer />
       <CustomFooter />
     </Fragment>
   );
