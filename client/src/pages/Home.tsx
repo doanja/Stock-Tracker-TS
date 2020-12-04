@@ -57,7 +57,7 @@ const Home: React.FC = () => {
   return (
     <Fragment>
       <CustomNavbar />
-      <Container>
+      <Container className='test'>
         <SearchBar />
 
         {tickerPrices.length > 0 ? <TickerLine tickerPrices={tickerPrices} /> : <Spinner animation='grow' variant='light' className='d-block' />}
@@ -65,7 +65,8 @@ const Home: React.FC = () => {
         {ticker && tickerPrice ? <TickerContainer tickerPrice={tickerPrice} ticker={ticker} /> : <TickerHome />}
 
         <TickerNewsContainer ticker={ticker} />
-        <TickerAbout tickerPrice={tickerPrice} />
+
+        {ticker && tickerPrice ? <TickerAbout tickerPrice={tickerPrice} /> : null}
       </Container>
       <CustomFooter />
     </Fragment>

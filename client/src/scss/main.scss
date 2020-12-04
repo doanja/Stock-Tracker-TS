@@ -1,6 +1,12 @@
 @import '_config';
 @import '../../node_modules/bootstrap/scss/bootstrap';
 
+.test {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
 html,
 .wrap {
   background-color: $primary-color;
