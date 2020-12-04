@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Col } from 'react-bootstrap';
 import { StockService } from '../services';
 import '../styles/about.min.css';
 
@@ -33,10 +32,10 @@ const TickerAbout: React.FC<TickerAboutProps> = ({ tickerPrice }) => {
   }, [companyName]);
 
   return (
-    <Col md={5} sm={12} xs={12} className='mt-3 p-3 about-container ml-auto'>
+    <div className='mt-3 p-3 about-container ml-auto'>
       <h3 className='about-heading'>About</h3>
       <p className='about-body'>{about}</p>
-    </Col>
+    </div>
   );
 };
 

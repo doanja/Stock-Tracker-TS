@@ -3,7 +3,6 @@ import { NewsService } from '../services';
 import moment from 'moment';
 import { TickerNews } from '.';
 import '../styles/news.min.css';
-import { Col } from 'react-bootstrap';
 
 interface TickerNewsContainerProps {
   ticker: string | null;
@@ -29,12 +28,12 @@ const TickerNewsContainer: React.FC<TickerNewsContainerProps> = ({ ticker }) => 
   }, [ticker]);
 
   return (
-    <Col md={7} sm={12} xs={12} className='mt-3 p-3 news-container'>
+    <div className='mt-3 p-3 news-container'>
       <h2 className='news-heading'>In the news</h2>
       {articles.map((article: Article, index) => (
         <TickerNews article={article} key={index} />
       ))}
-    </Col>
+    </div>
   );
 };
 

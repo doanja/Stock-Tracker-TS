@@ -2,7 +2,7 @@ import React, { useEffect, Fragment } from 'react';
 import { SearchBar, CustomNavbar, TickerLine, TickerContainer, TickerHome, TickerNewsContainer, TickerAbout } from '../components';
 import { StockService } from '../services';
 import { useHistory } from 'react-router-dom';
-import { Container, Spinner, Row } from 'react-bootstrap';
+import { Container, Spinner } from 'react-bootstrap';
 import { getTickerName, generateWatchlist } from '../helper';
 
 // redux
@@ -64,10 +64,8 @@ const Home: React.FC = () => {
 
         {ticker && tickerPrice ? <TickerContainer tickerPrice={tickerPrice} ticker={ticker} /> : <TickerHome />}
 
-        <Row noGutters={true}>
-          <TickerNewsContainer ticker={ticker} />
-          <TickerAbout tickerPrice={tickerPrice} />
-        </Row>
+        <TickerNewsContainer ticker={ticker} />
+        <TickerAbout tickerPrice={tickerPrice} />
       </Container>
     </Fragment>
   );
