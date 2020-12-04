@@ -1,6 +1,6 @@
 import React from 'react';
 import { Row, Col } from 'react-bootstrap';
-import '../styles/news.min.css';
+import '../styles/main.min.css';
 
 interface TickerNewsProps {
   article: Article;

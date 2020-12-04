@@ -57,7 +57,7 @@ const Home: React.FC = () => {
   return (
     <Fragment>
       <CustomNavbar />
-      <Container className='test'>
+      <Container className='home-wrap'>
         <SearchBar />
 
         {tickerPrices.length > 0 ? <TickerLine tickerPrices={tickerPrices} /> : <Spinner animation='grow' variant='light' className='d-block' />}
