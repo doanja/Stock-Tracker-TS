@@ -14,7 +14,6 @@ const TickerAbout: React.FC<TickerAboutProps> = ({ tickerPrice }) => {
 
   useEffect(() => {
     if (companyName) {
-      console.log('companyName', companyName);
       api
         .getCompanyInfo(companyName)
         .then(response => response.json())
@@ -22,16 +21,14 @@ const TickerAbout: React.FC<TickerAboutProps> = ({ tickerPrice }) => {
           const response = res.query.pages;
 
           for (let prop in response) {
-            setAbout(response[prop].extract.split('\n\n\n==')[0]);
+            const aboutText = response[prop].extract.split('\n\n\n==')[0];
+            if (aboutText) setAbout(aboutText);
+            else
+              setAbout(
+                'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+              );
           }
         });
-    }
-
-    if (about === '') {
-      console.log('about :>> ', about);
-      setAbout(
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
-      );
     }
   }, [companyName]);
 

@@ -2,6 +2,7 @@ import { decode } from 'jsonwebtoken';
 import * as Yup from 'yup';
 import tickers from '../tickers.json';
 import moment from 'moment';
+import { StockService } from '../services';
 
 /**
  * function to check JWT expiration
