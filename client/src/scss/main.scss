@@ -196,10 +196,14 @@ body {
   -webkit-overflow-scrolling: touch;
 }
 
+.discover-wrap {
+  position: relative;
+  display: block;
+}
+
 .discover-card {
   cursor: pointer;
   margin-right: 1rem;
-  position: relative;
 
   display: flex;
   flex-direction: column;
@@ -221,7 +225,6 @@ body {
 }
 
 .discover-badge {
-  float: left;
   background-color: $primary-color;
   color: $light;
   border-radius: 4px;
@@ -254,7 +257,10 @@ body {
   border: 1px solid #dadce0;
   border-radius: 50%;
   padding: 2px;
-  float: right;
+
+  position: absolute;
+  top: 0.75rem;
+  right: 1.5rem;
 
   &.discover-icon:hover {
     color: #b4b5b8;

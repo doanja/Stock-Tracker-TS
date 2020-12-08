@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import { Container } from 'react-bootstrap';
 import { StockService } from '../services';
 import { generateWatchlist, getTickerName } from '../helper';
@@ -46,27 +46,27 @@ export const DiscoverContainer: React.FC = () => {
 
       <Container className='discover-container'>
         {tickerPrices?.map((ticker: TickerPrice) => (
-          <div className='discover-card' key={ticker.symbol} onClick={() => dispatch(setTicker(ticker.symbol))}>
-            <div className='d-inline'>
+          <div className='mb-2 discover-wrap' key={ticker.symbol}>
+            <div className='discover-card' onClick={() => dispatch(setTicker(ticker.symbol))}>
               <div className='mb-1 discover-badge'>
                 <div className='discover-badge-text'>{ticker.symbol}</div>
               </div>
-              <FontAwesomeIcon className='discover-icon' icon={faPlus} size='lg' onClick={() => alert('added to watchlist')} />
+
+              <p className='mb-3 discover-text'>{ticker.companyName}</p>
+
+              {ticker.prices[0].price > 0 ? (
+                <div className='discover-price-wrap'>
+                  <p className='mb-2'>${ticker.prices[0].price}</p>
+                  <div className='discover-price-badge discover-green'>{ticker.prices[0].changePercent}%</div>
+                </div>
+              ) : (
+                <div className='discover-price-wrap'>
+                  <p className='mb-2'>${ticker.prices[0].price}</p>
+                  <div className='discover-price-badge discover-red'>{ticker.prices[0].changePercent}%</div>
+                </div>
+              )}
             </div>
-
-            <p className='mb-3 discover-text'>{ticker.companyName}</p>
-
-            {ticker.prices[0].price > 0 ? (
-              <div className='discover-price-wrap'>
-                <p className='mb-2'>${ticker.prices[0].price}</p>
-                <div className='discover-price-badge discover-green'>{ticker.prices[0].changePercent}%</div>
-              </div>
-            ) : (
-              <div className='discover-price-wrap'>
-                <p className='mb-2'>${ticker.prices[0].price}</p>
-                <div className='discover-price-badge discover-red'>{ticker.prices[0].changePercent}%</div>
-              </div>
-            )}
+            <FontAwesomeIcon className='discover-icon' icon={faPlus} size='lg' onClick={() => alert('added to watchlist')} />
           </div>
         ))}
       </Container>
