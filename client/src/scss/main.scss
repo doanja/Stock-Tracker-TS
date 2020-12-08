@@ -140,6 +140,16 @@ body {
   box-sizing: border-box;
 }
 
+.custom-footer {
+  letter-spacing: 0.00625em;
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.5rem;
+  border-top: 1px solid #dadce0;
+  position: absolute;
+  bottom: 0;
+}
+
 .sub-container {
   background-color: white;
   border-radius: 2.5px;

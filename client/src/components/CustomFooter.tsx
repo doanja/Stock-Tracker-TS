@@ -1,11 +1,10 @@
 import React from 'react';
 import { Navbar, Container, Nav } from 'react-bootstrap';
-import '../styles/footer.min.css';
 import '../styles/main.min.css';
 
 const CustomFooter: React.FC = () => {
   return (
-    <Navbar bg='dark' variant='dark' className='mt-3 custom-footer'>
+    <Navbar bg='dark' variant='dark' className='custom-footer'>
       <Container>
         <div className='text-center'>
           <Navbar.Brand className='brand' href='/'>
