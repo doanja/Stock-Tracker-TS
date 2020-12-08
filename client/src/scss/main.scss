@@ -224,11 +224,29 @@ body {
   float: left;
   background-color: $primary-color;
   color: $light;
-  text-align: center;
-  padding: 2px;
   border-radius: 4px;
   width: 47px;
   height: 20px;
+}
+
+.discover-badge-text {
+  letter-spacing: 0.07272727em;
+  font-family: Roboto, Arial, sans-serif;
+  font-size: 0.6875rem;
+  line-height: 1rem;
+  text-transform: uppercase;
+  -webkit-box-align: center;
+  box-align: center;
+  align-items: center;
+  box-pack: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  height: 22px;
+  display: flex;
+  color: white;
 }
 
 .discover-icon {

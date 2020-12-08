@@ -48,7 +48,9 @@ export const DiscoverContainer: React.FC = () => {
         {tickerPrices?.map((ticker: TickerPrice) => (
           <div className='discover-card' key={ticker.symbol} onClick={() => dispatch(setTicker(ticker.symbol))}>
             <div className='d-inline'>
-              <div className='mb-1 discover-badge'>{ticker.symbol}</div>
+              <div className='mb-1 discover-badge'>
+                <div className='discover-badge-text'>{ticker.symbol}</div>
+              </div>
               <FontAwesomeIcon className='discover-icon' icon={faPlus} size='lg' onClick={() => alert('added to watchlist')} />
             </div>
 
@@ -57,12 +59,12 @@ export const DiscoverContainer: React.FC = () => {
             {ticker.prices[0].price > 0 ? (
               <div className='discover-price-wrap'>
                 <p className='mb-2'>${ticker.prices[0].price}</p>
-                <div className='discover-price-badge discover-green'>${ticker.prices[0].changePercent}%</div>
+                <div className='discover-price-badge discover-green'>{ticker.prices[0].changePercent}%</div>
               </div>
             ) : (
               <div className='discover-price-wrap'>
                 <p className='mb-2'>${ticker.prices[0].price}</p>
-                <div className='discover-price-badge discover-red'>${ticker.prices[0].changePercent}%</div>
+                <div className='discover-price-badge discover-red'>{ticker.prices[0].changePercent}%</div>
               </div>
             )}
           </div>
