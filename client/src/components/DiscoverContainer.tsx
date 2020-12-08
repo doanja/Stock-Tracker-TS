@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Row, Col, Badge } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 import { StockService } from '../services';
 import { generateWatchlist, getTickerName } from '../helper';
 import '../styles/main.min.css';
@@ -40,29 +40,26 @@ export const DiscoverContainer: React.FC = () => {
 
   return (
     <div className='mt-3 p-3 sub-container'>
-      <h3 className='sub-heading'>Discover</h3>
+      <Container>
+        <h3 className='sub-heading'>Discover more</h3>
+      </Container>
 
-      <Container fluid={true}>
-        <Row>
-          {tickerPrices?.map((ticker: TickerPrice) => (
-            <Col md={true} sm={12} xs={12} className='ticker-item' key={ticker.symbol} onClick={() => dispatch(setTicker(ticker.symbol))}>
-              <Badge variant='dark' className='mb-1'>
-                {ticker.symbol}
-              </Badge>
+      <Container className='discover-container'>
+        {tickerPrices?.map((ticker: TickerPrice) => (
+          <div className='discover-card' key={ticker.symbol} onClick={() => dispatch(setTicker(ticker.symbol))}>
+            <div className='d-inline'>
+              <div className='mb-1 discover-badge'>{ticker.symbol}</div>
+              <FontAwesomeIcon className='discover-icon' icon={faPlus} size='lg' onClick={() => alert('added to watchlist')} />
+            </div>
 
-              <p className='mb-3'>{ticker.companyName}</p>
-              <p className='mb-3'>${ticker.prices[0].price}</p>
-              <div className='mb-3'>
-                <div className='float-left'>
-                  <Badge variant='primary '>{ticker.prices[0].changePercent}%</Badge>
-                </div>
-                <div className='float-right' onClick={() => alert('added to watchlist')}>
-                  <FontAwesomeIcon className='ticker-icon' icon={faPlus} size='lg' />
-                </div>
-              </div>
-            </Col>
-          ))}
-        </Row>
+            <p className='mb-3 discover-text'>{ticker.companyName}</p>
+
+            <div className='discover-price-wrap'>
+              <p className='mb-2'>${ticker.prices[0].price}</p>
+              <div className='discover-price-badge'>${ticker.prices[0].changePercent}%</div>
+            </div>
+          </div>
+        ))}
       </Container>
     </div>
   );

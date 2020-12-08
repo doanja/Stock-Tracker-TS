@@ -186,3 +186,92 @@ body {
 .discover-body {
   height: 500px;
 }
+
+.discover-container {
+  position: relative;
+  display: flex;
+  height: 100%;
+  max-width: 100%;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+.discover-card {
+  cursor: pointer;
+  margin-right: 1rem;
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 12px 8px 12px 12px;
+  box-sizing: border-box;
+  color: black;
+
+  border-radius: 12px;
+  width: 156px;
+  height: 162px;
+  flex: 1;
+  border: 1px solid #dadce0;
+
+  &.discover-card:hover {
+    box-shadow: 0 4px 8px 0 rgb(197, 197, 197);
+    transition: 0.2s;
+  }
+}
+
+.discover-badge {
+  float: left;
+  background-color: $primary-color;
+  color: $light;
+  text-align: center;
+  padding: 2px;
+  border-radius: 4px;
+  width: 47px;
+  height: 20px;
+}
+
+.discover-icon {
+  cursor: pointer;
+  border: 1px solid #dadce0;
+  border-radius: 50%;
+  padding: 2px;
+  float: right;
+
+  &.discover-icon:hover {
+    color: #b4b5b8;
+  }
+}
+
+.discover-text {
+  letter-spacing: 0.01785714em;
+  font-family: 'Google Sans', Roboto, Arial, sans-serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.25rem;
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  display: -webkit-box;
+  overflow: hidden;
+  position: relative;
+}
+
+.discover-price-wrap {
+  display: block;
+  position: absolute;
+  bottom: 0.75rem;
+}
+
+.discover-price-badge {
+  letter-spacing: 0.00625em;
+  font-family: 'Google Sans', Roboto, Arial, sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.5rem;
+  padding: 0 8px;
+  border-radius: 8px;
+  width: min-content;
+  color: #a50e0e;
+  background: #fce8e6;
+}
