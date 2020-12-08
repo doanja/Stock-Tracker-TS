@@ -54,10 +54,17 @@ export const DiscoverContainer: React.FC = () => {
 
             <p className='mb-3 discover-text'>{ticker.companyName}</p>
 
-            <div className='discover-price-wrap'>
-              <p className='mb-2'>${ticker.prices[0].price}</p>
-              <div className='discover-price-badge'>${ticker.prices[0].changePercent}%</div>
-            </div>
+            {ticker.prices[0].price > 0 ? (
+              <div className='discover-price-wrap'>
+                <p className='mb-2'>${ticker.prices[0].price}</p>
+                <div className='discover-price-badge discover-green'>${ticker.prices[0].changePercent}%</div>
+              </div>
+            ) : (
+              <div className='discover-price-wrap'>
+                <p className='mb-2'>${ticker.prices[0].price}</p>
+                <div className='discover-price-badge discover-red'>${ticker.prices[0].changePercent}%</div>
+              </div>
+            )}
           </div>
         ))}
       </Container>
