@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Container } from 'react-bootstrap';
 import { StockService } from '../services';
 import { generateWatchlist, getTickerName } from '../helper';
@@ -14,7 +14,7 @@ const DiscoverContainer: React.FC = () => {
   }, []);
 
   const initializeDiscoverTickers = () => {
-    const sampleWatchlist = generateWatchlist(6);
+    const sampleWatchlist = generateWatchlist(18);
     const loadPrices = async () => Promise.all(sampleWatchlist.map(ticker => stockAPI.getTickerPrices()));
     const tickerPrices: TickerPrice[] = [];
     loadPrices().then(promise => {
@@ -25,13 +25,27 @@ const DiscoverContainer: React.FC = () => {
     });
   };
 
+  const ref = useRef<null | HTMLDivElement>(null);
+
+  const handleNav = (direction: string) => {
+    if (ref.current !== null) {
+      ref.current.scroll({
+        behavior: 'smooth',
+      });
+      direction === 'left' ? (ref.current.scrollLeft -= 100) : (ref.current.scrollLeft += 100);
+    }
+  };
+
   return (
     <div className='mt-3 p-3 sub-container'>
       <Container>
         <h3 className='sub-heading'>Discover more</h3>
       </Container>
 
-      <Container className='mt-3 discover-container'>
+      <button onClick={() => handleNav('left')}> left </button>
+      <button onClick={() => handleNav('right')}> right </button>
+
+      <Container className='mt-3 discover-container' ref={ref}>
         {tickerPrices?.map((ticker: TickerPrice) => (
           <DiscoverCard ticker={ticker} key={ticker.symbol} />
         ))}
