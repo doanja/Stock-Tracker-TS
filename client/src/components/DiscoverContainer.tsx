@@ -5,7 +5,7 @@ import { generateWatchlist, getTickerName } from '../helper';
 import '../styles/main.min.css';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 
 // redux
 import { useDispatch } from 'react-redux';
@@ -44,7 +44,7 @@ export const DiscoverContainer: React.FC = () => {
         <h3 className='sub-heading'>Discover more</h3>
       </Container>
 
-      <Container className='discover-container'>
+      <Container className='mt-3 discover-container'>
         {tickerPrices?.map((ticker: TickerPrice) => (
           <div className='mb-2 discover-wrap' key={ticker.symbol}>
             <div className='discover-card' onClick={() => dispatch(setTicker(ticker.symbol))}>
@@ -54,7 +54,7 @@ export const DiscoverContainer: React.FC = () => {
 
               <p className='mb-3 discover-text'>{ticker.companyName}</p>
 
-              {ticker.prices[0].price > 0 ? (
+              {ticker.prices[0].changePercent > 0 ? (
                 <div className='discover-price-wrap'>
                   <p className='mb-2'>${ticker.prices[0].price}</p>
                   <div className='discover-price-badge discover-green'>{ticker.prices[0].changePercent}%</div>
@@ -66,7 +66,7 @@ export const DiscoverContainer: React.FC = () => {
                 </div>
               )}
             </div>
-            <FontAwesomeIcon className='discover-icon' icon={faPlus} size='lg' onClick={() => alert('added to watchlist')} />
+            <FontAwesomeIcon className='discover-icon' icon={faPlusCircle} size='lg' onClick={() => alert('added to watchlist')} />
           </div>
         ))}
       </Container>
