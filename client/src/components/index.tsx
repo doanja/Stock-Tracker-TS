@@ -13,6 +13,8 @@ import TickerNewsContainer from './TickerNewsContainer';
 import TickerNews from './TickerNews';
 import TickerAbout from './TickerAbout';
 import CustomFooter from './CustomFooter';
+import DiscoverContainer from './DiscoverContainer';
+import DiscoverCard from './DiscoverCard';
 
 export {
   SaveIcon,
@@ -30,4 +32,6 @@ export {
   TickerNews,
   TickerAbout,
   CustomFooter,
+  DiscoverContainer,
+  DiscoverCard,
 };

@@ -1,5 +1,15 @@
 import React, { useEffect, Fragment } from 'react';
-import { SearchBar, CustomNavbar, TickerLine, TickerContainer, TickerHome, TickerNewsContainer, TickerAbout, CustomFooter } from '../components';
+import {
+  SearchBar,
+  CustomNavbar,
+  TickerLine,
+  TickerContainer,
+  TickerHome,
+  TickerNewsContainer,
+  TickerAbout,
+  CustomFooter,
+  DiscoverContainer,
+} from '../components';
 import { StockService } from '../services';
 import { useHistory } from 'react-router-dom';
 import { Container, Spinner } from 'react-bootstrap';
@@ -9,7 +19,6 @@ import { getTickerName, generateWatchlist } from '../helper';
 import { useSelector, useDispatch } from 'react-redux';
 import { setTickerPrice, setTickerPrices } from '../redux/actions/stockActions';
 import { RootStore } from '../redux/Store';
-import { DiscoverContainer } from '../components/DiscoverContainer';
 
 const Home: React.FC = () => {
   const stockAPI = new StockService();
