@@ -61,7 +61,13 @@ const Home: React.FC = () => {
       <Container className='home-wrap'>
         <SearchBar />
 
-        {tickerPrices.length > 0 ? <TickerLine tickerPrices={tickerPrices} /> : <Spinner animation='grow' variant='light' className='d-block' />}
+        {tickerPrices.length > 0 ? (
+          <TickerLine tickerPrices={tickerPrices} />
+        ) : (
+          <div className='mt-3 text-center'>
+            <Spinner animation='border' variant='light' />
+          </div>
+        )}
 
         {ticker && tickerPrice ? <TickerContainer tickerPrice={tickerPrice} ticker={ticker} /> : <TickerHome />}
 
