@@ -24,10 +24,11 @@ body {
 }
 
 .icon {
-  color: $light;
+  color: $primary-color;
+
   &:hover {
     cursor: pointer;
-    color: $dark;
+    color: $secondary-color;
   }
 }
 
@@ -125,7 +126,6 @@ body {
 }
 
 .red {
-  border: 1px solid red;
 }
 
 .blue {
@@ -254,15 +254,9 @@ body {
 }
 
 .discover-icon {
-  cursor: pointer;
-
   position: absolute;
   top: 0.75rem;
   right: 1.5rem;
-
-  &.discover-icon:hover {
-    color: $secondary-color;
-  }
 }
 
 .discover-text {
@@ -304,4 +298,40 @@ body {
 .discover-green {
   color: #137333;
   background: #e6f4ea;
+}
+
+.scroll-wrap {
+  border-radius: 50%;
+  position: absolute;
+  top: calc(50% - 24px);
+  display: flex;
+  -webkit-box-align: center;
+  box-align: center;
+  align-items: center;
+  -webkit-user-select: none;
+  transition: opacity 0.125s cubic-bezier(0.4, 0, 1, 1) 0.5s, visibility 0.125s cubic-bezier(0.4, 0, 1, 1) 0.5s;
+  visibility: hidden;
+  opacity: 0;
+  z-index: 100;
+  pointer-events: none;
+}
+
+.discover-wrap {
+  position: relative;
+}
+
+.scroll-icon-left {
+  position: absolute;
+  z-index: 5;
+  top: 35%;
+  left: 0rem;
+  background-color: white;
+}
+
+.scroll-icon-right {
+  position: absolute;
+  z-index: 5;
+  top: 35%;
+  right: 0rem;
+  background-color: white;
 }

@@ -1,20 +1,28 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Container } from 'react-bootstrap';
+import { Container, Spinner } from 'react-bootstrap';
 import { StockService } from '../services';
 import { generateWatchlist, getTickerName } from '../helper';
 import { DiscoverCard } from './';
 import '../styles/main.min.css';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronCircleRight, faChevronCircleLeft } from '@fortawesome/free-solid-svg-icons';
+
 const DiscoverContainer: React.FC = () => {
   const stockAPI = new StockService();
   const [tickerPrices, setTickerPrices] = useState<TickerPrice[]>([]);
+  const discContainerRef = useRef<null | HTMLDivElement>(null);
 
   useEffect(() => {
-    initializeDiscoverTickers();
+    initializeDiscoverTickers(18);
   }, []);
 
-  const initializeDiscoverTickers = () => {
-    const sampleWatchlist = generateWatchlist(18);
+  /**
+   * function to pick and generate stock data for set amount of stocks
+   * @param {number} number the number of stock to generate
+   */
+  const initializeDiscoverTickers = (number: number) => {
+    const sampleWatchlist = generateWatchlist(number);
     const loadPrices = async () => Promise.all(sampleWatchlist.map(ticker => stockAPI.getTickerPrices()));
     const tickerPrices: TickerPrice[] = [];
     loadPrices().then(promise => {
@@ -25,14 +33,16 @@ const DiscoverContainer: React.FC = () => {
     });
   };
 
-  const ref = useRef<null | HTMLDivElement>(null);
-
-  const handleNav = (direction: string) => {
-    if (ref.current !== null) {
-      ref.current.scroll({
+  /**
+   * function to navigate the scrollbar
+   * @param {string} direction the direction to scroll
+   */
+  const shiftDiscoverContainer = (direction: string) => {
+    if (discContainerRef.current !== null) {
+      discContainerRef.current.scroll({
         behavior: 'smooth',
       });
-      direction === 'left' ? (ref.current.scrollLeft -= 100) : (ref.current.scrollLeft += 100);
+      direction === 'left' ? (discContainerRef.current.scrollLeft -= 100) : (discContainerRef.current.scrollLeft += 100);
     }
   };
 
@@ -42,14 +52,22 @@ const DiscoverContainer: React.FC = () => {
         <h3 className='sub-heading'>Discover more</h3>
       </Container>
 
-      <button onClick={() => handleNav('left')}> left </button>
-      <button onClick={() => handleNav('right')}> right </button>
+      {tickerPrices.length > 0 ? (
+        <div className='discover-wrap'>
+          <FontAwesomeIcon className='scroll-icon-left icon' icon={faChevronCircleLeft} size='2x' onClick={() => shiftDiscoverContainer('left')} />
+          <FontAwesomeIcon className='scroll-icon-right icon' icon={faChevronCircleRight} size='2x' onClick={() => shiftDiscoverContainer('right')} />
 
-      <Container className='mt-3 discover-container' ref={ref}>
-        {tickerPrices?.map((ticker: TickerPrice) => (
-          <DiscoverCard ticker={ticker} key={ticker.symbol} />
-        ))}
-      </Container>
+          <Container className='mt-3 discover-container' ref={discContainerRef}>
+            {tickerPrices?.map((ticker: TickerPrice) => (
+              <DiscoverCard ticker={ticker} key={ticker.symbol} />
+            ))}
+          </Container>
+        </div>
+      ) : (
+        <div className='mt-3 text-center'>
+          <Spinner animation='border' variant='dark' />
+        </div>
+      )}
     </div>
   );
 };

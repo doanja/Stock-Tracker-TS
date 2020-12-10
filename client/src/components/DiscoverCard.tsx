@@ -58,9 +58,9 @@ const DiscoverCard: React.FC<DiscoverCardProps> = ({ ticker }) => {
       </div>
 
       {isWatching ? (
-        <FontAwesomeIcon className='discover-icon' icon={faMinusCircle} size='lg' onClick={() => iconClicked(ticker.symbol)} />
+        <FontAwesomeIcon className='discover-icon icon' icon={faMinusCircle} size='lg' onClick={() => iconClicked(ticker.symbol)} />
       ) : (
-        <FontAwesomeIcon className='discover-icon' icon={faPlusCircle} size='lg' onClick={() => iconClicked(ticker.symbol)} />
+        <FontAwesomeIcon className='discover-icon icon' icon={faPlusCircle} size='lg' onClick={() => iconClicked(ticker.symbol)} />
       )}
     </div>
   );
