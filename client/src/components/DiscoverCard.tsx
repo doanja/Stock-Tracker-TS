@@ -25,14 +25,13 @@ const DiscoverCard: React.FC<DiscoverCardProps> = ({ ticker }) => {
 
   useEffect(() => {
     if (loginStatus) watchlist.includes(ticker.symbol) ? setIsWatching(true) : setIsWatching(false);
+    else history.push('/login');
   }, [ticker, watchlist]);
 
-  const iconClicked = (tickerSymbol: string) => {
+  const saveTicker = (tickerSymbol: string) => {
     if (loginStatus) {
       isWatching ? dispatch(removeFromWatchlist(tickerSymbol)) : dispatch(addToWatchlist(tickerSymbol));
-    } else {
-      history.push('/login');
-    }
+    } else history.push('/login');
   };
 
   return (
@@ -58,9 +57,9 @@ const DiscoverCard: React.FC<DiscoverCardProps> = ({ ticker }) => {
       </div>
 
       {isWatching ? (
-        <FontAwesomeIcon className='discover-icon icon' icon={faMinusCircle} size='lg' onClick={() => iconClicked(ticker.symbol)} />
+        <FontAwesomeIcon className='discover-icon icon' icon={faMinusCircle} size='lg' onClick={() => saveTicker(ticker.symbol)} />
       ) : (
-        <FontAwesomeIcon className='discover-icon icon' icon={faPlusCircle} size='lg' onClick={() => iconClicked(ticker.symbol)} />
+        <FontAwesomeIcon className='discover-icon icon' icon={faPlusCircle} size='lg' onClick={() => saveTicker(ticker.symbol)} />
       )}
     </div>
   );

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrash, faStar } from '@fortawesome/free-solid-svg-icons';
+import { Button } from 'react-bootstrap';
 
 // redux
 import { useSelector, useDispatch } from 'react-redux';
@@ -14,30 +13,34 @@ interface SaveIconProps {
 
 const SaveIcon: React.FC<SaveIconProps> = ({ ticker }) => {
   const history = useHistory();
+  const [isWatching, setIsWatching] = useState(false);
 
   // redux
   const { loginStatus } = useSelector((state: RootStore) => state.auth);
   const { watchlist } = useSelector((state: RootStore) => state.stock);
   const dispatch = useDispatch();
 
-  const [isSaved, setIsSaved] = useState(false);
-
   useEffect(() => {
-    if (watchlist.includes(ticker)) setIsSaved(true);
+    if (loginStatus) watchlist.includes(ticker) ? setIsWatching(true) : setIsWatching(false);
+    else history.push('/login');
   }, [watchlist]);
 
   const saveTicker = () => {
     if (loginStatus) {
-      isSaved ? dispatch(removeFromWatchlist(ticker)) : dispatch(addToWatchlist(ticker));
-    } else history.push('/');
+      isWatching ? dispatch(removeFromWatchlist(ticker)) : dispatch(addToWatchlist(ticker));
+    } else history.push('/login');
   };
 
   return (
-    <div style={{ zIndex: 10 }}>
-      {isSaved ? (
-        <FontAwesomeIcon className='icon-favorite' icon={faTrash} onClick={saveTicker} />
+    <div className='mb-3 float-right'>
+      {isWatching ? (
+        <Button variant='light' onClick={saveTicker}>
+          Unfollow
+        </Button>
       ) : (
-        <FontAwesomeIcon className='icon-favorite' icon={faStar} onClick={saveTicker} />
+        <Button variant='light' onClick={saveTicker}>
+          Follow
+        </Button>
       )}
     </div>
   );

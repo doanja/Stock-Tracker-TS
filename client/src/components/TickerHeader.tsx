@@ -9,7 +9,7 @@ const TickerHeader: React.FC<TickerHeaderProps> = ({ tickerPrice }) => {
   return (
     <div className='d-inline ticker-header'>
       {tickerPrice.companyName}
-      <Badge variant='primary' className='float-right'>
+      <Badge variant='dark' className='float-right'>
         {tickerPrice.symbol}
       </Badge>
     </div>
