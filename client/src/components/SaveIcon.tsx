@@ -22,7 +22,6 @@ const SaveIcon: React.FC<SaveIconProps> = ({ ticker }) => {
 
   useEffect(() => {
     if (loginStatus) watchlist.includes(ticker) ? setIsWatching(true) : setIsWatching(false);
-    else history.push('/login');
   }, [watchlist]);
 
   const saveTicker = () => {

@@ -25,7 +25,6 @@ const DiscoverCard: React.FC<DiscoverCardProps> = ({ ticker }) => {
 
   useEffect(() => {
     if (loginStatus) watchlist.includes(ticker.symbol) ? setIsWatching(true) : setIsWatching(false);
-    else history.push('/login');
   }, [ticker, watchlist]);
 
   const saveTicker = (tickerSymbol: string) => {
