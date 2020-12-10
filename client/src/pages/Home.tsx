@@ -9,7 +9,7 @@ import {
   TickerAbout,
   CustomFooter,
   DiscoverContainer,
-  SaveIcon,
+  SaveButton,
 } from '../components';
 import { StockService } from '../services';
 import { useHistory } from 'react-router-dom';
@@ -81,7 +81,7 @@ const Home: React.FC = () => {
 
         {ticker && tickerPrice ? (
           <div className='mt-3'>
-            <SaveIcon ticker={ticker} />
+            <SaveButton ticker={ticker} />
             <TickerContainer tickerPrice={tickerPrice} ticker={ticker} />
           </div>
         ) : (

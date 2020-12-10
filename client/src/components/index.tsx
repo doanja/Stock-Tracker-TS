@@ -1,4 +1,4 @@
-import SaveIcon from './SaveIcon';
+import SaveButton from './SaveButton';
 import SearchBar from './SearchBar';
 import CustomModal from './CustomModal';
 import CustomNavbar from './CustomNavbar';
@@ -17,7 +17,7 @@ import DiscoverContainer from './DiscoverContainer';
 import DiscoverCard from './DiscoverCard';
 
 export {
-  SaveIcon,
+  SaveButton,
   SearchBar,
   CustomModal,
   CustomNavbar,
