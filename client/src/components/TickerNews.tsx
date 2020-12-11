@@ -1,6 +1,7 @@
 import React from 'react';
 import { Row, Col } from 'react-bootstrap';
 import '../styles/main.min.css';
+import error from '../images/error.png';
 
 interface TickerNewsProps {
   article: Article;
@@ -22,7 +23,7 @@ const TickerNews: React.FC<TickerNewsProps> = ({ article }) => {
         </Col>
 
         <Col xs={3}>
-          <img src={article.urlToImage} alt={article.url} className='news-image' />
+          <img src={article.urlToImage ? article.urlToImage : error} alt={article.url} className='news-image' />
         </Col>
       </Row>
     </div>
