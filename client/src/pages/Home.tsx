@@ -2,7 +2,6 @@ import React, { useEffect, Fragment } from 'react';
 import {
   SearchBar,
   CustomNavbar,
-  TickerLine,
   TickerContainer,
   TickerHome,
   TickerNewsContainer,
@@ -10,6 +9,7 @@ import {
   CustomFooter,
   DiscoverContainer,
   SaveButton,
+  TickerLineContainer,
 } from '../components';
 import { StockService } from '../services';
 import { useHistory } from 'react-router-dom';
@@ -72,7 +72,7 @@ const Home: React.FC = () => {
         <SearchBar />
 
         {tickerPrices.length > 0 ? (
-          <TickerLine tickerPrices={tickerPrices} />
+          <TickerLineContainer tickerPrices={tickerPrices} />
         ) : (
           <div className='mt-3 text-center'>
             <Spinner animation='border' variant='light' />

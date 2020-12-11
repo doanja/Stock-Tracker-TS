@@ -60,12 +60,13 @@ export const getTickerName = (symbol: string): string => {
 };
 
 /**
- * function to select count number of tickers
+ * function to randomly select a set of Tickers from an array
  * @param {number} count the number of tickers to get
+ * @param {Ticker[]} arr an array containing the Tickers
  * @return {string[]} an array of strings containing count random tickers
  */
-export const generateWatchlist = (count: number): string[] => {
-  let sampleWatchlist = [...tickers];
+export const generateWatchlist = (count: number, arr: Ticker[] = tickers): string[] => {
+  const sampleWatchlist: Ticker[] = [...arr];
   return [...Array(count)].map(() => sampleWatchlist.splice(Math.floor(Math.random() * sampleWatchlist.length), 1)[0].Symbol);
 };
 

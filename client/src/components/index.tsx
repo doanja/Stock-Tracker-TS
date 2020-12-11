@@ -15,6 +15,7 @@ import TickerAbout from './TickerAbout';
 import CustomFooter from './CustomFooter';
 import DiscoverContainer from './DiscoverContainer';
 import DiscoverCard from './DiscoverCard';
+import TickerLineContainer from './TickerLineContainer';
 
 export {
   SaveButton,
@@ -34,4 +35,5 @@ export {
   CustomFooter,
   DiscoverContainer,
   DiscoverCard,
+  TickerLineContainer,
 };
