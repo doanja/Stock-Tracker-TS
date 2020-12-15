@@ -10,7 +10,6 @@ body {
   font-family: 'Roboto', sans-serif !important;
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
 }
 
 .wrap {
@@ -19,8 +18,8 @@ body {
 
 .home-wrap {
   display: flex;
-  min-height: 100vh;
   flex-direction: column;
+  min-height: calc(75vh - 60px); // calculates the footer height, for the footer
 }
 
 .icon {
@@ -123,13 +122,6 @@ body {
     border: 1px solid $dark;
     background-color: $dark;
   }
-}
-
-.red {
-}
-
-.blue {
-  border: 1px solid blue;
 }
 
 .brand {
