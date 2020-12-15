@@ -10,6 +10,7 @@ import {
   DiscoverContainer,
   SaveButton,
   TickerLineContainer,
+  MarketTrendsContainer,
 } from '../components';
 import { StockService } from '../services';
 import { useHistory } from 'react-router-dom';
@@ -90,7 +91,7 @@ const Home: React.FC = () => {
 
         <TickerNewsContainer ticker={ticker} />
 
-        {ticker && tickerPrice ? <TickerAbout tickerPrice={tickerPrice} /> : null}
+        {ticker && tickerPrice ? <TickerAbout tickerPrice={tickerPrice} /> : <MarketTrendsContainer />}
       </Container>
       <DiscoverContainer />
       <CustomFooter />

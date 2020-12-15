@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Container, Spinner } from 'react-bootstrap';
 import { StockService } from '../services';
 import { generateWatchlist, getTickerName } from '../helper';
 import { DiscoverCard } from './';
+import { Container, Spinner } from 'react-bootstrap';
 import '../styles/main.min.css';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -14,14 +14,14 @@ const DiscoverContainer: React.FC = () => {
   const discContainerRef = useRef<null | HTMLDivElement>(null);
 
   useEffect(() => {
-    initializeDiscoverTickers(18);
+    generateTickerPrices(18);
   }, []);
 
   /**
    * function to pick and generate stock data for set amount of stocks
    * @param {number} number the number of stock to generate
    */
-  const initializeDiscoverTickers = (number: number) => {
+  const generateTickerPrices = (number: number) => {
     const sampleWatchlist = generateWatchlist(number);
     const loadPrices = async () => Promise.all(sampleWatchlist.map(ticker => stockAPI.getTickerPrices()));
     const tickerPrices: TickerPrice[] = [];
@@ -59,7 +59,7 @@ const DiscoverContainer: React.FC = () => {
 
           <Container className='mt-3 discover-container' ref={discContainerRef}>
             {tickerPrices?.map((ticker: TickerPrice) => (
-              <DiscoverCard ticker={ticker} key={ticker.symbol} />
+              <DiscoverCard tickerPrice={ticker} key={ticker.symbol} />
             ))}
           </Container>
         </div>

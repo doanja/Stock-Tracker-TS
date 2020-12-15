@@ -16,6 +16,8 @@ import CustomFooter from './CustomFooter';
 import DiscoverContainer from './DiscoverContainer';
 import DiscoverCard from './DiscoverCard';
 import TickerLineContainer from './TickerLineContainer';
+import MarketTrendsContainer from './MarketTrendContainer';
+import MarketTrend from './MarketTrend';
 
 export {
   SaveButton,
@@ -36,4 +38,6 @@ export {
   DiscoverContainer,
   DiscoverCard,
   TickerLineContainer,
+  MarketTrendsContainer,
+  MarketTrend,
 };

@@ -99,8 +99,18 @@ export const generateTimstamps = (num: number, amount: number, unit: any): strin
   return times.reverse();
 };
 
+/**
+ * function to get the first and last number form an array
+ * @param {number[]} arr the array to lookup first and last numbers
+ * @return {{first: number; last: number}} an object containing the first and last number from the array
+ */
 export const getFirstAndLastValues = (arr: number[]): { first: number; last: number } => {
   return { first: arr[0], last: arr[arr.length - 1] };
 };
 
-export const roundDecimals = (num: number) => parseFloat((Math.round(num * 100) / 100).toFixed(2));
+/**
+ * function to round a number to two decimal places
+ * @param {number} num the number to be rounded
+ * @return {number} return a number rounded to two decimal places
+ */
+export const roundDecimals = (num: number): number => parseFloat((Math.round(num * 100) / 100).toFixed(2));
