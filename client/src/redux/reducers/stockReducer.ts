@@ -31,8 +31,11 @@ const stockReducer: Reducer<StockState> = (state = initialState, action) => {
       return { ...state, ticker: null };
     case StockActionTypes.GET_WATCHLIST:
       return { ...state, error: state.error, isLoading: false, watchlist: action.payload, token: action.token };
-    case StockActionTypes.ADD_TICKER:
+    case StockActionTypes.ADD_TICKER: {
+      console.log('ticker added');
+      console.log('action.payload', action.payload);
       return { ...state, error: state.error, isLoading: false, watchlist: action.payload, token: action.token };
+    }
     case StockActionTypes.REMOVE_TICKER:
       return { ...state, error: state.error, isLoading: false, watchlist: action.payload, token: action.token };
     case StockActionTypes.REQUEST_FAILED:

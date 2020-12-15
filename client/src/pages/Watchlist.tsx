@@ -22,6 +22,7 @@ const Watchlist: React.FC = () => {
   const { loginStatus, refreshToken } = useSelector((state: RootStore) => state.auth);
   const { watchlist, error, token } = useSelector((state: RootStore) => state.stock);
   const dispatch = useDispatch();
+
   const prevAmount = usePrevious(watchlist);
 
   // modal

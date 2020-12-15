@@ -27,7 +27,7 @@ const Home: React.FC = () => {
 
   // redux
   const { loginStatus } = useSelector((state: RootStore) => state.auth);
-  const { tickerPrice, tickerPrices, ticker } = useSelector((state: RootStore) => state.stock);
+  const { tickerPrice, tickerPrices, ticker, watchlist } = useSelector((state: RootStore) => state.stock);
   const dispatch = useDispatch();
 
   useEffect(() => {
