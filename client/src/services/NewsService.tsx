@@ -13,4 +13,8 @@ export default class NewsService {
       `http://newsapi.org/v2/everything?q=${query}&from=${moment().format('YYYY-MM-DD')}&sortBy=popularity&apiKey=${this.apiKey}`
     );
   }
+
+  public getTopHeadlines(): Promise<AxiosResponse<any>> {
+    return axios.get<any>(`https://newsapi.org/v2/top-headlines?country=us&apiKey=${this.apiKey}`);
+  }
 }

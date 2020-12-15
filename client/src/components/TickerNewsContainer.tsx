@@ -25,6 +25,13 @@ const TickerNewsContainer: React.FC<TickerNewsContainerProps> = ({ ticker }) => 
         articles.forEach((article: Article) => (article.publishedAt = getHoursFromCurrent(article.publishedAt)));
         setArticles(articles.slice(0, 6));
       });
+    else {
+      api.getTopHeadlines().then(res => {
+        const articles = res.data.articles;
+        articles.forEach((article: Article) => (article.publishedAt = getHoursFromCurrent(article.publishedAt)));
+        setArticles(articles.slice(0, 6));
+      });
+    }
   }, [ticker]);
 
   return (
