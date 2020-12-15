@@ -72,7 +72,7 @@ const Home: React.FC = () => {
         <SearchBar />
 
         {tickerPrices.length > 0 ? (
-          <TickerLineContainer tickerPrices={tickerPrices} />
+          <TickerLineContainer tickerPrices={tickerPrices} watchlist={watchlist} />
         ) : (
           <div className='mt-3 text-center'>
             <Spinner animation='border' variant='light' />
