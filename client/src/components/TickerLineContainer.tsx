@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { TickerLine } from './';
 import { Container, Row } from 'react-bootstrap';
 import '../styles/ticker.min.css';
