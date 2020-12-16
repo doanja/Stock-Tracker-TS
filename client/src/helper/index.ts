@@ -114,3 +114,20 @@ export const getFirstAndLastValues = (arr: number[]): { first: number; last: num
  * @return {number} return a number rounded to two decimal places
  */
 export const roundDecimals = (num: number): number => parseFloat((Math.round(num * 100) / 100).toFixed(2));
+
+export const getNextPrice = (oldPrice: number): Prices => {
+  const volatility: number = Math.random() * 10 + 2;
+  const rnd: number = Math.random();
+  let changePercent = 0.5 * volatility * rnd;
+  console.log('changePercent', changePercent);
+
+  if (changePercent > volatility) changePercent -= 2 * volatility;
+
+  changePercent = roundDecimals(changePercent);
+
+  const changeAmount: number = (oldPrice * changePercent) / 100;
+  const price: number = roundDecimals(oldPrice + changeAmount); // new price
+  const priceChange: number = roundDecimals(price - oldPrice);
+
+  return { price, changePercent, priceChange };
+};
