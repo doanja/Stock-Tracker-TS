@@ -119,7 +119,6 @@ export const getNextPrice = (oldPrice: number): Prices => {
   const volatility: number = Math.random() * 10 + 2;
   const rnd: number = Math.random();
   let changePercent = 0.5 * volatility * rnd;
-  console.log('changePercent', changePercent);
 
   if (changePercent > volatility) changePercent -= 2 * volatility;
 

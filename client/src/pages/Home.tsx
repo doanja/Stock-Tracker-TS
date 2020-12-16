@@ -51,7 +51,6 @@ const Home: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    console.log('test', ticker);
     let currentTickerPrice: TickerPrice | undefined = tickerPrices.find((tick: TickerPrice) => tick.symbol === ticker);
 
     if (currentTickerPrice) dispatch(setTickerPrice(currentTickerPrice));
