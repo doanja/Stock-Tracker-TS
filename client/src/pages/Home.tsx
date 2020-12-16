@@ -28,7 +28,7 @@ const Home: React.FC = () => {
 
   // redux
   const { loginStatus } = useSelector((state: RootStore) => state.auth);
-  const { tickerPrice, tickerPrices, ticker, watchlist } = useSelector((state: RootStore) => state.stock);
+  const { tickerPrice, tickerPrices, ticker } = useSelector((state: RootStore) => state.stock);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -51,6 +51,7 @@ const Home: React.FC = () => {
   }, []);
 
   useEffect(() => {
+    console.log('test');
     let currentTickerPrice: TickerPrice | undefined = tickerPrices.find((tick: TickerPrice) => tick.symbol === ticker);
 
     if (currentTickerPrice) dispatch(setTickerPrice(currentTickerPrice));
@@ -73,7 +74,7 @@ const Home: React.FC = () => {
         <SearchBar />
 
         {tickerPrices.length > 0 ? (
-          <TickerLineContainer tickerPrices={tickerPrices} watchlist={watchlist} />
+          <TickerLineContainer tickerPrices={tickerPrices} />
         ) : (
           <div className='mt-3 text-center'>
             <Spinner animation='border' variant='light' />

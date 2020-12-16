@@ -1,33 +1,41 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useReducer } from 'react';
 import { TickerLine } from './';
 import { Container, Row } from 'react-bootstrap';
 import '../styles/ticker.min.css';
 
 interface TickerLineContainerProps {
   tickerPrices?: TickerPrice[];
-  watchlist: string[];
 }
 
-const TickerLineContainer: React.FC<TickerLineContainerProps> = ({ tickerPrices, watchlist }) => {
-  let tickers = tickerPrices?.sort(() => Math.random() - Math.random()).slice(0, 5);
-
-  const shufflePrices = (): void => {
-    if (tickerPrices) tickers = tickerPrices?.sort(() => Math.random() - Math.random()).slice(0, 5);
+const TickerLineContainer: React.FC<TickerLineContainerProps> = ({ tickerPrices }) => {
+  const initialState = {
+    tickerPrices: [],
   };
 
+  const reducer = (state: any, action: any) => {
+    switch (action.type) {
+      case 'shuffle':
+        return { tickerPrices: tickerPrices?.sort(() => Math.random() - Math.random()).slice(0, 5) };
+      default:
+        return state;
+    }
+  };
+
+  const [chartData, dispatchChartAction] = useReducer(reducer, initialState);
+
   useEffect(() => {
-    shufflePrices();
+    dispatchChartAction({ type: 'shuffle' });
 
     const interval = setInterval(() => {
-      if (tickerPrices) shufflePrices();
+      dispatchChartAction({ type: 'shuffle' });
     }, 5000);
     return () => clearInterval(interval);
-  }, [watchlist]);
+  }, [tickerPrices]);
 
   return (
     <Container className='mt-3'>
       <Row>
-        {tickers?.map((ticker: TickerPrice) => (
+        {chartData.tickerPrices?.map((ticker: TickerPrice) => (
           <TickerLine ticker={ticker} key={ticker.symbol} />
         ))}
       </Row>
