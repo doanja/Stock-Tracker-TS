@@ -18,20 +18,25 @@ const TickerNewsContainer: React.FC<TickerNewsContainerProps> = ({ ticker }) => 
     return moment.utc(moment(now).diff(moment(then))).format('H');
   };
 
+  const getTopHeadLines = () => {
+    api.getTopHeadlines().then(res => {
+      const articles = res.data.articles;
+      articles.forEach((article: Article) => (article.publishedAt = getHoursFromCurrent(article.publishedAt)));
+      setArticles(articles.slice(0, 6));
+    });
+  };
+
   useEffect(() => {
-    if (ticker)
+    if (ticker) {
       api.getNews(ticker).then(res => {
         const articles = res.data.articles;
-        articles.forEach((article: Article) => (article.publishedAt = getHoursFromCurrent(article.publishedAt)));
-        setArticles(articles.slice(0, 6));
+        console.log('res.data.articles :>> ', res.data.articles);
+        if (articles.length > 0) {
+          articles.forEach((article: Article) => (article.publishedAt = getHoursFromCurrent(article.publishedAt)));
+          setArticles(articles.slice(0, 6));
+        } else getTopHeadLines();
       });
-    else {
-      api.getTopHeadlines().then(res => {
-        const articles = res.data.articles;
-        articles.forEach((article: Article) => (article.publishedAt = getHoursFromCurrent(article.publishedAt)));
-        setArticles(articles.slice(0, 6));
-      });
-    }
+    } else getTopHeadLines();
   }, [ticker]);
 
   return (
