@@ -36,11 +36,11 @@ const DiscoverCard: React.FC<DiscoverCardProps> = ({ tickerPrice }) => {
   return (
     <div className='mb-2 discover-wrap' key={tickerPrice.symbol}>
       <div className='discover-card' onClick={() => dispatch(setTicker(tickerPrice.symbol))}>
-        <div className='mb-1 discover-badge'>
-          <div className='discover-badge-text'>{tickerPrice.symbol}</div>
+        <div className='mb-1 ticker-badge'>
+          <div className='ticker-badge-text'>{tickerPrice.symbol}</div>
         </div>
 
-        <p className='mb-3 discover-text'>{tickerPrice.companyName}</p>
+        <p className='mb-3 ticker-company-text'>{tickerPrice.companyName}</p>
 
         {tickerPrice.prices[0].changePercent > 0 ? (
           <div className='discover-price-wrap'>

@@ -34,15 +34,32 @@ const MarketTrend: React.FC<MarketTrendProps> = ({ tickerPrice }) => {
   };
 
   return (
-    <div className='market-card' onClick={() => dispatch(setTicker(tickerPrice.symbol))}>
-      <div className='market-badge'>{tickerPrice.symbol}</div>
-      <p className='market-name'>{tickerPrice.companyName}</p>
-      <p className='market-price'>{tickerPrice.prices[0].price}</p>
-      {isWatching ? (
-        <FontAwesomeIcon className='discover-icon icon' icon={faMinusCircle} size='lg' onClick={() => saveTicker(tickerPrice.symbol)} />
-      ) : (
-        <FontAwesomeIcon className='discover-icon icon' icon={faPlusCircle} size='lg' onClick={() => saveTicker(tickerPrice.symbol)} />
-      )}
+    <div className='market-trend-wrap' onClick={() => dispatch(setTicker(tickerPrice.symbol))}>
+      <div className='mt-2 market-trend-badge-company-wrap'>
+        <div className='mb-1 ticker-badge '>
+          <div className='ticker-badge-text'>{tickerPrice.symbol}</div>
+        </div>
+
+        <div className='mb-3 ticker-company-text market-company-name'>
+          <p>{tickerPrice.companyName}</p>
+        </div>
+      </div>
+
+      <div className='market-price-text-wrap'>
+        <p className='market-price-text'>${tickerPrice.prices[0].price}</p>
+      </div>
+
+      <div className='market-percent-wrap'>
+        <div className='discover-price-badge discover-red'>{tickerPrice.prices[0].changePercent}%</div>
+      </div>
+
+      <div className='market-icon-wrap'>
+        {isWatching ? (
+          <FontAwesomeIcon className='market-icon icon' icon={faMinusCircle} size='lg' onClick={() => saveTicker(tickerPrice.symbol)} />
+        ) : (
+          <FontAwesomeIcon className='market-icon icon' icon={faPlusCircle} size='lg' onClick={() => saveTicker(tickerPrice.symbol)} />
+        )}
+      </div>
     </div>
   );
 };
