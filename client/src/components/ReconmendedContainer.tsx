@@ -27,7 +27,7 @@ const ReconmendedContainer: React.FC = ({}) => {
   };
 
   return (
-    <Container className='mt-3 p-3 sub-container'>
+    <Container className='m-0 p-0 sub-container'>
       <h2 className='sub-heading mb-3'>You may be interested in</h2>
       {tickerPrices.length > 0 ? (
         tickerPrices?.map((ticker: TickerPrice) => <Reconmended tickerPrice={ticker} key={ticker.symbol} />)

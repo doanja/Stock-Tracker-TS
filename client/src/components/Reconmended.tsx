@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import '../styles/main.min.css';
+import '../styles/ticker.min.css';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlusCircle, faMinusCircle } from '@fortawesome/free-solid-svg-icons';
@@ -8,7 +9,7 @@ import { faPlusCircle, faMinusCircle } from '@fortawesome/free-solid-svg-icons';
 // redux
 import { useDispatch, useSelector } from 'react-redux';
 import { RootStore } from '../redux/Store';
-import { setTicker, addToWatchlist, removeFromWatchlist } from '../redux/actions/stockActions';
+import { setTicker, addToWatchlist, removeFromWatchlist, setTickerPrices } from '../redux/actions/stockActions';
 
 interface ReconmendedProps {
   tickerPrice: TickerPrice;
@@ -45,13 +46,28 @@ const Reconmended: React.FC<ReconmendedProps> = ({ tickerPrice }) => {
         </div>
       </div>
 
-      <div className='market-price-text-wrap'>
+      <div className='reconmended-price-text-wrap'>
         <p className='market-price-text'>${tickerPrice.prices[0].price}</p>
       </div>
-
-      <div className='market-percent-wrap'>
-        <div className='discover-price-badge discover-red'>{tickerPrice.prices[0].changePercent}%</div>
-      </div>
+      {tickerPrice.prices[0].priceChange > 0 ? (
+        <Fragment>
+          <div className='reconmended-price-text-wrap'>
+            <p className='market-price-text font-green-dark'>+${tickerPrice.prices[0].priceChange}</p>
+          </div>
+          <div className='market-percent-wrap'>
+            <div className='discover-price-badge discover-green'>+{tickerPrice.prices[0].changePercent}%</div>
+          </div>
+        </Fragment>
+      ) : (
+        <Fragment>
+          <div className='reconmended-price-text-wrap'>
+            <p className='market-price-text font-red-dark'>-${tickerPrice.prices[0].priceChange * -1}</p>
+          </div>
+          <div className='market-percent-wrap'>
+            <div className='discover-price-badge discover-red'>{tickerPrice.prices[0].changePercent}%</div>
+          </div>
+        </Fragment>
+      )}
 
       <div className='market-icon-wrap'>
         {isWatching ? (

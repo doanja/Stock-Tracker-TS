@@ -368,7 +368,7 @@ body {
   font-size: 1rem;
   font-weight: 500;
   line-height: 1.5rem;
-  color: #202124;
+  // color: #202124;
 
   height: 24px;
   overflow: hidden;
@@ -388,6 +388,28 @@ body {
 
 .market-icon-wrap {
   width: 48px;
+  display: flex;
+  box-pack: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  box-align: center;
+  align-items: center;
+}
+
+.reconmended-price-text-wrap {
+  width: 25%;
+  display: flex;
+  box-pack: end;
+  -webkit-box-pack: end;
+  justify-content: flex-end;
+  -webkit-box-align: center;
+  box-align: center;
+  align-items: center;
+}
+
+.reconmended-icon-wrap {
+  width: 25%;
   display: flex;
   box-pack: center;
   -webkit-box-pack: center;

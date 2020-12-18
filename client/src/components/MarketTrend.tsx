@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import '../styles/main.min.css';
 
@@ -45,13 +45,27 @@ const MarketTrend: React.FC<MarketTrendProps> = ({ tickerPrice }) => {
         </div>
       </div>
 
-      <div className='market-price-text-wrap'>
-        <p className='market-price-text'>${tickerPrice.prices[0].price}</p>
-      </div>
+      {tickerPrice.prices[0].priceChange > 0 ? (
+        <Fragment>
+          <div className='market-price-text-wrap'>
+            <p className='market-price-text'>${tickerPrice.prices[0].price}</p>
+          </div>
 
-      <div className='market-percent-wrap'>
-        <div className='discover-price-badge discover-red'>{tickerPrice.prices[0].changePercent}%</div>
-      </div>
+          <div className='market-percent-wrap'>
+            <div className='discover-price-badge discover-green'>{tickerPrice.prices[0].changePercent}%</div>
+          </div>
+        </Fragment>
+      ) : (
+        <Fragment>
+          <div className='market-price-text-wrap'>
+            <p className='market-price-text'>${tickerPrice.prices[0].price}</p>
+          </div>
+
+          <div className='market-percent-wrap'>
+            <div className='discover-price-badge discover-red'>{tickerPrice.prices[0].changePercent}%</div>
+          </div>
+        </Fragment>
+      )}
 
       <div className='market-icon-wrap'>
         {isWatching ? (
