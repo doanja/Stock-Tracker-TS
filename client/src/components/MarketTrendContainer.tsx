@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { StockService } from '../services';
 import { generateWatchlist, getTickerName } from '../helper';
-import { Container } from 'react-bootstrap';
+import { Container, Spinner } from 'react-bootstrap';
 import '../styles/main.min.css';
 import MarketTrend from './MarketTrend';
 
@@ -33,10 +33,14 @@ const MarketTrendsContainer: React.FC<MarketTrendsProps> = ({}) => {
 
   return (
     <Container className='mt-3 p-3 sub-container'>
-      <h2 className='sub-heading'>Market Trends</h2>
-      {tickerPrices?.map((ticker: TickerPrice) => (
-        <MarketTrend tickerPrice={ticker} key={ticker.symbol} />
-      ))}
+      <h2 className='sub-heading mb-3'>Market Trends</h2>
+      {tickerPrices.length > 0 ? (
+        tickerPrices?.map((ticker: TickerPrice) => <MarketTrend tickerPrice={ticker} key={ticker.symbol} />)
+      ) : (
+        <div className='mt-3 text-center'>
+          <Spinner animation='border' variant='dark' />
+        </div>
+      )}
     </Container>
   );
 };
