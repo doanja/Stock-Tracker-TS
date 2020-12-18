@@ -18,6 +18,8 @@ import DiscoverCard from './DiscoverCard';
 import TickerLineContainer from './TickerLineContainer';
 import MarketTrendsContainer from './MarketTrendContainer';
 import MarketTrend from './MarketTrend';
+import ReconmendedContainer from './ReconmendedContainer';
+import Reconmended from './Reconmended';
 
 export {
   SaveButton,
@@ -40,4 +42,6 @@ export {
   TickerLineContainer,
   MarketTrendsContainer,
   MarketTrend,
+  ReconmendedContainer,
+  Reconmended,
 };
