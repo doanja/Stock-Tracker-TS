@@ -53,7 +53,7 @@ const DiscoverContainer: React.FC = () => {
       </Container>
 
       {tickerPrices.length > 0 ? (
-        <div className='discover-wrap'>
+        <Container className='discover-wrap'>
           <FontAwesomeIcon className='scroll-icon-left icon' icon={faChevronCircleLeft} size='2x' onClick={() => shiftDiscoverContainer('left')} />
           <FontAwesomeIcon className='scroll-icon-right icon' icon={faChevronCircleRight} size='2x' onClick={() => shiftDiscoverContainer('right')} />
 
@@ -62,7 +62,7 @@ const DiscoverContainer: React.FC = () => {
               <DiscoverCard tickerPrice={ticker} key={ticker.symbol} />
             ))}
           </Container>
-        </div>
+        </Container>
       ) : (
         <div className='mt-3 text-center'>
           <Spinner animation='border' variant='dark' />
