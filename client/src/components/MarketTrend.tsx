@@ -52,7 +52,7 @@ const MarketTrend: React.FC<MarketTrendProps> = ({ tickerPrice }) => {
           </div>
 
           <div className='market-percent-wrap'>
-            <div className='discover-price-badge discover-green'>{tickerPrice.prices[0].changePercent}%</div>
+            <div className='price-badge discover-green'>{tickerPrice.prices[0].changePercent}%</div>
           </div>
         </Fragment>
       ) : (
@@ -62,7 +62,7 @@ const MarketTrend: React.FC<MarketTrendProps> = ({ tickerPrice }) => {
           </div>
 
           <div className='market-percent-wrap'>
-            <div className='discover-price-badge discover-red'>{tickerPrice.prices[0].changePercent}%</div>
+            <div className='price-badge discover-red'>{tickerPrice.prices[0].changePercent}%</div>
           </div>
         </Fragment>
       )}

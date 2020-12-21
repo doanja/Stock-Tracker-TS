@@ -1,0 +1,29 @@
+// widescreens
+@include mediaXL {
+}
+
+// desktops & laptops
+@include mediaLG {
+  .market-company-name {
+    margin-left: 2rem;
+  }
+}
+
+// tablets and small laptops
+@include mediaMD {
+  .market-trend-badge-company-wrap {
+    flex-direction: column;
+  }
+
+  .market-price-text-wrap {
+    width: 90px;
+  }
+}
+
+.market-percent-wrap {
+  width: 90px;
+}
+
+// smartphones
+@include mediaSM {
+}

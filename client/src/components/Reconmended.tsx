@@ -55,7 +55,7 @@ const Reconmended: React.FC<ReconmendedProps> = ({ tickerPrice }) => {
             <p className='market-price-text font-green-dark'>+${tickerPrice.prices[0].priceChange}</p>
           </div>
           <div className='market-percent-wrap'>
-            <div className='discover-price-badge discover-green'>+{tickerPrice.prices[0].changePercent}%</div>
+            <div className='price-badge discover-green'>+{tickerPrice.prices[0].changePercent}%</div>
           </div>
         </Fragment>
       ) : (
@@ -64,7 +64,7 @@ const Reconmended: React.FC<ReconmendedProps> = ({ tickerPrice }) => {
             <p className='market-price-text font-red-dark'>-${tickerPrice.prices[0].priceChange * -1}</p>
           </div>
           <div className='market-percent-wrap'>
-            <div className='discover-price-badge discover-red'>{tickerPrice.prices[0].changePercent}%</div>
+            <div className='price-badge discover-red'>{tickerPrice.prices[0].changePercent}%</div>
           </div>
         </Fragment>
       )}

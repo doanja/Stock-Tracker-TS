@@ -268,7 +268,7 @@ body {
   bottom: 0.75rem;
 }
 
-.discover-price-badge {
+.price-badge {
   letter-spacing: 0.00625em;
   font-family: 'Google Sans', Roboto, Arial, sans-serif;
   font-size: 1rem;
@@ -340,7 +340,6 @@ body {
   flex: 1;
   display: flex;
   overflow: hidden;
-  flex-direction: column;
 }
 
 .market-company-name {
@@ -417,3 +416,5 @@ body {
   box-align: center;
   align-items: center;
 }
+
+@import 'mobile'; // for mobile
