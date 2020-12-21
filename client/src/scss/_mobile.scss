@@ -1,5 +1,8 @@
 // widescreens
 @include mediaXL {
+  .market-company-name {
+    margin-left: 2rem;
+  }
 }
 
 // desktops & laptops
@@ -11,17 +14,24 @@
 
 // tablets and small laptops
 @include mediaMD {
-  .market-trend-badge-company-wrap {
+  .company-badge-name-wrap {
     flex-direction: column;
   }
 
-  .market-price-text-wrap {
+  .market-price-text-wrap,
+  .market-percent-wrap {
     width: 90px;
   }
-}
 
-.market-percent-wrap {
-  width: 90px;
+  .reconmended-price-text-wrap,
+  .market-percent-wrap {
+    width: 70px;
+  }
+
+  .market-price-text,
+  .price-badge {
+    font-size: 0.9rem;
+  }
 }
 
 // smartphones

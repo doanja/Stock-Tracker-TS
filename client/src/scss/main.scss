@@ -336,7 +336,7 @@ body {
   }
 }
 
-.market-trend-badge-company-wrap {
+.company-badge-name-wrap {
   flex: 1;
   display: flex;
   overflow: hidden;
@@ -366,7 +366,6 @@ body {
   font-size: 1rem;
   font-weight: 500;
   line-height: 1.5rem;
-  // color: #202124;
 
   height: 24px;
   overflow: hidden;
@@ -396,7 +395,7 @@ body {
 }
 
 .reconmended-price-text-wrap {
-  width: 25%;
+  width: 116px;
   display: flex;
   box-pack: end;
   -webkit-box-pack: end;

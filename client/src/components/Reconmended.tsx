@@ -36,7 +36,7 @@ const Reconmended: React.FC<ReconmendedProps> = ({ tickerPrice }) => {
 
   return (
     <div className='market-trend-wrap' onClick={() => dispatch(setTicker(tickerPrice.symbol))}>
-      <div className='mt-2 market-trend-badge-company-wrap'>
+      <div className='mt-2 company-badge-name-wrap'>
         <div className='mb-1 ticker-badge '>
           <div className='ticker-badge-text'>{tickerPrice.symbol}</div>
         </div>
