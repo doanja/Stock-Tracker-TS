@@ -20,6 +20,8 @@ import MarketTrendsContainer from './MarketTrendContainer';
 import MarketTrend from './MarketTrend';
 import ReconmendedContainer from './ReconmendedContainer';
 import Reconmended from './Reconmended';
+import MostFollowedContainer from './MostFollowedContainer';
+import MostFollowed from './MostFollowed';
 
 export {
   SaveButton,
@@ -44,4 +46,6 @@ export {
   MarketTrend,
   ReconmendedContainer,
   Reconmended,
+  MostFollowedContainer,
+  MostFollowed,
 };

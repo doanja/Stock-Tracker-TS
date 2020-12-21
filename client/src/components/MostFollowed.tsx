@@ -9,13 +9,13 @@ import { faPlusCircle, faMinusCircle } from '@fortawesome/free-solid-svg-icons';
 // redux
 import { useDispatch, useSelector } from 'react-redux';
 import { RootStore } from '../redux/Store';
-import { setTicker, addToWatchlist, removeFromWatchlist } from '../redux/actions/stockActions';
+import { setTicker, addToWatchlist, removeFromWatchlist, setTickerPrices } from '../redux/actions/stockActions';
 
-interface ReconmendedProps {
+interface MostFollowed {
   tickerPrice: TickerPrice;
 }
 
-const Reconmended: React.FC<ReconmendedProps> = ({ tickerPrice }) => {
+const MostFollowed: React.FC<MostFollowed> = ({ tickerPrice }) => {
   const history = useHistory();
   const [isWatching, setIsWatching] = useState(false);
 
@@ -80,4 +80,4 @@ const Reconmended: React.FC<ReconmendedProps> = ({ tickerPrice }) => {
   );
 };
 
-export default Reconmended;
+export default MostFollowed;
