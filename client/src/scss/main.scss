@@ -325,7 +325,7 @@ body {
   background-color: white;
 }
 
-.market-trend-wrap {
+.ticker-trend-wrap {
   display: flex;
   align-items: center;
   border-top: 1px solid #dadce0;
@@ -342,7 +342,19 @@ body {
   overflow: hidden;
 }
 
-.market-company-name {
+.company-name {
+  letter-spacing: 0.01785714em;
+  font-family: 'Google Sans', Roboto, Arial, sans-serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.25rem;
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  display: -webkit-box;
+  overflow: hidden;
+  position: relative;
+
   display: flex;
   flex: 1;
   max-height: 100%;

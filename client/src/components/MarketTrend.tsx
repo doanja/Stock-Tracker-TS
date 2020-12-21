@@ -34,13 +34,13 @@ const MarketTrend: React.FC<MarketTrendProps> = ({ tickerPrice }) => {
   };
 
   return (
-    <div className='market-trend-wrap' onClick={() => dispatch(setTicker(tickerPrice.symbol))}>
+    <div className='ticker-trend-wrap' onClick={() => dispatch(setTicker(tickerPrice.symbol))}>
       <div className='mt-2 company-badge-name-wrap'>
         <div className='mb-1 ticker-badge '>
           <div className='ticker-badge-text'>{tickerPrice.symbol}</div>
         </div>
 
-        <div className='mb-3 ticker-company-text market-company-name'>
+        <div className='mb-3 company-name'>
           <p>{tickerPrice.companyName}</p>
         </div>
       </div>

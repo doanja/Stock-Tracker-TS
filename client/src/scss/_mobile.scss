@@ -1,13 +1,13 @@
 // widescreens
 @include mediaXL {
-  .market-company-name {
+  .company-name {
     margin-left: 2rem;
   }
 }
 
 // desktops & laptops
 @include mediaLG {
-  .market-company-name {
+  .company-name {
     margin-left: 2rem;
   }
 }
