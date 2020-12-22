@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import { StockService } from '../services';
 import { getTickerName, bulkUpdatePrices } from '../helper';
 import { Reconmended } from './';
@@ -34,7 +34,7 @@ const ReconmendedContainer: React.FC = ({}) => {
   }, [tickerPrices]);
 
   return (
-    <Container className='m-0 p-0 sub-container'>
+    <Container className='m-0 p-3 sub-container ticker-home-sub-wrap'>
       <h2 className='sub-heading mb-3'>You may be interested in</h2>
       {tickerPrices.length > 0 ? (
         tickerPrices?.map((ticker: TickerPrice) => <Reconmended tickerPrice={ticker} key={ticker.symbol} />)

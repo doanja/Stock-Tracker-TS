@@ -32,6 +32,16 @@
   .price-badge {
     font-size: 0.9rem;
   }
+
+  .ticker-home-wrap {
+    flex-direction: column;
+  }
+
+  .most-followed-container {
+    margin-top: 1rem;
+    margin-left: 0;
+    border: 1px solid blue;
+  }
 }
 
 // smartphones

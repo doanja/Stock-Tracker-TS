@@ -46,27 +46,14 @@ const MostFollowed: React.FC<MostFollowed> = ({ tickerPrice }) => {
         </div>
       </div>
 
-      <div className='reconmended-price-text-wrap'>
-        <p className='market-price-text'>${tickerPrice.prices[0].price}</p>
-      </div>
       {tickerPrice.prices[0].priceChange > 0 ? (
-        <Fragment>
-          <div className='reconmended-price-text-wrap'>
-            <p className='market-price-text font-green-dark'>+${tickerPrice.prices[0].priceChange}</p>
-          </div>
-          <div className='market-percent-wrap'>
-            <div className='price-badge discover-green'>+{tickerPrice.prices[0].changePercent}%</div>
-          </div>
-        </Fragment>
+        <div className='market-percent-wrap'>
+          <div className='price-badge discover-green'>+{tickerPrice.prices[0].changePercent}%</div>
+        </div>
       ) : (
-        <Fragment>
-          <div className='reconmended-price-text-wrap'>
-            <p className='market-price-text font-red-dark'>-${tickerPrice.prices[0].priceChange * -1}</p>
-          </div>
-          <div className='market-percent-wrap'>
-            <div className='price-badge discover-red'>{tickerPrice.prices[0].changePercent}%</div>
-          </div>
-        </Fragment>
+        <div className='market-percent-wrap'>
+          <div className='price-badge discover-red'>{tickerPrice.prices[0].changePercent}%</div>
+        </div>
       )}
 
       <div className='market-icon-wrap'>

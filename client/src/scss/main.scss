@@ -145,7 +145,6 @@ body {
 .sub-container {
   background-color: white;
   border-radius: 2.5px;
-  border: 1px solid white;
 }
 
 .sub-heading {
@@ -426,6 +425,21 @@ body {
   -webkit-box-align: center;
   box-align: center;
   align-items: center;
+}
+
+.ticker-home-sub-wrap {
+  flex-direction: column;
+}
+
+.ticker-home-wrap {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+}
+
+.most-followed-container {
+  margin-left: 100px;
+  border: 1px solid red;
 }
 
 @import 'mobile'; // for mobile

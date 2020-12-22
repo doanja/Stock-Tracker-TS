@@ -6,7 +6,7 @@ interface TickerHomeProps {}
 
 const TickerHome: React.FC<TickerHomeProps> = ({}) => {
   return (
-    <div className='mt-3 p-3 sub-container'>
+    <div className='mt-3 ticker-home-wrap'>
       <ReconmendedContainer />
       <MostFollowedContainer />
     </div>

@@ -4,7 +4,7 @@ interface Prices {
   priceChange: number;
 }
 
-const roundDecimals = (num: number) => parseFloat((Math.round(num * 100) / 100).toFixed(2));
+const roundDecimals = (num: number): number => +(Math.round(num * 100) / 100).toFixed(2);
 
 export const getNextPrice = (oldPrice: number): Prices => {
   const volatility: number = Math.random() * 5 + 2;

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import { StockService } from '../services';
 import { getTickerName, bulkUpdatePrices } from '../helper';
 import { MostFollowed } from './';
@@ -34,7 +34,7 @@ const MostFollowedContainer: React.FC = ({}) => {
   }, [tickerPrices]);
 
   return (
-    <Container className='m-0 p-0 sub-container'>
+    <Container className='p-3 sub-container ticker-home-sub-wrap most-followed-container'>
       <h2 className='sub-heading mb-3'>Most followed on Stock Tracker</h2>
       {tickerPrices.length > 0 ? (
         tickerPrices?.map((ticker: TickerPrice) => <MostFollowed tickerPrice={ticker} key={ticker.symbol} />)
