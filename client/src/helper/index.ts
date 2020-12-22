@@ -130,3 +130,9 @@ export const getNextPrice = (oldPrice: number): Prices => {
 
   return { price, changePercent, priceChange };
 };
+
+export const bulkUpdatePrices = (tickerPrices: TickerPrice[]): TickerPrice[] => {
+  let temp: TickerPrice[] = [...tickerPrices!];
+  temp.forEach(tickerPrice => (tickerPrice.prices[0] = getNextPrice(tickerPrice.prices[0].price)));
+  return temp;
+};

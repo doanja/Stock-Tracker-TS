@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { addToWatchlist, getWatchlist, removeFromWatchlist, getTickerPrices } from '../controllers/stock.controller';
+import { addToWatchlist, getWatchlist, removeFromWatchlist, getTickerPrices, getTickerPricesMin } from '../controllers/stock.controller';
 import { verifyAccessToken } from '../middleware/verifyToken';
 
 export default class StockRoute {
@@ -14,5 +14,6 @@ export default class StockRoute {
     this.router.put('/watchlist/add', [verifyAccessToken], addToWatchlist);
     this.router.put('/watchlist/remove', [verifyAccessToken], removeFromWatchlist);
     this.router.get('/stock/prices', getTickerPrices);
+    this.router.get('/stock/pricesMin', getTickerPricesMin);
   }
 }

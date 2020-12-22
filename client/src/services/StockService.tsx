@@ -5,6 +5,10 @@ export default class StockService {
     return axios.get<any>('/stock/prices');
   }
 
+  public getTickerPricesMin(): Promise<AxiosResponse<any>> {
+    return axios.get<any>('/stock/pricesMin');
+  }
+
   public getWatchlist(): Promise<AxiosResponse<any>> {
     return axios.get<any>('/watchlist');
   }

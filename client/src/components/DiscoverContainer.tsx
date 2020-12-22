@@ -23,7 +23,7 @@ const DiscoverContainer: React.FC = () => {
    */
   const generateTickerPrices = (number: number) => {
     const sampleWatchlist = generateWatchlist(number);
-    const loadPrices = async () => Promise.all(sampleWatchlist.map(ticker => stockAPI.getTickerPrices()));
+    const loadPrices = async () => Promise.all(sampleWatchlist.map(ticker => stockAPI.getTickerPricesMin()));
     const tickerPrices: TickerPrice[] = [];
     loadPrices().then(promise => {
       for (let i = 0; i < promise.length; i++) {

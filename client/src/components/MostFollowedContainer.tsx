@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { StockService } from '../services';
-import { getTickerName } from '../helper';
+import { getTickerName, bulkUpdatePrices } from '../helper';
 import { MostFollowed } from './';
 import { Container, Spinner } from 'react-bootstrap';
 import '../styles/main.min.css';
@@ -16,7 +16,7 @@ const MostFollowedContainer: React.FC = ({}) => {
   // function to generate stock data
   const generateTickerPrices = () => {
     const sampleWatchlist = ['AAPL', 'GOOGL', 'MSFT', 'AMZN', 'FB', 'TSLA'];
-    const loadPrices = async () => Promise.all(sampleWatchlist.map(ticker => stockAPI.getTickerPrices()));
+    const loadPrices = async () => Promise.all(sampleWatchlist.map(ticker => stockAPI.getTickerPricesMin()));
     const tickerPrices: TickerPrice[] = [];
     loadPrices().then(promise => {
       for (let i = 0; i < promise.length; i++) {
@@ -26,6 +26,13 @@ const MostFollowedContainer: React.FC = ({}) => {
     });
   };
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (tickerPrices) setTickerPrices(bulkUpdatePrices(tickerPrices));
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [tickerPrices]);
+
   return (
     <Container className='m-0 p-0 sub-container'>
       <h2 className='sub-heading mb-3'>Most followed on Stock Tracker</h2>
@@ -33,7 +40,7 @@ const MostFollowedContainer: React.FC = ({}) => {
         tickerPrices?.map((ticker: TickerPrice) => <MostFollowed tickerPrice={ticker} key={ticker.symbol} />)
       ) : (
         <div className='mt-3 text-center'>
-          <Spinner animation='border' variant='dark' />
+          <Spinner className='mb-3' animation='border' variant='dark' />
         </div>
       )}
     </Container>

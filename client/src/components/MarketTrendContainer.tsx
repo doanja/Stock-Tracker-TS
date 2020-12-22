@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { StockService } from '../services';
-import { generateWatchlist, getTickerName } from '../helper';
+import { generateWatchlist, getTickerName, bulkUpdatePrices } from '../helper';
 import { MarketTrend } from './';
 import { Container, Spinner } from 'react-bootstrap';
 import '../styles/main.min.css';
@@ -19,15 +19,23 @@ const MarketTrendsContainer: React.FC = () => {
    */
   const generateTickerPrices = (number: number) => {
     const sampleWatchlist = generateWatchlist(number);
-    const loadPrices = async () => Promise.all(sampleWatchlist.map(ticker => stockAPI.getTickerPrices()));
+    const loadPrices = async () => Promise.all(sampleWatchlist.map(ticker => stockAPI.getTickerPricesMin()));
     const tickerPrices: TickerPrice[] = [];
     loadPrices().then(promise => {
       for (let i = 0; i < promise.length; i++) {
         tickerPrices.push({ symbol: sampleWatchlist[i], companyName: getTickerName(sampleWatchlist[i]), prices: promise[i].data.prices });
       }
+      console.log('tickerPrices', tickerPrices);
       setTickerPrices(tickerPrices);
     });
   };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (tickerPrices) setTickerPrices(bulkUpdatePrices(tickerPrices));
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [tickerPrices]);
 
   return (
     <Container className='mt-3 p-3 sub-container'>
@@ -36,7 +44,7 @@ const MarketTrendsContainer: React.FC = () => {
         tickerPrices?.map((ticker: TickerPrice) => <MarketTrend tickerPrice={ticker} key={ticker.symbol} />)
       ) : (
         <div className='mt-3 text-center'>
-          <Spinner animation='border' variant='dark' />
+          <Spinner className='mb-3' animation='border' variant='dark' />
         </div>
       )}
     </Container>
