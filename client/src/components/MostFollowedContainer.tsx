@@ -34,8 +34,8 @@ const MostFollowedContainer: React.FC = ({}) => {
   }, [tickerPrices]);
 
   return (
-    <Container className='p-3 sub-container ticker-home-sub-wrap most-followed-container'>
-      <h2 className='sub-heading mb-3'>Most followed on Stock Tracker</h2>
+    <Container className='p-3 sub-container ticker-home-sub-wrap'>
+      <h2 className='sub-heading mb-3'>Most followed</h2>
       {tickerPrices.length > 0 ? (
         tickerPrices?.map((ticker: TickerPrice) => <MostFollowed tickerPrice={ticker} key={ticker.symbol} />)
       ) : (
