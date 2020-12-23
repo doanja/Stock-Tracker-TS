@@ -187,7 +187,7 @@ body {
   -webkit-overflow-scrolling: touch;
 }
 
-.discover-wrap {
+.position-relative {
   position: relative;
 }
 
@@ -304,7 +304,7 @@ body {
   pointer-events: none;
 }
 
-.discover-wrap {
+.price-text {
   position: relative;
 }
 
@@ -371,7 +371,7 @@ body {
   align-items: center;
 }
 
-.market-price-text {
+.price-text {
   letter-spacing: 0.00625em;
   font-family: 'Google Sans', Roboto, Arial, sans-serif;
   font-size: 1rem;
@@ -383,7 +383,7 @@ body {
   display: block;
 }
 
-.market-percent-wrap {
+.percent-wrap {
   width: 100px;
   display: flex;
   box-pack: end;
@@ -394,7 +394,7 @@ body {
   align-items: center;
 }
 
-.market-icon-wrap {
+.icon-wrap {
   width: 48px;
   display: flex;
   box-pack: center;
@@ -405,7 +405,7 @@ body {
   align-items: center;
 }
 
-.market-icon {
+.icon-overlayed {
   position: absolute;
   top: 40%;
   right: 2%;

@@ -34,7 +34,7 @@ const DiscoverCard: React.FC<DiscoverCardProps> = ({ tickerPrice }) => {
   };
 
   return (
-    <div className='mb-2 discover-wrap' key={tickerPrice.symbol}>
+    <div className='mb-2 position-relative' key={tickerPrice.symbol}>
       <div className='discover-card' onClick={() => dispatch(setTicker(tickerPrice.symbol))}>
         <div className='mb-1 ticker-badge'>
           <div className='ticker-badge-text'>{tickerPrice.symbol}</div>

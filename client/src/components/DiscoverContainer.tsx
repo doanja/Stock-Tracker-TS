@@ -53,7 +53,7 @@ const DiscoverContainer: React.FC = () => {
       </Container>
 
       {tickerPrices.length > 0 ? (
-        <Container className='discover-wrap'>
+        <Container className='position-relative'>
           <FontAwesomeIcon className='scroll-icon-left icon' icon={faChevronCircleLeft} size='2x' onClick={() => shiftDiscoverContainer('left')} />
           <FontAwesomeIcon className='scroll-icon-right icon' icon={faChevronCircleRight} size='2x' onClick={() => shiftDiscoverContainer('right')} />
 

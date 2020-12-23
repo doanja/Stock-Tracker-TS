@@ -34,44 +34,47 @@ const MarketTrend: React.FC<MarketTrendProps> = ({ tickerPrice }) => {
   };
 
   return (
-    <div className='ticker-trend-wrap' onClick={() => dispatch(setTicker(tickerPrice.symbol))}>
-      <div className='mt-2 company-badge-name-wrap'>
-        <div className='mb-1 ticker-badge '>
-          <div className='ticker-badge-text'>{tickerPrice.symbol}</div>
+    <div className='position-relative' key={tickerPrice.symbol}>
+      <div className='ticker-trend-wrap' onClick={() => dispatch(setTicker(tickerPrice.symbol))}>
+        <div className='mt-2 company-badge-name-wrap'>
+          <div className='mb-1 ticker-badge '>
+            <div className='ticker-badge-text'>{tickerPrice.symbol}</div>
+          </div>
+
+          <div className='mb-3 company-name'>
+            <p>{tickerPrice.companyName}</p>
+          </div>
         </div>
 
-        <div className='mb-3 company-name'>
-          <p>{tickerPrice.companyName}</p>
-        </div>
-      </div>
+        {tickerPrice.prices[0].priceChange > 0 ? (
+          <Fragment>
+            <div className='price-text-wrap'>
+              <p className='price-text'>${tickerPrice.prices[0].price}</p>
+            </div>
 
-      {tickerPrice.prices[0].priceChange > 0 ? (
-        <Fragment>
-          <div className='market-price-text-wrap'>
-            <p className='market-price-text'>${tickerPrice.prices[0].price}</p>
-          </div>
-
-          <div className='market-percent-wrap'>
-            <div className='price-badge discover-green'>{tickerPrice.prices[0].changePercent}%</div>
-          </div>
-        </Fragment>
-      ) : (
-        <Fragment>
-          <div className='market-price-text-wrap'>
-            <p className='market-price-text'>${tickerPrice.prices[0].price}</p>
-          </div>
-
-          <div className='market-percent-wrap'>
-            <div className='price-badge discover-red'>{tickerPrice.prices[0].changePercent}%</div>
-          </div>
-        </Fragment>
-      )}
-
-      <div className='market-icon-wrap'>
-        {isWatching ? (
-          <FontAwesomeIcon className='market-icon icon' icon={faMinusCircle} size='lg' onClick={() => saveTicker(tickerPrice.symbol)} />
+            <div className='percent-wrap'>
+              <div className='price-badge discover-green'>{tickerPrice.prices[0].changePercent}%</div>
+            </div>
+          </Fragment>
         ) : (
-          <FontAwesomeIcon className='market-icon icon' icon={faPlusCircle} size='lg' onClick={() => saveTicker(tickerPrice.symbol)} />
+          <Fragment>
+            <div className='price-text-wrap'>
+              <p className='price-text'>${tickerPrice.prices[0].price}</p>
+            </div>
+
+            <div className='percent-wrap'>
+              <div className='price-badge discover-red'>{tickerPrice.prices[0].changePercent}%</div>
+            </div>
+          </Fragment>
+        )}
+
+        <div className='icon-wrap'></div>
+      </div>
+      <div className='icon-wrap'>
+        {isWatching ? (
+          <FontAwesomeIcon className='icon-overlayed icon' icon={faMinusCircle} size='lg' onClick={() => saveTicker(tickerPrice.symbol)} />
+        ) : (
+          <FontAwesomeIcon className='icon-overlayed icon' icon={faPlusCircle} size='lg' onClick={() => saveTicker(tickerPrice.symbol)} />
         )}
       </div>
     </div>
