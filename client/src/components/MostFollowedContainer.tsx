@@ -34,7 +34,7 @@ const MostFollowedContainer: React.FC = ({}) => {
   }, [tickerPrices]);
 
   return (
-    <Container className='p-3 sub-container ticker-home-sub-wrap'>
+    <div className='p-3 sub-container ticker-home-sub-wrap'>
       <h2 className='sub-heading mb-3'>Most followed</h2>
       {tickerPrices.length > 0 ? (
         tickerPrices?.map((ticker: TickerPrice) => <MostFollowed tickerPrice={ticker} key={ticker.symbol} />)
@@ -43,7 +43,7 @@ const MostFollowedContainer: React.FC = ({}) => {
           <Spinner className='mb-3' animation='border' variant='dark' />
         </div>
       )}
-    </Container>
+    </div>
   );
 };
 

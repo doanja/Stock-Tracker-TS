@@ -304,10 +304,6 @@ body {
   pointer-events: none;
 }
 
-.price-text {
-  position: relative;
-}
-
 .scroll-icon-left {
   position: absolute;
   z-index: 5;
@@ -360,8 +356,8 @@ body {
   overflow: hidden;
 }
 
-.market-price-text-wrap {
-  width: 116px;
+.price-text-wrap {
+  width: 100px;
   display: flex;
   box-pack: end;
   -webkit-box-pack: end;
@@ -381,6 +377,8 @@ body {
   height: 24px;
   overflow: hidden;
   display: block;
+
+  position: relative;
 }
 
 .percent-wrap {
@@ -411,28 +409,6 @@ body {
   right: 2%;
 }
 
-.reconmended-price-text-wrap {
-  width: 100px;
-  display: flex;
-  box-pack: end;
-  -webkit-box-pack: end;
-  justify-content: flex-end;
-  -webkit-box-align: center;
-  box-align: center;
-  align-items: center;
-}
-
-.reconmended-icon-wrap {
-  width: 25%;
-  display: flex;
-  box-pack: center;
-  -webkit-box-pack: center;
-  justify-content: center;
-  -webkit-box-align: center;
-  box-align: center;
-  align-items: center;
-}
-
 .ticker-home-wrap {
   display: flex;
   flex-direction: row;
@@ -441,6 +417,10 @@ body {
 
 .ticker-home-sub-wrap {
   flex-direction: column;
+}
+
+.flex-even {
+  flex: 1 1 0px;
 }
 
 @import 'mobile'; // for mobile

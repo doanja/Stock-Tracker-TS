@@ -89,9 +89,10 @@ const Home: React.FC = () => {
           <TickerHome />
         )}
 
-        <TickerNewsContainer ticker={ticker} />
-
-        {ticker && tickerPrice ? <TickerAbout tickerPrice={tickerPrice} /> : <MarketTrendsContainer />}
+        <div className='mt-3 ticker-home-wrap'>
+          <TickerNewsContainer ticker={ticker} />
+          {ticker && tickerPrice ? <TickerAbout tickerPrice={tickerPrice} /> : <MarketTrendsContainer />}
+        </div>
       </Container>
       <DiscoverContainer />
       <CustomFooter />

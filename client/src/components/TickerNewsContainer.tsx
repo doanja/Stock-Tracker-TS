@@ -30,7 +30,6 @@ const TickerNewsContainer: React.FC<TickerNewsContainerProps> = ({ ticker }) => 
     if (ticker) {
       api.getNews(ticker).then(res => {
         const articles = res.data.articles;
-        console.log('res.data.articles :>> ', res.data.articles);
         if (articles.length > 0) {
           articles.forEach((article: Article) => (article.publishedAt = getHoursFromCurrent(article.publishedAt)));
           setArticles(articles.slice(0, 6));
@@ -40,7 +39,7 @@ const TickerNewsContainer: React.FC<TickerNewsContainerProps> = ({ ticker }) => 
   }, [ticker]);
 
   return (
-    <div className='mt-3 p-3 sub-container'>
+    <div className='p-3 sub-container ticker-home-sub-wrap flex-even'>
       <h2 className='sub-heading'>In the news</h2>
       {articles.map((article: Article, index) => (
         <TickerNews article={article} key={index} />

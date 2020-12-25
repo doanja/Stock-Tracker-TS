@@ -38,7 +38,7 @@ const MarketTrendsContainer: React.FC = () => {
   }, [tickerPrices]);
 
   return (
-    <Container className='mt-3 p-3 sub-container'>
+    <div className='p-3 sub-container ticker-home-sub-wrap'>
       <h2 className='sub-heading mb-3'>Market Trends</h2>
       {tickerPrices.length > 0 ? (
         tickerPrices?.map((ticker: TickerPrice) => <MarketTrend tickerPrice={ticker} key={ticker.symbol} />)
@@ -47,7 +47,7 @@ const MarketTrendsContainer: React.FC = () => {
           <Spinner className='mb-3' animation='border' variant='dark' />
         </div>
       )}
-    </Container>
+    </div>
   );
 };
 

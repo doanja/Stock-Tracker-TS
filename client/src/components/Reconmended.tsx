@@ -47,12 +47,12 @@ const Reconmended: React.FC<ReconmendedProps> = ({ tickerPrice }) => {
           </div>
         </div>
 
-        <div className='reconmended-price-text-wrap'>
+        <div className='price-text-wrap'>
           <p className='price-text'>${tickerPrice.prices[0].price}</p>
         </div>
         {tickerPrice.prices[0].priceChange > 0 ? (
           <Fragment>
-            <div className='reconmended-price-text-wrap'>
+            <div className='price-text-wrap'>
               <p className='price-text font-green-dark'>+${tickerPrice.prices[0].priceChange}</p>
             </div>
             <div className='percent-wrap'>
@@ -61,7 +61,7 @@ const Reconmended: React.FC<ReconmendedProps> = ({ tickerPrice }) => {
           </Fragment>
         ) : (
           <Fragment>
-            <div className='reconmended-price-text-wrap'>
+            <div className='price-text-wrap'>
               <p className='price-text font-red-dark'>-${tickerPrice.prices[0].priceChange * -1}</p>
             </div>
             <div className='percent-wrap'>
