@@ -38,7 +38,7 @@ const MarketTrendsContainer: React.FC = () => {
   }, [tickerPrices]);
 
   return (
-    <div className='p-3 sub-container ticker-home-sub-wrap'>
+    <div className='p-3 sub-container ticker-home-sub-wrap flex-even'>
       <h2 className='sub-heading mb-3'>Market Trends</h2>
       {tickerPrices.length > 0 ? (
         tickerPrices?.map((ticker: TickerPrice) => <MarketTrend tickerPrice={ticker} key={ticker.symbol} />)
