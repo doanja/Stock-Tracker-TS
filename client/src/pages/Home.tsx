@@ -11,7 +11,6 @@ import {
   SaveButton,
   TickerLineContainer,
   MarketTrendsContainer,
-  AlsoSearchedForContainer,
 } from '../components';
 import { StockService } from '../services';
 import { useHistory } from 'react-router-dom';
@@ -90,13 +89,13 @@ const Home: React.FC = () => {
           <TickerHome />
         )}
 
-        <div className='mt-3 ticker-home-wrap'>
+        <div className='my-3 ticker-home-wrap'>
           <TickerNewsContainer ticker={ticker} />
           {ticker && tickerPrice ? <TickerAbout tickerPrice={tickerPrice} /> : <MarketTrendsContainer />}
         </div>
       </Container>
-      <DiscoverContainer />
-      <AlsoSearchedForContainer />
+      <DiscoverContainer heading={'Discover more'} />
+      <DiscoverContainer heading={'People also search for'} />
       <CustomFooter />
     </Fragment>
   );
