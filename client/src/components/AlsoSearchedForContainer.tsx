@@ -47,9 +47,9 @@ const AlsoSearchedForContainer: React.FC = ({}) => {
   };
 
   return (
-    <div className='mt-3 p-3 sub-container'>
+    <div className='p-3 sub-container'>
       <Container>
-        <h3 className='sub-heading'>Discover more</h3>
+        <h3 className='sub-heading'>People also search for</h3>
       </Container>
 
       {tickerPrices.length > 0 ? (

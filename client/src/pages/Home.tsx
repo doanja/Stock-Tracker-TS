@@ -11,6 +11,7 @@ import {
   SaveButton,
   TickerLineContainer,
   MarketTrendsContainer,
+  AlsoSearchedForContainer,
 } from '../components';
 import { StockService } from '../services';
 import { useHistory } from 'react-router-dom';
@@ -95,6 +96,7 @@ const Home: React.FC = () => {
         </div>
       </Container>
       <DiscoverContainer />
+      <AlsoSearchedForContainer />
       <CustomFooter />
     </Fragment>
   );
