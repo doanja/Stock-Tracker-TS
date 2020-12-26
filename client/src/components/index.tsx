@@ -22,6 +22,8 @@ import ReconmendedContainer from './ReconmendedContainer';
 import Reconmended from './Reconmended';
 import MostFollowedContainer from './MostFollowedContainer';
 import MostFollowed from './MostFollowed';
+import AlsoSearchedForContainer from './AlsoSearchedForContainer';
+import AlsoSearchedFor from './AlsoSearchedFor';
 
 export {
   SaveButton,
@@ -48,4 +50,6 @@ export {
   Reconmended,
   MostFollowedContainer,
   MostFollowed,
+  AlsoSearchedForContainer,
+  AlsoSearchedFor,
 };
