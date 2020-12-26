@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { StockService } from '../services';
 import { generateWatchlist, getTickerName, bulkUpdatePrices } from '../helper';
 import { MarketTrend } from './';
-import { Container, Spinner } from 'react-bootstrap';
+import { Spinner } from 'react-bootstrap';
 import '../styles/main.min.css';
 
 const MarketTrendsContainer: React.FC = () => {

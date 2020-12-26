@@ -8,11 +8,11 @@ import '../styles/main.min.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronCircleRight, faChevronCircleLeft } from '@fortawesome/free-solid-svg-icons';
 
-interface DiscoverContainer {
+interface DiscoverContainerProps {
   heading: string;
 }
 
-const DiscoverContainer: React.FC<DiscoverContainer> = ({ heading }) => {
+const DiscoverContainer: React.FC<DiscoverContainerProps> = ({ heading }) => {
   const stockAPI = new StockService();
   const [tickerPrices, setTickerPrices] = useState<TickerPrice[]>([]);
   const discContainerRef = useRef<null | HTMLDivElement>(null);

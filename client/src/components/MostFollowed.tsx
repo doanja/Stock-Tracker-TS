@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import '../styles/main.min.css';
 import '../styles/ticker.min.css';
@@ -11,11 +11,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootStore } from '../redux/Store';
 import { setTicker, addToWatchlist, removeFromWatchlist } from '../redux/actions/stockActions';
 
-interface MostFollowed {
+interface MostFollowedProps {
   tickerPrice: TickerPrice;
 }
 
-const MostFollowed: React.FC<MostFollowed> = ({ tickerPrice }) => {
+const MostFollowed: React.FC<MostFollowedProps> = ({ tickerPrice }) => {
   const history = useHistory();
   const [isWatching, setIsWatching] = useState(false);
 
