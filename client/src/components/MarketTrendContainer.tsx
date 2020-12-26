@@ -24,9 +24,8 @@ const MarketTrendsContainer: React.FC = () => {
     loadPrices().then(promise => {
       for (let i = 0; i < promise.length; i++) {
         tickerPrices.push({ symbol: sampleWatchlist[i], companyName: getTickerName(sampleWatchlist[i]), prices: promise[i].data.prices });
+        setTickerPrices(tickerPrices);
       }
-      console.log('tickerPrices', tickerPrices);
-      setTickerPrices(tickerPrices);
     });
   };
 

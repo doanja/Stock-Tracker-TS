@@ -2,7 +2,6 @@ import { decode } from 'jsonwebtoken';
 import * as Yup from 'yup';
 import tickers from '../tickers.json';
 import moment from 'moment';
-import { StockService } from '../services';
 
 /**
  * function to check JWT expiration
@@ -131,6 +130,11 @@ export const getNextPrice = (oldPrice: number): Prices => {
   return { price, changePercent, priceChange };
 };
 
+/**
+ * function that updates the prices of an array of Ticker Prices
+ * @param tickerPrices an array of Ticker Prices
+ * @return {TickerPrice[]} an array of Ticker Prices
+ */
 export const bulkUpdatePrices = (tickerPrices: TickerPrice[]): TickerPrice[] => {
   let temp: TickerPrice[] = [...tickerPrices!];
   temp.forEach(tickerPrice => (tickerPrice.prices[0] = getNextPrice(tickerPrice.prices[0].price)));
