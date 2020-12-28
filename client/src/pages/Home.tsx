@@ -64,6 +64,8 @@ const Home: React.FC = () => {
         dispatch(setTickerPrice(currentTickerPrice));
       });
     }
+
+    window.scrollTo(0, 0);
   }, [ticker]);
 
   return (
