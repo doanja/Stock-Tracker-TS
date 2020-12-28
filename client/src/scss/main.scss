@@ -19,7 +19,7 @@ body {
 .home-wrap {
   display: flex;
   flex-direction: column;
-  min-height: calc(75vh - 60px); // calculates the footer height, for the footer
+  min-height: calc(100vh - 60px); // calculates the footer height, for the footer
 }
 
 .icon {
@@ -138,8 +138,8 @@ body {
   font-weight: 500;
   line-height: 1.5rem;
   border-top: 1px solid #dadce0;
-  position: absolute;
-  bottom: 0;
+  // position: absolute;
+  // bottom: 0;
 }
 
 .sub-container {
