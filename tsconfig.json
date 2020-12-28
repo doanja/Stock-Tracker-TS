@@ -1,17 +1,16 @@
 {
-  "compilerOptions": { 
+  "compilerOptions": {
     "target": "es6" ,
     "module": "commonjs" ,
-    "outDir": "build" ,
-    "rootDir": "src",
+    "outDir": "./dist" ,
+    "rootDir": "./src" ,
     "strict": true ,
-    // "noImplicitAny": true,
     "moduleResolution": "node" ,
-    "types": [ "node"] ,
-    "esModuleInterop": true ,
-    "resolveJsonModule": true,
+    "typeRoots": ["src", "node_modules/@types"] ,
+    "types": ["jest", "node"] ,
+    "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true
   },
-  "exclude": ["client"]
+  "exclude": ["./client"]
 }
