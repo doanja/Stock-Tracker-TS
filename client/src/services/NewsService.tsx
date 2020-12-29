@@ -15,6 +15,6 @@ export default class NewsService {
   }
 
   public getTopHeadlines(): Promise<AxiosResponse<any>> {
-    return axios.get<any>(`https://newsapi.org/v2/top-headlines?country=us&apiKey=${this.apiKey}`);
+    return axios.get<any>(`https://cors-anywhere.herokuapp.com/https://newsapi.org/v2/top-headlines?country=us&apiKey=${this.apiKey}`);
   }
 }

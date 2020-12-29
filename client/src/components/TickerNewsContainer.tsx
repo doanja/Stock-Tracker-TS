@@ -20,7 +20,6 @@ const TickerNewsContainer: React.FC<TickerNewsContainerProps> = ({ ticker }) => 
 
   const getTopHeadLines = () => {
     api.getTopHeadlines().then(res => {
-      console.log('res.data (when there is no headlines', res.data);
       const articles = res.data.articles;
       articles.forEach((article: Article) => (article.publishedAt = getHoursFromCurrent(article.publishedAt)));
       setArticles(articles.slice(0, 6));
@@ -30,7 +29,6 @@ const TickerNewsContainer: React.FC<TickerNewsContainerProps> = ({ ticker }) => 
   useEffect(() => {
     if (ticker) {
       api.getNews(ticker).then(res => {
-        console.log('res.data (when there are headlines)', res.data);
         const articles = res.data.articles;
         if (articles.length > 0) {
           articles.forEach((article: Article) => (article.publishedAt = getHoursFromCurrent(article.publishedAt)));
