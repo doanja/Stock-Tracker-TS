@@ -9,7 +9,7 @@ interface TickerNewsContainerProps {
 }
 
 const TickerNewsContainer: React.FC<TickerNewsContainerProps> = ({ ticker }) => {
-  const api = new NewsService('66942a780eeb4313a546f9909092a61c');
+  const api = new NewsService();
   const [articles, setArticles] = useState([]);
 
   const getHoursFromCurrent = (time: string): string => {
