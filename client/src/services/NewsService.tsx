@@ -10,11 +10,22 @@ export default class NewsService {
 
   public getNews(query: string): Promise<AxiosResponse<any>> {
     return axios.get<any>(
-      `http://newsapi.org/v2/everything?q=${query}&from=${moment().format('YYYY-MM-DD')}&sortBy=popularity&apiKey=${this.apiKey}`
+      `https://cors-anywhere.herokuapp.com/https://newsapi.org/v2/everything?q=${query}&from=${moment().format(
+        'YYYY-MM-DD'
+      )}&sortBy=popularity&apiKey=${this.apiKey}`,
+      {
+        headers: {
+          'X-Requested-With': 'XMLHttpRequest',
+        },
+      }
     );
   }
 
   public getTopHeadlines(): Promise<AxiosResponse<any>> {
-    return axios.get<any>(`https://cors-anywhere.herokuapp.com/https://newsapi.org/v2/top-headlines?country=us&apiKey=${this.apiKey}`);
+    return axios.get<any>(`https://cors-anywhere.herokuapp.com/https://newsapi.org/v2/top-headlines?country=us&apiKey=${this.apiKey}`, {
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+      },
+    });
   }
 }
