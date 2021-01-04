@@ -36,6 +36,11 @@
   .ticker-home-wrap {
     flex-direction: column;
   }
+
+  .price-text-wrap,
+  .percent-wrap {
+    width: 80px;
+  }
 }
 
 // smartphones
