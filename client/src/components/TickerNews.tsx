@@ -14,11 +14,11 @@ const TickerNews: React.FC<TickerNewsProps> = ({ article }) => {
       <Row noGutters={true}>
         <Col xs={9}>
           <a href={article.url} className='d-block pr-1 text-dark'>
-            <div className='news-title'>
+            <div className='news-source'>
               {article.source.name} - {article.publishedAt} hours ago
             </div>
             <br />
-            {article.title}
+            <p className='news-title'>{article.title}</p>
           </a>
         </Col>
 

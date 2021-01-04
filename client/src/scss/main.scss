@@ -7,7 +7,7 @@ html,
 }
 
 body {
-  font-family: 'Roboto', sans-serif !important;
+  font-family: $roboto;
   display: flex;
   flex-direction: column;
 }
@@ -125,7 +125,7 @@ body {
 }
 
 .brand {
-  font-family: 'Arvo', serif;
+  font-family: $arvo;
 }
 
 * {
@@ -163,10 +163,11 @@ body {
   object-position: 50% 50%;
 }
 
+.news-source,
 .news-title {
-  letter-spacing: 0.025em;
-  font-size: 0.75rem;
-  line-height: 1rem;
+  letter-spacing: 0.00625em;
+  font-family: $roboto;
+  font-size: 1rem;
 }
 
 .about-body {
@@ -203,7 +204,7 @@ body {
   height: 100%;
   padding: 12px 8px 12px 12px;
   box-sizing: border-box;
-  color: black;
+  color: $dark;
 
   border-radius: 12px;
   width: 156px;
@@ -227,7 +228,7 @@ body {
 
 .ticker-badge-text {
   letter-spacing: 0.07272727em;
-  font-family: Roboto, Arial, sans-serif;
+  font-family: $roboto;
   font-size: 0.6875rem;
   line-height: 1rem;
   text-transform: uppercase;
@@ -251,7 +252,7 @@ body {
 
 .ticker-company-text {
   letter-spacing: 0.01785714em;
-  font-family: 'Google Sans', Roboto, Arial, sans-serif;
+  font-family: $roboto;
   font-size: 0.875rem;
   font-weight: 500;
   line-height: 1.25rem;
@@ -271,7 +272,7 @@ body {
 
 .price-badge {
   letter-spacing: 0.00625em;
-  font-family: 'Google Sans', Roboto, Arial, sans-serif;
+  font-family: $roboto;
   font-size: 1rem;
   font-weight: 500;
   line-height: 1.5rem;
@@ -341,7 +342,7 @@ body {
 
 .company-name {
   letter-spacing: 0.01785714em;
-  font-family: 'Google Sans', Roboto, Arial, sans-serif;
+  font-family: $roboto;
   font-size: 0.875rem;
   font-weight: 500;
   line-height: 1.25rem;
@@ -371,7 +372,7 @@ body {
 
 .price-text {
   letter-spacing: 0.00625em;
-  font-family: 'Google Sans', Roboto, Arial, sans-serif;
+  font-family: $roboto;
   font-size: 1rem;
   font-weight: 500;
   line-height: 1.5rem;

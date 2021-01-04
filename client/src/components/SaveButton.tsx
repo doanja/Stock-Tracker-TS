@@ -33,11 +33,11 @@ const SaveIcon: React.FC<SaveIconProps> = ({ ticker }) => {
   return (
     <div className='mb-3 float-right'>
       {isWatching ? (
-        <Button variant='light' onClick={saveTicker}>
+        <Button variant='dark' onClick={saveTicker}>
           Unfollow
         </Button>
       ) : (
-        <Button variant='light' onClick={saveTicker}>
+        <Button variant='dark' onClick={saveTicker}>
           Follow
         </Button>
       )}
