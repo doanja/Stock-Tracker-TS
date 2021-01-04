@@ -6,26 +6,27 @@
 }
 
 .font-green {
-  color: rgb(92, 184, 92);
+  color: $green;
 }
 
 .font-green-dark {
-  color: rgb(19, 115, 51);
+  color: $dark-green;
 }
 
 .font-red {
-  color: rgb(217, 83, 79);
+  color: $red;
 }
 
 .font-red-dark {
-  color: rgb(165, 14, 14);
+  color: $dark-red;
 }
 
 .ticker-item {
-  background-color: #fff;
+  background-color: $light;
   border-radius: 2.5px;
   padding: 10px 0px;
   margin: 1px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.15);
 }
 
 .ticker-item:hover {
@@ -38,7 +39,7 @@ p {
 }
 
 .ticker-container {
-  background-color: white;
+  background-color: $light;
   border-radius: 2.5px;
   clear: both;
 }
@@ -58,13 +59,13 @@ p {
 }
 
 .ticker-badge-green {
-  border: 1px solid rgb(230, 244, 234);
-  background-color: rgb(230, 244, 234);
+  border: 1px solid $red;
+  background-color: $red;
 }
 
 .ticker-badge-red {
-  border: 1px solid rgb(252, 232, 230);
-  background-color: rgb(252, 232, 230);
+  border: 1px solid $green;
+  background-color: $green;
 }
 
 .ticker-price-percent {

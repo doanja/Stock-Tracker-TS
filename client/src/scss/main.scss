@@ -3,7 +3,7 @@
 
 html,
 .wrap {
-  background-color: $primary-color;
+  background-color: rgb(241, 244, 248);
 }
 
 body {
@@ -138,13 +138,12 @@ body {
   font-weight: 500;
   line-height: 1.5rem;
   border-top: 1px solid #dadce0;
-  // position: absolute;
-  // bottom: 0;
 }
 
 .sub-container {
-  background-color: white;
+  background-color: $light;
   border-radius: 2.5px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.15);
 }
 
 .sub-heading {
@@ -241,7 +240,7 @@ body {
   font-weight: bold;
   height: 22px;
   display: flex;
-  color: white;
+  color: $light;
 }
 
 .discover-icon {
@@ -282,13 +281,13 @@ body {
 }
 
 .discover-red {
-  color: #a50e0e;
-  background: #fce8e6;
+  color: $dark-red;
+  background: $red;
 }
 
 .discover-green {
-  color: #137333;
-  background: #e6f4ea;
+  color: $dark-green;
+  background: $green;
 }
 
 .scroll-wrap {
@@ -312,7 +311,7 @@ body {
   z-index: 5;
   top: 35%;
   left: 0rem;
-  background-color: white;
+  background-color: $light;
 }
 
 .scroll-icon-right {
@@ -320,7 +319,7 @@ body {
   z-index: 5;
   top: 35%;
   right: 0rem;
-  background-color: white;
+  background-color: $light;
 }
 
 .ticker-trend-wrap {
