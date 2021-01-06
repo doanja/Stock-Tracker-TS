@@ -2,19 +2,21 @@ import { Request, Response, NextFunction } from 'express';
 import passport from 'passport';
 import { Strategy } from 'passport-local';
 import { compareSync, genSaltSync, hashSync } from 'bcryptjs';
-import { User } from '../models';
+import { User, Watchlist } from '../models';
 import { IUser } from '../@types';
 import { verifyRefreshToken, signRefreshToken, deleteRefreshToken, signAccessToken } from '../helpers/jwt';
 
 export const initSignupStrategy = (): Strategy => {
   return new Strategy({ usernameField: 'email' }, (email, password, done) => {
-    User.findOne({ email: email.toLowerCase() }, (error, user: IUser) => {
+    User.findOne({ email: email.toLowerCase() }, async (error, user: IUser) => {
       if (error) return done(error);
 
       if (user) return done(null, false, { message: 'That email is already taken.' });
       else {
         const newUser = { email, password: hashSync(password, genSaltSync(8)) };
-        User.create(newUser);
+        const user: IUser = await User.create(newUser);
+
+        await Watchlist.create({ name: 'Default', user: user._id, watchlist: [] });
 
         return done(null, newUser);
       }

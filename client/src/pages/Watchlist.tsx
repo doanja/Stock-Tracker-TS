@@ -10,7 +10,7 @@ import { checkTokenExp, getTickerName } from '../helper';
 // redux
 import { useSelector, useDispatch } from 'react-redux';
 import { RootStore } from '../redux/Store';
-import { getWatchlist, setTickerPrices } from '../redux/actions/stockActions';
+import { getWatchlists, setTickerPrices } from '../redux/actions/stockActions';
 import { clearAccessToken, clearLoginStatus, clearRefreshToken, setAccessToken } from '../redux/actions/authActions';
 
 const Watchlist: React.FC = () => {
@@ -20,10 +20,10 @@ const Watchlist: React.FC = () => {
 
   // redux
   const { loginStatus, refreshToken } = useSelector((state: RootStore) => state.auth);
-  const { watchlist, error, token } = useSelector((state: RootStore) => state.stock);
+  const { watchlists, error, token } = useSelector((state: RootStore) => state.stock);
   const dispatch = useDispatch();
 
-  const prevAmount = usePrevious(watchlist);
+  const prevAmount = usePrevious(watchlists);
 
   // modal
   const [showModal, setShowModal] = useState(false);
@@ -36,7 +36,7 @@ const Watchlist: React.FC = () => {
   useEffect(() => {
     if (!loginStatus) history.push('/login');
 
-    dispatch(getWatchlist());
+    dispatch(getWatchlists());
   }, []);
 
   useEffect(() => {
@@ -48,17 +48,21 @@ const Watchlist: React.FC = () => {
   }, [token]);
 
   useEffect(() => {
-    const loadPrices = async () => Promise.all(watchlist.map(ticker => stockAPI.getTickerPrices()));
+    const test: TickerPrice[][] = [];
+    if (watchlists.length > 0)
+      watchlists.forEach(item => {
+        const loadPrices = async () => Promise.all(item.watchlist.map(ticker => stockAPI.getTickerPrices()));
 
-    const tickerPrices: TickerPrice[] = [];
+        const tickerPrice: TickerPrice[] = [];
 
-    loadPrices().then(promise => {
-      for (let i = 0; i < promise.length; i++) {
-        tickerPrices.push({ symbol: watchlist[i], companyName: getTickerName(watchlist[i]), prices: promise[i].data.prices });
-      }
-
-      dispatch(setTickerPrices(tickerPrices));
-    });
+        loadPrices().then(promise => {
+          for (let i = 0; i < promise.length; i++) {
+            tickerPrice.push({ symbol: item.watchlist[i], companyName: getTickerName(item.watchlist[i]), prices: promise[i].data.prices });
+          }
+          test.push(tickerPrice);
+          dispatch(setTickerPrices(test));
+        });
+      });
   }, [prevAmount]);
 
   const logout = () => {
@@ -79,7 +83,7 @@ const Watchlist: React.FC = () => {
           const accessToken = `Bearer ${res.data.accessToken}`;
           dispatch(setAccessToken(accessToken));
           axios.defaults.headers.common.Authorization = accessToken;
-          dispatch(getWatchlist());
+          dispatch(getWatchlists());
         })
         .catch(err => toggleModal());
     }

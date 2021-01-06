@@ -19,7 +19,7 @@ export const setTickerPrice = (tickerPrice: TickerPrice) => {
   return { type: StockActionTypes.SET_TICKER_PRICE, payload: tickerPrice };
 };
 
-export const setTickerPrices = (tickerPrices: TickerPrice[]) => {
+export const setTickerPrices = (tickerPrices: TickerPrice[][]) => {
   return { type: StockActionTypes.SET_TICKER_PRICES, payload: tickerPrices };
 };
 
@@ -43,7 +43,7 @@ export const clearTicker = () => {
   return { type: StockActionTypes.CLEAR_TICKER };
 };
 
-export const getWatchlist: AppThunk = () => {
+export const getWatchlists: AppThunk = () => {
   return async (dispatch: Dispatch) => {
     dispatch(setIsLoading());
     try {

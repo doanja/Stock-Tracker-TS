@@ -19,12 +19,12 @@ const SaveIcon: React.FC<SaveIconProps> = ({ ticker }) => {
 
   // redux
   const { loginStatus } = useSelector((state: RootStore) => state.auth);
-  const { watchlist } = useSelector((state: RootStore) => state.stock);
+  const { watchlists } = useSelector((state: RootStore) => state.stock);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (loginStatus) watchlist.includes(ticker) ? setIsWatching(true) : setIsWatching(false);
-  }, [watchlist, ticker]);
+    if (loginStatus) watchlists[0].watchlist.includes(ticker) ? setIsWatching(true) : setIsWatching(false);
+  }, [watchlists, ticker]);
 
   const saveTicker = () => {
     if (loginStatus) {

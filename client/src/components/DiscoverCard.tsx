@@ -19,13 +19,13 @@ const DiscoverCard: React.FC<DiscoverCardProps> = ({ tickerPrice }) => {
   const [isWatching, setIsWatching] = useState(false);
 
   // redux
-  const { watchlist } = useSelector((state: RootStore) => state.stock);
+  const { watchlists } = useSelector((state: RootStore) => state.stock);
   const { loginStatus } = useSelector((state: RootStore) => state.auth);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (loginStatus) watchlist.includes(tickerPrice.symbol) ? setIsWatching(true) : setIsWatching(false);
-  }, [tickerPrice, watchlist]);
+    if (loginStatus) watchlists[0].watchlist.includes(tickerPrice.symbol) ? setIsWatching(true) : setIsWatching(false);
+  }, [tickerPrice, watchlists]);
 
   const saveTicker = (tickerSymbol: string) => {
     if (loginStatus) {

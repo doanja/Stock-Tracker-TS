@@ -39,19 +39,30 @@ const Home: React.FC = () => {
 
       const loadPrices = async () => Promise.all(sampleWatchlist.map(ticker => stockAPI.getTickerPrices()));
 
+      const test: TickerPrice[][] = [];
       const tickerPrices: TickerPrice[] = [];
 
       loadPrices().then(promise => {
         for (let i = 0; i < promise.length; i++) {
           tickerPrices.push({ symbol: sampleWatchlist[i], companyName: getTickerName(sampleWatchlist[i]), prices: promise[i].data.prices });
         }
-        dispatch(setTickerPrices(tickerPrices));
+        test.push(tickerPrices);
+        dispatch(setTickerPrices(test));
       });
     }
   }, []);
 
   useEffect(() => {
-    let currentTickerPrice: TickerPrice | undefined = tickerPrices.find((tick: TickerPrice) => tick.symbol === ticker);
+    let currentTickerPrice: TickerPrice | undefined;
+
+    for (let i = 0; i < tickerPrices.length; i++) {
+      let a = tickerPrices[i];
+      for (let j = 0; j < tickerPrices.length; j++) {
+        if (tickerPrices[i][j].symbol === ticker) {
+          currentTickerPrice = tickerPrices[i][j];
+        }
+      }
+    }
 
     if (currentTickerPrice) dispatch(setTickerPrice(currentTickerPrice));
 
@@ -75,7 +86,7 @@ const Home: React.FC = () => {
         <SearchBar />
 
         {tickerPrices.length > 0 ? (
-          <TickerLineContainer tickerPrices={tickerPrices} />
+          <TickerLineContainer tickerPrices={tickerPrices[0]} />
         ) : (
           <div className='mt-3 text-center'>
             <Spinner animation='border' variant='light' />

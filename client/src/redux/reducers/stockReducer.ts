@@ -7,7 +7,7 @@ const initialState: StockState = {
   tickerPrices: [],
   searchQuery: '',
   ticker: null,
-  watchlist: [],
+  watchlists: [],
   error: undefined,
   token: '',
   isLoading: false,
@@ -30,11 +30,11 @@ const stockReducer: Reducer<StockState> = (state = initialState, action) => {
     case StockActionTypes.CLEAR_TICKER:
       return { ...state, ticker: null };
     case StockActionTypes.GET_WATCHLIST:
-      return { ...state, error: state.error, isLoading: false, watchlist: action.payload, token: action.token };
+      return { ...state, error: state.error, isLoading: false, watchlists: action.payload, token: action.token };
     case StockActionTypes.ADD_TICKER:
-      return { ...state, error: state.error, isLoading: false, watchlist: action.payload, token: action.token };
+      return { ...state, error: state.error, isLoading: false, watchlists: action.payload, token: action.token };
     case StockActionTypes.REMOVE_TICKER:
-      return { ...state, error: state.error, isLoading: false, watchlist: action.payload, token: action.token };
+      return { ...state, error: state.error, isLoading: false, watchlists: action.payload, token: action.token };
     case StockActionTypes.REQUEST_FAILED:
       return { ...state, error: action.error };
     case StockActionTypes.SET_IS_LOADING:
