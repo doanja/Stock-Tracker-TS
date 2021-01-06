@@ -47,8 +47,8 @@ export const getWatchlist: AppThunk = () => {
   return async (dispatch: Dispatch) => {
     dispatch(setIsLoading());
     try {
-      const req: AxiosResponse<any> = await api.getWatchlist();
-      const watchlist: string[] = req.data.watchlist;
+      const req: AxiosResponse<any> = await api.getWatchlists();
+      const watchlist: Watchlist[] = req.data.watchlist;
 
       return dispatch({
         type: StockActionTypes.GET_WATCHLIST,
@@ -64,11 +64,32 @@ export const getWatchlist: AppThunk = () => {
   };
 };
 
-export const addToWatchlist: ActionCreator<ThunkAction<void, StockState, Watchlist, Action<string>>> = (ticker: string) => {
+export const createWatchlist: AppThunk = (name: string) => {
+  return async (dispatch: Dispatch) => {
+    dispatch(setIsLoading());
+    try {
+      const req: AxiosResponse<any> = await api.createWatchlist(name);
+      const watchlist: Watchlist[] = req.data.watchlist;
+
+      return dispatch({
+        type: StockActionTypes.GET_WATCHLIST,
+        payload: watchlist,
+        token: req.headers.authorization,
+      });
+    } catch (error) {
+      return dispatch({
+        type: StockActionTypes.REQUEST_FAILED,
+        error: error.response.data.name,
+      });
+    }
+  };
+};
+
+export const updateWatchlistName: ActionCreator<ThunkAction<void, StockState, Watchlist, Action<string>>> = (watchlistId: string, name: string) => {
   return async (dispatch: Dispatch) => {
     try {
-      const req: AxiosResponse<any> = await api.addToWatchlist(ticker);
-      const watchlist: string[] = req.data.watchlist;
+      const req: AxiosResponse<any> = await api.updateWatchlistName(watchlistId, name);
+      const watchlist: Watchlist[] = req.data.watchlist;
 
       return dispatch({
         type: StockActionTypes.ADD_TICKER,
@@ -84,11 +105,51 @@ export const addToWatchlist: ActionCreator<ThunkAction<void, StockState, Watchli
   };
 };
 
-export const removeFromWatchlist: ActionCreator<ThunkAction<void, StockState, Watchlist, Action<string>>> = (ticker: string) => {
+export const addToWatchlist: ActionCreator<ThunkAction<void, StockState, Watchlist, Action<string>>> = (watchlistId: string, ticker: string) => {
   return async (dispatch: Dispatch) => {
     try {
-      const req: AxiosResponse<any> = await api.removeFromWatchlist(ticker);
-      const watchlist: string[] = req.data.watchlist;
+      const req: AxiosResponse<any> = await api.addToWatchlist(watchlistId, ticker);
+      const watchlist: Watchlist[] = req.data.watchlist;
+
+      return dispatch({
+        type: StockActionTypes.ADD_TICKER,
+        payload: watchlist,
+        token: req.headers.authorization,
+      });
+    } catch (error) {
+      return dispatch({
+        type: StockActionTypes.REQUEST_FAILED,
+        error: error.response.data.name,
+      });
+    }
+  };
+};
+
+export const removeFromWatchlist: ActionCreator<ThunkAction<void, StockState, Watchlist, Action<string>>> = (watchlistId: string, ticker: string) => {
+  return async (dispatch: Dispatch) => {
+    try {
+      const req: AxiosResponse<any> = await api.removeFromWatchlist(watchlistId, ticker);
+      const watchlist: Watchlist[] = req.data.watchlist;
+
+      return dispatch({
+        type: StockActionTypes.REMOVE_TICKER,
+        payload: watchlist,
+        token: req.headers.authorization,
+      });
+    } catch (error) {
+      return dispatch({
+        type: StockActionTypes.REQUEST_FAILED,
+        error: error.response.data.name,
+      });
+    }
+  };
+};
+
+export const deleteWatchlist: ActionCreator<ThunkAction<void, StockState, Watchlist, Action<string>>> = (watchlistId: string) => {
+  return async (dispatch: Dispatch) => {
+    try {
+      const req: AxiosResponse<any> = await api.deleteWatchlist(watchlistId);
+      const watchlist: Watchlist[] = req.data.watchlist;
 
       return dispatch({
         type: StockActionTypes.REMOVE_TICKER,

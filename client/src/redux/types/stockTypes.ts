@@ -11,7 +11,7 @@ export interface StockState {
 }
 
 export interface Watchlist {
-  watchlist: string[];
+  watchlist: Watchlist[];
 }
 
 export enum StockActionTypes {

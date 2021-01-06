@@ -1,3 +1,9 @@
+type Watchlist = {
+  watchlist: [];
+  _id: string;
+  name: string;
+};
+
 type Article = {
   source: { name: string };
   publishedAt: string;
