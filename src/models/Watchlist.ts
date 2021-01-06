@@ -7,7 +7,7 @@ const Watchlist: Schema = new Schema(
     user: { type: Schema.Types.ObjectId, required: true },
     watchlist: [{ type: String, trim: true }],
   },
-  { timestamps: true }
+  { timestamps: false }
 );
 
 export default model<IWatchlist>('Watchlist', Watchlist);

@@ -13,7 +13,7 @@ export const initSignupStrategy = (): Strategy => {
 
       if (user) return done(null, false, { message: 'That email is already taken.' });
       else {
-        const newUser = { email, password: hashSync(password, genSaltSync(8)), watchlist: [] };
+        const newUser = { email, password: hashSync(password, genSaltSync(8)) };
         User.create(newUser);
 
         return done(null, newUser);

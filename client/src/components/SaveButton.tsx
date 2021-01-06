@@ -11,6 +11,8 @@ interface SaveIconProps {
   ticker: string;
 }
 
+// TODO: make button blue with checkmark if its being followed
+
 const SaveIcon: React.FC<SaveIconProps> = ({ ticker }) => {
   const history = useHistory();
   const [isWatching, setIsWatching] = useState(false);

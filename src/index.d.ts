@@ -3,6 +3,7 @@ declare namespace Express {
     accessToken?: { _id: string; iat: number; exp: number };
     refreshToken?: { _id: string; iat: number; exp: number };
     userId?: string;
+    watchlistId: string;
   }
 }
 
