@@ -4,6 +4,14 @@
 html,
 .wrap {
   background-color: rgb(241, 244, 248);
+  font-family: $roboto;
+}
+
+.form-label,
+.text-center,
+.btn-dark,
+.text-dark {
+  font-family: $roboto;
 }
 
 body {

@@ -25,7 +25,7 @@ const Reconmended: React.FC<ReconmendedProps> = ({ tickerPrice }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (watchlists.length > 0 && loginStatus) watchlists[0].watchlist.includes(tickerPrice.symbol) ? setIsWatching(true) : setIsWatching(false);
+    if (loginStatus) watchlists[0].watchlist.includes(tickerPrice.symbol) ? setIsWatching(true) : setIsWatching(false);
   }, [tickerPrice, watchlists]);
 
   const saveTicker = (tickerSymbol: string) => {

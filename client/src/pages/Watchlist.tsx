@@ -49,20 +49,20 @@ const Watchlist: React.FC = () => {
 
   useEffect(() => {
     const test: TickerPrice[][] = [];
-    if (watchlists.length > 0)
-      watchlists.forEach(item => {
-        const loadPrices = async () => Promise.all(item.watchlist.map(ticker => stockAPI.getTickerPrices()));
 
-        const tickerPrice: TickerPrice[] = [];
+    watchlists.forEach(item => {
+      const loadPrices = async () => Promise.all(item.watchlist.map(ticker => stockAPI.getTickerPrices()));
 
-        loadPrices().then(promise => {
-          for (let i = 0; i < promise.length; i++) {
-            tickerPrice.push({ symbol: item.watchlist[i], companyName: getTickerName(item.watchlist[i]), prices: promise[i].data.prices });
-          }
-          test.push(tickerPrice);
-          dispatch(setTickerPrices(test));
-        });
+      const tickerPrice: TickerPrice[] = [];
+
+      loadPrices().then(promise => {
+        for (let i = 0; i < promise.length; i++) {
+          tickerPrice.push({ symbol: item.watchlist[i], companyName: getTickerName(item.watchlist[i]), prices: promise[i].data.prices });
+        }
+        test.push(tickerPrice);
+        dispatch(setTickerPrices(test));
       });
+    });
   }, [prevAmount]);
 
   const logout = () => {

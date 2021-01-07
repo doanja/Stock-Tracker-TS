@@ -53,21 +53,18 @@ const Home: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    let currentTickerPrice: TickerPrice | undefined;
+    let currentTickerPrice: TickerPrice | undefined = tickerPrices[tickerPrices.length - 1].find((tp: TickerPrice) => tp.symbol === ticker);
 
-    for (let i = 0; i < tickerPrices.length; i++) {
-      let a = tickerPrices[i];
-      for (let j = 0; j < tickerPrices.length; j++) {
-        if (tickerPrices[i][j].symbol === ticker) {
-          currentTickerPrice = tickerPrices[i][j];
-        }
-      }
+    console.log('currentTickerPrice', currentTickerPrice);
+
+    if (currentTickerPrice) {
+      console.log('valid');
+      dispatch(setTickerPrice(currentTickerPrice));
     }
 
-    if (currentTickerPrice) dispatch(setTickerPrice(currentTickerPrice));
-
     // case for when searching for a stock
-    if (!currentTickerPrice && ticker) {
+    else if (!currentTickerPrice && ticker) {
+      console.log('invalid');
       const tickerPriceData = async () => stockAPI.getTickerPrices();
 
       tickerPriceData().then(promise => {
@@ -86,7 +83,7 @@ const Home: React.FC = () => {
         <SearchBar />
 
         {tickerPrices.length > 0 ? (
-          <TickerLineContainer tickerPrices={tickerPrices[0]} />
+          <TickerLineContainer tickerPrices={tickerPrices[tickerPrices.length - 1]} />
         ) : (
           <div className='mt-3 text-center'>
             <Spinner animation='border' variant='light' />
@@ -102,14 +99,14 @@ const Home: React.FC = () => {
           <TickerHome />
         )}
 
-        <div className='my-3 ticker-home-wrap'>
+        {/* <div className='my-3 ticker-home-wrap'>
           <TickerNewsContainer ticker={ticker} />
           {ticker && tickerPrice ? <TickerAbout tickerPrice={tickerPrice} /> : <MarketTrendsContainer />}
-        </div>
+        </div> */}
       </Container>
-      <DiscoverContainer heading={'Discover more'} />
+      {/* <DiscoverContainer heading={'Discover more'} />
       <DiscoverContainer heading={'People also search for'} />
-      <CustomFooter />
+      <CustomFooter /> */}
     </Fragment>
   );
 };

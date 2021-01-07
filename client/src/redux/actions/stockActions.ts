@@ -48,7 +48,7 @@ export const getWatchlists: AppThunk = () => {
     dispatch(setIsLoading());
     try {
       const req: AxiosResponse<any> = await api.getWatchlists();
-      const watchlist: Watchlist[] = req.data.watchlist;
+      const watchlist: Watchlist[] = req.data.watchlists;
 
       return dispatch({
         type: StockActionTypes.GET_WATCHLIST,
@@ -69,7 +69,7 @@ export const createWatchlist: AppThunk = (name: string) => {
     dispatch(setIsLoading());
     try {
       const req: AxiosResponse<any> = await api.createWatchlist(name);
-      const watchlist: Watchlist[] = req.data.watchlist;
+      const watchlist: Watchlist[] = req.data.watchlists;
 
       return dispatch({
         type: StockActionTypes.GET_WATCHLIST,
@@ -89,7 +89,7 @@ export const updateWatchlistName: ActionCreator<ThunkAction<void, StockState, Wa
   return async (dispatch: Dispatch) => {
     try {
       const req: AxiosResponse<any> = await api.updateWatchlistName(watchlistId, name);
-      const watchlist: Watchlist[] = req.data.watchlist;
+      const watchlist: Watchlist[] = req.data.watchlists;
 
       return dispatch({
         type: StockActionTypes.ADD_TICKER,
@@ -109,7 +109,7 @@ export const addToWatchlist: ActionCreator<ThunkAction<void, StockState, Watchli
   return async (dispatch: Dispatch) => {
     try {
       const req: AxiosResponse<any> = await api.addToWatchlist(watchlistId, ticker);
-      const watchlist: Watchlist[] = req.data.watchlist;
+      const watchlist: Watchlist[] = req.data.watchlists;
 
       return dispatch({
         type: StockActionTypes.ADD_TICKER,
@@ -129,7 +129,7 @@ export const removeFromWatchlist: ActionCreator<ThunkAction<void, StockState, Wa
   return async (dispatch: Dispatch) => {
     try {
       const req: AxiosResponse<any> = await api.removeFromWatchlist(watchlistId, ticker);
-      const watchlist: Watchlist[] = req.data.watchlist;
+      const watchlist: Watchlist[] = req.data.watchlists;
 
       return dispatch({
         type: StockActionTypes.REMOVE_TICKER,
@@ -149,7 +149,7 @@ export const deleteWatchlist: ActionCreator<ThunkAction<void, StockState, Watchl
   return async (dispatch: Dispatch) => {
     try {
       const req: AxiosResponse<any> = await api.deleteWatchlist(watchlistId);
-      const watchlist: Watchlist[] = req.data.watchlist;
+      const watchlist: Watchlist[] = req.data.watchlists;
 
       return dispatch({
         type: StockActionTypes.REMOVE_TICKER,
