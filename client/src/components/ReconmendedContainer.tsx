@@ -8,9 +8,12 @@ import '../styles/main.min.css';
 const ReconmendedContainer: React.FC = ({}) => {
   const stockAPI = new StockService();
   const [tickerPrices, setTickerPrices] = useState<TickerPrice[]>([]);
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
+    setIsMounted(true);
     generateTickerPrices();
+    return () => setIsMounted(false);
   }, []);
 
   //function to generate stock data
@@ -32,6 +35,8 @@ const ReconmendedContainer: React.FC = ({}) => {
     }, 5000);
     return () => clearInterval(interval);
   }, [tickerPrices]);
+
+  if (!isMounted) return null;
 
   return (
     <Container className='p-3 sub-container ticker-home-sub-wrap'>

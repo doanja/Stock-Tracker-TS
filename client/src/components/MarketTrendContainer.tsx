@@ -8,9 +8,12 @@ import '../styles/main.min.css';
 const MarketTrendsContainer: React.FC = () => {
   const stockAPI = new StockService();
   const [tickerPrices, setTickerPrices] = useState<TickerPrice[]>([]);
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
+    setIsMounted(true);
     generateTickerPrices(18);
+    return () => setIsMounted(false);
   }, []);
 
   /**
@@ -35,6 +38,8 @@ const MarketTrendsContainer: React.FC = () => {
     }, 5000);
     return () => clearInterval(interval);
   }, [tickerPrices]);
+
+  if (!isMounted) return null;
 
   return (
     <div className='p-3 sub-container ticker-home-sub-wrap flex-even'>

@@ -16,9 +16,12 @@ const DiscoverContainer: React.FC<DiscoverContainerProps> = ({ heading }) => {
   const stockAPI = new StockService();
   const [tickerPrices, setTickerPrices] = useState<TickerPrice[]>([]);
   const discContainerRef = useRef<null | HTMLDivElement>(null);
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
+    setIsMounted(true);
     generateTickerPrices(18);
+    return () => setIsMounted(false);
   }, []);
 
   /**
@@ -49,6 +52,8 @@ const DiscoverContainer: React.FC<DiscoverContainerProps> = ({ heading }) => {
       direction === 'left' ? (discContainerRef.current.scrollLeft -= 100) : (discContainerRef.current.scrollLeft += 100);
     }
   };
+
+  if (!isMounted) return null;
 
   return (
     <div className='p-3 sub-container'>

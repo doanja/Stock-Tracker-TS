@@ -53,27 +53,25 @@ const Home: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    let currentTickerPrice: TickerPrice | undefined = tickerPrices[tickerPrices.length - 1].find((tp: TickerPrice) => tp.symbol === ticker);
+    if (ticker) {
+      // search for ticker in default watchlist
+      const currentTickerPrice: TickerPrice | undefined = tickerPrices[tickerPrices.length - 1].find((tp: TickerPrice) => tp.symbol === ticker);
 
-    console.log('currentTickerPrice', currentTickerPrice);
-
-    if (currentTickerPrice) {
-      console.log('valid');
-      dispatch(setTickerPrice(currentTickerPrice));
-    }
-
-    // case for when searching for a stock
-    else if (!currentTickerPrice && ticker) {
-      console.log('invalid');
-      const tickerPriceData = async () => stockAPI.getTickerPrices();
-
-      tickerPriceData().then(promise => {
-        currentTickerPrice = { symbol: ticker as string, companyName: getTickerName(ticker as string), prices: promise.data.prices };
+      if (currentTickerPrice) {
         dispatch(setTickerPrice(currentTickerPrice));
-      });
-    }
+      }
 
-    window.scrollTo(0, 0);
+      // case for when ticker does not exist in watchlist
+      else if (!currentTickerPrice && ticker) {
+        const tickerPriceData = async () => stockAPI.getTickerPrices();
+
+        tickerPriceData().then(promise => {
+          dispatch(setTickerPrice({ symbol: ticker as string, companyName: getTickerName(ticker as string), prices: promise.data.prices }));
+        });
+      }
+
+      window.scrollTo(0, 0);
+    }
   }, [ticker]);
 
   return (
@@ -99,14 +97,14 @@ const Home: React.FC = () => {
           <TickerHome />
         )}
 
-        {/* <div className='my-3 ticker-home-wrap'>
+        <div className='my-3 ticker-home-wrap'>
           <TickerNewsContainer ticker={ticker} />
           {ticker && tickerPrice ? <TickerAbout tickerPrice={tickerPrice} /> : <MarketTrendsContainer />}
-        </div> */}
+        </div>
       </Container>
-      {/* <DiscoverContainer heading={'Discover more'} />
+      <DiscoverContainer heading={'Discover more'} />
       <DiscoverContainer heading={'People also search for'} />
-      <CustomFooter /> */}
+      <CustomFooter />
     </Fragment>
   );
 };
