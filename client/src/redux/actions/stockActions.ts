@@ -1,4 +1,4 @@
-import { StockActionTypes, StockState, Watchlist } from '../types/stockTypes';
+import { StockActionTypes, StockState } from '../types/stockTypes';
 import { ActionCreator, Action, Dispatch } from 'redux';
 import { ThunkAction } from 'redux-thunk';
 import { StockService } from '../../services';
@@ -51,7 +51,7 @@ export const getWatchlists: AppThunk = () => {
       const watchlist: Watchlist[] = req.data.watchlists;
 
       return dispatch({
-        type: StockActionTypes.GET_WATCHLIST,
+        type: StockActionTypes.GET_WATCHLISTS,
         payload: watchlist,
         token: req.headers.authorization,
       });
@@ -72,7 +72,7 @@ export const createWatchlist: AppThunk = (name: string) => {
       const watchlist: Watchlist[] = req.data.watchlists;
 
       return dispatch({
-        type: StockActionTypes.GET_WATCHLIST,
+        type: StockActionTypes.CREATE_WATCHLIST,
         payload: watchlist,
         token: req.headers.authorization,
       });
@@ -92,7 +92,7 @@ export const updateWatchlistName: ActionCreator<ThunkAction<void, StockState, Wa
       const watchlist: Watchlist[] = req.data.watchlists;
 
       return dispatch({
-        type: StockActionTypes.ADD_TICKER,
+        type: StockActionTypes.UPDATE_WATCHLIST_NAME,
         payload: watchlist,
         token: req.headers.authorization,
       });
@@ -152,7 +152,7 @@ export const deleteWatchlist: ActionCreator<ThunkAction<void, StockState, Watchl
       const watchlist: Watchlist[] = req.data.watchlists;
 
       return dispatch({
-        type: StockActionTypes.REMOVE_TICKER,
+        type: StockActionTypes.DELETE_WATCHLIST,
         payload: watchlist,
         token: req.headers.authorization,
       });

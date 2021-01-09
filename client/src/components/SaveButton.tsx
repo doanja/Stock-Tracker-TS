@@ -28,14 +28,14 @@ const SaveIcon: React.FC<SaveIconProps> = ({ ticker }) => {
 
   const saveTicker = () => {
     if (loginStatus) {
-      isWatching ? dispatch(removeFromWatchlist(ticker)) : dispatch(addToWatchlist(ticker));
+      isWatching ? dispatch(removeFromWatchlist(watchlists[0]._id, ticker)) : dispatch(addToWatchlist(watchlists[0]._id, ticker));
     } else history.push('/login');
   };
 
   return (
     <div className='mb-3 float-right'>
       {isWatching ? (
-        <Button variant='dark' onClick={saveTicker}>
+        <Button variant='secondary' onClick={saveTicker}>
           Unfollow
         </Button>
       ) : (

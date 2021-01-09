@@ -1,20 +1,14 @@
 export interface StockState {
   readonly tickerPriceChange: TickerPriceChange;
   readonly tickerPrice: TickerPrice | null;
-  readonly tickerPrices: TickerPrice[][]; // array to display watchlist with prices
+  readonly tickerPrices: TickerPrice[][]; // 2d array of watchlists (which is an array)
   readonly searchQuery: string; // current searched ticker
   readonly ticker: string | null; // used to display detailed stock info
-  readonly watchlists: Watchlist[];
+  readonly watchlists: Watchlist[]; // array of Watchlist objects (contains id, name, user, watchlist)
   readonly error?: string;
   readonly token: string;
   readonly isLoading: boolean;
 }
-
-export interface Watchlist {
-  watchlist: string[];
-}
-
-// TODO: add actions for the new watchlist stuff, then change actions to use these new types
 
 export enum StockActionTypes {
   SET_TICKER_PRICE_CHANGE = 'SET_TICKER_PRICE_CHANGE',
@@ -29,9 +23,12 @@ export enum StockActionTypes {
   SET_TICKER = 'SET_TICKER',
   CLEAR_TICKER = 'CLEAR_TICKER',
 
-  GET_WATCHLIST = 'GET_WATCHLIST',
+  GET_WATCHLISTS = 'GET_WATCHLISTS',
+  CREATE_WATCHLIST = 'CREATE_WATCHLIST',
+  UPDATE_WATCHLIST_NAME = 'UPDATE_WATCHLIST_NAME',
   ADD_TICKER = 'ADD_TICKER',
   REMOVE_TICKER = 'REMOVE_TICKER',
+  DELETE_WATCHLIST = 'DELETE_WATCHLIST',
 
   REQUEST_FAILED = 'REQUEST_FAILED',
   SET_IS_LOADING = 'SET_IS_LOADING',
