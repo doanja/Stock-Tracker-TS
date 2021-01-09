@@ -10,7 +10,7 @@ import { checkTokenExp, getTickerName } from '../helper';
 // redux
 import { useSelector, useDispatch } from 'react-redux';
 import { RootStore } from '../redux/Store';
-import { getWatchlists, setTickerPrices } from '../redux/actions/stockActions';
+import { getWatchlists, setWatchlistPrices } from '../redux/actions/stockActions';
 import { clearAccessToken, clearLoginStatus, clearRefreshToken, setAccessToken } from '../redux/actions/authActions';
 
 const Watchlist: React.FC = () => {
@@ -60,7 +60,7 @@ const Watchlist: React.FC = () => {
           tickerPrice.push({ symbol: item.watchlist[i], companyName: getTickerName(item.watchlist[i]), prices: promise[i].data.prices });
         }
         test.push(tickerPrice);
-        dispatch(setTickerPrices(test));
+        dispatch(setWatchlistPrices(test));
       });
     });
   }, [prevAmount]);

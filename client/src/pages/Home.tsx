@@ -19,7 +19,7 @@ import { getTickerName, generateWatchlist } from '../helper';
 
 // redux
 import { useSelector, useDispatch } from 'react-redux';
-import { setTickerPrice, setTickerPrices } from '../redux/actions/stockActions';
+import { setTickerPrice, setWatchlistPrices } from '../redux/actions/stockActions';
 import { RootStore } from '../redux/Store';
 
 const Home: React.FC = () => {
@@ -28,7 +28,7 @@ const Home: React.FC = () => {
 
   // redux
   const { loginStatus } = useSelector((state: RootStore) => state.auth);
-  const { tickerPrice, tickerPrices, ticker } = useSelector((state: RootStore) => state.stock);
+  const { tickerPrice, watchlistPrices: watchlistPrices, ticker } = useSelector((state: RootStore) => state.stock);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -40,14 +40,14 @@ const Home: React.FC = () => {
       const loadPrices = async () => Promise.all(sampleWatchlist.map(ticker => stockAPI.getTickerPrices()));
 
       const test: TickerPrice[][] = [];
-      const tickerPrices: TickerPrice[] = [];
+      const watchlistPrices: TickerPrice[] = [];
 
       loadPrices().then(promise => {
         for (let i = 0; i < promise.length; i++) {
-          tickerPrices.push({ symbol: sampleWatchlist[i], companyName: getTickerName(sampleWatchlist[i]), prices: promise[i].data.prices });
+          watchlistPrices.push({ symbol: sampleWatchlist[i], companyName: getTickerName(sampleWatchlist[i]), prices: promise[i].data.prices });
         }
-        test.push(tickerPrices);
-        dispatch(setTickerPrices(test));
+        test.push(watchlistPrices);
+        dispatch(setWatchlistPrices(test));
       });
     }
   }, []);
@@ -55,7 +55,7 @@ const Home: React.FC = () => {
   useEffect(() => {
     if (ticker) {
       // search for ticker in default watchlist
-      const currentTickerPrice: TickerPrice | undefined = tickerPrices[tickerPrices.length - 1].find((tp: TickerPrice) => tp.symbol === ticker);
+      const currentTickerPrice: TickerPrice | undefined = watchlistPrices[watchlistPrices.length - 1].find((tp: TickerPrice) => tp.symbol === ticker);
 
       if (currentTickerPrice) {
         dispatch(setTickerPrice(currentTickerPrice));
@@ -80,8 +80,8 @@ const Home: React.FC = () => {
       <Container className='home-wrap'>
         <SearchBar />
 
-        {tickerPrices.length > 0 ? (
-          <TickerLineContainer tickerPrices={tickerPrices[tickerPrices.length - 1]} />
+        {watchlistPrices.length > 0 ? (
+          <TickerLineContainer tickerPrices={watchlistPrices[watchlistPrices.length - 1]} />
         ) : (
           <div className='mt-3 text-center'>
             <Spinner animation='border' variant='light' />
