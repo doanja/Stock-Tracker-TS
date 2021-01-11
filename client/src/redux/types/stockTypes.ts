@@ -1,9 +1,9 @@
 export interface StockState {
-  readonly tickerPriceChange: TickerPriceChange;
-  readonly tickerPrice: TickerPrice | null;
+  readonly currentTickerPriceChange: TickerPriceChange;
+  readonly currentTickerPrice: TickerPrice | null;
   readonly watchlistPrices: TickerPrice[][]; // 2d array of watchlists (which is an array)
   readonly searchQuery: string; // current searched ticker
-  readonly ticker: string | null; // used to display detailed stock info
+  readonly currentTicker: string | null; // used to display detailed stock info
   readonly watchlists: Watchlist[]; // array of Watchlist objects (contains id, name, user, watchlist)
   readonly error?: string;
   readonly token: string;
@@ -11,9 +11,9 @@ export interface StockState {
 }
 
 export enum StockActionTypes {
-  SET_TICKER_PRICE_CHANGE = 'SET_TICKER_PRICE_CHANGE',
+  SET_CURRENT_TICKER_PRICE_CHANGE = 'SET_CURRENT_TICKER_PRICE_CHANGE',
 
-  SET_TICKER_PRICE = 'SET_TICKER_PRICE',
+  SET_CURRENT_TICKER_PRICE = 'SET_CURRENT_TICKER_PRICE',
 
   SET_TICKER_PRICES = 'SET_TICKER_PRICES',
 

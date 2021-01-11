@@ -2,11 +2,11 @@ import { StockState, StockActionTypes } from '../types/stockTypes';
 import { Reducer } from 'redux';
 
 const initialState: StockState = {
-  tickerPriceChange: { price: 0, percent: 0 },
-  tickerPrice: null,
+  currentTickerPriceChange: { price: 0, percent: 0 },
+  currentTickerPrice: null,
   watchlistPrices: [],
   searchQuery: '',
-  ticker: null,
+  currentTicker: null,
   watchlists: [],
   error: undefined,
   token: '',
@@ -15,10 +15,10 @@ const initialState: StockState = {
 
 const stockReducer: Reducer<StockState> = (state = initialState, action) => {
   switch (action.type) {
-    case StockActionTypes.SET_TICKER_PRICE_CHANGE:
-      return { ...state, tickerPriceChange: action.payload };
-    case StockActionTypes.SET_TICKER_PRICE:
-      return { ...state, tickerPrice: action.payload };
+    case StockActionTypes.SET_CURRENT_TICKER_PRICE_CHANGE:
+      return { ...state, currentTickerPriceChange: action.payload };
+    case StockActionTypes.SET_CURRENT_TICKER_PRICE:
+      return { ...state, currentTickerPrice: action.payload };
     case StockActionTypes.SET_TICKER_PRICES:
       return { ...state, watchlistPrices: action.payload };
     case StockActionTypes.SET_SEARCH_QUERY:
@@ -26,9 +26,9 @@ const stockReducer: Reducer<StockState> = (state = initialState, action) => {
     case StockActionTypes.CLEAR_SEARCH_QUERY:
       return { ...state, searchQuery: '' };
     case StockActionTypes.SET_TICKER:
-      return { ...state, ticker: action.payload };
+      return { ...state, currentTicker: action.payload };
     case StockActionTypes.CLEAR_TICKER:
-      return { ...state, ticker: null };
+      return { ...state, currentTicker: null };
     case StockActionTypes.GET_WATCHLISTS:
       return { ...state, error: state.error, isLoading: false, watchlists: action.payload, token: action.token };
     case StockActionTypes.CREATE_WATCHLIST:

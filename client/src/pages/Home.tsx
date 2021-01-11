@@ -19,7 +19,7 @@ import { getTickerName, generateWatchlist } from '../helper';
 
 // redux
 import { useSelector, useDispatch } from 'react-redux';
-import { setTickerPrice, setWatchlistPrices } from '../redux/actions/stockActions';
+import { setCurrentTickerPrice, setWatchlistPrices } from '../redux/actions/stockActions';
 import { RootStore } from '../redux/Store';
 
 const Home: React.FC = () => {
@@ -28,7 +28,7 @@ const Home: React.FC = () => {
 
   // redux
   const { loginStatus } = useSelector((state: RootStore) => state.auth);
-  const { tickerPrice, watchlistPrices: watchlistPrices, ticker } = useSelector((state: RootStore) => state.stock);
+  const { currentTickerPrice, watchlistPrices, currentTicker } = useSelector((state: RootStore) => state.stock);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -53,26 +53,34 @@ const Home: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    if (ticker) {
+    if (currentTicker) {
       // search for ticker in default watchlist
-      const currentTickerPrice: TickerPrice | undefined = watchlistPrices[watchlistPrices.length - 1].find((tp: TickerPrice) => tp.symbol === ticker);
+      const currentTickerPrice: TickerPrice | undefined = watchlistPrices[watchlistPrices.length - 1].find(
+        (tp: TickerPrice) => tp.symbol === currentTicker
+      );
 
       if (currentTickerPrice) {
-        dispatch(setTickerPrice(currentTickerPrice));
+        dispatch(setCurrentTickerPrice(currentTickerPrice));
       }
 
       // case for when ticker does not exist in watchlist
-      else if (!currentTickerPrice && ticker) {
+      else if (!currentTickerPrice && currentTicker) {
         const tickerPriceData = async () => stockAPI.getTickerPrices();
 
         tickerPriceData().then(promise => {
-          dispatch(setTickerPrice({ symbol: ticker as string, companyName: getTickerName(ticker as string), prices: promise.data.prices }));
+          dispatch(
+            setCurrentTickerPrice({
+              symbol: currentTicker as string,
+              companyName: getTickerName(currentTicker as string),
+              prices: promise.data.prices,
+            })
+          );
         });
       }
 
       window.scrollTo(0, 0);
     }
-  }, [ticker]);
+  }, [currentTicker]);
 
   return (
     <Fragment>
@@ -88,18 +96,18 @@ const Home: React.FC = () => {
           </div>
         )}
 
-        {ticker && tickerPrice ? (
+        {currentTicker && currentTickerPrice ? (
           <div className='mt-3'>
-            <SaveButton ticker={ticker} />
-            <TickerContainer tickerPrice={tickerPrice} ticker={ticker} />
+            <SaveButton ticker={currentTicker} />
+            <TickerContainer tickerPrice={currentTickerPrice} ticker={currentTicker} />
           </div>
         ) : (
           <TickerHome />
         )}
 
         <div className='my-3 ticker-home-wrap'>
-          <TickerNewsContainer ticker={ticker} />
-          {ticker && tickerPrice ? <TickerAbout tickerPrice={tickerPrice} /> : <MarketTrendsContainer />}
+          <TickerNewsContainer ticker={currentTicker} />
+          {currentTicker && currentTickerPrice ? <TickerAbout tickerPrice={currentTickerPrice} /> : <MarketTrendsContainer />}
         </div>
       </Container>
       <DiscoverContainer heading={'Discover more'} />
