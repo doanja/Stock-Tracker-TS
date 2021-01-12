@@ -14,6 +14,7 @@ interface TickerContainerProps {
 }
 
 const TickerContainer: React.FC<TickerContainerProps> = ({ tickerPrice, ticker }) => {
+  console.log('tickerPrice', tickerPrice.prices);
   // redux
   const { currentTickerPriceChange } = useSelector((state: RootStore) => state.stock);
   const dispatch = useDispatch();

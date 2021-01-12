@@ -23,7 +23,10 @@ const SaveIcon: React.FC<SaveIconProps> = ({ ticker }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (loginStatus && watchlists.length > 0) watchlists[0].watchlist.includes(ticker) ? setIsWatching(true) : setIsWatching(false);
+    if (loginStatus) {
+      // watchlists[0].watchlist.includes(ticker) ? setIsWatching(true) : setIsWatching(false);
+      console.log('watchlists', watchlists);
+    }
   }, [watchlists, ticker]);
 
   const saveTicker = () => {
@@ -35,7 +38,7 @@ const SaveIcon: React.FC<SaveIconProps> = ({ ticker }) => {
   return (
     <div className='mb-3 float-right'>
       {isWatching ? (
-        <Button variant='secondary' onClick={saveTicker}>
+        <Button variant='danger' onClick={saveTicker}>
           Unfollow
         </Button>
       ) : (

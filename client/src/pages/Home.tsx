@@ -104,12 +104,12 @@ const Home: React.FC = () => {
         )}
 
         <div className='my-3 ticker-home-wrap'>
-          <TickerNewsContainer ticker={currentTicker} />
-          {currentTicker && currentTickerPrice ? <TickerAbout tickerPrice={currentTickerPrice} /> : <MarketTrendsContainer />}
+          {/* <TickerNewsContainer ticker={currentTicker} /> */}
+          {/* {currentTicker && currentTickerPrice ? <TickerAbout tickerPrice={currentTickerPrice} /> : <MarketTrendsContainer />} */}
         </div>
       </Container>
-      <DiscoverContainer heading={'Discover more'} />
-      <DiscoverContainer heading={'People also search for'} />
+      {/* <DiscoverContainer heading={'Discover more'} />
+      <DiscoverContainer heading={'People also search for'} /> */}
       <CustomFooter />
     </Fragment>
   );
