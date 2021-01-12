@@ -15,7 +15,7 @@ import {
 import { StockService } from '../services';
 import { useHistory } from 'react-router-dom';
 import { Container, Spinner } from 'react-bootstrap';
-import { getTickerName, generateWatchlist, loadPrices } from '../helper';
+import { getTickerName, generateWatchlist } from '../helper';
 
 // redux
 import { useSelector, useDispatch } from 'react-redux';
@@ -35,53 +35,45 @@ const Home: React.FC = () => {
     if (loginStatus) history.push('/watchlist');
     //  else if not login, generate some watchlist
     else {
-      const sampleWatchlist = generateWatchlist(5);
+      const sampleWatchlist: string[] = generateWatchlist(5);
+      const watchlistPrices: TickerPrice[][] = [];
+      const tickerPrice: TickerPrice[] = [];
 
-      const allWatchlistPrices: TickerPrice[][] = [];
-      const watchlistPrice: TickerPrice[] = [];
+      const loadPrices = async () => Promise.all(sampleWatchlist.map(ticker => stockAPI.getTickerPrices()));
 
-      loadPrices(sampleWatchlist).then(promise => {
+      loadPrices().then(promise => {
         for (let i = 0; i < promise.length; i++) {
-          watchlistPrice.push({ symbol: sampleWatchlist[i], companyName: getTickerName(sampleWatchlist[i]), prices: promise[i].data.prices });
+          tickerPrice.push({ symbol: sampleWatchlist[i], companyName: getTickerName(sampleWatchlist[i]), prices: promise[i].data.prices });
         }
-        allWatchlistPrices.push(watchlistPrice);
-        dispatch(setWatchlistPrices(allWatchlistPrices));
+        watchlistPrices.push(tickerPrice);
+        dispatch(setWatchlistPrices(watchlistPrices));
       });
     }
   }, []);
 
   useEffect(() => {
     if (currentTicker) {
-      console.log('watchlistPrices[watchlistPrices.length - 1]', watchlistPrices[watchlistPrices.length - 1]);
-      // // search for ticker in default watchlist
-      const a: TickerPrice | undefined = watchlistPrices[watchlistPrices.length - 1].find((tp: TickerPrice) => tp.symbol === currentTicker);
-
-      console.log('currentTickerPrice', a);
-      let b: TickerPrice | undefined = watchlistPrices[watchlistPrices.length - 1].find((tick: TickerPrice) => tick.symbol === currentTicker);
-      console.log('b', b);
-
-      // if (currentTickerPrice) {
-      //   console.log('case 1', currentTickerPrice);
-      //   dispatch(setCurrentTickerPrice(currentTickerPrice));
-      // }
-
-      // // case for when ticker does not exist in watchlist
-      // else if (!currentTickerPrice) {
-      const tickerPriceData = async () => stockAPI.getTickerPrices();
-
-      tickerPriceData().then(promise => {
-        console.log('case 2', promise.data.prices);
-        dispatch(
-          setCurrentTickerPrice({
-            symbol: currentTicker as string,
-            companyName: getTickerName(currentTicker as string),
-            prices: promise.data.prices,
-          })
+      // search for ticker in default watchlist
+      try {
+        const tickerPrice: TickerPrice | undefined = watchlistPrices[watchlistPrices.length - 1].find(
+          (tp: TickerPrice) => tp.symbol === currentTicker
         );
-      });
-      // }
+        if (tickerPrice) dispatch(setCurrentTickerPrice(tickerPrice));
+        window.scrollTo(0, 0);
+      } catch (e) {
+        const tickerPriceData = async () => stockAPI.getTickerPrices();
 
-      window.scrollTo(0, 0);
+        tickerPriceData().then(promise => {
+          dispatch(
+            setCurrentTickerPrice({
+              symbol: currentTicker,
+              companyName: getTickerName(currentTicker),
+              prices: promise.data.prices,
+            })
+          );
+        });
+        window.scrollTo(0, 0);
+      }
     }
   }, [currentTicker]);
 
