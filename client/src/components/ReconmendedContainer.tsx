@@ -11,9 +11,7 @@ const ReconmendedContainer: React.FC = ({}) => {
   useEffect(() => {
     setIsMounted(true);
 
-    async function loadTickerPrices() {
-      setTickerPrices(await generateTickerPrices(['TSLA', 'INDEX', 'AAPL', 'F', 'AMZN', 'BA']));
-    }
+    const loadTickerPrices = async () => setTickerPrices(await generateTickerPrices(['TSLA', 'INDEX', 'AAPL', 'F', 'AMZN', 'BA']));
 
     loadTickerPrices();
 

@@ -11,9 +11,7 @@ const MostFollowedContainer: React.FC = ({}) => {
   useEffect(() => {
     setIsMounted(true);
 
-    async function loadTickerPrices() {
-      setTickerPrices(await generateTickerPrices(['AAPL', 'GOOGL', 'MSFT', 'AMZN', 'FB', 'TSLA']));
-    }
+    const loadTickerPrices = async () => setTickerPrices(await generateTickerPrices(['AAPL', 'GOOGL', 'MSFT', 'AMZN', 'FB', 'TSLA']));
 
     loadTickerPrices();
 

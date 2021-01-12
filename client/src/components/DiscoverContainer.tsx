@@ -19,9 +19,7 @@ const DiscoverContainer: React.FC<DiscoverContainerProps> = ({ heading }) => {
   useEffect(() => {
     setIsMounted(true);
 
-    async function loadTickerPrices() {
-      setTickerPrices(await generateTickerPrices(generateWatchlist(18)));
-    }
+    const loadTickerPrices = async () => setTickerPrices(await generateTickerPrices(generateWatchlist(18)));
 
     loadTickerPrices();
 

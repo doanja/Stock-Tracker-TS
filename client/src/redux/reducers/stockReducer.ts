@@ -19,7 +19,7 @@ const stockReducer: Reducer<StockState> = (state = initialState, action) => {
       return { ...state, currentTickerPriceChange: action.payload };
     case StockActionTypes.SET_CURRENT_TICKER_PRICE:
       return { ...state, currentTickerPrice: action.payload };
-    case StockActionTypes.SET_TICKER_PRICES:
+    case StockActionTypes.SET_WATCHLIST_PRICES:
       return { ...state, watchlistPrices: action.payload };
     case StockActionTypes.SET_SEARCH_QUERY:
       return { ...state, searchQuery: action.payload };

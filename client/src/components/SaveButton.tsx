@@ -22,10 +22,12 @@ const SaveIcon: React.FC<SaveIconProps> = ({ ticker }) => {
   const { watchlists } = useSelector((state: RootStore) => state.stock);
   const dispatch = useDispatch();
 
+  // TODO: fixed issue with this breaking the site
+
   useEffect(() => {
     if (loginStatus) {
       // watchlists[0].watchlist.includes(ticker) ? setIsWatching(true) : setIsWatching(false);
-      console.log('watchlists', watchlists);
+      // console.log('watchlists', watchlists);
     }
   }, [watchlists, ticker]);
 

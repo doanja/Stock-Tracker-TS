@@ -14,7 +14,6 @@ interface TickerContainerProps {
 }
 
 const TickerContainer: React.FC<TickerContainerProps> = ({ tickerPrice, ticker }) => {
-  console.log('tickerPrice', tickerPrice.prices);
   // redux
   const { currentTickerPriceChange } = useSelector((state: RootStore) => state.stock);
   const dispatch = useDispatch();
@@ -62,6 +61,7 @@ const TickerContainer: React.FC<TickerContainerProps> = ({ tickerPrice, ticker }
   const [chartData, dispatchChartAction] = useReducer(reducer, initialState);
 
   useEffect(() => {
+    // console.log('tickerPrice', tickerPrice);
     dispatchChartAction({ type: timeframe });
   }, [timeframe, ticker]);
 

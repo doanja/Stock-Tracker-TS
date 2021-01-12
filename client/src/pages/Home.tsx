@@ -52,29 +52,34 @@ const Home: React.FC = () => {
 
   useEffect(() => {
     if (currentTicker) {
-      // search for ticker in default watchlist
-      const currentTickerPrice: TickerPrice | undefined = watchlistPrices[watchlistPrices.length - 1].find(
-        (tp: TickerPrice) => tp.symbol === currentTicker
-      );
+      console.log('watchlistPrices[watchlistPrices.length - 1]', watchlistPrices[watchlistPrices.length - 1]);
+      // // search for ticker in default watchlist
+      const a: TickerPrice | undefined = watchlistPrices[watchlistPrices.length - 1].find((tp: TickerPrice) => tp.symbol === currentTicker);
 
-      if (currentTickerPrice) {
-        dispatch(setCurrentTickerPrice(currentTickerPrice));
-      }
+      console.log('currentTickerPrice', a);
+      let b: TickerPrice | undefined = watchlistPrices[watchlistPrices.length - 1].find((tick: TickerPrice) => tick.symbol === currentTicker);
+      console.log('b', b);
 
-      // case for when ticker does not exist in watchlist
-      else if (!currentTickerPrice && currentTicker) {
-        const tickerPriceData = async () => stockAPI.getTickerPrices();
+      // if (currentTickerPrice) {
+      //   console.log('case 1', currentTickerPrice);
+      //   dispatch(setCurrentTickerPrice(currentTickerPrice));
+      // }
 
-        tickerPriceData().then(promise => {
-          dispatch(
-            setCurrentTickerPrice({
-              symbol: currentTicker as string,
-              companyName: getTickerName(currentTicker as string),
-              prices: promise.data.prices,
-            })
-          );
-        });
-      }
+      // // case for when ticker does not exist in watchlist
+      // else if (!currentTickerPrice) {
+      const tickerPriceData = async () => stockAPI.getTickerPrices();
+
+      tickerPriceData().then(promise => {
+        console.log('case 2', promise.data.prices);
+        dispatch(
+          setCurrentTickerPrice({
+            symbol: currentTicker as string,
+            companyName: getTickerName(currentTicker as string),
+            prices: promise.data.prices,
+          })
+        );
+      });
+      // }
 
       window.scrollTo(0, 0);
     }
@@ -105,7 +110,7 @@ const Home: React.FC = () => {
 
         <div className='my-3 ticker-home-wrap'>
           {/* <TickerNewsContainer ticker={currentTicker} /> */}
-          {/* {currentTicker && currentTickerPrice ? <TickerAbout tickerPrice={currentTickerPrice} /> : <MarketTrendsContainer />} */}
+          {currentTicker && currentTickerPrice ? <TickerAbout tickerPrice={currentTickerPrice} /> : <MarketTrendsContainer />}
         </div>
       </Container>
       {/* <DiscoverContainer heading={'Discover more'} />
