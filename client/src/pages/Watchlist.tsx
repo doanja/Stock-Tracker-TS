@@ -1,11 +1,11 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import { useHistory } from 'react-router-dom';
 import { usePrevious } from '../helper/hooks';
-import { AuthService, StockService } from '../services';
+import { AuthService } from '../services';
 import { CustomModal } from '../components';
 import { Home } from './';
 import axios from 'axios';
-import { checkTokenExp, getTickerName } from '../helper';
+import { checkTokenExp, getTickerName, loadPrices } from '../helper';
 
 // redux
 import { useSelector, useDispatch } from 'react-redux';
@@ -15,7 +15,7 @@ import { clearAccessToken, clearLoginStatus, clearRefreshToken, setAccessToken }
 
 const Watchlist: React.FC = () => {
   const authAPI = new AuthService();
-  const stockAPI = new StockService();
+
   const history = useHistory();
 
   // redux
@@ -48,19 +48,17 @@ const Watchlist: React.FC = () => {
   }, [token]);
 
   useEffect(() => {
-    const test: TickerPrice[][] = [];
+    const watchlistPrices: TickerPrice[][] = [];
 
     watchlists.forEach(item => {
-      const loadPrices = async () => Promise.all(item.watchlist.map(ticker => stockAPI.getTickerPrices()));
-
       const tickerPrice: TickerPrice[] = [];
 
-      loadPrices().then(promise => {
+      loadPrices(item.watchlist).then(promise => {
         for (let i = 0; i < promise.length; i++) {
           tickerPrice.push({ symbol: item.watchlist[i], companyName: getTickerName(item.watchlist[i]), prices: promise[i].data.prices });
         }
-        test.push(tickerPrice);
-        dispatch(setWatchlistPrices(test));
+        watchlistPrices.push(tickerPrice);
+        dispatch(setWatchlistPrices(watchlistPrices));
       });
     });
   }, [prevAmount]);

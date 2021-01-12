@@ -2,6 +2,9 @@ import { decode } from 'jsonwebtoken';
 import * as Yup from 'yup';
 import tickers from '../tickers.json';
 import moment from 'moment';
+import { StockService } from '../services';
+import { AxiosResponse } from 'axios';
+import { AnyARecord } from 'dns';
 
 /**
  * function to check JWT expiration
@@ -139,4 +142,35 @@ export const bulkUpdatePrices = (tickerPrices: TickerPrice[]): TickerPrice[] => 
   let temp: TickerPrice[] = [...tickerPrices!];
   temp.forEach(tickerPrice => (tickerPrice.prices[0] = getNextPrice(tickerPrice.prices[0].price)));
   return temp;
+};
+
+/**
+ * function to create an array of promises containing the TickerPricese
+ * @param {string[]} sampleWatchlist an array of strings containing the tickers
+ * @return {Promise<AxiosResponse<TickerPrice>[]>} an array of promises containing the TickerPrices
+ */
+export const loadPrices = async (sampleWatchlist: string[]): Promise<AxiosResponse<TickerPrice>[]> => {
+  const stockAPI = new StockService();
+  return Promise.all(sampleWatchlist.map(() => stockAPI.getTickerPricesMin()));
+};
+
+/**
+ * function to generate stock data
+ * @param {string[]} sampleWatchlist an array of strings containing the tickers
+ * @return {Promise<TickerPrice[]} returns an array of TickerPrice
+ */
+export const generateTickerPrices = async (sampleWatchlist: string[]): Promise<TickerPrice[]> => {
+  const tickerPrices: TickerPrice[] = [];
+
+  try {
+    await loadPrices(sampleWatchlist).then(res => {
+      for (let i = 0; i < res.length; i++) {
+        tickerPrices.push({ symbol: sampleWatchlist[i], companyName: getTickerName(sampleWatchlist[i]), prices: res[i].data.prices });
+      }
+    });
+
+    return tickerPrices;
+  } catch (error) {
+    return [];
+  }
 };

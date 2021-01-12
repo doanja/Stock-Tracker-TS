@@ -11,6 +11,7 @@ interface TickerNewsContainerProps {
 const TickerNewsContainer: React.FC<TickerNewsContainerProps> = ({ ticker }) => {
   const api = new NewsService();
   const [articles, setArticles] = useState([]);
+  const [isMounted, setIsMounted] = useState(false);
 
   const getHoursFromCurrent = (time: string): string => {
     const then = moment(time).format();
@@ -27,6 +28,7 @@ const TickerNewsContainer: React.FC<TickerNewsContainerProps> = ({ ticker }) => 
   };
 
   useEffect(() => {
+    setIsMounted(true);
     if (ticker) {
       api.getNews(ticker).then(res => {
         const articles = res.data.articles;
@@ -36,7 +38,10 @@ const TickerNewsContainer: React.FC<TickerNewsContainerProps> = ({ ticker }) => 
         } else getTopHeadLines();
       });
     } else getTopHeadLines();
+    return () => setIsMounted(false);
   }, [ticker]);
+
+  if (!isMounted) return null;
 
   return (
     <div className='p-3 sub-container ticker-home-sub-wrap flex-even'>

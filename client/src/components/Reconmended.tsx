@@ -30,7 +30,7 @@ const Reconmended: React.FC<ReconmendedProps> = ({ tickerPrice }) => {
 
   const saveTicker = (tickerSymbol: string) => {
     if (loginStatus) {
-      isWatching ? dispatch(removeFromWatchlist(tickerSymbol)) : dispatch(addToWatchlist(tickerSymbol));
+      isWatching ? dispatch(removeFromWatchlist(watchlists[0]._id, tickerSymbol)) : dispatch(addToWatchlist(watchlists[0]._id, tickerSymbol));
     } else history.push('/login');
   };
 

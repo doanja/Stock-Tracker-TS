@@ -1,36 +1,24 @@
 import React, { useState, useEffect } from 'react';
-import { StockService } from '../services';
-import { generateWatchlist, getTickerName, bulkUpdatePrices } from '../helper';
+import { generateWatchlist, bulkUpdatePrices, generateTickerPrices } from '../helper';
 import { MarketTrend } from './';
 import { Spinner } from 'react-bootstrap';
 import '../styles/main.min.css';
 
 const MarketTrendsContainer: React.FC = () => {
-  const stockAPI = new StockService();
   const [tickerPrices, setTickerPrices] = useState<TickerPrice[]>([]);
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
     setIsMounted(true);
-    generateTickerPrices(18);
+
+    async function loadTickerPrices() {
+      setTickerPrices(await generateTickerPrices(generateWatchlist(18)));
+    }
+
+    loadTickerPrices();
+
     return () => setIsMounted(false);
   }, []);
-
-  /**
-   * function to pick and generate stock data for set amount of stocks
-   * @param {number} number the number of stock to generate
-   */
-  const generateTickerPrices = (number: number) => {
-    const sampleWatchlist = generateWatchlist(number);
-    const loadPrices = async () => Promise.all(sampleWatchlist.map(ticker => stockAPI.getTickerPricesMin()));
-    const tickerPrices: TickerPrice[] = [];
-    loadPrices().then(promise => {
-      for (let i = 0; i < promise.length; i++) {
-        tickerPrices.push({ symbol: sampleWatchlist[i], companyName: getTickerName(sampleWatchlist[i]), prices: promise[i].data.prices });
-        setTickerPrices(tickerPrices);
-      }
-    });
-  };
 
   useEffect(() => {
     const interval = setInterval(() => {

@@ -15,7 +15,7 @@ import {
 import { StockService } from '../services';
 import { useHistory } from 'react-router-dom';
 import { Container, Spinner } from 'react-bootstrap';
-import { getTickerName, generateWatchlist } from '../helper';
+import { getTickerName, generateWatchlist, loadPrices } from '../helper';
 
 // redux
 import { useSelector, useDispatch } from 'react-redux';
@@ -37,17 +37,15 @@ const Home: React.FC = () => {
     else {
       const sampleWatchlist = generateWatchlist(5);
 
-      const loadPrices = async () => Promise.all(sampleWatchlist.map(ticker => stockAPI.getTickerPrices()));
+      const allWatchlistPrices: TickerPrice[][] = [];
+      const watchlistPrice: TickerPrice[] = [];
 
-      const test: TickerPrice[][] = [];
-      const watchlistPrices: TickerPrice[] = [];
-
-      loadPrices().then(promise => {
+      loadPrices(sampleWatchlist).then(promise => {
         for (let i = 0; i < promise.length; i++) {
-          watchlistPrices.push({ symbol: sampleWatchlist[i], companyName: getTickerName(sampleWatchlist[i]), prices: promise[i].data.prices });
+          watchlistPrice.push({ symbol: sampleWatchlist[i], companyName: getTickerName(sampleWatchlist[i]), prices: promise[i].data.prices });
         }
-        test.push(watchlistPrices);
-        dispatch(setWatchlistPrices(test));
+        allWatchlistPrices.push(watchlistPrice);
+        dispatch(setWatchlistPrices(allWatchlistPrices));
       });
     }
   }, []);

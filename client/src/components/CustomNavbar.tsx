@@ -33,6 +33,7 @@ const CustomNavbar: React.FC = () => {
 
         <Nav className='ml-auto'>
           <div className='my-auto mr-3'>
+            {/* TODO: fix issue where clicking home icon fails */}
             <FontAwesomeIcon className='mx-2 icon-navbar' icon={faHome} onClick={() => history.push('/')} />
             <FontAwesomeIcon className='mx-2 icon-navbar' icon={faHeart} onClick={() => history.push('/watchlist')} />
           </div>

@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { StockService } from '../services';
-import { generateWatchlist, getTickerName } from '../helper';
+import { generateWatchlist, generateTickerPrices } from '../helper';
 import { DiscoverCard } from './';
 import { Container, Spinner } from 'react-bootstrap';
 import '../styles/main.min.css';
@@ -13,32 +12,21 @@ interface DiscoverContainerProps {
 }
 
 const DiscoverContainer: React.FC<DiscoverContainerProps> = ({ heading }) => {
-  const stockAPI = new StockService();
   const [tickerPrices, setTickerPrices] = useState<TickerPrice[]>([]);
   const discContainerRef = useRef<null | HTMLDivElement>(null);
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
     setIsMounted(true);
-    generateTickerPrices(18);
+
+    async function loadTickerPrices() {
+      setTickerPrices(await generateTickerPrices(generateWatchlist(18)));
+    }
+
+    loadTickerPrices();
+
     return () => setIsMounted(false);
   }, []);
-
-  /**
-   * function to pick and generate stock data for set amount of stocks
-   * @param {number} number the number of stock to generate
-   */
-  const generateTickerPrices = (number: number) => {
-    const sampleWatchlist = generateWatchlist(number);
-    const loadPrices = async () => Promise.all(sampleWatchlist.map(ticker => stockAPI.getTickerPricesMin()));
-    const tickerPrices: TickerPrice[] = [];
-    loadPrices().then(promise => {
-      for (let i = 0; i < promise.length; i++) {
-        tickerPrices.push({ symbol: sampleWatchlist[i], companyName: getTickerName(sampleWatchlist[i]), prices: promise[i].data.prices });
-      }
-      setTickerPrices(tickerPrices);
-    });
-  };
 
   /**
    * function to navigate the scrollbar
