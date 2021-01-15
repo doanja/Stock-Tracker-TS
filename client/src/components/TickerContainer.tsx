@@ -61,6 +61,7 @@ const TickerContainer: React.FC<TickerContainerProps> = ({ tickerPrice, ticker }
   const [chartData, dispatchChartAction] = useReducer(reducer, initialState);
 
   useEffect(() => {
+    // TODO: fix warning cannot update component search bar
     dispatchChartAction({ type: timeframe });
   }, [timeframe, ticker]);
 

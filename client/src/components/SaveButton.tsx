@@ -25,14 +25,16 @@ const SaveIcon: React.FC<SaveIconProps> = ({ ticker }) => {
   // TODO: fixed issue with this breaking the site
 
   useEffect(() => {
-    if (loginStatus) {
-      // watchlists[0].watchlist.includes(ticker) ? setIsWatching(true) : setIsWatching(false);
-      // console.log('watchlists', watchlists);
+    const a = [...watchlists] as [];
+    console.log('typeof watchlists', typeof a);
+    if (loginStatus && watchlists[0].watchlist.length > 0) {
+      watchlists[0].watchlist.includes(ticker) ? setIsWatching(true) : setIsWatching(false);
+      console.log('watchlists[0].watchlist', watchlists[0].watchlist);
     }
   }, [watchlists, ticker]);
 
   const saveTicker = () => {
-    if (loginStatus) {
+    if (loginStatus && watchlists.length > 0) {
       isWatching ? dispatch(removeFromWatchlist(watchlists[0]._id, ticker)) : dispatch(addToWatchlist(watchlists[0]._id, ticker));
     } else history.push('/login');
   };
