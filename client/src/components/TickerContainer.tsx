@@ -61,7 +61,6 @@ const TickerContainer: React.FC<TickerContainerProps> = ({ tickerPrice, ticker }
   const [chartData, dispatchChartAction] = useReducer(reducer, initialState);
 
   useEffect(() => {
-    // console.log('tickerPrice', tickerPrice);
     dispatchChartAction({ type: timeframe });
   }, [timeframe, ticker]);
 

@@ -5,7 +5,7 @@ import { AuthService, StockService } from '../services';
 import { CustomModal } from '../components';
 import { Home } from './';
 import axios from 'axios';
-import { checkTokenExp, getTickerName, loadPrices } from '../helper';
+import { checkTokenExp, getTickerName } from '../helper';
 
 // redux
 import { useSelector, useDispatch } from 'react-redux';
@@ -52,15 +52,16 @@ const Watchlist: React.FC = () => {
     const watchlistPrices: TickerPrice[][] = [];
 
     watchlists.forEach(item => {
-      const tickerPrice: TickerPrice[] = [];
+      const watchlist: string[] = [...item.watchlist];
+      const tickerPrices: TickerPrice[] = [];
 
-      const loadPrices = async () => Promise.all(item.watchlist.map(ticker => stockAPI.getTickerPrices()));
+      const loadPrices = async () => Promise.all(watchlist.map(ticker => stockAPI.getTickerPrices()));
 
       loadPrices().then(promise => {
         for (let i = 0; i < promise.length; i++) {
-          tickerPrice.push({ symbol: item.watchlist[i], companyName: getTickerName(item.watchlist[i]), prices: promise[i].data.prices });
+          tickerPrices.push({ symbol: watchlist[i], companyName: getTickerName(watchlist[i]), prices: promise[i].data.prices });
         }
-        watchlistPrices.push(tickerPrice);
+        watchlistPrices.push(tickerPrices);
         dispatch(setWatchlistPrices(watchlistPrices));
       });
     });

@@ -35,17 +35,17 @@ const Home: React.FC = () => {
     if (loginStatus) history.push('/watchlist');
     //  else if not login, generate some watchlist
     else {
-      const sampleWatchlist: string[] = generateWatchlist(5);
+      const watchlist: string[] = generateWatchlist(5);
       const watchlistPrices: TickerPrice[][] = [];
-      const tickerPrice: TickerPrice[] = [];
+      const tickerPrices: TickerPrice[] = [];
 
-      const loadPrices = async () => Promise.all(sampleWatchlist.map(ticker => stockAPI.getTickerPrices()));
+      const loadPrices = async () => Promise.all(watchlist.map(ticker => stockAPI.getTickerPrices()));
 
       loadPrices().then(promise => {
         for (let i = 0; i < promise.length; i++) {
-          tickerPrice.push({ symbol: sampleWatchlist[i], companyName: getTickerName(sampleWatchlist[i]), prices: promise[i].data.prices });
+          tickerPrices.push({ symbol: watchlist[i], companyName: getTickerName(watchlist[i]), prices: promise[i].data.prices });
         }
-        watchlistPrices.push(tickerPrice);
+        watchlistPrices.push(tickerPrices);
         dispatch(setWatchlistPrices(watchlistPrices));
       });
     }
@@ -101,12 +101,12 @@ const Home: React.FC = () => {
         )}
 
         <div className='my-3 ticker-home-wrap'>
-          {/* <TickerNewsContainer ticker={currentTicker} /> */}
+          <TickerNewsContainer ticker={currentTicker} />
           {currentTicker && currentTickerPrice ? <TickerAbout tickerPrice={currentTickerPrice} /> : <MarketTrendsContainer />}
         </div>
       </Container>
-      {/* <DiscoverContainer heading={'Discover more'} />
-      <DiscoverContainer heading={'People also search for'} /> */}
+      <DiscoverContainer heading={'Discover more'} />
+      <DiscoverContainer heading={'People also search for'} />
       <CustomFooter />
     </Fragment>
   );
