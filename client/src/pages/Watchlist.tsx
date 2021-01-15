@@ -72,7 +72,7 @@ const Watchlist: React.FC = () => {
     dispatch(clearRefreshToken());
     dispatch(clearLoginStatus());
     window.localStorage.removeItem('store');
-    history.push('/login');
+    history.push('/');
   };
 
   const requestAccessToken = () => {
