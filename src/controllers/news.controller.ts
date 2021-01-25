@@ -5,8 +5,6 @@ import moment from 'moment';
 export const getNews = (req: Request, res: Response) => {
   const { query } = req.params;
 
-  console.log('query', query);
-
   try {
     axios
       .get<any>(

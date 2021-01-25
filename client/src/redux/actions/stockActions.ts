@@ -108,6 +108,8 @@ export const updateWatchlistName: ActionCreator<ThunkAction<void, StockState, Wa
 export const addToWatchlist: ActionCreator<ThunkAction<void, StockState, Watchlist, Action<string>>> = (watchlistId: string, ticker: string) => {
   return async (dispatch: Dispatch) => {
     try {
+      console.log('watchlistId', watchlistId);
+      console.log('ticker', ticker);
       const req: AxiosResponse<any> = await api.addToWatchlist(watchlistId, ticker);
       const watchlist: Watchlist[] = req.data.watchlists;
 

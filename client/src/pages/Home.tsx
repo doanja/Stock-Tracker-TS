@@ -54,26 +54,23 @@ const Home: React.FC = () => {
   useEffect(() => {
     if (currentTicker) {
       // search for ticker in default watchlist
-      try {
-        const tickerPrice: TickerPrice | undefined = watchlistPrices[watchlistPrices.length - 1].find(
-          (tp: TickerPrice) => tp.symbol === currentTicker
-        );
-        if (tickerPrice) dispatch(setCurrentTickerPrice(tickerPrice));
-        window.scrollTo(0, 0);
-      } catch (e) {
-        const tickerPriceData = async () => stockAPI.getTickerPrices();
+      const tickerPrice: TickerPrice | undefined = watchlistPrices[watchlistPrices.length - 1].find((tp: TickerPrice) => tp.symbol === currentTicker);
 
-        tickerPriceData().then(promise => {
-          dispatch(
-            setCurrentTickerPrice({
-              symbol: currentTicker,
-              companyName: getTickerName(currentTicker),
-              prices: promise.data.prices,
-            })
-          );
-        });
-        window.scrollTo(0, 0);
-      }
+      if (tickerPrice) dispatch(setCurrentTickerPrice(tickerPrice));
+
+      const tickerPriceData = async () => stockAPI.getTickerPrices();
+
+      tickerPriceData().then(promise => {
+        dispatch(
+          setCurrentTickerPrice({
+            symbol: currentTicker,
+            companyName: getTickerName(currentTicker),
+            prices: promise.data.prices,
+          })
+        );
+      });
+
+      window.scrollTo(0, 0);
     }
   }, [currentTicker]);
 
@@ -100,10 +97,10 @@ const Home: React.FC = () => {
           <TickerHome />
         )}
 
-        {/* <div className='my-3 ticker-home-wrap'>
+        <div className='my-3 ticker-home-wrap'>
           <TickerNewsContainer ticker={currentTicker} />
           {currentTicker && currentTickerPrice ? <TickerAbout tickerPrice={currentTickerPrice} /> : <MarketTrendsContainer />}
-        </div> */}
+        </div>
       </Container>
       {/* <DiscoverContainer heading={'Discover more'} />
       <DiscoverContainer heading={'People also search for'} /> */}

@@ -1,7 +1,7 @@
 import { Schema, model } from 'mongoose';
 import { IWatchlist } from '../@types';
 
-const Watchlist: Schema = new Schema(
+const WatchlistSchema: Schema = new Schema(
   {
     name: { type: String, required: true },
     user: { type: Schema.Types.ObjectId, required: true },
@@ -10,4 +10,4 @@ const Watchlist: Schema = new Schema(
   { timestamps: false }
 );
 
-export default model<IWatchlist>('Watchlist', Watchlist);
+export default model<IWatchlist>('Watchlist', WatchlistSchema);

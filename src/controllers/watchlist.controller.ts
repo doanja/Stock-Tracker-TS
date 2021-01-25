@@ -18,7 +18,6 @@ export const createWatchlist = async (req: Request, res: Response): Promise<void
 
     const watchlist: IWatchlist | null = await Watchlist.create({ name, user: req.accessToken?._id, watchlist: [] });
 
-    // TODO: check if ID is sent, must store ID on html document for later reference
     res.status(200).json({ watchlist });
   } catch (error) {
     res.status(401).json(error);
@@ -41,7 +40,11 @@ export const addToWatchlist = async (req: Request, res: Response): Promise<void>
   try {
     const { ticker, watchlistId } = req.params;
 
-    const watchlist: IWatchlist | null = await Watchlist.findOneAndUpdate({ _id: watchlistId }, { $addToSet: { watchlist: ticker } }, { new: true });
+    const watchlist: IWatchlist | null = await Watchlist.findOneAndUpdate(
+      { _id: watchlistId },
+      { $addToSet: { watchlist: ticker.toUpperCase() } },
+      { new: true }
+    );
 
     res.status(200).json({ watchlist });
   } catch (error) {
@@ -53,7 +56,11 @@ export const removeFromWatchlist = async (req: Request, res: Response): Promise<
   try {
     const { ticker, watchlistId } = req.params;
 
-    const watchlist: IWatchlist | null = await Watchlist.findOneAndUpdate({ _id: watchlistId }, { $pull: { watchlist: ticker } }, { new: true });
+    const watchlist: IWatchlist | null = await Watchlist.findOneAndUpdate(
+      { _id: watchlistId },
+      { $pull: { watchlist: ticker.toUpperCase() } },
+      { new: true }
+    );
 
     res.status(200).json({ watchlist });
   } catch (error) {
