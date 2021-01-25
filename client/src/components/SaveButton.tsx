@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 
@@ -20,27 +20,30 @@ const SaveIcon: React.FC<SaveIconProps> = ({ ticker }) => {
   const { watchlists } = useSelector((state: RootStore) => state.stock);
   const dispatch = useDispatch();
 
-  const unsaveTicker = (): void => {
+  useEffect(() => {
+    if (loginStatus && watchlists) watchlists[0].watchlist.includes(ticker) ? setIsWatching(true) : setIsWatching(false);
+  }, [watchlists, ticker]);
+
+  const saveTicker = (saveTicker: boolean): void => {
     if (loginStatus && watchlists) {
-      dispatch(removeFromWatchlist(watchlists[0]._id, ticker));
-      setIsWatching(false);
-    } else history.push('/login');
-  };
-  const saveTicker = (): void => {
-    if (loginStatus && watchlists) {
-      dispatch(addToWatchlist(watchlists[0]._id, ticker));
-      setIsWatching(true);
+      if (saveTicker) {
+        dispatch(addToWatchlist(watchlists[0]._id, ticker));
+        setIsWatching(true);
+      } else {
+        dispatch(removeFromWatchlist(watchlists[0]._id, ticker));
+        setIsWatching(false);
+      }
     } else history.push('/login');
   };
 
   return (
     <div className='mb-3 float-right'>
       {isWatching ? (
-        <Button variant='danger' onClick={unsaveTicker}>
+        <Button variant='danger' onClick={() => saveTicker(false)}>
           Unfollow
         </Button>
       ) : (
-        <Button variant='dark' onClick={saveTicker}>
+        <Button variant='dark' onClick={() => saveTicker(true)}>
           Follow
         </Button>
       )}

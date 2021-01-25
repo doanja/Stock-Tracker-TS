@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import '../styles/main.min.css';
 import '../styles/ticker.min.css';
@@ -25,12 +25,18 @@ const MostFollowed: React.FC<MostFollowedProps> = ({ tickerPrice }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (loginStatus && watchlists.length > 0) watchlists[0].watchlist.includes(tickerPrice.symbol) ? setIsWatching(true) : setIsWatching(false);
-  }, [tickerPrice, watchlists]);
+    if (loginStatus && watchlists) watchlists[0].watchlist.includes(tickerPrice.symbol) ? setIsWatching(true) : setIsWatching(false);
+  }, [watchlists, tickerPrice.symbol]);
 
-  const saveTicker = (tickerSymbol: string) => {
-    if (loginStatus) {
-      isWatching ? dispatch(removeFromWatchlist(watchlists[0]._id, tickerSymbol)) : dispatch(addToWatchlist(watchlists[0]._id, tickerSymbol));
+  const saveTicker = (saveTicker: boolean, ticker: string): void => {
+    if (loginStatus && watchlists) {
+      if (saveTicker) {
+        dispatch(addToWatchlist(watchlists[0]._id, ticker));
+        setIsWatching(true);
+      } else {
+        dispatch(removeFromWatchlist(watchlists[0]._id, ticker));
+        setIsWatching(false);
+      }
     } else history.push('/login');
   };
 
@@ -61,9 +67,9 @@ const MostFollowed: React.FC<MostFollowedProps> = ({ tickerPrice }) => {
       </div>
       <div className='icon-wrap'>
         {isWatching ? (
-          <FontAwesomeIcon className='icon-overlayed icon' icon={faMinusCircle} size='lg' onClick={() => saveTicker(tickerPrice.symbol)} />
+          <FontAwesomeIcon className='icon-overlayed icon' icon={faMinusCircle} size='lg' onClick={() => saveTicker(false, tickerPrice.symbol)} />
         ) : (
-          <FontAwesomeIcon className='icon-overlayed icon' icon={faPlusCircle} size='lg' onClick={() => saveTicker(tickerPrice.symbol)} />
+          <FontAwesomeIcon className='icon-overlayed icon' icon={faPlusCircle} size='lg' onClick={() => saveTicker(true, tickerPrice.symbol)} />
         )}
       </div>
     </div>

@@ -102,8 +102,8 @@ const Home: React.FC = () => {
           {currentTicker && currentTickerPrice ? <TickerAbout tickerPrice={currentTickerPrice} /> : <MarketTrendsContainer />}
         </div>
       </Container>
-      {/* <DiscoverContainer heading={'Discover more'} />
-      <DiscoverContainer heading={'People also search for'} /> */}
+      <DiscoverContainer heading={'Discover more'} />
+      <DiscoverContainer heading={'People also search for'} />
       <CustomFooter />
     </Fragment>
   );
