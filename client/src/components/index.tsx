@@ -25,6 +25,8 @@ import MostFollowed from './MostFollowed';
 import WatchlistContainer from './WatchlistContainer';
 import WatchlistLine from './WatchlistLine';
 import WatchlistTicker from './WatchlistTicker';
+import WatchlistSummaryContainer from './WatchlistSummaryContainer';
+import WatchlistSummary from './WatchlistSummary';
 
 export {
   SaveButton,
@@ -54,4 +56,6 @@ export {
   WatchlistContainer,
   WatchlistLine,
   WatchlistTicker,
+  WatchlistSummaryContainer,
+  WatchlistSummary,
 };

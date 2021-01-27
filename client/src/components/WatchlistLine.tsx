@@ -9,9 +9,10 @@ import { faChevronCircleRight, faChevronCircleLeft } from '@fortawesome/free-sol
 
 interface WatchlistLineProps {
   watchlists: Watchlist[];
+  setCurrentWatchlist: SetCurrentWatchlist;
 }
 
-const WatchlistLine: React.FC<WatchlistLineProps> = ({ watchlists }) => {
+const WatchlistLine: React.FC<WatchlistLineProps> = ({ watchlists, setCurrentWatchlist }) => {
   const discContainerRef = useRef<null | HTMLDivElement>(null);
 
   /**
@@ -50,7 +51,7 @@ const WatchlistLine: React.FC<WatchlistLineProps> = ({ watchlists }) => {
 
           <Container className='mt-3 watchlist-container' ref={discContainerRef}>
             {watchlists.map((watchlist: Watchlist) => (
-              <WatchlistTicker watchlist={watchlist} key={watchlist.name} />
+              <WatchlistTicker watchlist={watchlist} key={watchlist.name} setCurrentWatchlist={setCurrentWatchlist} />
             ))}
           </Container>
         </Container>
