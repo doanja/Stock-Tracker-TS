@@ -35,8 +35,18 @@ const WatchlistLine: React.FC<WatchlistLineProps> = ({ watchlists }) => {
 
       {watchlists.length > 0 ? (
         <Container className='position-relative'>
-          <FontAwesomeIcon className='scroll-icon-left icon' icon={faChevronCircleLeft} size='2x' onClick={() => shiftDiscoverContainer('left')} />
-          <FontAwesomeIcon className='scroll-icon-right icon' icon={faChevronCircleRight} size='2x' onClick={() => shiftDiscoverContainer('right')} />
+          <FontAwesomeIcon
+            className='scroll-icon-left-watchlist icon'
+            icon={faChevronCircleLeft}
+            size='2x'
+            onClick={() => shiftDiscoverContainer('left')}
+          />
+          <FontAwesomeIcon
+            className='scroll-icon-right-watchlist icon'
+            icon={faChevronCircleRight}
+            size='2x'
+            onClick={() => shiftDiscoverContainer('right')}
+          />
 
           <Container className='mt-3 watchlist-container' ref={discContainerRef}>
             {watchlists.map((watchlist: Watchlist) => (

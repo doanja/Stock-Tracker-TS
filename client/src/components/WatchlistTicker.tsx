@@ -1,7 +1,5 @@
 import React from 'react';
-
 import '../styles/main.min.css';
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faList } from '@fortawesome/free-solid-svg-icons';
 
