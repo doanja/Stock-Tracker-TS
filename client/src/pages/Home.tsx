@@ -11,6 +11,7 @@ import {
   SaveButton,
   TickerLineContainer,
   MarketTrendsContainer,
+  WatchlistContainer,
 } from '../components';
 import { StockService } from '../services';
 import { useHistory } from 'react-router-dom';
@@ -80,7 +81,10 @@ const Home: React.FC = () => {
       <Container className='home-wrap'>
         <SearchBar />
 
-        {watchlistPrices.length > 0 ? (
+        <WatchlistContainer />
+
+        {/* hide this */}
+        {/* {watchlistPrices.length > 0 ? (
           <TickerLineContainer tickerPrices={watchlistPrices[watchlistPrices.length - 1]} />
         ) : (
           <div className='mt-3 text-center'>
@@ -100,7 +104,8 @@ const Home: React.FC = () => {
         <div className='my-3 ticker-home-wrap'>
           <TickerNewsContainer ticker={currentTicker} />
           {currentTicker && currentTickerPrice ? <TickerAbout tickerPrice={currentTickerPrice} /> : <MarketTrendsContainer />}
-        </div>
+        </div> */}
+        {/* to this for watchlist */}
       </Container>
       <DiscoverContainer heading={'Discover more'} />
       <DiscoverContainer heading={'People also search for'} />

@@ -22,6 +22,9 @@ import ReconmendedContainer from './ReconmendedContainer';
 import Reconmended from './Reconmended';
 import MostFollowedContainer from './MostFollowedContainer';
 import MostFollowed from './MostFollowed';
+import WatchlistContainer from './WatchlistContainer';
+import WatchlistLine from './WatchlistLine';
+import WatchlistTicker from './WatchlistTicker';
 
 export {
   SaveButton,
@@ -48,4 +51,7 @@ export {
   Reconmended,
   MostFollowedContainer,
   MostFollowed,
+  WatchlistContainer,
+  WatchlistLine,
+  WatchlistTicker,
 };

@@ -1,14 +1,4 @@
-// export interface Watchlist {
-//   watchlist: string[];
-//   _id: string;
-//   name: string;
-//   user: string;
-// }
-
 type Watchlist = {
-  // watchlist: [];
-  // _id: string;
-  // name: string;
   watchlist: string[];
   _id: string;
   name: string;
