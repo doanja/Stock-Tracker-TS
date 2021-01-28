@@ -10,15 +10,13 @@ const WatchlistContainer: React.FC = () => {
   // redux
   const { watchlistPrices, watchlists } = useSelector((state: RootStore) => state.stock);
 
-  const [currentWatchlist, setCurrentWatchlist] = useState<Watchlist>(watchlists[0]);
+  const [currentWatchlist, setCurrentWatchlist] = useState<Watchlist>(watchlists[0]); // does not like 0
   const [index, setIndex] = useState<number>(0);
 
   return (
-    <div>
-      <h1>this is the watchlist container</h1>
-
+    <div className='mt-3'>
       <WatchlistLine watchlists={watchlists} setCurrentWatchlist={setCurrentWatchlist} setIndex={setIndex} />
-      <WatchlistSummaryContainer watchlist={currentWatchlist} watchlistPrices={watchlistPrices[index]} />
+      <WatchlistSummaryContainer watchlist={currentWatchlist} watchlistPrices={watchlistPrices[index]} index={index} />
     </div>
   );
 };

@@ -45,4 +45,7 @@
 
 // smartphones
 @include mediaSM {
+  .price-display-none {
+    display: none;
+  }
 }
