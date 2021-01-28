@@ -47,7 +47,7 @@ const Home: React.FC = () => {
           tickerPrices.push({ symbol: watchlist[i], companyName: getTickerName(watchlist[i]), prices: promise[i].data.prices });
         }
         watchlistPrices.push(tickerPrices);
-        dispatch(setWatchlistPrices(watchlistPrices));
+        dispatch(setWatchlistPrices(watchlistPrices.reverse()));
       });
     }
   }, []);
@@ -107,8 +107,8 @@ const Home: React.FC = () => {
         </div> */}
         {/* to this for watchlist */}
       </Container>
-      <DiscoverContainer heading={'Discover more'} />
-      <DiscoverContainer heading={'People also search for'} />
+      {/* <DiscoverContainer heading={'Discover more'} />
+      <DiscoverContainer heading={'People also search for'} /> */}
       <CustomFooter />
     </Fragment>
   );

@@ -47,6 +47,8 @@ type TickerPrice = {
   prices: Prices[];
 };
 
+type SetIndex = (index: number) => void;
+
 type SetCurrentWatchlist = (watchlist: Watchlist) => void;
 
 type LoadTicker = (ticker: string) => void;

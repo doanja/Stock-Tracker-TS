@@ -1,10 +1,10 @@
 import React from 'react';
 
 interface WatchlistSummaryProps {
-  watchlist: Watchlist;
+  tickerPrice: TickerPrice;
 }
 
-const WatchlistSummary: React.FC<WatchlistSummaryProps> = ({ watchlist }) => {
-  return <h1>{watchlist.name}</h1>;
+const WatchlistSummary: React.FC<WatchlistSummaryProps> = ({ tickerPrice }) => {
+  return <div className='watchlist-summary-child'>{tickerPrice.companyName}</div>;
 };
 export default WatchlistSummary;

@@ -507,4 +507,15 @@ body {
   background-color: $light;
 }
 
+.watchlist-summary-container {
+  display: flex;
+  -webkit-box-orient: vertical;
+  box-orient: vertical;
+  flex-direction: column;
+}
+
+.watchlist-summary-child {
+  display: block;
+}
+
 @import 'mobile'; // for mobile
