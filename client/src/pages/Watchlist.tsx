@@ -58,13 +58,16 @@ const Watchlist: React.FC = () => {
 
         const loadPrices = async () => Promise.all(watchlist.map(ticker => stockAPI.getTickerPrices()));
 
-        loadPrices().then(promise => {
-          for (let i = 0; i < promise.length; i++) {
-            tickerPrices.push({ symbol: watchlist[i], companyName: getTickerName(watchlist[i]), prices: promise[i].data.prices });
-          }
-          watchlistPrices.push(tickerPrices);
-          dispatch(setWatchlistPrices(watchlistPrices.reverse()));
-        });
+        loadPrices()
+          .then(promise => {
+            for (let i = 0; i < promise.length; i++) {
+              tickerPrices.push({ symbol: watchlist[i], companyName: getTickerName(watchlist[i]), prices: promise[i].data.prices });
+            }
+            watchlistPrices.push(tickerPrices);
+
+            dispatch(setWatchlistPrices(watchlistPrices));
+          })
+          .then(() => {});
       });
     }
   }, [prevAmount]);

@@ -47,7 +47,7 @@ const Home: React.FC = () => {
           tickerPrices.push({ symbol: watchlist[i], companyName: getTickerName(watchlist[i]), prices: promise[i].data.prices });
         }
         watchlistPrices.push(tickerPrices);
-        dispatch(setWatchlistPrices(watchlistPrices.reverse()));
+        dispatch(setWatchlistPrices(watchlistPrices));
       });
     }
   }, []);

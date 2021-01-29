@@ -137,6 +137,8 @@ export const removeFromWatchlist: ActionCreator<ThunkAction<void, StockState, Wa
         token: req.headers.authorization,
       });
     } catch (error) {
+      // TODO: fix this error of length undefined
+      console.log('error', error);
       return dispatch({
         type: StockActionTypes.REQUEST_FAILED,
         error: error.response.data.name,
