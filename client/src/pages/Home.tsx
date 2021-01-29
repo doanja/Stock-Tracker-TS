@@ -12,6 +12,7 @@ import {
   TickerLineContainer,
   MarketTrendsContainer,
   WatchlistContainer,
+  TickerContainerWrap,
 } from '../components';
 import { StockService } from '../services';
 import { useHistory } from 'react-router-dom';
@@ -81,34 +82,19 @@ const Home: React.FC = () => {
       <Container className='home-wrap'>
         <SearchBar />
 
-        <WatchlistContainer />
-
-        {/* hide this */}
-        {/* {watchlistPrices.length > 0 ? (
-          <TickerLineContainer tickerPrices={watchlistPrices[watchlistPrices.length - 1]} />
-        ) : (
-          <div className='mt-3 text-center'>
-            <Spinner animation='border' variant='light' />
-          </div>
-        )}
-
         {currentTicker && currentTickerPrice ? (
-          <div className='mt-3'>
-            <SaveButton ticker={currentTicker} />
-            <TickerContainer tickerPrice={currentTickerPrice} ticker={currentTicker} />
-          </div>
+          <TickerContainerWrap watchlistPrices={watchlistPrices} currentTicker={currentTicker} currentTickerPrice={currentTickerPrice} />
         ) : (
-          <TickerHome />
+          <TickerHome loginStatus={loginStatus} watchlistPrices={watchlistPrices} />
         )}
 
         <div className='my-3 ticker-home-wrap'>
           <TickerNewsContainer ticker={currentTicker} />
           {currentTicker && currentTickerPrice ? <TickerAbout tickerPrice={currentTickerPrice} /> : <MarketTrendsContainer />}
-        </div> */}
-        {/* to this for watchlist */}
+        </div>
       </Container>
-      {/* <DiscoverContainer heading={'Discover more'} />
-      <DiscoverContainer heading={'People also search for'} /> */}
+      <DiscoverContainer heading={'Discover more'} />
+      <DiscoverContainer heading={'People also search for'} />
       <CustomFooter />
     </Fragment>
   );

@@ -25,7 +25,11 @@ const WatchlistSummary: React.FC<WatchlistSummaryProps> = ({ tickerPrice, index 
 
   return (
     <div className='position-relative' key={tickerPrice.symbol}>
-      <div className='ticker-trend-wrap' onClick={() => dispatch(setTicker(tickerPrice.symbol))}>
+      <div
+        className='ticker-trend-wrap'
+        onClick={() => {
+          dispatch(setTicker(tickerPrice.symbol));
+        }}>
         <div className='mt-2 company-badge-name-wrap'>
           <div className='mb-1 ticker-badge '>
             <div className='ticker-badge-text'>{tickerPrice.symbol}</div>

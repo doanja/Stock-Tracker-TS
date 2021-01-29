@@ -27,6 +27,7 @@ import WatchlistLine from './WatchlistLine';
 import WatchlistTicker from './WatchlistTicker';
 import WatchlistSummaryContainer from './WatchlistSummaryContainer';
 import WatchlistSummary from './WatchlistSummary';
+import TickerContainerWrap from './TickerContainerWrap';
 
 export {
   SaveButton,
@@ -58,4 +59,5 @@ export {
   WatchlistTicker,
   WatchlistSummaryContainer,
   WatchlistSummary,
+  TickerContainerWrap,
 };
