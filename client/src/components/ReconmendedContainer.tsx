@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { bulkUpdatePrices, generateTickerPrices } from '../helper';
-import { Reconmended } from './';
-import { Container, Spinner } from 'react-bootstrap';
+import { Reconmended, CustomSpinner } from './';
+import { Container } from 'react-bootstrap';
 import '../styles/main.min.css';
 
 const ReconmendedContainer: React.FC = ({}) => {
@@ -33,9 +33,7 @@ const ReconmendedContainer: React.FC = ({}) => {
       {tickerPrices.length > 0 ? (
         tickerPrices?.map((ticker: TickerPrice) => <Reconmended tickerPrice={ticker} key={ticker.symbol} />)
       ) : (
-        <div className='mt-3 text-center'>
-          <Spinner className='mb-3' animation='border' variant='dark' />
-        </div>
+        <CustomSpinner />
       )}
     </Container>
   );

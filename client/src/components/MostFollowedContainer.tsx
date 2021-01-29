@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { bulkUpdatePrices, generateTickerPrices } from '../helper';
-import { MostFollowed } from './';
-import { Spinner } from 'react-bootstrap';
+import { MostFollowed, CustomSpinner } from './';
 import '../styles/main.min.css';
 
 const MostFollowedContainer: React.FC = ({}) => {
@@ -33,9 +32,7 @@ const MostFollowedContainer: React.FC = ({}) => {
       {tickerPrices.length > 0 ? (
         tickerPrices?.map((ticker: TickerPrice) => <MostFollowed tickerPrice={ticker} key={ticker.symbol} />)
       ) : (
-        <div className='mt-3 text-center'>
-          <Spinner className='mb-3' animation='border' variant='dark' />
-        </div>
+        <CustomSpinner />
       )}
     </div>
   );

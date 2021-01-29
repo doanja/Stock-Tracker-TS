@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment } from 'react';
 import { useHistory } from 'react-router-dom';
 import '../styles/main.min.css';
 import '../styles/ticker.min.css';
@@ -25,11 +25,7 @@ const WatchlistSummary: React.FC<WatchlistSummaryProps> = ({ tickerPrice, index 
 
   return (
     <div className='position-relative' key={tickerPrice.symbol}>
-      <div
-        className='ticker-trend-wrap'
-        onClick={() => {
-          dispatch(setTicker(tickerPrice.symbol));
-        }}>
+      <div className='ticker-trend-wrap' onClick={() => dispatch(setTicker(tickerPrice.symbol))}>
         <div className='mt-2 company-badge-name-wrap'>
           <div className='mb-1 ticker-badge '>
             <div className='ticker-badge-text'>{tickerPrice.symbol}</div>

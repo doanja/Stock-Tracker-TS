@@ -1,7 +1,6 @@
 import React, { useRef } from 'react';
-
-import { WatchlistTicker } from './';
-import { Container, Spinner } from 'react-bootstrap';
+import { WatchlistTicker, CustomSpinner } from './';
+import { Container } from 'react-bootstrap';
 import '../styles/main.min.css';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -63,9 +62,7 @@ const WatchlistLine: React.FC<WatchlistLineProps> = ({ watchlists, setCurrentWat
           </Container>
         </Container>
       ) : (
-        <div className='mt-3 text-center'>
-          <Spinner animation='border' variant='dark' />
-        </div>
+        <CustomSpinner />
       )}
     </div>
   );

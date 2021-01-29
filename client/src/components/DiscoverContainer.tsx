@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { generateWatchlist, generateTickerPrices } from '../helper';
-import { DiscoverCard } from './';
-import { Container, Spinner } from 'react-bootstrap';
+import { DiscoverCard, CustomSpinner } from './';
+import { Container } from 'react-bootstrap';
 import '../styles/main.min.css';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -59,9 +59,7 @@ const DiscoverContainer: React.FC<DiscoverContainerProps> = ({ heading }) => {
           </Container>
         </Container>
       ) : (
-        <div className='mt-3 text-center'>
-          <Spinner animation='border' variant='dark' />
-        </div>
+        <CustomSpinner />
       )}
     </div>
   );

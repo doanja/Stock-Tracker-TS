@@ -1,6 +1,6 @@
 import React from 'react';
-import { WatchlistSummary } from './';
-import { Container, Spinner } from 'react-bootstrap';
+import { WatchlistSummary, CustomSpinner } from './';
+import { Container } from 'react-bootstrap';
 import '../styles/main.min.css';
 
 interface WatchlistSummaryContainerProps {
@@ -16,9 +16,7 @@ const WatchlistSummaryContainer: React.FC<WatchlistSummaryContainerProps> = ({ w
       {watchlistPrices ? (
         watchlistPrices.map((price: TickerPrice) => <WatchlistSummary tickerPrice={price} key={price.symbol} index={index} />)
       ) : (
-        <div className='mt-3 text-center'>
-          <Spinner className='mb-3' animation='border' variant='dark' />
-        </div>
+        <CustomSpinner />
       )}
     </Container>
   );
