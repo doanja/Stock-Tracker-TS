@@ -1,10 +1,15 @@
-import React, { useRef } from 'react';
-import { WatchlistTicker, CustomSpinner } from './';
+import React, { useState, useRef } from 'react';
+import { WatchlistTicker, CustomSpinner, CustomWatchlistPostFormModal } from './';
 import { Container } from 'react-bootstrap';
 import '../styles/main.min.css';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronCircleRight, faChevronCircleLeft } from '@fortawesome/free-solid-svg-icons';
+import { faChevronCircleRight, faChevronCircleLeft, faPlus } from '@fortawesome/free-solid-svg-icons';
+
+// redux
+import { useSelector, useDispatch } from 'react-redux';
+import { RootStore } from '../redux/Store';
+import { createWatchlist } from '../redux/actions/stockActions';
 
 interface WatchlistLineProps {
   watchlists: Watchlist[];
@@ -14,7 +19,13 @@ interface WatchlistLineProps {
 }
 
 const WatchlistLine: React.FC<WatchlistLineProps> = ({ watchlists, setCurrentWatchlist, index, setIndex }) => {
+  // modal
+  const [showModal, setShowModal] = useState(false);
+  const toggleModal: ToggleModal = () => setShowModal(!showModal);
   const discContainerRef = useRef<null | HTMLDivElement>(null);
+
+  // redux
+  const dispatch = useDispatch();
 
   /**
    * function to navigate the scrollbar
@@ -34,6 +45,15 @@ const WatchlistLine: React.FC<WatchlistLineProps> = ({ watchlists, setCurrentWat
       <Container>
         <h3 className='sub-heading'>Your Watchlists</h3>
       </Container>
+
+      <CustomWatchlistPostFormModal
+        showModal={showModal}
+        toggleModal={toggleModal}
+        title={'Create Watchlist'}
+        placeholder={'create watchlist'}
+        buttonText={'Create'}
+        dispatchFunction={'createWatchlist'}
+      />
 
       {watchlists.length > 0 ? (
         <Container className='position-relative'>
@@ -61,6 +81,10 @@ const WatchlistLine: React.FC<WatchlistLineProps> = ({ watchlists, setCurrentWat
                 isActive={i === index ? true : false}
               />
             ))}
+            <div className='watchlist-ticker' onClick={() => toggleModal()}>
+              <FontAwesomeIcon className='watchlists-icon' icon={faPlus} size='1x' />
+              <p className='watchlist-ticker-text'>New Watchlist</p>
+            </div>
           </Container>
         </Container>
       ) : (

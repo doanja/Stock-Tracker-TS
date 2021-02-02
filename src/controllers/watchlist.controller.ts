@@ -16,9 +16,11 @@ export const createWatchlist = async (req: Request, res: Response): Promise<void
   try {
     const { name } = req.body;
 
-    const watchlist: IWatchlist | null = await Watchlist.create({ name, user: req.accessToken?._id, watchlist: [] });
+    await Watchlist.create({ name, user: req.accessToken?._id, watchlist: [] });
 
-    res.status(200).json({ watchlist });
+    const watchlists: IWatchlist[] | null = await Watchlist.find({ user: req.accessToken?._id });
+
+    res.status(200).json({ watchlists });
   } catch (error) {
     res.status(401).json(error);
   }

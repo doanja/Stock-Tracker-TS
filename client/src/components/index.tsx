@@ -29,6 +29,7 @@ import WatchlistSummaryContainer from './WatchlistSummaryContainer';
 import WatchlistSummary from './WatchlistSummary';
 import TickerContainerWrap from './TickerContainerWrap';
 import CustomSpinner from './CustomSpinner';
+import CustomWatchlistPostFormModal from './CustomWatchlistPostFormModal';
 
 export {
   SaveButton,
@@ -62,4 +63,5 @@ export {
   WatchlistSummary,
   TickerContainerWrap,
   CustomSpinner,
+  CustomWatchlistPostFormModal,
 };
