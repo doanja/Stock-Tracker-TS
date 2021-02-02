@@ -4,7 +4,7 @@ import { Spinner } from 'react-bootstrap';
 const CustomSpinner: React.FC = () => {
   return (
     <div className='mt-3 text-center'>
-      <Spinner animation='border' variant='light' />
+      <Spinner animation='border' variant='dark' />
     </div>
   );
 };

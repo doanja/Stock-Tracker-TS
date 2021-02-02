@@ -31,7 +31,7 @@ const TickerLineContainer: React.FC<TickerLineContainerProps> = ({ tickerPrices 
   useEffect(() => {
     const interval = setInterval(() => {
       if (tickerPrices) dispatchAction({ type: 'shuffle' });
-    }, 5000);
+    }, 10000);
     return () => clearInterval(interval);
   }, []);
 

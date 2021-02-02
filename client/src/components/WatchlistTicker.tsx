@@ -8,17 +8,18 @@ interface WatchlistTickerProps {
   index: number;
   setCurrentWatchlist: SetCurrentWatchlist;
   setIndex: SetIndex;
+  isActive: boolean;
 }
 
-const WatchlistTicker: React.FC<WatchlistTickerProps> = ({ watchlist, index, setCurrentWatchlist, setIndex }) => {
+const WatchlistTicker: React.FC<WatchlistTickerProps> = ({ watchlist, index, setCurrentWatchlist, setIndex, isActive }) => {
   return (
     <div
-      className='watchlist-ticker'
+      className={isActive ? 'watchlist-ticker selected' : 'watchlist-ticker'}
       onClick={() => {
         setCurrentWatchlist(watchlist);
         setIndex(index);
       }}>
-      <FontAwesomeIcon className='watchlist-icon' icon={faList} size='1x' />
+      <FontAwesomeIcon className='watchlists-icon' icon={faList} size='1x' />
       <p className='watchlist-ticker-text'>{watchlist.name}</p>
     </div>
   );

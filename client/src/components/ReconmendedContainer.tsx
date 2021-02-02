@@ -21,7 +21,7 @@ const ReconmendedContainer: React.FC = ({}) => {
   useEffect(() => {
     const interval = setInterval(() => {
       if (tickerPrices) setTickerPrices(bulkUpdatePrices(tickerPrices));
-    }, 5000);
+    }, 10000);
     return () => clearInterval(interval);
   }, [tickerPrices]);
 

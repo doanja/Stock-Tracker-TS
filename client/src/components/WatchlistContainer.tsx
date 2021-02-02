@@ -22,7 +22,7 @@ const WatchlistContainer: React.FC = () => {
 
   return (
     <div className='mt-3'>
-      <WatchlistLine watchlists={watchlists} setCurrentWatchlist={setCurrentWatchlist} setIndex={setIndex} />
+      <WatchlistLine watchlists={watchlists} setCurrentWatchlist={setCurrentWatchlist} index={index} setIndex={setIndex} />
       {watchlistPrices.length > 0 && index !== undefined ? (
         <WatchlistSummaryContainer watchlist={currentWatchlist} watchlistPrices={watchlistPrices[index]} index={index} />
       ) : null}

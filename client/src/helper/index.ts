@@ -117,10 +117,15 @@ export const getFirstAndLastValues = (arr: number[]): { first: number; last: num
  */
 export const roundDecimals = (num: number): number => parseFloat((Math.round(num * 100) / 100).toFixed(2));
 
+/**
+ * function to generate the next price
+ * @param {number} oldPrice the previous price
+ * @return {Prices} a Price object containing the price, changePercent and priceChange
+ */
 export const getNextPrice = (oldPrice: number): Prices => {
-  const volatility: number = Math.random() * 10 + 2;
+  const volatility: number = Math.random() * 0.05 + 0.02;
   const rnd: number = Math.random();
-  let changePercent = 0.5 * volatility * rnd;
+  let changePercent = 2 * volatility * rnd;
 
   if (changePercent > volatility) changePercent -= 2 * volatility;
 

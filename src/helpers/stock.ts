@@ -4,8 +4,18 @@ interface Prices {
   priceChange: number;
 }
 
+/**
+ * function to round a number to two decimal places
+ * @param {number} num the number to be rounded
+ * @return {number} return a number rounded to two decimal places
+ */
 const roundDecimals = (num: number): number => +(Math.round(num * 100) / 100).toFixed(2);
 
+/**
+ * function to generate the next price
+ * @param {number} oldPrice the previous price
+ * @return {Prices} a Price object containing the price, changePercent and priceChange
+ */
 export const getNextPrice = (oldPrice: number): Prices => {
   const volatility: number = Math.random() * 5 + 2;
   const rnd: number = Math.random();
