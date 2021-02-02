@@ -426,12 +426,6 @@ body {
   right: 2%;
 }
 
-.pencil-icon-overlayed {
-  position: absolute;
-  top: 10%;
-  right: 0%;
-}
-
 .ticker-home-wrap {
   display: flex;
   flex-direction: row;
@@ -522,6 +516,13 @@ body {
   top: 15%;
   right: 0rem;
   background-color: $light;
+}
+
+.dropdown-buttons {
+  position: absolute;
+  bottom: 0%;
+  right: 0%;
+  background-color: $primary-color;
 }
 
 @import 'mobile'; // for mobile

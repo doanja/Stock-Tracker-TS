@@ -73,9 +73,11 @@ export const deleteWatchlist = async (req: Request, res: Response): Promise<void
   try {
     const { watchlistId } = req.params;
 
-    const watchlist: IWatchlist | null = await Watchlist.findOneAndDelete({ _id: watchlistId });
+    await Watchlist.findOneAndDelete({ _id: watchlistId });
 
-    res.status(200).json({ watchlist });
+    const watchlists: IWatchlist[] | null = await Watchlist.find({ user: req.accessToken?._id });
+
+    res.status(200).json({ watchlists });
   } catch (error) {
     res.status(401).json(error);
   }
