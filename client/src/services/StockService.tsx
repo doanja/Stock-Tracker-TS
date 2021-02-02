@@ -18,7 +18,7 @@ export default class StockService {
   }
 
   public updateWatchlistName(watchlistId: string, name: string): Promise<AxiosResponse<any>> {
-    return axios.put<any>(`/watchlist/add/${watchlistId}/${name}`);
+    return axios.put<any>(`/watchlist/${watchlistId}/${name}`);
   }
 
   public addToWatchlist(watchlistId: string, ticker: string): Promise<AxiosResponse<any>> {

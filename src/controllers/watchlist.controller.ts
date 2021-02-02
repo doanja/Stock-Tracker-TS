@@ -30,9 +30,11 @@ export const updateWatchlistName = async (req: Request, res: Response): Promise<
   try {
     const { name, watchlistId } = req.params;
 
-    const watchlist: IWatchlist | null = await Watchlist.findOneAndUpdate({ _id: watchlistId }, { name }, { new: true });
+    await Watchlist.findOneAndUpdate({ _id: watchlistId }, { name }, { new: true });
 
-    res.status(200).json({ watchlist });
+    const watchlists: IWatchlist[] | null = await Watchlist.find({ user: req.accessToken?._id });
+
+    res.status(200).json({ watchlists });
   } catch (error) {
     res.status(401).json(error);
   }

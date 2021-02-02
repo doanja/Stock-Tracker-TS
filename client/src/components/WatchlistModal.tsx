@@ -16,7 +16,7 @@ interface CustomWatchlistPostFormModalProps {
   watchlistName?: string;
 }
 
-const CustomWatchlistPostFormModal: React.FC<CustomWatchlistPostFormModalProps> = ({
+const WatchlistModal: React.FC<CustomWatchlistPostFormModalProps> = ({
   toggleModal,
   showModal,
   title,
@@ -36,7 +36,7 @@ const CustomWatchlistPostFormModal: React.FC<CustomWatchlistPostFormModalProps> 
       setInput(watchlistName);
       placeholder = watchlistName;
     }
-  }, [input]);
+  }, [watchlistId, watchlistName]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setInput(e.target.value);
@@ -45,11 +45,19 @@ const CustomWatchlistPostFormModal: React.FC<CustomWatchlistPostFormModalProps> 
   const handleSubmit = (e: React.FormEvent): void => {
     e.preventDefault();
     dispatchFunction === 'createWatchlist' ? dispatch(createWatchlist(input)) : dispatch(updateWatchlistName(watchlistId, input));
-    setInput('');
+    closeModal();
+  };
+
+  const closeModal = () => {
+    if (watchlistId && watchlistName) {
+      setInput(watchlistName);
+      placeholder = watchlistName;
+    } else setInput('');
+    toggleModal();
   };
 
   return (
-    <Modal show={showModal} onHide={toggleModal} backdrop={true} animation={true}>
+    <Modal show={showModal} onHide={closeModal} backdrop={true} animation={true}>
       <Modal.Body>
         <Modal.Title>
           <Form.Label>{title}</Form.Label>
@@ -64,17 +72,15 @@ const CustomWatchlistPostFormModal: React.FC<CustomWatchlistPostFormModalProps> 
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e)}
             />
           </InputGroup>
-          <Modal.Footer>
-            <InputGroup.Append>
-              <Button variant='dark' type='submit' onClick={handleSubmit}>
-                {buttonText}
-              </Button>
-            </InputGroup.Append>
-          </Modal.Footer>
         </Form>
       </Modal.Body>
+      <Modal.Footer>
+        <Button variant='dark' type='submit' onClick={handleSubmit}>
+          {buttonText}
+        </Button>
+      </Modal.Footer>
     </Modal>
   );
 };
 
-export default CustomWatchlistPostFormModal;
+export default WatchlistModal;

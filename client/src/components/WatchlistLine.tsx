@@ -1,15 +1,10 @@
 import React, { useState, useRef } from 'react';
-import { WatchlistTicker, CustomSpinner, CustomWatchlistPostFormModal } from './';
+import { WatchlistTicker, CustomSpinner, WatchlistModal } from './';
 import { Container } from 'react-bootstrap';
 import '../styles/main.min.css';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronCircleRight, faChevronCircleLeft, faPlus } from '@fortawesome/free-solid-svg-icons';
-
-// redux
-import { useSelector, useDispatch } from 'react-redux';
-import { RootStore } from '../redux/Store';
-import { createWatchlist } from '../redux/actions/stockActions';
 
 interface WatchlistLineProps {
   watchlists: Watchlist[];
@@ -22,10 +17,8 @@ const WatchlistLine: React.FC<WatchlistLineProps> = ({ watchlists, setCurrentWat
   // modal
   const [showModal, setShowModal] = useState(false);
   const toggleModal: ToggleModal = () => setShowModal(!showModal);
-  const discContainerRef = useRef<null | HTMLDivElement>(null);
 
-  // redux
-  const dispatch = useDispatch();
+  const discContainerRef = useRef<null | HTMLDivElement>(null);
 
   /**
    * function to navigate the scrollbar
@@ -46,7 +39,7 @@ const WatchlistLine: React.FC<WatchlistLineProps> = ({ watchlists, setCurrentWat
         <h3 className='sub-heading'>Your Watchlists</h3>
       </Container>
 
-      <CustomWatchlistPostFormModal
+      <WatchlistModal
         showModal={showModal}
         toggleModal={toggleModal}
         title={'Create Watchlist'}
