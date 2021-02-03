@@ -2,7 +2,7 @@ import React, { useState, useEffect, Fragment } from 'react';
 import { useHistory } from 'react-router-dom';
 import { usePrevious } from '../helper/hooks';
 import { AuthService, StockService } from '../services';
-import { CustomModal } from '../components';
+import { CustomModal, TickerPrice } from '../components';
 import { Home } from './';
 import axios from 'axios';
 import { checkTokenExp, getTickerName } from '../helper';
@@ -49,22 +49,21 @@ const Watchlist: React.FC = () => {
   }, [token]);
 
   useEffect(() => {
-    const watchlistPrices: TickerPrice[][] = [];
+    const watchlistPrices: WatchlistPrice[] = [];
 
     if (watchlists) {
-      watchlists.forEach(item => {
-        const watchlist: string[] = [...item.watchlist];
-        const tickerPrices: TickerPrice[] = [];
+      watchlists.forEach((wl: Watchlist) => {
+        const watchlist: string[] = [...wl.watchlist];
+        const watchlistPrice: WatchlistPrice = { watchlistId: wl._id, watchlistName: wl.name, user: wl.user, tickerPrices: [] };
 
-        const loadPrices = async () => Promise.all(watchlist.map(ticker => stockAPI.getTickerPrices()));
+        const loadPrices = async () => Promise.all(watchlist.map(() => stockAPI.getTickerPrices()));
 
         loadPrices()
           .then(promise => {
             for (let i = 0; i < promise.length; i++) {
-              tickerPrices.push({ symbol: watchlist[i], companyName: getTickerName(watchlist[i]), prices: promise[i].data.prices });
+              watchlistPrice.tickerPrices.push({ symbol: watchlist[i], companyName: getTickerName(watchlist[i]), prices: promise[i].data.prices });
             }
-            watchlistPrices.push(tickerPrices);
-
+            watchlistPrices.push(watchlistPrice);
             dispatch(setWatchlistPrices(watchlistPrices));
           })
           .then(() => {});

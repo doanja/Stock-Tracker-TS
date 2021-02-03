@@ -1,7 +1,7 @@
 export interface StockState {
   readonly currentTickerPriceChange: TickerPriceChange;
   readonly currentTickerPrice: TickerPrice | null;
-  readonly watchlistPrices: TickerPrice[][]; // 2d array of watchlists (which is an array)
+  readonly watchlistPrices: WatchlistPrice[]; // array of WatchlistPrices
   readonly searchQuery: string; // current searched ticker
   readonly currentTicker: string | null; // used to display detailed stock info
   readonly watchlists: Watchlist[]; // array of Watchlist objects (contains id, name, user, watchlist)

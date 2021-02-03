@@ -19,8 +19,8 @@ export const setCurrentTickerPrice = (tickerPrice: TickerPrice) => {
   return { type: StockActionTypes.SET_CURRENT_TICKER_PRICE, payload: tickerPrice };
 };
 
-export const setWatchlistPrices = (tickerPrices: TickerPrice[][]) => {
-  return { type: StockActionTypes.SET_WATCHLIST_PRICES, payload: tickerPrices };
+export const setWatchlistPrices = (watchlistPrices: WatchlistPrice[]) => {
+  return { type: StockActionTypes.SET_WATCHLIST_PRICES, payload: watchlistPrices };
 };
 
 export const setIsLoading = () => {

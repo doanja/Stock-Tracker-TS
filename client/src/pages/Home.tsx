@@ -38,16 +38,16 @@ const Home: React.FC = () => {
     //  else if not login, generate some watchlist
     else {
       const watchlist: string[] = generateWatchlist(5);
-      const watchlistPrices: TickerPrice[][] = [];
-      const tickerPrices: TickerPrice[] = [];
+      const watchlistPrices: WatchlistPrice[] = [];
+      const watchlistPrice: WatchlistPrice = { tickerPrices: [] };
 
-      const loadPrices = async () => Promise.all(watchlist.map(ticker => stockAPI.getTickerPrices()));
+      const loadPrices = async () => Promise.all(watchlist.map(() => stockAPI.getTickerPrices()));
 
       loadPrices().then(promise => {
         for (let i = 0; i < promise.length; i++) {
-          tickerPrices.push({ symbol: watchlist[i], companyName: getTickerName(watchlist[i]), prices: promise[i].data.prices });
+          watchlistPrice.tickerPrices.push({ symbol: watchlist[i], companyName: getTickerName(watchlist[i]), prices: promise[i].data.prices });
         }
-        watchlistPrices.push(tickerPrices);
+        watchlistPrices.push(watchlistPrice);
         dispatch(setWatchlistPrices(watchlistPrices));
       });
     }
@@ -56,7 +56,9 @@ const Home: React.FC = () => {
   useEffect(() => {
     if (currentTicker) {
       // search for ticker in default watchlist
-      const tickerPrice: TickerPrice | undefined = watchlistPrices[watchlistPrices.length - 1].find((tp: TickerPrice) => tp.symbol === currentTicker);
+      const tickerPrice: TickerPrice | undefined = watchlistPrices[watchlistPrices.length - 1].tickerPrices.find(
+        (tp: TickerPrice) => tp.symbol === currentTicker
+      );
 
       if (tickerPrice) dispatch(setCurrentTickerPrice(tickerPrice));
 
@@ -81,7 +83,7 @@ const Home: React.FC = () => {
       <CustomNavbar />
       <Container className='home-wrap'>
         <SearchBar />
-
+        {/* 
         {currentTicker && currentTickerPrice ? (
           <TickerContainerWrap watchlistPrices={watchlistPrices} currentTicker={currentTicker} currentTickerPrice={currentTickerPrice} />
         ) : (
@@ -91,10 +93,10 @@ const Home: React.FC = () => {
         <div className='my-3 ticker-home-wrap'>
           <TickerNewsContainer ticker={currentTicker} />
           {currentTicker && currentTickerPrice ? <TickerAbout tickerPrice={currentTickerPrice} /> : <MarketTrendsContainer />}
-        </div>
+        </div> */}
       </Container>
-      <DiscoverContainer heading={'Discover more'} />
-      <DiscoverContainer heading={'People also search for'} />
+      {/* <DiscoverContainer heading={'Discover more'} />
+      <DiscoverContainer heading={'People also search for'} /> */}
       <CustomFooter />
     </Fragment>
   );

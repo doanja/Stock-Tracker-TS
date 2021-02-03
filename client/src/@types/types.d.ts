@@ -41,6 +41,13 @@ type Ticker = {
   Symbol: string;
 };
 
+type WatchlistPrice = {
+  watchlistId?: string;
+  watchlistName?: string;
+  user?: string;
+  tickerPrices: TickerPrice[];
+};
+
 type TickerPrice = {
   symbol: string;
   companyName: string;
