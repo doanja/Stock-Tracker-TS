@@ -2,21 +2,17 @@ import React, { useEffect, Fragment } from 'react';
 import {
   SearchBar,
   CustomNavbar,
-  TickerContainer,
   TickerHome,
   TickerNewsContainer,
   TickerAbout,
   CustomFooter,
   DiscoverContainer,
-  SaveButton,
-  TickerLineContainer,
   MarketTrendsContainer,
-  WatchlistContainer,
   TickerContainerWrap,
 } from '../components';
 import { StockService } from '../services';
 import { useHistory } from 'react-router-dom';
-import { Container, Spinner } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 import { getTickerName, generateWatchlist } from '../helper';
 
 // redux

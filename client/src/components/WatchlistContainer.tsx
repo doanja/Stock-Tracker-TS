@@ -15,6 +15,7 @@ const WatchlistContainer: React.FC = () => {
   useEffect(() => {
     if (watchlists.length > 0) {
       setCurrentWatchlist(watchlistPrices[0]);
+      console.log('currentWatchlist', currentWatchlist);
       console.log('watchlistPrices[0]', watchlistPrices[0]);
     }
   }, [watchlists]);
