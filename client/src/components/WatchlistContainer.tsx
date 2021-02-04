@@ -13,12 +13,17 @@ const WatchlistContainer: React.FC = () => {
   const [currentWatchlist, setCurrentWatchlist] = useState<WatchlistPrice | undefined>();
 
   useEffect(() => {
-    if (watchlists.length > 0) setCurrentWatchlist(watchlistPrices[watchlistPrices.length - 1]);
-  }, []);
+    if (watchlists.length > 0) {
+      setCurrentWatchlist(watchlistPrices[0]);
+      console.log('watchlistPrices[0]', watchlistPrices[0]);
+    }
+  }, [watchlists]);
 
-  // useEffect(() => {
-  //   if (watchlists.length > 0) setCurrentWatchlist(watchlistPrices[0]);
-  // }, [watchlists]);
+  // TODO:figure out how to setCurrentWatchlist to recently created list
+  useEffect(() => {
+    // if (watchlists.length > 0) setCurrentWatchlist(watchlistPrices[0]);
+    // console.log('watchlists', watchlists);
+  }, [watchlists]);
 
   return (
     <div className='mt-3'>
