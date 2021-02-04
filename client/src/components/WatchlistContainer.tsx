@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import WatchlistLine from './WatchlistLine';
 
 // redux
@@ -10,22 +10,28 @@ const WatchlistContainer: React.FC = () => {
   // redux
   const { watchlistPrices, watchlists } = useSelector((state: RootStore) => state.stock);
 
-  const [currentWatchlist, setCurrentWatchlist] = useState<Watchlist | undefined>();
-  const [index, setIndex] = useState<number | undefined>();
+  const [currentWatchlist, setCurrentWatchlist] = useState<WatchlistPrice | undefined>();
 
   useEffect(() => {
-    if (watchlists.length > 0) {
-      setCurrentWatchlist(watchlists[0]);
-      setIndex(0);
-    }
-  }, [watchlists]);
+    if (watchlists.length > 0) setCurrentWatchlist(watchlistPrices[watchlistPrices.length - 1]);
+  }, []);
+
+  // useEffect(() => {
+  //   if (watchlists.length > 0) setCurrentWatchlist(watchlistPrices[0]);
+  // }, [watchlists]);
 
   return (
     <div className='mt-3'>
-      <WatchlistLine watchlists={watchlists} setCurrentWatchlist={setCurrentWatchlist} index={index} setIndex={setIndex} />
-      {/* {watchlistPrices.length > 0 && index !== undefined ? (
-        <WatchlistSummaryContainer watchlist={currentWatchlist} watchlistPrices={watchlistPrices[index]} index={index} />
-      ) : null} */}
+      {watchlistPrices.length > 0 && currentWatchlist?.watchlistId ? (
+        <Fragment>
+          <WatchlistLine
+            watchlistPrices={watchlistPrices}
+            currentWatchlistId={currentWatchlist.watchlistId}
+            setCurrentWatchlist={setCurrentWatchlist}
+          />
+          <WatchlistSummaryContainer watchlistPrices={currentWatchlist} />
+        </Fragment>
+      ) : null}
     </div>
   );
 };

@@ -7,20 +7,18 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 // redux
-import { useDispatch, useSelector } from 'react-redux';
-import { RootStore } from '../redux/Store';
+import { useDispatch } from 'react-redux';
 import { setTicker, removeFromWatchlist } from '../redux/actions/stockActions';
 
 interface WatchlistSummaryProps {
   tickerPrice: TickerPrice;
-  index: number;
+  watchlistId: string | undefined;
 }
 
-const WatchlistSummary: React.FC<WatchlistSummaryProps> = ({ tickerPrice, index }) => {
+const WatchlistSummary: React.FC<WatchlistSummaryProps> = ({ tickerPrice, watchlistId }) => {
   const history = useHistory();
 
   // redux
-  const { watchlists } = useSelector((state: RootStore) => state.stock);
   const dispatch = useDispatch();
 
   return (
@@ -73,7 +71,7 @@ const WatchlistSummary: React.FC<WatchlistSummaryProps> = ({ tickerPrice, index 
           className='icon-overlayed-watchlist icon'
           icon={faTimes}
           size='lg'
-          onClick={() => dispatch(removeFromWatchlist(watchlists[index]._id, tickerPrice.symbol))}
+          onClick={() => dispatch(removeFromWatchlist(watchlistId, tickerPrice.symbol))}
         />
       </div>
     </div>

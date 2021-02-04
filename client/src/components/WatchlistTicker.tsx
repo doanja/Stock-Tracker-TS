@@ -4,24 +4,19 @@ import { faList } from '@fortawesome/free-solid-svg-icons';
 import '../styles/main.min.css';
 
 interface WatchlistTickerProps {
-  watchlist: Watchlist;
-  index: number;
+  watchlistPrice: WatchlistPrice;
+  currentWatchlistId: string;
   setCurrentWatchlist: SetCurrentWatchlist;
-  setIndex: SetIndex;
-  isActive: boolean;
 }
 
-const WatchlistTicker: React.FC<WatchlistTickerProps> = ({ watchlist, index, setCurrentWatchlist, setIndex, isActive }) => {
+const WatchlistTicker: React.FC<WatchlistTickerProps> = ({ watchlistPrice, currentWatchlistId, setCurrentWatchlist }) => {
   return (
     <div className='position-relative'>
       <div
-        className={isActive ? 'watchlist-ticker selected' : 'watchlist-ticker'}
-        onClick={() => {
-          setCurrentWatchlist(watchlist);
-          setIndex(index);
-        }}>
+        className={currentWatchlistId === watchlistPrice.watchlistId ? 'watchlist-ticker selected' : 'watchlist-ticker'}
+        onClick={() => setCurrentWatchlist(watchlistPrice)}>
         <FontAwesomeIcon className='watchlists-icon' icon={faList} size='1x' />
-        <p className='watchlist-ticker-text'>{watchlist.name}</p>
+        <p className='watchlist-ticker-text'>{watchlistPrice.watchlistName}</p>
       </div>
     </div>
   );

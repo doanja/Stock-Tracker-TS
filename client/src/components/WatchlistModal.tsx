@@ -9,7 +9,7 @@ interface CustomWatchlistPostFormModalProps {
   toggleModal: ToggleModal;
   showModal: boolean;
   title: string;
-  placeholder: string;
+  placeholder: string | undefined;
   buttonText: string;
   dispatchFunction: string;
   watchlistId?: string;

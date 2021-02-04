@@ -7,13 +7,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronCircleRight, faChevronCircleLeft, faPlus } from '@fortawesome/free-solid-svg-icons';
 
 interface WatchlistLineProps {
-  watchlists: Watchlist[];
+  watchlistPrices: WatchlistPrice[];
+  currentWatchlistId: string;
   setCurrentWatchlist: SetCurrentWatchlist;
-  index: number | undefined;
-  setIndex: SetIndex;
 }
 
-const WatchlistLine: React.FC<WatchlistLineProps> = ({ watchlists, setCurrentWatchlist, index, setIndex }) => {
+const WatchlistLine: React.FC<WatchlistLineProps> = ({ watchlistPrices, currentWatchlistId, setCurrentWatchlist }) => {
   // modal
   const [showModal, setShowModal] = useState(false);
   const toggleModal: ToggleModal = () => setShowModal(!showModal);
@@ -48,7 +47,7 @@ const WatchlistLine: React.FC<WatchlistLineProps> = ({ watchlists, setCurrentWat
         dispatchFunction={'createWatchlist'}
       />
 
-      {watchlists.length > 0 ? (
+      {watchlistPrices.length > 0 ? (
         <Container className='position-relative'>
           <FontAwesomeIcon
             className='scroll-icon-left-watchlist icon'
@@ -64,14 +63,12 @@ const WatchlistLine: React.FC<WatchlistLineProps> = ({ watchlists, setCurrentWat
           />
 
           <Container className='mt-3 watchlist-container' ref={discContainerRef}>
-            {watchlists.map((watchlist: Watchlist, i: number) => (
+            {watchlistPrices.map((wl: WatchlistPrice) => (
               <WatchlistTicker
-                watchlist={watchlist}
-                key={i}
-                index={i}
+                watchlistPrice={wl}
+                key={wl.watchlistId}
+                currentWatchlistId={currentWatchlistId}
                 setCurrentWatchlist={setCurrentWatchlist}
-                setIndex={setIndex}
-                isActive={i === index ? true : false}
               />
             ))}
             <div className='watchlist-ticker' onClick={() => toggleModal()}>

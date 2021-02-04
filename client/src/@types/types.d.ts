@@ -56,7 +56,7 @@ type TickerPrice = {
 
 type SetIndex = (index: number) => void;
 
-type SetCurrentWatchlist = (watchlist: Watchlist) => void;
+type SetCurrentWatchlist = (watchlist: WatchlistPrice) => void;
 
 type LoadTicker = (ticker: string) => void;
 
