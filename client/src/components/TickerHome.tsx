@@ -5,7 +5,7 @@ import '../styles/main.min.css';
 
 interface TickerHomeProps {
   loginStatus: boolean;
-  watchlistPrices: TickerPrice[][];
+  watchlistPrices: WatchlistPrice[];
 }
 
 const TickerHome: React.FC<TickerHomeProps> = ({ loginStatus, watchlistPrices }) => {
@@ -15,7 +15,11 @@ const TickerHome: React.FC<TickerHomeProps> = ({ loginStatus, watchlistPrices })
         <WatchlistContainer />
       ) : (
         <div className='mt-3 ticker-home-wrap'>
-          {watchlistPrices.length > 0 ? <TickerLineContainer tickerPrices={watchlistPrices[watchlistPrices.length - 1]} /> : <CustomSpinner />}
+          {watchlistPrices.length > 0 ? (
+            <TickerLineContainer tickerPrices={watchlistPrices[watchlistPrices.length - 1].tickerPrices} />
+          ) : (
+            <CustomSpinner />
+          )}
           <ReconmendedContainer />
           <MostFollowedContainer />
         </div>
