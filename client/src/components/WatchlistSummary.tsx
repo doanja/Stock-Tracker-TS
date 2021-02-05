@@ -1,5 +1,4 @@
 import React, { Fragment } from 'react';
-import { useHistory } from 'react-router-dom';
 import '../styles/main.min.css';
 import '../styles/ticker.min.css';
 
@@ -16,8 +15,6 @@ interface WatchlistSummaryProps {
 }
 
 const WatchlistSummary: React.FC<WatchlistSummaryProps> = ({ tickerPrice, watchlistId }) => {
-  const history = useHistory();
-
   // redux
   const dispatch = useDispatch();
 
