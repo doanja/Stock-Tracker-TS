@@ -121,6 +121,7 @@ export const roundDecimals = (num: number): number => parseFloat((Math.round(num
  * function to generate the next price
  * @param {number} oldPrice the previous price
  * @return {Prices} a Price object containing the price, changePercent and priceChange
+ * @return {Price} the new price
  */
 export const getNextPrice = (oldPrice: number): Prices => {
   const volatility: number = Math.random() * 0.05 + 0.02;
@@ -138,13 +139,19 @@ export const getNextPrice = (oldPrice: number): Prices => {
   return { price, changePercent, priceChange };
 };
 
-export const getPriceDifference = (newPrice: Prices, oldPrice: Prices): Prices => {
+/**
+ * function to calculate the change in percent and price
+ * @param {Price} newPrice the updated Price
+ * @param {Price} initialPrice the starting Price
+ * @return {Price} the new price
+ */
+export const getPriceDifference = (newPrice: Prices, initialPrice: Prices): Prices => {
   const { price, changePercent, priceChange } = newPrice;
 
   return {
     price,
-    changePercent: roundDecimals(oldPrice.changePercent - changePercent),
-    priceChange: roundDecimals(oldPrice.priceChange - priceChange),
+    changePercent: roundDecimals(initialPrice.changePercent - changePercent),
+    priceChange: roundDecimals(initialPrice.priceChange - priceChange),
   };
 };
 
@@ -154,10 +161,15 @@ export const getPriceDifference = (newPrice: Prices, oldPrice: Prices): Prices =
  * @return {TickerPrice[]} an array of Ticker Prices
  */
 export const bulkUpdatePrices = (tickerPrices: TickerPrice[]): TickerPrice[] => {
-  let temp: TickerPrice[] = [...tickerPrices!];
-  temp.forEach(tickerPrice => (tickerPrice.prices[0] = getPriceDifference(getNextPrice(tickerPrice.prices[0].price), tickerPrice.prices[0])));
+  const updatedPrices: TickerPrice[] = [...tickerPrices!];
 
-  return temp;
+  updatedPrices.forEach(tickerPrice => {
+    const newPrice = getNextPrice(tickerPrice.prices[0].price);
+    const initialPrice = tickerPrice.prices[0];
+    tickerPrice.prices[0] = getPriceDifference(newPrice, initialPrice);
+  });
+
+  return updatedPrices;
 };
 
 /**
