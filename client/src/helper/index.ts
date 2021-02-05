@@ -140,8 +140,9 @@ export const getNextPrice = (oldPrice: number): Prices => {
 
 export const getPriceDifference = (newPrice: Prices, oldPrice: Prices): Prices => {
   const { price, changePercent, priceChange } = newPrice;
+
   return {
-    price: roundDecimals(oldPrice.price - price),
+    price,
     changePercent: roundDecimals(oldPrice.changePercent - changePercent),
     priceChange: roundDecimals(oldPrice.priceChange - priceChange),
   };
