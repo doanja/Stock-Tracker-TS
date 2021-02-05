@@ -4,7 +4,6 @@ import tickers from '../tickers.json';
 import moment from 'moment';
 import { StockService } from '../services';
 import { AxiosResponse } from 'axios';
-import { AnyARecord } from 'dns';
 
 /**
  * function to check JWT expiration
@@ -38,12 +37,10 @@ export const signupSchema = Yup.object({
 export const validateTicker = (input: string): Ticker | undefined => {
   input = input.toUpperCase();
 
-  let ticker: Ticker | undefined = tickers.find((obj: Ticker) => obj.Symbol === input);
+  let ticker: Ticker | undefined = tickers.find((ticker: Ticker) => ticker.Symbol === input);
 
   // if symbol not found, search by company name
-  if (!ticker) {
-    ticker = tickers.find((obj: Ticker) => obj['Company Name'].toUpperCase().indexOf(input) > -1);
-  }
+  if (!ticker) ticker = tickers.find((obj: Ticker) => obj['Company Name'].toUpperCase().indexOf(input) > -1);
 
   return ticker;
 };

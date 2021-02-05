@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import { Form, InputGroup, Button } from 'react-bootstrap';
 import { validateTicker } from '../helper';
 
@@ -8,22 +8,38 @@ import { RootStore } from '../redux/Store';
 import { setSearchQuery, clearSearchQuery, setTicker, clearTicker } from '../redux/actions/stockActions';
 import { toggleModal } from '../redux/actions/modalActions';
 
+import tickers from '../tickers.json';
+
 const SearchBar: React.FC = () => {
-  const [input, setInput] = useState('');
+  const [searchTerm, setSearchTerm] = useState('');
+  const [searchResults, setSearchResults] = useState<Ticker[] | undefined>([]);
 
   // redux
   const { searchQuery } = useSelector((state: RootStore) => state.stock);
   const { showModal } = useSelector((state: RootStore) => state.modal);
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    if (searchTerm === '') {
+      setSearchResults([]);
+    } else if (searchTerm) {
+      let results: Ticker[] | undefined = tickers.filter((ticker: Ticker) => ticker['Company Name'].toLowerCase().includes(searchTerm));
+
+      // if symbol not found, search by company name
+      if (results.length === 0) results = tickers.filter((ticker: Ticker) => ticker.Symbol.toLowerCase().includes(searchTerm));
+
+      setSearchResults(results.slice(0, 5));
+    }
+  }, [searchTerm]);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    setInput(e.target.value);
+    setSearchTerm(e.target.value);
   };
 
   const handleSubmit = (e: React.FormEvent): void => {
     e.preventDefault();
-    searchTicker(input);
-    setInput('');
+    searchTicker(searchTerm);
+    setSearchTerm('');
   };
 
   const searchTicker = (input: string) => {
@@ -47,7 +63,7 @@ const SearchBar: React.FC = () => {
         <Form.Control
           type='text'
           placeholder='Search for stocks, ETFs and more'
-          value={input}
+          value={searchTerm}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e)}
         />
         <InputGroup.Append>
@@ -56,6 +72,26 @@ const SearchBar: React.FC = () => {
           </Button>
         </InputGroup.Append>
       </InputGroup>
+      <div className='search-dropdown-parent test'>
+        {searchResults ? (
+          <Fragment>
+            {searchResults.map((ticker: Ticker) => (
+              <div className='search-dropdown-item' key={ticker.Symbol}>
+                <div>
+                  <div className='search-dropdown-item-company-name'>{ticker['Company Name']}</div>
+                  <div className='search-dropdown-item-company-symbol'>{ticker.Symbol}</div>
+                </div>
+
+                <div className='search-dropdown-item-price-wrap'>
+                  <div className='search-dropdown-item-price'>$1.00</div>
+
+                  <div className='search-dropdown-item-percent'>2.00%</div>
+                </div>
+              </div>
+            ))}
+          </Fragment>
+        ) : null}
+      </div>
     </Form>
   );
 };
