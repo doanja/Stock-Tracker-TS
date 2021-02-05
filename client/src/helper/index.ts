@@ -138,6 +138,15 @@ export const getNextPrice = (oldPrice: number): Prices => {
   return { price, changePercent, priceChange };
 };
 
+export const getPriceDifference = (newPrice: Prices, oldPrice: Prices): Prices => {
+  const { price, changePercent, priceChange } = newPrice;
+  return {
+    price: roundDecimals(oldPrice.price - price),
+    changePercent: roundDecimals(oldPrice.changePercent - changePercent),
+    priceChange: roundDecimals(oldPrice.priceChange - priceChange),
+  };
+};
+
 /**
  * function that updates the prices of an array of Ticker Prices
  * @param tickerPrices an array of Ticker Prices
@@ -145,7 +154,8 @@ export const getNextPrice = (oldPrice: number): Prices => {
  */
 export const bulkUpdatePrices = (tickerPrices: TickerPrice[]): TickerPrice[] => {
   let temp: TickerPrice[] = [...tickerPrices!];
-  temp.forEach(tickerPrice => (tickerPrice.prices[0] = getNextPrice(tickerPrice.prices[0].price)));
+  temp.forEach(tickerPrice => (tickerPrice.prices[0] = getPriceDifference(getNextPrice(tickerPrice.prices[0].price), tickerPrice.prices[0])));
+
   return temp;
 };
 

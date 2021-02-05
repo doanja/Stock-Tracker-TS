@@ -13,14 +13,9 @@ const TickerHome: React.FC<TickerHomeProps> = ({ loginStatus, watchlistPrices })
       {loginStatus ? (
         <WatchlistContainer />
       ) : (
-        <div>
+        <Fragment>
           {watchlistPrices.length > 0 ? (
-            <div>
-              <div className='okay'>
-                <TickerLineContainer tickerPrices={watchlistPrices[watchlistPrices.length - 1].tickerPrices} />
-              </div>
-              <div className='break'></div>
-            </div>
+            <TickerLineContainer tickerPrices={watchlistPrices[watchlistPrices.length - 1].tickerPrices} />
           ) : (
             <CustomSpinner />
           )}
@@ -29,7 +24,7 @@ const TickerHome: React.FC<TickerHomeProps> = ({ loginStatus, watchlistPrices })
             <ReconmendedContainer />
             <MostFollowedContainer />
           </div>
-        </div>
+        </Fragment>
       )}
     </Fragment>
   );
