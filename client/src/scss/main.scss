@@ -78,22 +78,6 @@ body {
   font-weight: bold;
 }
 
-.recipe-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.recipe-preview,
-.recipe-detailed {
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.75);
-
-  &.recipe-preview:hover {
-    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 1);
-    transition: 0.2s;
-  }
-}
-
 .text-dark {
   color: $dark;
 }
@@ -527,7 +511,6 @@ body {
 }
 
 .search-dropdown-parent {
-  border: 1px solid blue;
   max-height: 772px;
   display: block;
 }
@@ -543,6 +526,13 @@ body {
   padding: 8px 20px;
   border-bottom: 1px solid #dadce0;
   cursor: pointer;
+  border: 1px solid rgb(221, 221, 221);
+  background-color: $light;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.15);
+}
+
+.search-dropdown-item:hover {
+  background-color: #eee;
 }
 
 .search-dropdown-item-company-name {
