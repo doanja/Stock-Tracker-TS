@@ -31,6 +31,7 @@ import TickerContainerWrap from './TickerContainerWrap';
 import CustomSpinner from './CustomSpinner';
 import WatchlistModal from './WatchlistModal';
 import SearchBarDropdown from './SearchBarDropdown';
+import CustomSearchBarModal from './CustomSearchBarModal';
 
 export {
   SaveButton,
@@ -66,4 +67,5 @@ export {
   CustomSpinner,
   WatchlistModal,
   SearchBarDropdown,
+  CustomSearchBarModal,
 };

@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from 'react';
-import { WatchlistSummary, CustomSpinner, WatchlistModal } from './';
-import { Container, DropdownButton, Dropdown, ButtonGroup } from 'react-bootstrap';
+import { WatchlistSummary, CustomSpinner, WatchlistModal, CustomSearchBarModal } from './';
+import { Container, Dropdown } from 'react-bootstrap';
 import '../styles/main.min.css';
 
 // redux
@@ -19,6 +19,9 @@ const WatchlistSummaryContainer: React.FC<WatchlistSummaryContainerProps> = ({ w
   const [showModal, setShowModal] = useState(false);
   const toggleModal: ToggleModal = () => setShowModal(!showModal);
 
+  const [showSearchModal, setShowSearchModal] = useState(false);
+  const toggleSearchModal: ToggleModal = () => setShowSearchModal(!showSearchModal);
+
   return (
     <Container className='p-3 sub-container ticker-home-sub-wrap'>
       {watchlistPrices ? (
@@ -33,6 +36,7 @@ const WatchlistSummaryContainer: React.FC<WatchlistSummaryContainerProps> = ({ w
             watchlistName={watchlistPrices.watchlistName}
             watchlistId={watchlistPrices.watchlistId}
           />
+          <CustomSearchBarModal toggleModal={toggleSearchModal} showModal={showSearchModal} watchlistId={watchlistPrices.watchlistId} />
 
           <div className='position-relative'>
             <h2 className='sub-heading mb-3'>{watchlistPrices?.watchlistName}</h2>
@@ -48,6 +52,9 @@ const WatchlistSummaryContainer: React.FC<WatchlistSummaryContainerProps> = ({ w
                   </Dropdown.Item>
                   <Dropdown.Item as='button' onClick={() => dispatch(deleteWatchlist(watchlistPrices!.watchlistId))}>
                     Delete
+                  </Dropdown.Item>
+                  <Dropdown.Item as='button' onClick={() => toggleSearchModal()}>
+                    Quick Add
                   </Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
