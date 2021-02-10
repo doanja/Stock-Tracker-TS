@@ -1,16 +1,49 @@
 import React, { Fragment, useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { getTickerName } from '../helper';
 import { StockService } from '../services';
 import { CustomSpinner } from './';
 import tickers from '../tickers.json';
 
+// redux
+import { useDispatch, useSelector } from 'react-redux';
+import { RootStore } from '../redux/Store';
+import { addToWatchlist, removeFromWatchlist } from '../redux/actions/stockActions';
+
 interface SearchBarDropdownProps {
   searchTerm: string;
+  quickAddMode?: boolean;
 }
 
-const SearchBarDropdown: React.FC<SearchBarDropdownProps> = ({ searchTerm }) => {
+const SearchBarDropdown: React.FC<SearchBarDropdownProps> = ({ searchTerm, quickAddMode }) => {
   const [searchResults, setSearchResults] = useState<Ticker[] | undefined>([]);
   const [tickerPrices, setTickerPrices] = useState<TickerPrice[]>([]);
+
+  const history = useHistory();
+  const [isWatching, setIsWatching] = useState(false);
+
+  // redux
+  const { watchlists } = useSelector((state: RootStore) => state.stock);
+  const { loginStatus } = useSelector((state: RootStore) => state.auth);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (loginStatus && watchlists) {
+      watchlists[0].watchlist.includes(searchResults.symbol) ? setIsWatching(true) : setIsWatching(false);
+    }
+  }, [watchlists, searchResults]);
+
+  const saveTicker = (saveTicker: boolean, ticker: string): void => {
+    if (loginStatus && watchlists) {
+      if (saveTicker) {
+        dispatch(addToWatchlist(watchlists[0]._id, ticker));
+        setIsWatching(true);
+      } else {
+        dispatch(removeFromWatchlist(watchlists[0]._id, ticker));
+        setIsWatching(false);
+      }
+    } else history.push('/login');
+  };
 
   useEffect(() => {
     if (searchTerm === '') {
@@ -64,6 +97,7 @@ const SearchBarDropdown: React.FC<SearchBarDropdownProps> = ({ searchTerm }) => 
 
                     <div className='search-dropdown-item-percent discover-green'>{ticker.prices[0].changePercent}%</div>
                   </div>
+                  {quickAddMode ? <p>hi</p> : null}
                 </Fragment>
               ) : (
                 <Fragment>
