@@ -513,6 +513,7 @@ body {
 .search-dropdown-parent {
   max-height: 772px;
   display: block;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.15);
 }
 
 .search-dropdown-item {
@@ -526,9 +527,6 @@ body {
   padding: 8px 20px;
   border-bottom: 1px solid #dadce0;
   cursor: pointer;
-  border: 1px solid rgb(221, 221, 221);
-  background-color: $light;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.15);
 }
 
 .search-dropdown-item:hover {
@@ -537,21 +535,17 @@ body {
 
 .search-dropdown-item-company-name {
   letter-spacing: 0.01785714em;
-  font-family: 'Google Sans', Roboto, Arial, sans-serif;
   font-size: 0.875rem;
   line-height: 1.25rem;
-  color: #3c4043;
   font-weight: 400;
 }
 
 .search-dropdown-item-company-symbol {
   letter-spacing: 0.07272727em;
-  font-family: Roboto, Arial, sans-serif;
   font-size: 0.6875rem;
   font-weight: 500;
   line-height: 1rem;
   text-transform: uppercase;
-  color: #3c4043;
 }
 
 .search-dropdown-item-price-wrap {
@@ -563,25 +557,20 @@ body {
 
 .search-dropdown-item-price {
   letter-spacing: 0.01785714em;
-  font-family: 'Google Sans', Roboto, Arial, sans-serif;
   font-size: 0.875rem;
   font-weight: 500;
   line-height: 1.25rem;
   margin-right: 24px;
-  color: #202124;
 }
 
 .search-dropdown-item-percent {
   letter-spacing: 0.00625em;
-  font-family: 'Google Sans', Roboto, Arial, sans-serif;
   font-size: 1rem;
   font-weight: 500;
   line-height: 1.5rem;
   padding: 0 8px;
   border-radius: 8px;
   width: min-content;
-  color: #137333;
-  background: #e6f4ea;
 }
 
 @import 'mobile'; // for mobile
