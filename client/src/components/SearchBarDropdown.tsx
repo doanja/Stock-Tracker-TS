@@ -41,6 +41,8 @@ const SearchBarDropdown: React.FC<SearchBarDropdownProps> = ({ searchTerm }) => 
         }
         setTickerPrices(tickerPrices);
       });
+    } else {
+      setTickerPrices([]);
     }
   }, [searchResults]);
 
