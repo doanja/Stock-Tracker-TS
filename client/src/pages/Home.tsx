@@ -47,7 +47,7 @@ const Home: React.FC = () => {
         dispatch(setWatchlistPrices(watchlistPrices));
       });
     }
-  }, []);
+  }, [loginStatus]);
 
   useEffect(() => {
     if (currentTicker) {

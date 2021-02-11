@@ -32,6 +32,7 @@ import CustomSpinner from './CustomSpinner';
 import WatchlistModal from './WatchlistModal';
 import SearchBarDropdown from './SearchBarDropdown';
 import CustomSearchBarModal from './CustomSearchBarModal';
+import SearchResults from './SearchResults';
 
 export {
   SaveButton,
@@ -68,4 +69,5 @@ export {
   WatchlistModal,
   SearchBarDropdown,
   CustomSearchBarModal,
+  SearchResults,
 };

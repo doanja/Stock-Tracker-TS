@@ -1,56 +1,16 @@
 import React, { Fragment, useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
 import { getTickerName } from '../helper';
 import { StockService } from '../services';
 import { CustomSpinner } from './';
 import tickers from '../tickers.json';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlusCircle, faMinusCircle } from '@fortawesome/free-solid-svg-icons';
-
-// redux
-import { useDispatch, useSelector } from 'react-redux';
-import { RootStore } from '../redux/Store';
-import { addToWatchlist, removeFromWatchlist } from '../redux/actions/stockActions';
-
 interface SearchBarDropdownProps {
   searchTerm: string;
-  quickAddMode?: boolean;
-  watchlistPrices?: WatchlistPrice | undefined;
 }
 
-const SearchBarDropdown: React.FC<SearchBarDropdownProps> = ({ searchTerm, quickAddMode, watchlistPrices }) => {
+const SearchBarDropdown: React.FC<SearchBarDropdownProps> = ({ searchTerm }) => {
   const [searchResults, setSearchResults] = useState<Ticker[] | undefined>([]);
   const [tickerPrices, setTickerPrices] = useState<TickerPrice[]>([]);
-
-  const history = useHistory();
-  // const [isWatching, setIsWatching] = useState(false);
-
-  // redux
-  // const { watchlists } = useSelector((state: RootStore) => state.stock);
-  const { loginStatus } = useSelector((state: RootStore) => state.auth);
-  const dispatch = useDispatch();
-
-  // useEffect(() => {
-  //   if (loginStatus && watchlists && quickAddMode) {
-  //     tickerPrices?.forEach(ticker => {
-  //       watchlistPrices?.tickerPrices.includes(ticker) ? setIsWatching(true) : setIsWatching(false);
-  //     });
-  //   }
-  // }, [watchlists, searchResults]);
-
-  const saveTicker = (saveTicker: boolean, ticker: string): void => {
-    console.log('save ticker');
-    if (loginStatus && watchlistPrices?.watchlistId) {
-      if (saveTicker) {
-        dispatch(addToWatchlist(watchlistPrices?.watchlistId, ticker));
-        // setIsWatching(true);
-      } else {
-        dispatch(removeFromWatchlist(watchlistPrices?.watchlistId, ticker));
-        // setIsWatching(false);
-      }
-    } else history.push('/login');
-  };
 
   useEffect(() => {
     if (searchTerm === '') {
@@ -71,7 +31,7 @@ const SearchBarDropdown: React.FC<SearchBarDropdownProps> = ({ searchTerm, quick
 
       const watchlist: string[] = searchResults.map((ticker: Ticker) => ticker.Symbol);
 
-      const loadPrices = async () => Promise.all(watchlist.map(ticker => stockAPI.getTickerPrices()));
+      const loadPrices = async () => Promise.all(watchlist.map(() => stockAPI.getTickerPrices()));
 
       const tickerPrices: TickerPrice[] = [];
 
@@ -99,57 +59,18 @@ const SearchBarDropdown: React.FC<SearchBarDropdownProps> = ({ searchTerm, quick
 
               {ticker.prices[0].priceChange > 0 ? (
                 <div className='position-relative'>
-                  <Fragment>
-                    <div className='search-dropdown-item-price-wrap'>
-                      <div className='search-dropdown-item-price'>${ticker.prices[0].price}</div>
+                  <div className='search-dropdown-item-price-wrap'>
+                    <div className='search-dropdown-item-price'>${ticker.prices[0].price}</div>
 
-                      <div className='search-dropdown-item-percent discover-green'>{ticker.prices[0].changePercent}%</div>
-                    </div>
-                    {quickAddMode ? <p>hi</p> : null}
-                  </Fragment>
-                  <div className='icon-wrap'>
-                    {watchlistPrices?.tickerPrices.includes(ticker) ? (
-                      <FontAwesomeIcon
-                        className='icon-overlayed-search icon'
-                        icon={faMinusCircle}
-                        size='lg'
-                        onClick={() => saveTicker(false, ticker.symbol)}
-                      />
-                    ) : (
-                      <FontAwesomeIcon
-                        className='icon-overlayed-search icon'
-                        icon={faPlusCircle}
-                        size='lg'
-                        onClick={() => saveTicker(true, ticker.symbol)}
-                      />
-                    )}
+                    <div className='search-dropdown-item-percent discover-green'>{ticker.prices[0].changePercent}%</div>
                   </div>
                 </div>
               ) : (
                 <div className='position-relative'>
-                  <Fragment>
-                    <div className='search-dropdown-item-price-wrap'>
-                      <div className='search-dropdown-item-price'>${ticker.prices[0].price}</div>
+                  <div className='search-dropdown-item-price-wrap'>
+                    <div className='search-dropdown-item-price'>${ticker.prices[0].price}</div>
 
-                      <div className='search-dropdown-item-percent discover-red'>{ticker.prices[0].changePercent}%</div>
-                    </div>
-                  </Fragment>
-                  <div className='icon-wrap'>
-                    {watchlistPrices?.tickerPrices.includes(ticker) ? (
-                      <FontAwesomeIcon
-                        className='icon-overlayed-search icon'
-                        icon={faMinusCircle}
-                        size='lg'
-                        onClick={() => saveTicker(false, ticker.symbol)}
-                      />
-                    ) : (
-                      <FontAwesomeIcon
-                        className='icon-overlayed-search icon'
-                        icon={faPlusCircle}
-                        size='lg'
-                        onClick={() => saveTicker(true, ticker.symbol)}
-                      />
-                    )}
+                    <div className='search-dropdown-item-percent discover-red'>{ticker.prices[0].changePercent}%</div>
                   </div>
                 </div>
               )}
@@ -162,4 +83,5 @@ const SearchBarDropdown: React.FC<SearchBarDropdownProps> = ({ searchTerm, quick
     </div>
   );
 };
+
 export default SearchBarDropdown;

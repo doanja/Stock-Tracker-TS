@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { SearchBarDropdown } from './';
+import { SearchResults } from './';
 import { Modal, Form, InputGroup, Button } from 'react-bootstrap';
 
 // redux
@@ -15,6 +15,7 @@ interface ModalProps {
 
 const CustomSearchBarModal: React.FC<ModalProps> = ({ toggleModal, showModal, watchlistId, watchlistPrices }) => {
   const [input, setInput] = useState('');
+  const [searchTerm, setSearchTerm] = useState('');
 
   // redux
   const dispatch = useDispatch();
@@ -27,6 +28,7 @@ const CustomSearchBarModal: React.FC<ModalProps> = ({ toggleModal, showModal, wa
     e.preventDefault();
     console.log('searched');
     // dispatch(addToWatchlist('something'));
+    setSearchTerm(input);
     // closeModal();
   };
 
@@ -51,7 +53,7 @@ const CustomSearchBarModal: React.FC<ModalProps> = ({ toggleModal, showModal, wa
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e)}
             />
           </InputGroup>
-          <SearchBarDropdown searchTerm={input} quickAddMode={true} watchlistPrices={watchlistPrices} />
+          <SearchResults searchTerm={searchTerm} watchlistPrices={watchlistPrices} />
         </Form>
       </Modal.Body>
       <Modal.Footer>
