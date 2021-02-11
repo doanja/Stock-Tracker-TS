@@ -10,9 +10,10 @@ interface ModalProps {
   toggleModal: ToggleModal;
   showModal: boolean;
   watchlistId?: string;
+  watchlistPrices: WatchlistPrice | undefined;
 }
 
-const CustomSearchBarModal: React.FC<ModalProps> = ({ toggleModal, showModal, watchlistId }) => {
+const CustomSearchBarModal: React.FC<ModalProps> = ({ toggleModal, showModal, watchlistId, watchlistPrices }) => {
   const [input, setInput] = useState('');
 
   // redux
@@ -50,7 +51,7 @@ const CustomSearchBarModal: React.FC<ModalProps> = ({ toggleModal, showModal, wa
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e)}
             />
           </InputGroup>
-          <SearchBarDropdown searchTerm={input} />
+          <SearchBarDropdown searchTerm={input} quickAddMode={true} watchlistPrices={watchlistPrices} />
         </Form>
       </Modal.Body>
       <Modal.Footer>
