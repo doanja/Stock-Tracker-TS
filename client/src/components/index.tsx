@@ -33,6 +33,7 @@ import WatchlistModal from './WatchlistModal';
 import SearchBarDropdown from './SearchBarDropdown';
 import CustomSearchBarModal from './CustomSearchBarModal';
 import SearchResults from './SearchResults';
+import SearchResultsChild from './SearchResultsChild';
 
 export {
   SaveButton,
@@ -70,4 +71,5 @@ export {
   SearchBarDropdown,
   CustomSearchBarModal,
   SearchResults,
+  SearchResultsChild,
 };

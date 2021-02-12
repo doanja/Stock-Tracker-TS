@@ -1,17 +1,8 @@
 import React, { Fragment, useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
 import { getTickerName } from '../helper';
 import { StockService } from '../services';
-import { CustomSpinner } from './';
+import { CustomSpinner, SearchResultsChild } from './';
 import tickers from '../tickers.json';
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlusCircle, faMinusCircle } from '@fortawesome/free-solid-svg-icons';
-
-// redux
-import { useDispatch, useSelector } from 'react-redux';
-import { RootStore } from '../redux/Store';
-import { addToWatchlist, removeFromWatchlist } from '../redux/actions/stockActions';
 
 interface SearchResultsProps {
   searchTerm: string;
@@ -22,20 +13,6 @@ const SearchResults: React.FC<SearchResultsProps> = ({ searchTerm, watchlistPric
   const [searchResults, setSearchResults] = useState<Ticker[] | undefined>([]);
   const [tickerPrices, setTickerPrices] = useState<TickerPrice[]>([]);
   const [tickerSymbols, settickerSymbols] = useState<string[]>([]);
-
-  const history = useHistory();
-
-  // redux
-  const { loginStatus } = useSelector((state: RootStore) => state.auth);
-  const dispatch = useDispatch();
-
-  const saveTicker = (saveTicker: boolean, ticker: string): void => {
-    if (loginStatus && watchlistPrices?.watchlistId) {
-      saveTicker
-        ? dispatch(addToWatchlist(watchlistPrices?.watchlistId, ticker))
-        : dispatch(removeFromWatchlist(watchlistPrices?.watchlistId, ticker));
-    } else history.push('/login');
-  };
 
   useEffect(() => {
     if (searchTerm === '') {
@@ -84,64 +61,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({ searchTerm, watchlistPric
       {searchResults ? (
         <Fragment>
           {tickerPrices.map((ticker: TickerPrice) => (
-            <div className='search-dropdown-item' key={ticker.symbol}>
-              <div>
-                <div className='search-dropdown-item-company-name'>{ticker.companyName}</div>
-                <div className='search-dropdown-item-company-symbol'>{ticker.symbol}</div>
-              </div>
-
-              {ticker.prices[0].priceChange > 0 ? (
-                <div className='position-relative'>
-                  <div className='search-dropdown-item-price-wrap'>
-                    <div className='search-dropdown-item-price'>${ticker.prices[0].price}</div>
-                    <div className='search-dropdown-item-percent discover-green'>{ticker.prices[0].changePercent}%</div>
-                  </div>
-
-                  <div className='icon-wrap'>
-                    {tickerSymbols.includes(ticker.symbol) ? (
-                      <FontAwesomeIcon
-                        className='icon-overlayed-search icon'
-                        icon={faMinusCircle}
-                        size='lg'
-                        onClick={() => saveTicker(false, ticker.symbol)}
-                      />
-                    ) : (
-                      <FontAwesomeIcon
-                        className='icon-overlayed-search icon'
-                        icon={faPlusCircle}
-                        size='lg'
-                        onClick={() => saveTicker(true, ticker.symbol)}
-                      />
-                    )}
-                  </div>
-                </div>
-              ) : (
-                <div className='position-relative'>
-                  <div className='search-dropdown-item-price-wrap'>
-                    <div className='search-dropdown-item-price'>${ticker.prices[0].price}</div>
-                    <div className='search-dropdown-item-percent discover-red'>{ticker.prices[0].changePercent}%</div>
-                  </div>
-
-                  <div className='icon-wrap'>
-                    {tickerSymbols.includes(ticker.symbol) ? (
-                      <FontAwesomeIcon
-                        className='icon-overlayed-search icon'
-                        icon={faMinusCircle}
-                        size='lg'
-                        onClick={() => saveTicker(false, ticker.symbol)}
-                      />
-                    ) : (
-                      <FontAwesomeIcon
-                        className='icon-overlayed-search icon'
-                        icon={faPlusCircle}
-                        size='lg'
-                        onClick={() => saveTicker(true, ticker.symbol)}
-                      />
-                    )}
-                  </div>
-                </div>
-              )}
-            </div>
+            <SearchResultsChild ticker={ticker} tickerSymbols={tickerSymbols} watchlistPrices={watchlistPrices} setTickerSymbols={settickerSymbols} />
           ))}
         </Fragment>
       ) : (
