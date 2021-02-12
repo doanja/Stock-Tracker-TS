@@ -12,7 +12,7 @@ interface SearchResultsProps {
 const SearchResults: React.FC<SearchResultsProps> = ({ searchTerm, watchlistPrices }) => {
   const [searchResults, setSearchResults] = useState<Ticker[] | undefined>([]);
   const [tickerPrices, setTickerPrices] = useState<TickerPrice[]>([]);
-  const [tickerSymbols, settickerSymbols] = useState<string[]>([]);
+  const [tickerSymbols, setTickerSymbols] = useState<string[]>([]);
 
   useEffect(() => {
     if (searchTerm === '') {
@@ -52,7 +52,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({ searchTerm, watchlistPric
     const symbols = watchlistPrices?.tickerPrices.map((price: TickerPrice) => price.symbol);
 
     if (symbols) {
-      settickerSymbols(symbols);
+      setTickerSymbols(symbols);
     }
   }, [watchlistPrices]);
 
@@ -61,7 +61,11 @@ const SearchResults: React.FC<SearchResultsProps> = ({ searchTerm, watchlistPric
       {searchResults ? (
         <Fragment>
           {tickerPrices.map((ticker: TickerPrice) => (
-            <SearchResultsChild ticker={ticker} tickerSymbols={tickerSymbols} watchlistPrices={watchlistPrices} setTickerSymbols={settickerSymbols} />
+            <SearchResultsChild
+              ticker={ticker}
+              tickerSymbols={tickerSymbols}
+              watchlistPrices={watchlistPrices} /*setTickerSymbols={setTickerSymbols}*/
+            />
           ))}
         </Fragment>
       ) : (

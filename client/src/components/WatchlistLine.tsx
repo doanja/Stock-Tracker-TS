@@ -1,5 +1,5 @@
-import React, { useState, useRef } from 'react';
-import { WatchlistTicker, CustomSpinner, WatchlistModal } from './';
+import React, { useState, useRef, Fragment } from 'react';
+import { WatchlistTicker, WatchlistModal } from './';
 import { Container } from 'react-bootstrap';
 import '../styles/main.min.css';
 
@@ -8,11 +8,11 @@ import { faChevronCircleRight, faChevronCircleLeft, faPlus } from '@fortawesome/
 
 interface WatchlistLineProps {
   watchlistPrices: WatchlistPrice[];
-  currentWatchlistId: string;
+  currentWatchlist: WatchlistPrice | undefined;
   setCurrentWatchlist: SetCurrentWatchlist;
 }
 
-const WatchlistLine: React.FC<WatchlistLineProps> = ({ watchlistPrices, currentWatchlistId, setCurrentWatchlist }) => {
+const WatchlistLine: React.FC<WatchlistLineProps> = ({ watchlistPrices, currentWatchlist, setCurrentWatchlist }) => {
   // modal
   const [showModal, setShowModal] = useState(false);
   const toggleModal: ToggleModal = () => setShowModal(!showModal);
@@ -47,39 +47,38 @@ const WatchlistLine: React.FC<WatchlistLineProps> = ({ watchlistPrices, currentW
         dispatchFunction={'createWatchlist'}
       />
 
-      {watchlistPrices.length > 0 ? (
-        <Container className='position-relative'>
-          <FontAwesomeIcon
-            className='scroll-icon-left-watchlist icon'
-            icon={faChevronCircleLeft}
-            size='2x'
-            onClick={() => shiftDiscoverContainer('left')}
-          />
-          <FontAwesomeIcon
-            className='scroll-icon-right-watchlist icon'
-            icon={faChevronCircleRight}
-            size='2x'
-            onClick={() => shiftDiscoverContainer('right')}
-          />
-
-          <Container className='mt-3 watchlist-container' ref={discContainerRef}>
-            {watchlistPrices.map((wl: WatchlistPrice) => (
-              <WatchlistTicker
-                watchlistPrice={wl}
-                key={wl.watchlistId}
-                currentWatchlistId={currentWatchlistId}
-                setCurrentWatchlist={setCurrentWatchlist}
-              />
-            ))}
-            <div className='watchlist-ticker' onClick={() => toggleModal()}>
-              <FontAwesomeIcon className='watchlists-icon' icon={faPlus} size='1x' />
-              <p className='watchlist-ticker-text'>New Watchlist</p>
-            </div>
-          </Container>
+      <Container className='position-relative'>
+        <FontAwesomeIcon
+          className='scroll-icon-left-watchlist icon'
+          icon={faChevronCircleLeft}
+          size='2x'
+          onClick={() => shiftDiscoverContainer('left')}
+        />
+        <FontAwesomeIcon
+          className='scroll-icon-right-watchlist icon'
+          icon={faChevronCircleRight}
+          size='2x'
+          onClick={() => shiftDiscoverContainer('right')}
+        />
+        <Container className='mt-3 watchlist-container' ref={discContainerRef}>
+          {watchlistPrices.length > 0 && currentWatchlist?.watchlistId ? (
+            <Fragment>
+              {watchlistPrices.map((wl: WatchlistPrice) => (
+                <WatchlistTicker
+                  watchlistPrice={wl}
+                  key={wl.watchlistId}
+                  currentWatchlistId={currentWatchlist.watchlistId}
+                  setCurrentWatchlist={setCurrentWatchlist}
+                />
+              ))}
+            </Fragment>
+          ) : null}
+          <div className='watchlist-ticker' onClick={() => toggleModal()}>
+            <FontAwesomeIcon className='watchlists-icon' icon={faPlus} size='1x' />
+            <p className='watchlist-ticker-text'>New Watchlist</p>
+          </div>
         </Container>
-      ) : (
-        <CustomSpinner />
-      )}
+      </Container>
     </div>
   );
 };

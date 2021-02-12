@@ -1,7 +1,10 @@
-import React, { Fragment, useState } from 'react';
-import { WatchlistSummary, CustomSpinner, WatchlistModal, CustomSearchBarModal } from './';
+import React, { Fragment, useEffect, useState } from 'react';
+import { WatchlistSummary, WatchlistModal, CustomSearchBarModal } from './';
 import { Container, Dropdown } from 'react-bootstrap';
 import '../styles/main.min.css';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 // redux
 import { useDispatch } from 'react-redux';
@@ -22,9 +25,14 @@ const WatchlistSummaryContainer: React.FC<WatchlistSummaryContainerProps> = ({ w
   const [showSearchModal, setShowSearchModal] = useState(false);
   const toggleSearchModal: ToggleModal = () => setShowSearchModal(!showSearchModal);
 
+  useEffect(() => {
+    console.log('watchlistPrices :>> ', watchlistPrices);
+  }, [watchlistPrices]);
+
   return (
+    // TODO: fix issue where watchlistprices initialy does not load data, have to click home button
     <Container className='p-3 sub-container ticker-home-sub-wrap'>
-      {watchlistPrices ? (
+      {watchlistPrices && watchlistPrices.tickerPrices.length > 0 ? (
         <Fragment>
           <WatchlistModal
             showModal={showModal}
@@ -51,15 +59,15 @@ const WatchlistSummaryContainer: React.FC<WatchlistSummaryContainerProps> = ({ w
                 <Dropdown.Toggle variant='dark' size='sm'>
                   Options
                 </Dropdown.Toggle>
-                <Dropdown.Menu className='test'>
+                <Dropdown.Menu>
+                  <Dropdown.Item as='button' onClick={() => toggleSearchModal()}>
+                    Add Ticker
+                  </Dropdown.Item>
                   <Dropdown.Item as='button' onClick={() => toggleModal()}>
                     Rename
                   </Dropdown.Item>
                   <Dropdown.Item as='button' onClick={() => dispatch(deleteWatchlist(watchlistPrices!.watchlistId))}>
                     Delete
-                  </Dropdown.Item>
-                  <Dropdown.Item as='button' onClick={() => toggleSearchModal()}>
-                    Quick Add
                   </Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
@@ -71,7 +79,14 @@ const WatchlistSummaryContainer: React.FC<WatchlistSummaryContainerProps> = ({ w
           ))}
         </Fragment>
       ) : (
-        <CustomSpinner />
+        <div className='empty-watchlist'>
+          <p className='font-weight-bold'>Nothing in this watchlist yet</p>
+          <p> Track investments you care about here</p>
+          <div className='watchlist-ticker mt-2' onClick={() => toggleSearchModal()}>
+            <FontAwesomeIcon className='watchlists-icon' icon={faPlus} size='1x' />
+            <p className='watchlist-ticker-text'>Add Investments</p>
+          </div>
+        </div>
       )}
     </Container>
   );

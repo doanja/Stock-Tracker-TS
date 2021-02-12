@@ -5,19 +5,21 @@ import '../styles/main.min.css';
 
 interface WatchlistTickerProps {
   watchlistPrice: WatchlistPrice;
-  currentWatchlistId: string;
+  currentWatchlistId: string | undefined;
   setCurrentWatchlist: SetCurrentWatchlist;
 }
 
 const WatchlistTicker: React.FC<WatchlistTickerProps> = ({ watchlistPrice, currentWatchlistId, setCurrentWatchlist }) => {
   return (
     <div className='position-relative'>
-      <div
-        className={currentWatchlistId === watchlistPrice.watchlistId ? 'watchlist-ticker selected' : 'watchlist-ticker'}
-        onClick={() => setCurrentWatchlist(watchlistPrice)}>
-        <FontAwesomeIcon className='watchlists-icon' icon={faList} size='1x' />
-        <p className='watchlist-ticker-text'>{watchlistPrice.watchlistName}</p>
-      </div>
+      {currentWatchlistId ? (
+        <div
+          className={currentWatchlistId === watchlistPrice.watchlistId ? 'watchlist-ticker selected' : 'watchlist-ticker'}
+          onClick={() => setCurrentWatchlist(watchlistPrice)}>
+          <FontAwesomeIcon className='watchlists-icon' icon={faList} size='1x' />
+          <p className='watchlist-ticker-text'>{watchlistPrice.watchlistName}</p>
+        </div>
+      ) : null}
     </div>
   );
 };

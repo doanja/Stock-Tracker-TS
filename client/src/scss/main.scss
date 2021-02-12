@@ -579,4 +579,12 @@ body {
   width: min-content;
 }
 
+.empty-watchlist {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  flex-direction: column;
+}
+
 @import 'mobile'; // for mobile

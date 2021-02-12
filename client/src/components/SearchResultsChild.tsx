@@ -12,7 +12,7 @@ interface SearchResultsChildProps {
   ticker: TickerPrice;
   tickerSymbols: string[];
   watchlistPrices?: WatchlistPrice | undefined;
-  setTickerSymbol: (symbols: string[]) => void;
+  // setTickerSymbol: (symbols: string[]) => void;
 }
 
 const SearchResultsChild: React.FC<SearchResultsChildProps> = ({ ticker, tickerSymbols, watchlistPrices }) => {
@@ -27,6 +27,9 @@ const SearchResultsChild: React.FC<SearchResultsChildProps> = ({ ticker, tickerS
   const dispatch = useDispatch();
 
   const saveTicker = (saveTicker: boolean, ticker: string): void => {
+    const a = tickerSymbols.includes(ticker);
+
+    console.log('a :>> ', a);
     if (loginStatus && watchlistPrices?.watchlistId) {
       if (saveTicker) {
         dispatch(addToWatchlist(watchlistPrices?.watchlistId, ticker));

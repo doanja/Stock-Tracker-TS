@@ -9,7 +9,6 @@ interface TickerContainerWrapProps {
 }
 
 const TickerContainerWrap: React.FC<TickerContainerWrapProps> = ({ watchlistPrices, currentTicker, currentTickerPrice }) => {
-  console.log('ticker container wrap');
   return (
     <Fragment>
       {watchlistPrices.length > 0 ? (
