@@ -57,11 +57,12 @@ const SearchResults: React.FC<SearchResultsProps> = ({ searchTerm, watchlistPric
   }, [watchlistPrices]);
 
   return (
-    <div className='search-dropdown-parent'>
+    <Fragment>
       {searchResults ? (
         <Fragment>
           {tickerPrices.map((ticker: TickerPrice) => (
             <SearchResultsChild
+              key={ticker.symbol}
               ticker={ticker}
               tickerSymbols={tickerSymbols}
               watchlistPrices={watchlistPrices} /*setTickerSymbols={setTickerSymbols}*/
@@ -71,7 +72,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({ searchTerm, watchlistPric
       ) : (
         <CustomSpinner />
       )}
-    </div>
+    </Fragment>
   );
 };
 

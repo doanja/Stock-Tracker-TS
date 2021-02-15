@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import { useHistory } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlusCircle, faMinusCircle } from '@fortawesome/free-solid-svg-icons';
@@ -27,9 +27,9 @@ const SearchResultsChild: React.FC<SearchResultsChildProps> = ({ ticker, tickerS
   const dispatch = useDispatch();
 
   const saveTicker = (saveTicker: boolean, ticker: string): void => {
-    const a = tickerSymbols.includes(ticker);
+    const isIncludedInWatchlist = tickerSymbols.includes(ticker);
 
-    console.log('a :>> ', a);
+    console.log('isIncludedInWatchlist :>> ', isIncludedInWatchlist);
     if (loginStatus && watchlistPrices?.watchlistId) {
       if (saveTicker) {
         dispatch(addToWatchlist(watchlistPrices?.watchlistId, ticker));
@@ -41,53 +41,54 @@ const SearchResultsChild: React.FC<SearchResultsChildProps> = ({ ticker, tickerS
   };
 
   return (
-    <div className='search-dropdown-item' key={ticker.symbol}>
-      <div className='search-dropdown-item-company-name'>{ticker.companyName}</div>
-      <div className='search-dropdown-item-company-symbol'>{ticker.symbol}</div>
-      <div className='icon-wrap'></div>
+    <div className='search-dropdown-item'>
+      <div className='mt-2 company-badge-name-wrap'>
+        <div className='mb-1 ticker-badge'>
+          <div className='ticker-badge-text'>{ticker.symbol}</div>
+        </div>
+
+        <div className='mb-3 company-name'>
+          <p>{ticker.companyName}</p>
+        </div>
+      </div>
 
       {ticker.prices[0].priceChange > 0 ? (
-        <div className='position-relative'>
-          <div className='search-dropdown-item-price-wrap'>
-            <div className='search-dropdown-item-price'>${ticker.prices[0].price}</div>
-            <div className='search-dropdown-item-percent discover-green'>{ticker.prices[0].changePercent}%</div>
+        <Fragment>
+          <div className='price-text-wrap'>
+            <p className='price-text'>${ticker.prices[0].price}</p>
           </div>
 
-          <div className='icon-wrap'>
-            {tickerSymbols.includes(ticker.symbol) ? (
-              <FontAwesomeIcon
-                className='icon-overlayed-search icon'
-                icon={faMinusCircle}
-                size='lg'
-                onClick={() => saveTicker(false, ticker.symbol)}
-              />
-            ) : (
-              <FontAwesomeIcon className='icon-overlayed-search icon' icon={faPlusCircle} size='lg' onClick={() => saveTicker(true, ticker.symbol)} />
-            )}
+          <div className='price-text-wrap'>
+            <p className='price-text font-green-dark'>${ticker.prices[0].priceChange}</p>
           </div>
-        </div>
+
+          <div className='percent-wrap'>
+            <div className='price-badge discover-green'>{ticker.prices[0].changePercent}%</div>
+          </div>
+        </Fragment>
       ) : (
-        <div className='position-relative'>
-          <div className='search-dropdown-item-price-wrap'>
-            <div className='search-dropdown-item-price'>${ticker.prices[0].price}</div>
-            <div className='search-dropdown-item-percent discover-red'>{ticker.prices[0].changePercent}%</div>
-            <div className='icon-wrap'></div>
+        <Fragment>
+          <div className='price-text-wrap'>
+            <p className='price-text'>${ticker.prices[0].price}</p>
           </div>
 
-          <div className='icon-wrap'>
-            {tickerSymbols.includes(ticker.symbol) ? (
-              <FontAwesomeIcon
-                className='icon-overlayed-search icon'
-                icon={faMinusCircle}
-                size='lg'
-                onClick={() => saveTicker(false, ticker.symbol)}
-              />
-            ) : (
-              <FontAwesomeIcon className='icon-overlayed-search icon' icon={faPlusCircle} size='lg' onClick={() => saveTicker(true, ticker.symbol)} />
-            )}
+          <div className='price-text-wrap'>
+            <p className='price-text font-red-dark'>-${ticker.prices[0].priceChange * -1}</p>
           </div>
-        </div>
+
+          <div className='percent-wrap'>
+            <div className='price-badge discover-red'>{ticker.prices[0].changePercent}%</div>
+          </div>
+        </Fragment>
       )}
+
+      <div className='ml-4'>
+        {tickerSymbols.includes(ticker.symbol) ? (
+          <FontAwesomeIcon className='icon' icon={faMinusCircle} size='lg' onClick={() => saveTicker(false, ticker.symbol)} />
+        ) : (
+          <FontAwesomeIcon className='icon' icon={faPlusCircle} size='lg' onClick={() => saveTicker(true, ticker.symbol)} />
+        )}
+      </div>
     </div>
   );
 };

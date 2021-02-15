@@ -410,12 +410,6 @@ body {
   right: 2%;
 }
 
-.icon-overlayed-search {
-  position: absolute;
-  top: 10%;
-  right: 2%;
-}
-
 .ticker-home-wrap {
   display: flex;
   flex-direction: row;
@@ -577,6 +571,10 @@ body {
   padding: 0 8px;
   border-radius: 8px;
   width: min-content;
+}
+
+.search-dropdown-item-icon {
+  margin-left: 24px;
 }
 
 .empty-watchlist {
