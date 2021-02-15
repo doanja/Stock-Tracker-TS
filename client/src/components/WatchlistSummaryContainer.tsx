@@ -11,7 +11,7 @@ import { useDispatch } from 'react-redux';
 import { deleteWatchlist } from '../redux/actions/stockActions';
 
 interface WatchlistSummaryContainerProps {
-  watchlistPrices: WatchlistPrice | undefined;
+  watchlistPrices: WatchlistPrice;
 }
 
 const WatchlistSummaryContainer: React.FC<WatchlistSummaryContainerProps> = ({ watchlistPrices }) => {
@@ -24,10 +24,6 @@ const WatchlistSummaryContainer: React.FC<WatchlistSummaryContainerProps> = ({ w
 
   const [showSearchModal, setShowSearchModal] = useState(false);
   const toggleSearchModal: ToggleModal = () => setShowSearchModal(!showSearchModal);
-
-  useEffect(() => {
-    console.log('watchlistPrices :>> ', watchlistPrices);
-  }, [watchlistPrices]);
 
   return (
     // TODO: fix issue where watchlistprices initialy does not load data, have to click home button
@@ -47,7 +43,7 @@ const WatchlistSummaryContainer: React.FC<WatchlistSummaryContainerProps> = ({ w
           <CustomSearchBarModal
             toggleModal={toggleSearchModal}
             showModal={showSearchModal}
-            watchlistId={watchlistPrices.watchlistId}
+            watchlistId={watchlistPrices.watchlistId as string}
             watchlistPrices={watchlistPrices}
           />
 

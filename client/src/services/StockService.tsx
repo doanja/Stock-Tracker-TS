@@ -13,6 +13,10 @@ export default class StockService {
     return axios.get<any>('/watchlist');
   }
 
+  public getWatchlistById(watchlistId: string): Promise<AxiosResponse<any>> {
+    return axios.get<any>(`/watchlist/${watchlistId}`);
+  }
+
   public createWatchlist(name: string): Promise<AxiosResponse<any>> {
     return axios.post<any>('/watchlist', { name });
   }

@@ -6,6 +6,7 @@ import {
   addToWatchlist,
   removeFromWatchlist,
   deleteWatchlist,
+  getWatchlistById,
 } from '../controllers/watchlist.controller';
 import { verifyAccessToken } from '../middleware/verifyToken';
 
@@ -18,6 +19,7 @@ export default class WatchlistRoute {
 
   public initializeRoutes() {
     this.router.get('/watchlist', [verifyAccessToken], getWatchlists);
+    this.router.get('/watchlist/:watchlistId', [verifyAccessToken], getWatchlistById);
     this.router.post('/watchlist', [verifyAccessToken], createWatchlist);
     this.router.put('/watchlist/:watchlistId/:name', [verifyAccessToken], updateWatchlistName);
     this.router.put('/watchlist/add/:watchlistId/:ticker', [verifyAccessToken], addToWatchlist);

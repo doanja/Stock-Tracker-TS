@@ -1,24 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { SearchResults } from './';
 import { Modal, Form, InputGroup, Button } from 'react-bootstrap';
-
-// redux
-import { useDispatch } from 'react-redux';
-import { addToWatchlist } from '../redux/actions/stockActions';
 
 interface ModalProps {
   toggleModal: ToggleModal;
   showModal: boolean;
-  watchlistId?: string;
-  watchlistPrices: WatchlistPrice | undefined;
+  watchlistId: string;
+  watchlistPrices: WatchlistPrice;
 }
 
 const CustomSearchBarModal: React.FC<ModalProps> = ({ toggleModal, showModal, watchlistId, watchlistPrices }) => {
   const [input, setInput] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
-
-  // redux
-  const dispatch = useDispatch();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setInput(e.target.value);
@@ -26,10 +19,7 @@ const CustomSearchBarModal: React.FC<ModalProps> = ({ toggleModal, showModal, wa
 
   const handleSubmit = (e: React.FormEvent): void => {
     e.preventDefault();
-    console.log('searched');
-    // dispatch(addToWatchlist('something'));
     setSearchTerm(input);
-    // closeModal();
   };
 
   const closeModal = () => {
@@ -53,7 +43,7 @@ const CustomSearchBarModal: React.FC<ModalProps> = ({ toggleModal, showModal, wa
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e)}
             />
           </InputGroup>
-          <SearchResults searchTerm={searchTerm} watchlistPrices={watchlistPrices} />
+          <SearchResults searchTerm={searchTerm} watchlistId={watchlistId} watchlistPrices={watchlistPrices} />
         </Form>
       </Modal.Body>
       <Modal.Footer>

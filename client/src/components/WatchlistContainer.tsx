@@ -1,5 +1,5 @@
-import React, { useState, useEffect, Fragment } from 'react';
-import WatchlistLine from './WatchlistLine';
+import React, { useState, useEffect } from 'react';
+import { WatchlistLine, CustomSpinner } from './';
 
 // redux
 import { useSelector } from 'react-redux';
@@ -11,7 +11,7 @@ const WatchlistContainer: React.FC = () => {
   const { watchlistPrices, watchlists } = useSelector((state: RootStore) => state.stock);
   const [currentWatchlist, setCurrentWatchlist] = useState<WatchlistPrice | undefined>();
 
-  // TODO:figure out how to setCurrentWatchlist to recently created list
+  // TODO: figure out how to setCurrentWatchlist to recently created list
 
   useEffect(() => {
     // console.log('watchlists :>> ', watchlists);
@@ -30,7 +30,7 @@ const WatchlistContainer: React.FC = () => {
   return (
     <div className='mt-3'>
       <WatchlistLine watchlistPrices={watchlistPrices} currentWatchlist={currentWatchlist} setCurrentWatchlist={setCurrentWatchlist} />
-      <WatchlistSummaryContainer watchlistPrices={currentWatchlist} />
+      {currentWatchlist ? <WatchlistSummaryContainer watchlistPrices={currentWatchlist} /> : <CustomSpinner />}
     </div>
   );
 };

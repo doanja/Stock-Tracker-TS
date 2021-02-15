@@ -6,13 +6,16 @@ import tickers from '../tickers.json';
 
 interface SearchResultsProps {
   searchTerm: string;
-  watchlistPrices?: WatchlistPrice | undefined;
+  watchlistId: string;
+  watchlistPrices: WatchlistPrice;
 }
 
-const SearchResults: React.FC<SearchResultsProps> = ({ searchTerm, watchlistPrices }) => {
+const SearchResults: React.FC<SearchResultsProps> = ({ searchTerm, watchlistId, watchlistPrices }) => {
   const [searchResults, setSearchResults] = useState<Ticker[] | undefined>([]);
   const [tickerPrices, setTickerPrices] = useState<TickerPrice[]>([]);
   const [tickerSymbols, setTickerSymbols] = useState<string[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const stockAPI = new StockService();
 
   useEffect(() => {
     if (searchTerm === '') {
@@ -29,12 +32,9 @@ const SearchResults: React.FC<SearchResultsProps> = ({ searchTerm, watchlistPric
 
   useEffect(() => {
     if (searchResults) {
-      const stockAPI = new StockService();
-
+      setIsLoading(true);
       const watchlist: string[] = searchResults.map((ticker: Ticker) => ticker.Symbol);
-
       const loadPrices = async () => Promise.all(watchlist.map(ticker => stockAPI.getTickerPrices()));
-
       const tickerPrices: TickerPrice[] = [];
 
       loadPrices().then(promise => {
@@ -42,6 +42,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({ searchTerm, watchlistPric
           tickerPrices.push({ symbol: watchlist[i], companyName: getTickerName(watchlist[i]), prices: promise[i].data.prices });
         }
         setTickerPrices(tickerPrices);
+        setIsLoading(false);
       });
     } else {
       setTickerPrices([]);
@@ -49,28 +50,21 @@ const SearchResults: React.FC<SearchResultsProps> = ({ searchTerm, watchlistPric
   }, [searchResults]);
 
   useEffect(() => {
-    const symbols = watchlistPrices?.tickerPrices.map((price: TickerPrice) => price.symbol);
-
-    if (symbols) {
-      setTickerSymbols(symbols);
-    }
-  }, [watchlistPrices]);
+    stockAPI.getWatchlistById(watchlistId).then(res => {
+      setTickerSymbols(res.data.tickers.watchlist);
+    });
+  }, [watchlistId]);
 
   return (
     <Fragment>
-      {searchResults ? (
+      {searchResults && watchlistId && !isLoading ? (
         <Fragment>
           {tickerPrices.map((ticker: TickerPrice) => (
-            <SearchResultsChild
-              key={ticker.symbol}
-              ticker={ticker}
-              tickerSymbols={tickerSymbols}
-              watchlistPrices={watchlistPrices} /*setTickerSymbols={setTickerSymbols}*/
-            />
+            <SearchResultsChild key={ticker.symbol} ticker={ticker} tickerSymbols={tickerSymbols} watchlistId={watchlistId} />
           ))}
         </Fragment>
       ) : (
-        <CustomSpinner />
+        <Fragment>{isLoading ? <CustomSpinner /> : <div>hi</div>}</Fragment>
       )}
     </Fragment>
   );

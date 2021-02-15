@@ -12,6 +12,18 @@ export const getWatchlists = async (req: Request, res: Response): Promise<void> 
   }
 };
 
+export const getWatchlistById = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const { watchlistId } = req.params;
+
+    const watchlist: { watchlist: string[] } | null = await Watchlist.findById({ _id: watchlistId });
+
+    res.status(200).json({ tickers: watchlist });
+  } catch (error) {
+    res.status(401).json(error);
+  }
+};
+
 export const createWatchlist = async (req: Request, res: Response): Promise<void> => {
   try {
     const { name } = req.body;
@@ -46,7 +58,6 @@ export const addToWatchlist = async (req: Request, res: Response): Promise<void>
 
     await Watchlist.findOneAndUpdate({ _id: watchlistId }, { $addToSet: { watchlist: ticker.toUpperCase() } }, { new: true });
 
-    // TODO: test if this works
     const watchlists: IWatchlist[] | null = await Watchlist.find({ user: req.accessToken?._id });
 
     res.status(200).json({ watchlists });

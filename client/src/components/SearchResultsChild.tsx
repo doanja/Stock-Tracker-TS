@@ -2,6 +2,8 @@ import React, { useState, useEffect, Fragment } from 'react';
 import { useHistory } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlusCircle, faMinusCircle } from '@fortawesome/free-solid-svg-icons';
+import { StockService } from '../services';
+import { CustomSpinner } from './';
 
 // redux
 import { useDispatch, useSelector } from 'react-redux';
@@ -11,15 +13,10 @@ import { addToWatchlist, removeFromWatchlist } from '../redux/actions/stockActio
 interface SearchResultsChildProps {
   ticker: TickerPrice;
   tickerSymbols: string[];
-  watchlistPrices?: WatchlistPrice | undefined;
-  // setTickerSymbol: (symbols: string[]) => void;
+  watchlistId: string;
 }
 
-const SearchResultsChild: React.FC<SearchResultsChildProps> = ({ ticker, tickerSymbols, watchlistPrices }) => {
-  useEffect(() => {
-    // setTest(tickerSymbols);
-  }, [tickerSymbols]);
-
+const SearchResultsChild: React.FC<SearchResultsChildProps> = ({ ticker, tickerSymbols, watchlistId }) => {
   const history = useHistory();
 
   // redux
@@ -27,15 +24,16 @@ const SearchResultsChild: React.FC<SearchResultsChildProps> = ({ ticker, tickerS
   const dispatch = useDispatch();
 
   const saveTicker = (saveTicker: boolean, ticker: string): void => {
-    const isIncludedInWatchlist = tickerSymbols.includes(ticker);
+    // console.log('tickerSymbols', tickerSymbols);
 
-    console.log('isIncludedInWatchlist :>> ', isIncludedInWatchlist);
-    if (loginStatus && watchlistPrices?.watchlistId) {
+    // const isIncludedInWatchlist = tickerSymbols.includes(ticker);
+
+    // console.log('isIncludedInWatchlist :>> ', isIncludedInWatchlist);
+    if (loginStatus && watchlistId) {
       if (saveTicker) {
-        dispatch(addToWatchlist(watchlistPrices?.watchlistId, ticker));
-        // setTic(test.filter)
+        dispatch(addToWatchlist(watchlistId, ticker));
       } else {
-        dispatch(removeFromWatchlist(watchlistPrices?.watchlistId, ticker));
+        dispatch(removeFromWatchlist(watchlistId, ticker));
       }
     } else history.push('/login');
   };
