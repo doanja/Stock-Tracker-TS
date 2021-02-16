@@ -2,7 +2,7 @@ import React, { useState, useEffect, Fragment } from 'react';
 import { useHistory } from 'react-router-dom';
 import { usePrevious } from '../helper/hooks';
 import { AuthService, StockService } from '../services';
-import { CustomModal, TickerPrice } from '../components';
+import { CustomModal } from '../components';
 import { Home } from './';
 import axios from 'axios';
 import { checkTokenExp, getTickerName } from '../helper';

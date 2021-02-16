@@ -15,10 +15,6 @@ const SearchResults: React.FC<SearchResultsProps> = ({ searchTerm, watchlistId }
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const stockAPI = new StockService();
 
-  useEffect(() => {
-    console.log('searchTerm', searchTerm);
-  }, []);
-
   // get list of search suggestions
   useEffect(() => {
     if (searchTerm === '') {

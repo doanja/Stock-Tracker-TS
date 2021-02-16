@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import { WatchlistLine, CustomSpinner } from './';
 
 // redux
@@ -14,23 +14,25 @@ const WatchlistContainer: React.FC = () => {
   // TODO: figure out how to setCurrentWatchlist to recently created list
 
   useEffect(() => {
-    // console.log('watchlists :>> ', watchlists);
-
-    // console.log('watchlistPrices[0] :>> ', watchlistPrices[0]);
     if (watchlists.length > 0) {
-      // console.log('watchlist length reater than 0');
-      // console.log('watchlistPrices[0] :>> ', watchlistPrices[0]);
       setCurrentWatchlist(watchlistPrices[0]);
-      // console.log('watchlists', watchlists);
-      // console.log('currentWatchlist', currentWatchlist);
-      // console.log('watchlistPrices[0]', watchlistPrices[0]);
     }
   }, [watchlists]);
 
+  useEffect(() => {
+    console.log('currentWatchlist', currentWatchlist);
+  }, [currentWatchlist]);
+
   return (
     <div className='mt-3'>
-      <WatchlistLine watchlistPrices={watchlistPrices} currentWatchlist={currentWatchlist} setCurrentWatchlist={setCurrentWatchlist} />
-      {currentWatchlist ? <WatchlistSummaryContainer watchlistPrices={currentWatchlist} /> : <CustomSpinner />}
+      {currentWatchlist ? (
+        <Fragment>
+          <WatchlistLine watchlistPrices={watchlistPrices} currentWatchlist={currentWatchlist} setCurrentWatchlist={setCurrentWatchlist} />
+          <WatchlistSummaryContainer watchlistPrices={currentWatchlist} />
+        </Fragment>
+      ) : (
+        <CustomSpinner />
+      )}
     </div>
   );
 };

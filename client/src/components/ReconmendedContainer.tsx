@@ -4,7 +4,7 @@ import { Reconmended, CustomSpinner } from './';
 import { Container } from 'react-bootstrap';
 import '../styles/main.min.css';
 
-const ReconmendedContainer: React.FC = ({}) => {
+const ReconmendedContainer: React.FC = () => {
   const [tickerPrices, setTickerPrices] = useState<TickerPrice[]>([]);
   const [isMounted, setIsMounted] = useState(false);
 

@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import { WatchlistSummary, WatchlistModal, CustomSearchBarModal } from './';
 import { Container, Dropdown } from 'react-bootstrap';
 import '../styles/main.min.css';

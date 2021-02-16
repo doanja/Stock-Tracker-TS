@@ -8,7 +8,7 @@ import { faChevronCircleRight, faChevronCircleLeft, faPlus } from '@fortawesome/
 
 interface WatchlistLineProps {
   watchlistPrices: WatchlistPrice[];
-  currentWatchlist: WatchlistPrice | undefined;
+  currentWatchlist: WatchlistPrice;
   setCurrentWatchlist: SetCurrentWatchlist;
 }
 
@@ -61,7 +61,7 @@ const WatchlistLine: React.FC<WatchlistLineProps> = ({ watchlistPrices, currentW
           onClick={() => shiftDiscoverContainer('right')}
         />
         <Container className='mt-3 watchlist-container' ref={discContainerRef}>
-          {watchlistPrices.length > 0 && currentWatchlist?.watchlistId ? (
+          {watchlistPrices.length > 0 && currentWatchlist.watchlistId ? (
             <Fragment>
               {watchlistPrices.map((wl: WatchlistPrice) => (
                 <WatchlistTicker
