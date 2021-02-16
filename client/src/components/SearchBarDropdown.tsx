@@ -11,21 +11,11 @@ interface SearchBarDropdownProps {
 const SearchBarDropdown: React.FC<SearchBarDropdownProps> = ({ searchTerm }) => {
   const [searchResults, setSearchResults] = useState<Ticker[] | undefined>([]);
   const [tickerPrices, setTickerPrices] = useState<TickerPrice[]>([]);
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
-    if (searchTerm === '') {
-      setSearchResults([]);
-    } else if (searchTerm) {
-      let results: Ticker[] | undefined = tickers.filter((ticker: Ticker) => ticker['Company Name'].toLowerCase().includes(searchTerm));
+    setIsMounted(true);
 
-      // if symbol not found, search by company name
-      if (results.length === 0) results = tickers.filter((ticker: Ticker) => ticker.Symbol.toLowerCase().includes(searchTerm));
-
-      setSearchResults(results.slice(0, 5));
-    }
-  }, [searchTerm]);
-
-  useEffect(() => {
     if (searchResults) {
       const stockAPI = new StockService();
 
@@ -44,7 +34,24 @@ const SearchBarDropdown: React.FC<SearchBarDropdownProps> = ({ searchTerm }) => 
     } else {
       setTickerPrices([]);
     }
-  }, [searchResults]);
+
+    return () => setIsMounted(false);
+  }, [searchTerm]);
+
+  useEffect(() => {
+    if (searchTerm === '') {
+      setSearchResults([]);
+    } else if (searchTerm) {
+      let results: Ticker[] | undefined = tickers.filter((ticker: Ticker) => ticker['Company Name'].toLowerCase().includes(searchTerm));
+
+      // if symbol not found, search by company name
+      if (results.length === 0) results = tickers.filter((ticker: Ticker) => ticker.Symbol.toLowerCase().includes(searchTerm));
+
+      setSearchResults(results.slice(0, 5));
+    }
+  }, [searchTerm]);
+
+  if (!isMounted) return null;
 
   return (
     <div className='search-dropdown-parent'>
