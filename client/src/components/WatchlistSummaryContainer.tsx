@@ -40,12 +40,7 @@ const WatchlistSummaryContainer: React.FC<WatchlistSummaryContainerProps> = ({ w
             watchlistName={watchlistPrices.watchlistName}
             watchlistId={watchlistPrices.watchlistId}
           />
-          <CustomSearchBarModal
-            toggleModal={toggleSearchModal}
-            showModal={showSearchModal}
-            watchlistId={watchlistPrices.watchlistId as string}
-            watchlistPrices={watchlistPrices}
-          />
+          <CustomSearchBarModal toggleModal={toggleSearchModal} showModal={showSearchModal} watchlistId={watchlistPrices.watchlistId as string} />
 
           <div className='position-relative'>
             <h2 className='sub-heading mb-3'>{watchlistPrices?.watchlistName}</h2>

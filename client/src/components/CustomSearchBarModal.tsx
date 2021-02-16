@@ -6,10 +6,9 @@ interface ModalProps {
   toggleModal: ToggleModal;
   showModal: boolean;
   watchlistId: string;
-  watchlistPrices: WatchlistPrice;
 }
 
-const CustomSearchBarModal: React.FC<ModalProps> = ({ toggleModal, showModal, watchlistId, watchlistPrices }) => {
+const CustomSearchBarModal: React.FC<ModalProps> = ({ toggleModal, showModal, watchlistId }) => {
   const [input, setInput] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
 
@@ -24,6 +23,7 @@ const CustomSearchBarModal: React.FC<ModalProps> = ({ toggleModal, showModal, wa
 
   const closeModal = () => {
     setInput('');
+    setSearchTerm('');
     toggleModal();
   };
 
@@ -43,7 +43,7 @@ const CustomSearchBarModal: React.FC<ModalProps> = ({ toggleModal, showModal, wa
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e)}
             />
           </InputGroup>
-          <SearchResults searchTerm={searchTerm} watchlistId={watchlistId} watchlistPrices={watchlistPrices} />
+          <SearchResults searchTerm={searchTerm} watchlistId={watchlistId} />
         </Form>
       </Modal.Body>
       <Modal.Footer>

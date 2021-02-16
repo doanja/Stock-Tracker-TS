@@ -7,16 +7,19 @@ import tickers from '../tickers.json';
 interface SearchResultsProps {
   searchTerm: string;
   watchlistId: string;
-  watchlistPrices: WatchlistPrice;
 }
 
-const SearchResults: React.FC<SearchResultsProps> = ({ searchTerm, watchlistId, watchlistPrices }) => {
+const SearchResults: React.FC<SearchResultsProps> = ({ searchTerm, watchlistId }) => {
   const [searchResults, setSearchResults] = useState<Ticker[] | undefined>([]);
   const [tickerPrices, setTickerPrices] = useState<TickerPrice[]>([]);
-  const [tickerSymbols, setTickerSymbols] = useState<string[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const stockAPI = new StockService();
 
+  useEffect(() => {
+    console.log('searchTerm', searchTerm);
+  }, []);
+
+  // get list of search suggestions
   useEffect(() => {
     if (searchTerm === '') {
       setSearchResults([]);
@@ -30,11 +33,12 @@ const SearchResults: React.FC<SearchResultsProps> = ({ searchTerm, watchlistId, 
     }
   }, [searchTerm]);
 
+  // build price data
   useEffect(() => {
     if (searchResults) {
       setIsLoading(true);
       const watchlist: string[] = searchResults.map((ticker: Ticker) => ticker.Symbol);
-      const loadPrices = async () => Promise.all(watchlist.map(ticker => stockAPI.getTickerPrices()));
+      const loadPrices = async () => Promise.all(watchlist.map(() => stockAPI.getTickerPrices()));
       const tickerPrices: TickerPrice[] = [];
 
       loadPrices().then(promise => {
@@ -49,22 +53,16 @@ const SearchResults: React.FC<SearchResultsProps> = ({ searchTerm, watchlistId, 
     }
   }, [searchResults]);
 
-  useEffect(() => {
-    stockAPI.getWatchlistById(watchlistId).then(res => {
-      setTickerSymbols(res.data.tickers.watchlist);
-    });
-  }, [watchlistId]);
-
   return (
     <Fragment>
       {searchResults && watchlistId && !isLoading ? (
         <Fragment>
           {tickerPrices.map((ticker: TickerPrice) => (
-            <SearchResultsChild key={ticker.symbol} ticker={ticker} tickerSymbols={tickerSymbols} watchlistId={watchlistId} />
+            <SearchResultsChild key={ticker.symbol} ticker={ticker} watchlistId={watchlistId} />
           ))}
         </Fragment>
       ) : (
-        <Fragment>{isLoading ? <CustomSpinner /> : <div>hi</div>}</Fragment>
+        <Fragment>{isLoading ? <CustomSpinner /> : null}</Fragment>
       )}
     </Fragment>
   );
