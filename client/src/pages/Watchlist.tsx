@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment } from 'react';
+import React, { useState, useEffect, Fragment, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 import { usePrevious } from '../helper/hooks';
 import { AuthService, StockService } from '../services';
@@ -25,11 +25,31 @@ const Watchlist: React.FC = () => {
 
   // modal
   const [showModal, setShowModal] = useState(false);
-  const toggleModal: ToggleModal = () => setShowModal(!showModal);
+
+  const toggleModal: ToggleModal = useCallback(() => {
+    setShowModal(!showModal);
+  }, [showModal]);
+
+  const requestAccessToken = useCallback(() => {
+    // check refresh token expiry
+    if (!checkTokenExp(refreshToken)) toggleModal();
+    else {
+      const authAPI = new AuthService();
+      authAPI
+        .getAccessToken(refreshToken)
+        .then(res => {
+          const accessToken = `Bearer ${res.data.accessToken}`;
+          dispatch(setAccessToken(accessToken));
+          axios.defaults.headers.common.Authorization = accessToken;
+          dispatch(getWatchlists());
+        })
+        .catch(err => toggleModal());
+    }
+  }, [refreshToken, dispatch, toggleModal]);
 
   useEffect(() => {
     if (error === 'TokenExpiredError') requestAccessToken();
-  }, [error]);
+  }, [error, requestAccessToken]);
 
   useEffect(() => {
     if (!loginStatus) history.push('/login');
@@ -75,23 +95,6 @@ const Watchlist: React.FC = () => {
     dispatch(clearLoginStatus());
     window.localStorage.removeItem('store');
     history.push('/');
-  };
-
-  const requestAccessToken = () => {
-    // check refresh token expiry
-    if (!checkTokenExp(refreshToken)) toggleModal();
-    else {
-      const authAPI = new AuthService();
-      authAPI
-        .getAccessToken(refreshToken)
-        .then(res => {
-          const accessToken = `Bearer ${res.data.accessToken}`;
-          dispatch(setAccessToken(accessToken));
-          axios.defaults.headers.common.Authorization = accessToken;
-          dispatch(getWatchlists());
-        })
-        .catch(err => toggleModal());
-    }
   };
 
   return (
