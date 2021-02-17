@@ -16,7 +16,6 @@ interface SearchResultsChildProps {
 
 const SearchResultsChild: React.FC<SearchResultsChildProps> = ({ ticker, watchlistId }) => {
   const history = useHistory();
-  const stockAPI = new StockService();
 
   // redux
   const { loginStatus } = useSelector((state: RootStore) => state.auth);
@@ -27,7 +26,7 @@ const SearchResultsChild: React.FC<SearchResultsChildProps> = ({ ticker, watchli
 
   useEffect(() => {
     setIsLoading(true);
-
+    const stockAPI = new StockService();
     stockAPI.getWatchlistById(watchlistId).then(res => {
       const watchlist = res.data.tickers.watchlist;
 
@@ -35,7 +34,7 @@ const SearchResultsChild: React.FC<SearchResultsChildProps> = ({ ticker, watchli
 
       setIsLoading(false);
     });
-  }, [watchlistId]);
+  }, [watchlistId, ticker.symbol]);
 
   const saveTicker = (saveTicker: boolean, ticker: string): void => {
     if (loginStatus && watchlistId) {

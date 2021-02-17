@@ -7,13 +7,13 @@ interface TickerAboutProps {
 }
 
 const TickerAbout: React.FC<TickerAboutProps> = ({ tickerPrice }) => {
-  const api = new StockService();
   const companyName = tickerPrice?.companyName;
   const [about, setAbout] = useState('');
 
   useEffect(() => {
     if (companyName) {
-      api
+      const stockAPI = new StockService();
+      stockAPI
         .getCompanyInfo(companyName)
         .then(response => response.json())
         .then(res => {

@@ -13,7 +13,6 @@ const SearchResults: React.FC<SearchResultsProps> = ({ searchTerm, watchlistId }
   const [searchResults, setSearchResults] = useState<Ticker[] | undefined>([]);
   const [tickerPrices, setTickerPrices] = useState<TickerPrice[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const stockAPI = new StockService();
 
   // get list of search suggestions
   useEffect(() => {
@@ -33,6 +32,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({ searchTerm, watchlistId }
   useEffect(() => {
     if (searchResults) {
       setIsLoading(true);
+      const stockAPI = new StockService();
       const watchlist: string[] = searchResults.map((ticker: Ticker) => ticker.Symbol);
       const loadPrices = async () => Promise.all(watchlist.map(() => stockAPI.getTickerPrices()));
       const tickerPrices: TickerPrice[] = [];

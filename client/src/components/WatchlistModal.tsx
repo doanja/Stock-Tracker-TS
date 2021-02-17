@@ -5,7 +5,7 @@ import { Modal, Form, InputGroup, Button } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { createWatchlist, updateWatchlistName } from '../redux/actions/stockActions';
 
-interface CustomWatchlistPostFormModalProps {
+interface WatchlistModalProps {
   toggleModal: ToggleModal;
   showModal: boolean;
   title: string;
@@ -16,7 +16,7 @@ interface CustomWatchlistPostFormModalProps {
   watchlistName?: string;
 }
 
-const WatchlistModal: React.FC<CustomWatchlistPostFormModalProps> = ({
+const WatchlistModal: React.FC<WatchlistModalProps> = ({
   toggleModal,
   showModal,
   title,
@@ -34,7 +34,7 @@ const WatchlistModal: React.FC<CustomWatchlistPostFormModalProps> = ({
   useEffect(() => {
     if (watchlistId && watchlistName) {
       setInput(watchlistName);
-      placeholder = watchlistName;
+      // placeholder = watchlistName;
     }
   }, [watchlistId, watchlistName]);
 

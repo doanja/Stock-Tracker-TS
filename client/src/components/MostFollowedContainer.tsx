@@ -3,7 +3,7 @@ import { bulkUpdatePrices, generateTickerPrices } from '../helper';
 import { MostFollowed, CustomSpinner } from './';
 import '../styles/main.min.css';
 
-const MostFollowedContainer: React.FC = ({}) => {
+const MostFollowedContainer: React.FC = () => {
   const [tickerPrices, setTickerPrices] = useState<TickerPrice[]>([]);
   const [isMounted, setIsMounted] = useState(false);
 

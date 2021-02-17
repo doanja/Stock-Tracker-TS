@@ -1,6 +1,6 @@
 import React, { useEffect, useReducer } from 'react';
 import { TickerLine } from './';
-import { bulkUpdatePrices, getNextPrice } from '../helper';
+import { bulkUpdatePrices } from '../helper';
 import { Container, Row } from 'react-bootstrap';
 import '../styles/ticker.min.css';
 
@@ -37,7 +37,7 @@ const TickerLineContainer: React.FC<TickerLineContainerProps> = ({ tickerPrices 
       if (tickerPrices) dispatchAction({ type: 'shuffle' });
     }, 10000);
     return () => clearInterval(interval);
-  }, []);
+  }, [tickerPrices]);
 
   useEffect(() => {
     if (tickerPrices) dispatchAction({ type: 'shuffle' });

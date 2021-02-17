@@ -14,9 +14,6 @@ import { getWatchlists, setWatchlistPrices } from '../redux/actions/stockActions
 import { clearAccessToken, clearLoginStatus, clearRefreshToken, setAccessToken } from '../redux/actions/authActions';
 
 const Watchlist: React.FC = () => {
-  const authAPI = new AuthService();
-  const stockAPI = new StockService();
-
   const history = useHistory();
 
   // redux
@@ -38,7 +35,7 @@ const Watchlist: React.FC = () => {
     if (!loginStatus) history.push('/login');
 
     dispatch(getWatchlists());
-  }, []);
+  }, [loginStatus, history, dispatch]);
 
   useEffect(() => {
     if (token) {
@@ -46,12 +43,13 @@ const Watchlist: React.FC = () => {
       dispatch(setAccessToken(accessToken));
       axios.defaults.headers.common.Authorization = accessToken;
     }
-  }, [token]);
+  }, [token, dispatch]);
 
   useEffect(() => {
     const watchlistPrices: WatchlistPrice[] = [];
 
     if (watchlists) {
+      const stockAPI = new StockService();
       watchlists.forEach((wl: Watchlist) => {
         const watchlist: string[] = [...wl.watchlist];
         const watchlistPrice: WatchlistPrice = { watchlistId: wl._id, watchlistName: wl.name, user: wl.user, tickerPrices: [] };
@@ -69,7 +67,7 @@ const Watchlist: React.FC = () => {
           .then(() => {});
       });
     }
-  }, [prevAmount]);
+  }, [prevAmount, dispatch, watchlists]);
 
   const logout = () => {
     dispatch(clearAccessToken());
@@ -83,6 +81,7 @@ const Watchlist: React.FC = () => {
     // check refresh token expiry
     if (!checkTokenExp(refreshToken)) toggleModal();
     else {
+      const authAPI = new AuthService();
       authAPI
         .getAccessToken(refreshToken)
         .then(res => {

@@ -25,7 +25,7 @@ const DiscoverCard: React.FC<DiscoverCardProps> = ({ tickerPrice }) => {
 
   useEffect(() => {
     if (loginStatus && watchlists) watchlists[0].watchlist.includes(tickerPrice.symbol) ? setIsWatching(true) : setIsWatching(false);
-  }, [watchlists, tickerPrice.symbol]);
+  }, [watchlists, tickerPrice.symbol, loginStatus]);
 
   const saveTicker = (saveTicker: boolean, ticker: string): void => {
     if (loginStatus && watchlists) {

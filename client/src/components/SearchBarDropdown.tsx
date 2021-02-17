@@ -36,7 +36,7 @@ const SearchBarDropdown: React.FC<SearchBarDropdownProps> = ({ searchTerm }) => 
     }
 
     return () => setIsMounted(false);
-  }, [searchTerm]);
+  }, [searchTerm, searchResults]);
 
   useEffect(() => {
     if (searchTerm === '') {

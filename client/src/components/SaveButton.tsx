@@ -22,7 +22,7 @@ const SaveIcon: React.FC<SaveIconProps> = ({ ticker }) => {
 
   useEffect(() => {
     if (loginStatus && watchlists) watchlists[0].watchlist.includes(ticker) ? setIsWatching(true) : setIsWatching(false);
-  }, [watchlists, ticker]);
+  }, [watchlists, ticker, loginStatus]);
 
   const saveTicker = (saveTicker: boolean): void => {
     if (loginStatus && watchlists) {

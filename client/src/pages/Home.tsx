@@ -21,7 +21,6 @@ import { setCurrentTickerPrice, setWatchlistPrices } from '../redux/actions/stoc
 import { RootStore } from '../redux/Store';
 
 const Home: React.FC = () => {
-  const stockAPI = new StockService();
   const history = useHistory();
 
   // redux
@@ -33,6 +32,7 @@ const Home: React.FC = () => {
     if (loginStatus) history.push('/watchlist');
     //  else if not login, generate some watchlist
     else {
+      const stockAPI = new StockService();
       const watchlist: string[] = generateWatchlist(5);
       const watchlistPrices: WatchlistPrice[] = [];
       const watchlistPrice: WatchlistPrice = { tickerPrices: [] };
@@ -47,10 +47,11 @@ const Home: React.FC = () => {
         dispatch(setWatchlistPrices(watchlistPrices));
       });
     }
-  }, [loginStatus]);
+  }, [loginStatus, history, dispatch]);
 
   useEffect(() => {
     if (currentTicker) {
+      const stockAPI = new StockService();
       // search for ticker in default watchlist
       const tickerPrice: TickerPrice | undefined = watchlistPrices[watchlistPrices.length - 1].tickerPrices.find(
         (tp: TickerPrice) => tp.symbol === currentTicker
@@ -72,7 +73,7 @@ const Home: React.FC = () => {
 
       window.scrollTo(0, 0);
     }
-  }, [currentTicker]);
+  }, [currentTicker, watchlistPrices, dispatch]);
 
   return (
     <Fragment>
