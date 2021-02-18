@@ -29,9 +29,13 @@ const Home: React.FC = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (loginStatus) history.push('/watchlist');
+    if (loginStatus) {
+      console.log('in if');
+      history.push('/watchlist');
+    }
     //  else if not login, generate some watchlist
     else {
+      console.log('in else');
       const stockAPI = new StockService();
       const watchlist: string[] = generateWatchlist(5);
       const watchlistPrices: WatchlistPrice[] = [];

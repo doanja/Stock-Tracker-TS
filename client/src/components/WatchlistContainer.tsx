@@ -20,7 +20,7 @@ const WatchlistContainer: React.FC = () => {
   }, [watchlists]);
 
   useEffect(() => {
-    console.log('currentWatchlist', currentWatchlist);
+    console.log('********currentWatchlist*********', currentWatchlist);
 
     console.log('watchlists', watchlists);
 
@@ -41,6 +41,7 @@ const WatchlistContainer: React.FC = () => {
       ) : (
         <CustomSpinner />
       )}
+      {/* <h1>watchlist container</h1> */}
     </div>
   );
 };
