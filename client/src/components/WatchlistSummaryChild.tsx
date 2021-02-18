@@ -9,12 +9,12 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch } from 'react-redux';
 import { setTicker, removeFromWatchlist } from '../redux/actions/stockActions';
 
-interface WatchlistSummaryProps {
+interface WatchlistSummaryChildProps {
   tickerPrice: TickerPrice;
   watchlistId: string | undefined;
 }
 
-const WatchlistSummary: React.FC<WatchlistSummaryProps> = ({ tickerPrice, watchlistId }) => {
+const WatchlistSummaryChild: React.FC<WatchlistSummaryChildProps> = ({ tickerPrice, watchlistId }) => {
   // redux
   const dispatch = useDispatch();
 
@@ -74,4 +74,4 @@ const WatchlistSummary: React.FC<WatchlistSummaryProps> = ({ tickerPrice, watchl
     </div>
   );
 };
-export default WatchlistSummary;
+export default WatchlistSummaryChild;

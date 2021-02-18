@@ -60,6 +60,8 @@ type LoadTicker = (ticker: string) => void;
 
 type GetTickerPrice = () => void;
 
+type ToggleSearchModal = () => void;
+
 type ToggleModal = (errorText?: string) => void;
 
 type SignupFormValues = {

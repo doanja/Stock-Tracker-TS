@@ -1,6 +1,10 @@
-import React, { Fragment, useEffect } from 'react';
-import { ReconmendedContainer, MostFollowedContainer, WatchlistContainer, TickerLineContainer, CustomSpinner } from './';
+import React, { useState, useEffect, Fragment } from 'react';
+import { ReconmendedContainer, MostFollowedContainer, WatchlistLine, WatchlistSummaryParent, TickerLineContainer } from './';
 import '../styles/main.min.css';
+
+// redux
+import { useSelector } from 'react-redux';
+import { RootStore } from '../redux/Store';
 
 interface TickerHomeProps {
   loginStatus: boolean;
@@ -8,24 +12,25 @@ interface TickerHomeProps {
 }
 
 const TickerHome: React.FC<TickerHomeProps> = ({ loginStatus, watchlistPrices }) => {
-  useEffect(() => {
-    console.log('loginStatus', loginStatus);
-  }, [loginStatus]);
+  // TODO: figure out how to setCurrentWatchlist to recently created list
+  // redux
+  const { watchlists } = useSelector((state: RootStore) => state.stock);
+  const [currentWatchlist, setCurrentWatchlist] = useState<WatchlistPrice | undefined>();
 
   useEffect(() => {
-    console.log('watchlistPrices', watchlistPrices);
-  }, [watchlistPrices]);
+    setCurrentWatchlist(watchlistPrices[0]);
+  }, [watchlists, watchlistPrices]);
 
   return (
     <Fragment>
-      {loginStatus ? (
+      {currentWatchlist && loginStatus ? (
         <Fragment>
-          {watchlistPrices.length > 0 ? (
-            <TickerLineContainer tickerPrices={watchlistPrices[watchlistPrices.length - 1].tickerPrices} />
-          ) : (
-            <CustomSpinner />
-          )}
-          <WatchlistContainer />
+          <TickerLineContainer tickerPrices={currentWatchlist.tickerPrices} />
+
+          <div className='mt-3'>
+            <WatchlistLine watchlistPrices={watchlistPrices} currentWatchlist={currentWatchlist} setCurrentWatchlist={setCurrentWatchlist} />
+            <WatchlistSummaryParent watchlistPrices={currentWatchlist} />
+          </div>
         </Fragment>
       ) : (
         <div className='mt-3 ticker-home-wrap'>
