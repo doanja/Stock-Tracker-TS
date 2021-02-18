@@ -1,6 +1,7 @@
 import SearchBar from './SearchBar';
 import SearchBarDropdown from './SearchBarDropdown';
-
+import SearchResults from './SearchResults';
+import SearchResultsChild from './SearchResultsChild';
 import CustomSearchBarModal from './CustomSearchBarModal';
 
 import CustomFooter from './CustomFooter';
@@ -42,12 +43,12 @@ import WatchlistSummaryChild from './WatchlistSummaryChild';
 import WatchlistSummaryButtons from './WatchlistSummaryButtons';
 import WatchlistSummaryEmpty from './WatchlistSummaryEmpty';
 import WatchlistModal from './WatchlistModal';
-import SearchResults from './SearchResults';
-import SearchResultsChild from './SearchResultsChild';
 
 export {
   SearchBar,
   SearchBarDropdown,
+  SearchResults,
+  SearchResultsChild,
   CustomSearchBarModal,
   CustomFooter,
   CustomModal,
@@ -81,6 +82,4 @@ export {
   WatchlistSummaryButtons,
   WatchlistSummaryEmpty,
   WatchlistModal,
-  SearchResults,
-  SearchResultsChild,
 };
