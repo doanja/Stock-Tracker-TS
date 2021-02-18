@@ -18,8 +18,11 @@ const HomeContainer: React.FC<HomeContainerProps> = ({ loginStatus, watchlistPri
   const [currentWatchlist, setCurrentWatchlist] = useState<WatchlistPrice | undefined>();
 
   useEffect(() => {
+    // TODO: solve issue when adding tickers would re-load the watchlisttickerline like mad
+
     setCurrentWatchlist(watchlistPrices[0]);
-  }, [watchlists, watchlistPrices]);
+    console.log('something changed with watchlistPrices', watchlistPrices);
+  }, [watchlistPrices]);
 
   return (
     <Fragment>
