@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useReducer } from 'react';
-import { TickerHeader, TickerPrice, TickerGraphButtons, Graph } from './';
+import { TickerHeader, TickerPrice, GraphButtons, Graph } from './';
 import { parseArr, generateTimstamps, getFirstAndLastValues } from '../helper';
 import '../styles/ticker.min.css';
 
@@ -69,7 +69,7 @@ const TickerContainer: React.FC<TickerContainerProps> = ({ tickerPrice, ticker }
     <div className='mt-3 p-3 ticker-container'>
       <TickerHeader tickerPrice={tickerPrice} />
       <TickerPrice tickerPrice={tickerPrice} tickerPriceChange={currentTickerPriceChange} timeframe={timeframe} />
-      <TickerGraphButtons timeframe={timeframe} setTimeframe={setTimeframe} />
+      <GraphButtons timeframe={timeframe} setTimeframe={setTimeframe} />
       <Graph chartData={chartData} tickerPriceChange={currentTickerPriceChange} />
     </div>
   );

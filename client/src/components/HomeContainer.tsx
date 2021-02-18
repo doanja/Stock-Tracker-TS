@@ -1,17 +1,17 @@
 import React, { useState, useEffect, Fragment } from 'react';
-import { ReconmendedContainer, MostFollowedContainer, WatchlistLine, WatchlistSummaryParent, TickerLineContainer } from './';
+import { ReconmendedContainer, MostFollowedContainer, WatchlistSummaryTickerParent, WatchlistSummaryParent, TickerLineContainer } from '.';
 import '../styles/main.min.css';
 
 // redux
 import { useSelector } from 'react-redux';
 import { RootStore } from '../redux/Store';
 
-interface TickerHomeProps {
+interface HomeContainerProps {
   loginStatus: boolean;
   watchlistPrices: WatchlistPrice[];
 }
 
-const TickerHome: React.FC<TickerHomeProps> = ({ loginStatus, watchlistPrices }) => {
+const HomeContainer: React.FC<HomeContainerProps> = ({ loginStatus, watchlistPrices }) => {
   // TODO: figure out how to setCurrentWatchlist to recently created list
   // redux
   const { watchlists } = useSelector((state: RootStore) => state.stock);
@@ -28,7 +28,11 @@ const TickerHome: React.FC<TickerHomeProps> = ({ loginStatus, watchlistPrices })
           <TickerLineContainer tickerPrices={currentWatchlist.tickerPrices} />
 
           <div className='mt-3'>
-            <WatchlistLine watchlistPrices={watchlistPrices} currentWatchlist={currentWatchlist} setCurrentWatchlist={setCurrentWatchlist} />
+            <WatchlistSummaryTickerParent
+              watchlistPrices={watchlistPrices}
+              currentWatchlist={currentWatchlist}
+              setCurrentWatchlist={setCurrentWatchlist}
+            />
             <WatchlistSummaryParent watchlistPrices={currentWatchlist} />
           </div>
         </Fragment>
@@ -42,4 +46,4 @@ const TickerHome: React.FC<TickerHomeProps> = ({ loginStatus, watchlistPrices })
   );
 };
 
-export default TickerHome;
+export default HomeContainer;

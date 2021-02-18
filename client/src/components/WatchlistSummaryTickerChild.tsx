@@ -3,13 +3,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faList } from '@fortawesome/free-solid-svg-icons';
 import '../styles/main.min.css';
 
-interface WatchlistTickerProps {
+interface WatchlistSummaryTickerChildProps {
   watchlistPrice: WatchlistPrice;
   currentWatchlistId: string | undefined;
   setCurrentWatchlist: SetCurrentWatchlist;
 }
 
-const WatchlistTicker: React.FC<WatchlistTickerProps> = ({ watchlistPrice, currentWatchlistId, setCurrentWatchlist }) => {
+const WatchlistSummaryTickerChild: React.FC<WatchlistSummaryTickerChildProps> = ({ watchlistPrice, currentWatchlistId, setCurrentWatchlist }) => {
   return (
     <div className='position-relative'>
       {currentWatchlistId ? (
@@ -24,4 +24,4 @@ const WatchlistTicker: React.FC<WatchlistTickerProps> = ({ watchlistPrice, curre
   );
 };
 
-export default WatchlistTicker;
+export default WatchlistSummaryTickerChild;

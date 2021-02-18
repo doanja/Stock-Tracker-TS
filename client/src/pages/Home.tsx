@@ -2,7 +2,7 @@ import React, { useEffect, Fragment } from 'react';
 import {
   SearchBar,
   CustomNavbar,
-  TickerHome,
+  HomeContainer,
   TickerNewsContainer,
   TickerAbout,
   CustomFooter,
@@ -84,7 +84,7 @@ const Home: React.FC = () => {
         {currentTicker && currentTickerPrice ? (
           <TickerContainerWrap watchlistPrices={watchlistPrices} currentTicker={currentTicker} currentTickerPrice={currentTickerPrice} />
         ) : (
-          <TickerHome loginStatus={loginStatus} watchlistPrices={watchlistPrices} />
+          <HomeContainer loginStatus={loginStatus} watchlistPrices={watchlistPrices} />
         )}
 
         <div className='my-3 ticker-home-wrap'>

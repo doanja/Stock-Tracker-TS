@@ -1,18 +1,18 @@
 import React, { useState, useRef, Fragment } from 'react';
-import { WatchlistTicker, WatchlistModal } from './';
+import { WatchlistSummaryTickerChild, WatchlistModal } from '.';
 import { Container } from 'react-bootstrap';
 import '../styles/main.min.css';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronCircleRight, faChevronCircleLeft, faPlus } from '@fortawesome/free-solid-svg-icons';
 
-interface WatchlistLineProps {
+interface WatchlistSummaryTickerParentProps {
   watchlistPrices: WatchlistPrice[];
   currentWatchlist: WatchlistPrice;
   setCurrentWatchlist: SetCurrentWatchlist;
 }
 
-const WatchlistLine: React.FC<WatchlistLineProps> = ({ watchlistPrices, currentWatchlist, setCurrentWatchlist }) => {
+const WatchlistSummaryTickerParent: React.FC<WatchlistSummaryTickerParentProps> = ({ watchlistPrices, currentWatchlist, setCurrentWatchlist }) => {
   // modal
   const [showModal, setShowModal] = useState(false);
   const toggleModal: ToggleModal = () => setShowModal(!showModal);
@@ -64,7 +64,7 @@ const WatchlistLine: React.FC<WatchlistLineProps> = ({ watchlistPrices, currentW
           {watchlistPrices.length > 0 && currentWatchlist.watchlistId ? (
             <Fragment>
               {watchlistPrices.map((wl: WatchlistPrice) => (
-                <WatchlistTicker
+                <WatchlistSummaryTickerChild
                   watchlistPrice={wl}
                   key={wl.watchlistId}
                   currentWatchlistId={currentWatchlist.watchlistId}
@@ -83,4 +83,4 @@ const WatchlistLine: React.FC<WatchlistLineProps> = ({ watchlistPrices, currentW
   );
 };
 
-export default WatchlistLine;
+export default WatchlistSummaryTickerParent;

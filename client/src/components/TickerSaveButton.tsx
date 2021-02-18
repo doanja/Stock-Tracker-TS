@@ -7,11 +7,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootStore } from '../redux/Store';
 import { addToWatchlist, removeFromWatchlist } from '../redux/actions/stockActions';
 
-interface SaveIconProps {
+interface TickerSaveButtonProps {
   ticker: string;
 }
 
-const SaveIcon: React.FC<SaveIconProps> = ({ ticker }) => {
+const TickerSaveButton: React.FC<TickerSaveButtonProps> = ({ ticker }) => {
   const history = useHistory();
   const [isWatching, setIsWatching] = useState(false);
 
@@ -50,4 +50,4 @@ const SaveIcon: React.FC<SaveIconProps> = ({ ticker }) => {
     </div>
   );
 };
-export default SaveIcon;
+export default TickerSaveButton;

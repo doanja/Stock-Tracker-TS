@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { TickerLineContainer, SaveButton, TickerContainer, CustomSpinner } from './';
+import { TickerLineContainer, TickerSaveButton, TickerContainer, CustomSpinner } from './';
 import '../styles/main.min.css';
 
 interface TickerContainerWrapProps {
@@ -16,7 +16,7 @@ const TickerContainerWrap: React.FC<TickerContainerWrapProps> = ({ watchlistPric
       ) : (
         <CustomSpinner />
       )}
-      <SaveButton ticker={currentTicker} />
+      <TickerSaveButton ticker={currentTicker} />
       <TickerContainer tickerPrice={currentTickerPrice} ticker={currentTicker} />
     </Fragment>
   );
