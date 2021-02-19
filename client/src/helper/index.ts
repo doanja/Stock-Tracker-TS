@@ -199,3 +199,5 @@ export const generateTickerPrices = async (sampleWatchlist: string[]): Promise<T
     return [];
   }
 };
+
+// TODO: create function that passes in a number, and returns a string representation of that with two decimal places

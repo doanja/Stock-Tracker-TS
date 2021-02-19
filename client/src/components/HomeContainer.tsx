@@ -17,12 +17,27 @@ const HomeContainer: React.FC<HomeContainerProps> = ({ loginStatus, watchlistPri
   const { watchlists } = useSelector((state: RootStore) => state.stock);
   const [currentWatchlist, setCurrentWatchlist] = useState<WatchlistPrice | undefined>();
 
+  const compareTickerPrices = (a: TickerPrice[], b: TickerPrice[]): boolean => {
+    for (let i = 0; i < a.length; ++i) {
+      if (a[i].symbol !== b[i].symbol) return false;
+    }
+    return true;
+  };
+
   useEffect(() => {
     // TODO: solve issue when adding tickers would re-load the watchlisttickerline like mad
 
-    setCurrentWatchlist(watchlistPrices[0]);
-    console.log('something changed with watchlistPrices', watchlistPrices);
-  }, [watchlistPrices]);
+    console.log('watchlists', watchlists);
+
+    if (!currentWatchlist && watchlists.length > 0) {
+      console.log('current watchlist is undefined, setting current watchlist');
+      setCurrentWatchlist(watchlistPrices[0]);
+      console.log('watchlistPrices[0]', watchlistPrices[0]);
+      console.log('currentWatchlist', currentWatchlist);
+    } else if (currentWatchlist && compareTickerPrices(currentWatchlist.tickerPrices, watchlistPrices[0].tickerPrices)) {
+      console.log('do nothing');
+    }
+  }, [/*watchlistPrices*/ watchlists, watchlistPrices]);
 
   return (
     <Fragment>

@@ -70,21 +70,20 @@ const Watchlist: React.FC = () => {
 
     if (watchlists) {
       const stockAPI = new StockService();
+
       watchlists.forEach((wl: Watchlist) => {
         const watchlist: string[] = [...wl.watchlist];
         const watchlistPrice: WatchlistPrice = { watchlistId: wl._id, watchlistName: wl.name, user: wl.user, tickerPrices: [] };
 
         const loadPrices = async () => Promise.all(watchlist.map(() => stockAPI.getTickerPrices()));
 
-        loadPrices()
-          .then(promise => {
-            for (let i = 0; i < promise.length; i++) {
-              watchlistPrice.tickerPrices.push({ symbol: watchlist[i], companyName: getTickerName(watchlist[i]), prices: promise[i].data.prices });
-            }
-            watchlistPrices.push(watchlistPrice);
-            dispatch(setWatchlistPrices(watchlistPrices));
-          })
-          .then(() => {});
+        loadPrices().then(promise => {
+          for (let i = 0; i < promise.length; i++) {
+            watchlistPrice.tickerPrices.push({ symbol: watchlist[i], companyName: getTickerName(watchlist[i]), prices: promise[i].data.prices });
+          }
+          watchlistPrices.push(watchlistPrice);
+          dispatch(setWatchlistPrices(watchlistPrices));
+        });
       });
     }
   }, [prevAmount, dispatch, watchlists]);
