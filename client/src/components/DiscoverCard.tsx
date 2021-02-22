@@ -9,6 +9,7 @@ import { faPlusCircle, faMinusCircle } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootStore } from '../redux/Store';
 import { setTicker, addToWatchlist, removeFromWatchlist } from '../redux/actions/stockActions';
+import { formatPrice } from '../helper';
 
 interface DiscoverCardProps {
   tickerPrice: TickerPrice;
@@ -50,13 +51,13 @@ const DiscoverCard: React.FC<DiscoverCardProps> = ({ tickerPrice }) => {
 
         {tickerPrice.prices[0].changePercent > 0 ? (
           <div className='discover-price-wrap'>
-            <p className='mb-2'>${tickerPrice.prices[0].price}</p>
-            <div className='price-badge discover-green'>{tickerPrice.prices[0].changePercent}%</div>
+            <p className='mb-2'>${formatPrice(tickerPrice.prices[0].price)}</p>
+            <div className='price-badge discover-green'>{formatPrice(tickerPrice.prices[0].changePercent)}%</div>
           </div>
         ) : (
           <div className='discover-price-wrap'>
-            <p className='mb-2'>${tickerPrice.prices[0].price}</p>
-            <div className='price-badge discover-red'>{tickerPrice.prices[0].changePercent}%</div>
+            <p className='mb-2'>${formatPrice(tickerPrice.prices[0].price)}</p>
+            <div className='price-badge discover-red'>{formatPrice(tickerPrice.prices[0].changePercent)}%</div>
           </div>
         )}
       </div>

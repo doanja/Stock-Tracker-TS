@@ -8,6 +8,7 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons';
 // redux
 import { useDispatch } from 'react-redux';
 import { setTicker, removeFromWatchlist } from '../redux/actions/stockActions';
+import { formatPrice } from '../helper';
 
 interface WatchlistSummaryChildProps {
   tickerPrice: TickerPrice;
@@ -34,29 +35,29 @@ const WatchlistSummaryChild: React.FC<WatchlistSummaryChildProps> = ({ tickerPri
         {tickerPrice.prices[0].priceChange > 0 ? (
           <Fragment>
             <div className='price-text-wrap'>
-              <p className='price-text'>${tickerPrice.prices[0].price}</p>
+              <p className='price-text'>${formatPrice(tickerPrice.prices[0].price)}</p>
             </div>
 
             <div className='price-text-wrap price-display-none'>
-              <p className='price-text font-green-dark'>+${tickerPrice.prices[0].priceChange}</p>
+              <p className='price-text font-green-dark'>+${formatPrice(tickerPrice.prices[0].priceChange)}</p>
             </div>
 
             <div className='percent-wrap'>
-              <div className='price-badge discover-green'>{tickerPrice.prices[0].changePercent}%</div>
+              <div className='price-badge discover-green'>{formatPrice(tickerPrice.prices[0].changePercent)}%</div>
             </div>
           </Fragment>
         ) : (
           <Fragment>
             <div className='price-text-wrap'>
-              <p className='price-text'>${tickerPrice.prices[0].price}</p>
+              <p className='price-text'>${formatPrice(tickerPrice.prices[0].price)}</p>
             </div>
 
             <div className='price-text-wrap price-display-none'>
-              <p className='price-text font-red-dark'>-${tickerPrice.prices[0].priceChange * -1}</p>
+              <p className='price-text font-red-dark'>-${formatPrice(tickerPrice.prices[0].priceChange * -1)}</p>
             </div>
 
             <div className='percent-wrap'>
-              <div className='price-badge discover-red'>{tickerPrice.prices[0].changePercent}%</div>
+              <div className='price-badge discover-red'>{formatPrice(tickerPrice.prices[0].changePercent)}%</div>
             </div>
           </Fragment>
         )}

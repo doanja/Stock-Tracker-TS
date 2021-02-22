@@ -10,6 +10,7 @@ import { faPlusCircle, faMinusCircle } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootStore } from '../redux/Store';
 import { setTicker, addToWatchlist, removeFromWatchlist } from '../redux/actions/stockActions';
+import { formatPrice } from '../helper';
 
 interface ReconmendedProps {
   tickerPrice: TickerPrice;
@@ -59,19 +60,19 @@ const Reconmended: React.FC<ReconmendedProps> = ({ tickerPrice }) => {
         {tickerPrice.prices[0].priceChange > 0 ? (
           <Fragment>
             <div className='price-text-wrap'>
-              <p className='price-text font-green-dark'>+${tickerPrice.prices[0].priceChange}</p>
+              <p className='price-text font-green-dark'>+${formatPrice(tickerPrice.prices[0].priceChange)}</p>
             </div>
             <div className='percent-wrap'>
-              <div className='price-badge discover-green'>+{tickerPrice.prices[0].changePercent}%</div>
+              <div className='price-badge discover-green'>+{formatPrice(tickerPrice.prices[0].changePercent)}%</div>
             </div>
           </Fragment>
         ) : (
           <Fragment>
             <div className='price-text-wrap'>
-              <p className='price-text font-red-dark'>-${tickerPrice.prices[0].priceChange * -1}</p>
+              <p className='price-text font-red-dark'>-${formatPrice(tickerPrice.prices[0].priceChange * -1)}</p>
             </div>
             <div className='percent-wrap'>
-              <div className='price-badge discover-red'>{tickerPrice.prices[0].changePercent}%</div>
+              <div className='price-badge discover-red'>{formatPrice(tickerPrice.prices[0].changePercent)}%</div>
             </div>
           </Fragment>
         )}

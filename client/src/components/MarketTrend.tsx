@@ -9,6 +9,7 @@ import { faPlusCircle, faMinusCircle } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootStore } from '../redux/Store';
 import { setTicker, addToWatchlist, removeFromWatchlist } from '../redux/actions/stockActions';
+import { formatPrice } from '../helper';
 
 interface MarketTrendProps {
   tickerPrice: TickerPrice;
@@ -55,21 +56,21 @@ const MarketTrend: React.FC<MarketTrendProps> = ({ tickerPrice }) => {
         {tickerPrice.prices[0].priceChange > 0 ? (
           <Fragment>
             <div className='price-text-wrap'>
-              <p className='price-text'>${tickerPrice.prices[0].price}</p>
+              <p className='price-text'>${formatPrice(tickerPrice.prices[0].price)}</p>
             </div>
 
             <div className='percent-wrap'>
-              <div className='price-badge discover-green'>{tickerPrice.prices[0].changePercent}%</div>
+              <div className='price-badge discover-green'>{formatPrice(tickerPrice.prices[0].changePercent)}%</div>
             </div>
           </Fragment>
         ) : (
           <Fragment>
             <div className='price-text-wrap'>
-              <p className='price-text'>${tickerPrice.prices[0].price}</p>
+              <p className='price-text'>${formatPrice(tickerPrice.prices[0].price)}</p>
             </div>
 
             <div className='percent-wrap'>
-              <div className='price-badge discover-red'>{tickerPrice.prices[0].changePercent}%</div>
+              <div className='price-badge discover-red'>{formatPrice(tickerPrice.prices[0].changePercent)}%</div>
             </div>
           </Fragment>
         )}

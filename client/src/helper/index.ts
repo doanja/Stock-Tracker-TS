@@ -200,4 +200,9 @@ export const generateTickerPrices = async (sampleWatchlist: string[]): Promise<T
   }
 };
 
-// TODO: create function that passes in a number, and returns a string representation of that with two decimal places
+/**
+ * function that converts a number to a string with 2 decimal places
+ * @param {number} price the price to be converted
+ * @return {string} the price converted to string formatted to two decimal places
+ */
+export const formatPrice = (price: number): string => (Math.round(price * 100) / 100).toFixed(2);

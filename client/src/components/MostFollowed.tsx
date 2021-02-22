@@ -10,6 +10,7 @@ import { faPlusCircle, faMinusCircle } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootStore } from '../redux/Store';
 import { setTicker, addToWatchlist, removeFromWatchlist } from '../redux/actions/stockActions';
+import { formatPrice } from '../helper';
 
 interface MostFollowedProps {
   tickerPrice: TickerPrice;
@@ -55,11 +56,11 @@ const MostFollowed: React.FC<MostFollowedProps> = ({ tickerPrice }) => {
 
         {tickerPrice.prices[0].priceChange > 0 ? (
           <div className='percent-wrap'>
-            <div className='price-badge discover-green'>+{tickerPrice.prices[0].changePercent}%</div>
+            <div className='price-badge discover-green'>+{formatPrice(tickerPrice.prices[0].changePercent)}%</div>
           </div>
         ) : (
           <div className='percent-wrap'>
-            <div className='price-badge discover-red'>{tickerPrice.prices[0].changePercent}%</div>
+            <div className='price-badge discover-red'>{formatPrice(tickerPrice.prices[0].changePercent)}%</div>
           </div>
         )}
 

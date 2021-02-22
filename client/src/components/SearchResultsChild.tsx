@@ -8,6 +8,7 @@ import { StockService } from '../services';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootStore } from '../redux/Store';
 import { addToWatchlist, removeFromWatchlist } from '../redux/actions/stockActions';
+import { formatPrice } from '../helper';
 
 interface SearchResultsChildProps {
   ticker: TickerPrice;
@@ -63,21 +64,21 @@ const SearchResultsChild: React.FC<SearchResultsChildProps> = ({ ticker, watchli
       {ticker.prices[0].priceChange > 0 ? (
         <Fragment>
           <div className='price-text-wrap'>
-            <p className='price-text'>${ticker.prices[0].price}</p>
+            <p className='price-text'>${formatPrice(ticker.prices[0].price)}</p>
           </div>
 
           <div className='percent-wrap'>
-            <div className='price-badge discover-green'>{ticker.prices[0].changePercent}%</div>
+            <div className='price-badge discover-green'>{formatPrice(ticker.prices[0].changePercent)}%</div>
           </div>
         </Fragment>
       ) : (
         <Fragment>
           <div className='price-text-wrap'>
-            <p className='price-text'>${ticker.prices[0].price}</p>
+            <p className='price-text'>${formatPrice(ticker.prices[0].price)}</p>
           </div>
 
           <div className='percent-wrap'>
-            <div className='price-badge discover-red'>{ticker.prices[0].changePercent}%</div>
+            <div className='price-badge discover-red'>{formatPrice(ticker.prices[0].changePercent)}%</div>
           </div>
         </Fragment>
       )}

@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useEffect } from 'react';
-import { getTickerName } from '../helper';
+import { formatPrice, getTickerName } from '../helper';
 import { StockService } from '../services';
 import { CustomSpinner } from './';
 import tickers from '../tickers.json';
@@ -67,17 +67,17 @@ const SearchBarDropdown: React.FC<SearchBarDropdownProps> = ({ searchTerm }) => 
               {ticker.prices[0].priceChange > 0 ? (
                 <div className='position-relative'>
                   <div className='search-dropdown-item-price-wrap'>
-                    <div className='search-dropdown-item-price'>${ticker.prices[0].price}</div>
+                    <div className='search-dropdown-item-price'>${formatPrice(ticker.prices[0].price)}</div>
 
-                    <div className='search-dropdown-item-percent discover-green'>{ticker.prices[0].changePercent}%</div>
+                    <div className='search-dropdown-item-percent discover-green'>{formatPrice(ticker.prices[0].changePercent)}%</div>
                   </div>
                 </div>
               ) : (
                 <div className='position-relative'>
                   <div className='search-dropdown-item-price-wrap'>
-                    <div className='search-dropdown-item-price'>${ticker.prices[0].price}</div>
+                    <div className='search-dropdown-item-price'>${formatPrice(ticker.prices[0].price)}</div>
 
-                    <div className='search-dropdown-item-percent discover-red'>{ticker.prices[0].changePercent}%</div>
+                    <div className='search-dropdown-item-percent discover-red'>{formatPrice(ticker.prices[0].changePercent)}%</div>
                   </div>
                 </div>
               )}
