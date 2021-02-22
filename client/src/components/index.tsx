@@ -11,7 +11,11 @@ import CustomSpinner from './CustomSpinner';
 
 // when a single ticker truthy
 import TickerContainerWrap from './TickerContainerWrap';
+
 import TickerSaveButton from './TickerSaveButton';
+import TickerSaveButtonModal from './TickerSaveButtonModal';
+import TickerSaveButtonChild from './TickerSaveButtonChild';
+
 import TickerLineContainer from './TickerLineContainer';
 import TickerLine from './TickerLine';
 import TickerContainer from './TickerContainer';
@@ -56,6 +60,8 @@ export {
   CustomSpinner,
   TickerContainerWrap,
   TickerSaveButton,
+  TickerSaveButtonModal,
+  TickerSaveButtonChild,
   TickerLine,
   TickerContainer,
   TickerHeader,

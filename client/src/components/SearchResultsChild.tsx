@@ -15,6 +15,7 @@ interface SearchResultsChildProps {
   watchlistId: string;
 }
 
+// TODO: check if loginstatus needs to be in here
 const SearchResultsChild: React.FC<SearchResultsChildProps> = ({ ticker, watchlistId }) => {
   const history = useHistory();
 
