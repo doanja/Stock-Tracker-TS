@@ -8,7 +8,7 @@ import { faChevronCircleRight, faChevronCircleLeft, faPlus } from '@fortawesome/
 
 interface WatchlistSummaryTickerParentProps {
   watchlistPrices: WatchlistPrice[];
-  currentWatchlist: WatchlistPrice;
+  currentWatchlist: WatchlistPrice | undefined;
   setCurrentWatchlist: SetCurrentWatchlist;
 }
 
@@ -61,13 +61,13 @@ const WatchlistSummaryTickerParent: React.FC<WatchlistSummaryTickerParentProps> 
           onClick={() => shiftDiscoverContainer('right')}
         />
         <Container className='mt-3 watchlist-container' ref={discContainerRef}>
-          {watchlistPrices.length > 0 && currentWatchlist.watchlistId ? (
+          {watchlistPrices.length > 0 ? (
             <Fragment>
               {watchlistPrices.map((wl: WatchlistPrice) => (
                 <WatchlistSummaryTickerChild
                   watchlistPrice={wl}
                   key={wl.watchlistId}
-                  currentWatchlistId={currentWatchlist.watchlistId}
+                  currentWatchlistId={currentWatchlist?.watchlistId}
                   setCurrentWatchlist={setCurrentWatchlist}
                 />
               ))}

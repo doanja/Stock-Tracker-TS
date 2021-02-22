@@ -12,14 +12,12 @@ interface WatchlistSummaryTickerChildProps {
 const WatchlistSummaryTickerChild: React.FC<WatchlistSummaryTickerChildProps> = ({ watchlistPrice, currentWatchlistId, setCurrentWatchlist }) => {
   return (
     <div className='position-relative'>
-      {currentWatchlistId ? (
-        <div
-          className={currentWatchlistId === watchlistPrice.watchlistId ? 'watchlist-ticker selected' : 'watchlist-ticker'}
-          onClick={() => setCurrentWatchlist(watchlistPrice)}>
-          <FontAwesomeIcon className='watchlists-icon' icon={faList} size='1x' />
-          <p className='watchlist-ticker-text'>{watchlistPrice.watchlistName}</p>
-        </div>
-      ) : null}
+      <div
+        className={currentWatchlistId === watchlistPrice.watchlistId ? 'watchlist-ticker selected' : 'watchlist-ticker'}
+        onClick={() => setCurrentWatchlist(watchlistPrice)}>
+        <FontAwesomeIcon className='watchlists-icon' icon={faList} size='1x' />
+        <p className='watchlist-ticker-text'>{watchlistPrice.watchlistName}</p>
+      </div>
     </div>
   );
 };
