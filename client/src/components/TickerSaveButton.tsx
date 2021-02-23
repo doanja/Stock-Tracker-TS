@@ -29,7 +29,7 @@ const TickerSaveButton: React.FC<TickerSaveButtonProps> = ({ ticker }) => {
     <div className='mt-3 float-right'>
       <TickerSaveButtonModal toggleModal={toggleModal} showModal={showModal} tickerSymbol={ticker} />
       <Button variant='dark' onClick={() => toggleModal()}>
-        Follow
+        Add to Watchlist
       </Button>
     </div>
   );

@@ -15,7 +15,6 @@ interface TickerSaveButtonModalProps {
 const TickerSaveButtonModal: React.FC<TickerSaveButtonModalProps> = ({ toggleModal, showModal, tickerSymbol }) => {
   // redux
   const { watchlistPrices } = useSelector((state: RootStore) => state.stock);
-  console.log('watchlistPrices', watchlistPrices);
 
   return (
     <Modal show={showModal} onHide={toggleModal} backdrop={true} animation={true}>
