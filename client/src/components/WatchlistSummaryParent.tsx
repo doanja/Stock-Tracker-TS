@@ -34,7 +34,7 @@ const WatchlistSummaryParent: React.FC<WatchlistSummaryParentProps> = ({ watchli
       {watchlistPrices && watchlistPrices.tickerPrices.length > 0 ? (
         <Fragment>
           {watchlistPrices.tickerPrices.map((price: TickerPrice) => (
-            <WatchlistSummaryChild tickerPrice={price} key={price.symbol} watchlistId={watchlistPrices.watchlistId} />
+            <WatchlistSummaryChild tickerPrice={price} key={price.companyName} watchlistId={watchlistPrices.watchlistId} />
           ))}
         </Fragment>
       ) : (

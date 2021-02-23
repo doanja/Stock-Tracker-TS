@@ -18,13 +18,15 @@ const HomeContainer: React.FC<HomeContainerProps> = ({ loginStatus, watchlistPri
     <Fragment>
       {currentWatchlist && loginStatus && currentWatchlist ? <TickerLineContainer tickerPrices={currentWatchlist.tickerPrices} /> : null}
 
-      <div className='mt-3'>
-        <WatchlistSummaryTickerParent
-          watchlistPrices={watchlistPrices}
-          currentWatchlist={currentWatchlist}
-          setCurrentWatchlist={setCurrentWatchlist}
-        />
-      </div>
+      {loginStatus ? (
+        <div className='mt-3'>
+          <WatchlistSummaryTickerParent
+            watchlistPrices={watchlistPrices}
+            currentWatchlist={currentWatchlist}
+            setCurrentWatchlist={setCurrentWatchlist}
+          />
+        </div>
+      ) : null}
 
       {currentWatchlist && loginStatus ? (
         <WatchlistSummaryParent watchlistPrices={currentWatchlist} />

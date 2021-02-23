@@ -41,7 +41,7 @@ const Watchlist: React.FC = () => {
         })
         .catch(err => setShowModal(!showModal));
     }
-  }, [refreshToken, dispatch, showModal]);
+  }, [refreshToken, dispatch, showModal, setShowModal]);
 
   useEffect(() => {
     if (error === 'TokenExpiredError') requestAccessToken();
