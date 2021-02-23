@@ -26,13 +26,9 @@ const Watchlist: React.FC = () => {
   // modal
   const [showModal, setShowModal] = useState(false);
 
-  const toggleModal: ToggleModal = useCallback(() => {
-    setShowModal(!showModal);
-  }, [showModal]);
-
   const requestAccessToken = useCallback(() => {
     // check refresh token expiry
-    if (!checkTokenExp(refreshToken)) toggleModal();
+    if (!checkTokenExp(refreshToken)) setShowModal(!showModal);
     else {
       const authAPI = new AuthService();
       authAPI
@@ -43,9 +39,9 @@ const Watchlist: React.FC = () => {
           axios.defaults.headers.common.Authorization = accessToken;
           dispatch(getWatchlists());
         })
-        .catch(err => toggleModal());
+        .catch(err => setShowModal(!showModal));
     }
-  }, [refreshToken, dispatch, toggleModal]);
+  }, [refreshToken, dispatch, showModal]);
 
   useEffect(() => {
     if (error === 'TokenExpiredError') requestAccessToken();
