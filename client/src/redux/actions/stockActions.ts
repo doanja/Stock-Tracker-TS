@@ -56,6 +56,10 @@ export const getWatchlists: AppThunk = () => {
         token: req.headers.authorization,
       });
     } catch (error) {
+      console.log('----------------');
+      console.log('error', error);
+      console.log('error.response', error.response);
+      console.log('----------------');
       return dispatch({
         type: StockActionTypes.REQUEST_FAILED,
         error: error.response.data.name,

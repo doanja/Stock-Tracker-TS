@@ -18,7 +18,7 @@ const WatchlistSummaryButtons: React.FC<WatchlistSummaryButtonsProps> = ({ watch
 
   return (
     <div className='position-relative'>
-      <h2 className='sub-heading mb-3'>{watchlistPrices?.watchlistName}</h2>
+      <h2 className='sub-heading mb-3'>{watchlistPrices?.name}</h2>
       <div className='dropdown-buttons'>
         <Dropdown>
           <Dropdown.Toggle variant='dark' size='sm'>
@@ -31,7 +31,7 @@ const WatchlistSummaryButtons: React.FC<WatchlistSummaryButtonsProps> = ({ watch
             <Dropdown.Item as='button' onClick={() => toggleModal()}>
               Rename
             </Dropdown.Item>
-            <Dropdown.Item as='button' onClick={() => dispatch(deleteWatchlist(watchlistPrices!.watchlistId))}>
+            <Dropdown.Item as='button' onClick={() => dispatch(deleteWatchlist(watchlistPrices!._id))}>
               Delete
             </Dropdown.Item>
           </Dropdown.Menu>

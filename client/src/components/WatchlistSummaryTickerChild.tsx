@@ -13,10 +13,10 @@ const WatchlistSummaryTickerChild: React.FC<WatchlistSummaryTickerChildProps> = 
   return (
     <div className='position-relative'>
       <div
-        className={currentWatchlistId === watchlistPrice.watchlistId ? 'watchlist-ticker selected' : 'watchlist-ticker'}
+        className={currentWatchlistId === watchlistPrice._id ? 'watchlist-ticker selected' : 'watchlist-ticker'}
         onClick={() => setCurrentWatchlist(watchlistPrice)}>
         <FontAwesomeIcon className='watchlists-icon' icon={faList} size='1x' />
-        <p className='watchlist-ticker-text'>{watchlistPrice.watchlistName}</p>
+        <p className='watchlist-ticker-text'>{watchlistPrice.name}</p>
       </div>
     </div>
   );

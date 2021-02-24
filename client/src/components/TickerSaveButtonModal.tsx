@@ -24,7 +24,7 @@ const TickerSaveButtonModal: React.FC<TickerSaveButtonModalProps> = ({ toggleMod
         </Modal.Title>
 
         {watchlistPrices.map((wl: WatchlistPrice) => (
-          <TickerSaveButtonChild key={wl.watchlistId} tickerSymbol={tickerSymbol} watchlistId={wl.watchlistId} watchlistName={wl.watchlistName} />
+          <TickerSaveButtonChild key={wl._id} tickerSymbol={tickerSymbol} watchlistId={wl._id} watchlistName={wl.name} />
         ))}
       </Modal.Body>
       <Modal.Footer>

@@ -21,20 +21,20 @@ const WatchlistSummaryParent: React.FC<WatchlistSummaryParentProps> = ({ watchli
         showModal={showModal}
         toggleModal={toggleModal}
         title={'Update Watchlist Name'}
-        placeholder={watchlistPrices.watchlistName}
+        placeholder={watchlistPrices.name}
         buttonText={'Update'}
         dispatchFunction={'updateWatchlistName'}
-        watchlistName={watchlistPrices.watchlistName}
-        watchlistId={watchlistPrices.watchlistId}
+        watchlistName={watchlistPrices.name}
+        watchlistId={watchlistPrices._id}
       />
-      <CustomSearchBarModal toggleModal={toggleSearchModal} showModal={showSearchModal} watchlistId={watchlistPrices.watchlistId as string} />
+      <CustomSearchBarModal toggleModal={toggleSearchModal} showModal={showSearchModal} watchlistId={watchlistPrices._id as string} />
 
       <WatchlistSummaryButtons watchlistPrices={watchlistPrices} toggleSearchModal={toggleSearchModal} toggleModal={toggleModal} />
 
       {watchlistPrices && watchlistPrices.tickerPrices.length > 0 ? (
         <Fragment>
           {watchlistPrices.tickerPrices.map((price: TickerPrice) => (
-            <WatchlistSummaryChild tickerPrice={price} key={price.companyName} watchlistId={watchlistPrices.watchlistId} />
+            <WatchlistSummaryChild tickerPrice={price} key={price.companyName} watchlistId={watchlistPrices._id} />
           ))}
         </Fragment>
       ) : (

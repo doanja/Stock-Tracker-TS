@@ -7,6 +7,8 @@ import { Home } from './';
 import axios from 'axios';
 import { checkTokenExp, getTickerName } from '../helper';
 
+import { AxiosResponse } from 'axios';
+
 // redux
 import { useSelector, useDispatch } from 'react-redux';
 import { RootStore } from '../redux/Store';
@@ -18,7 +20,7 @@ const Watchlist: React.FC = () => {
 
   // redux
   const { loginStatus, refreshToken } = useSelector((state: RootStore) => state.auth);
-  const { watchlists, error, token } = useSelector((state: RootStore) => state.stock);
+  const { watchlists, error, token, watchlistPrices } = useSelector((state: RootStore) => state.stock);
   const dispatch = useDispatch();
 
   const prevAmount = usePrevious(watchlists);
@@ -27,9 +29,13 @@ const Watchlist: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
 
   const requestAccessToken = useCallback(() => {
+    console.log('request access token');
     // check refresh token expiry
-    if (!checkTokenExp(refreshToken)) setShowModal(!showModal);
-    else {
+    if (!checkTokenExp(refreshToken)) {
+      console.log('in if');
+      setShowModal(!showModal);
+    } else {
+      console.log('in else');
       const authAPI = new AuthService();
       authAPI
         .getAccessToken(refreshToken)
@@ -61,28 +67,65 @@ const Watchlist: React.FC = () => {
     }
   }, [token, dispatch]);
 
-  useEffect(() => {
-    const watchlistPrices: WatchlistPrice[] = [];
+  // return promise array for each symbol in watchlist
+  const loadPrices = async (watchlist: string[]): Promise<AxiosResponse<TickerPrice>[]> => {
+    const stockAPI = new StockService();
+    return Promise.all(watchlist.map(() => stockAPI.getTickerPrices()));
+  };
 
-    if (watchlists) {
-      const stockAPI = new StockService();
+  // return promise array for each array in watchlistPrices
+  const generateTickerPrices = async (wl: Watchlist): Promise<WatchlistPrice[]> => {
+    const newWatchlistPrices: WatchlistPrice[] = [];
 
-      watchlists.forEach((wl: Watchlist) => {
-        const watchlist: string[] = [...wl.watchlist];
-        const watchlistPrice: WatchlistPrice = { watchlistId: wl._id, watchlistName: wl.name, user: wl.user, tickerPrices: [] };
+    try {
+      const watchlistPrice: WatchlistPrice = { _id: wl._id, name: wl.name, user: wl.user, tickerPrices: [] };
 
-        const loadPrices = async () => Promise.all(watchlist.map(() => stockAPI.getTickerPrices()));
+      await loadPrices(wl.watchlist).then(promise => {
+        for (let i = 0; i < promise.length; i++) {
+          watchlistPrice.tickerPrices.push({
+            symbol: wl.watchlist[i],
+            companyName: getTickerName(wl.watchlist[i]),
+            prices: promise[i].data.prices,
+          });
+        }
 
-        loadPrices().then(promise => {
-          for (let i = 0; i < promise.length; i++) {
-            watchlistPrice.tickerPrices.push({ symbol: watchlist[i], companyName: getTickerName(watchlist[i]), prices: promise[i].data.prices });
-          }
-          watchlistPrices.push(watchlistPrice);
-          dispatch(setWatchlistPrices(watchlistPrices));
-        });
+        newWatchlistPrices.push(watchlistPrice);
       });
+
+      return newWatchlistPrices;
+    } catch (error) {
+      return newWatchlistPrices;
     }
-  }, [prevAmount, dispatch, watchlists]);
+  };
+
+  useEffect(() => {
+    const load = async (wl: Watchlist) => await generateTickerPrices(wl);
+
+    const load2 = async () => await Promise.all(watchlists.map((wl: Watchlist) => load(wl)));
+  }, []);
+
+  // useEffect(() => {
+  //   const watchlistPrices: WatchlistPrice[] = [];
+
+  //   if (watchlists) {
+  //     const stockAPI = new StockService();
+
+  //     watchlists.forEach((wl: Watchlist) => {
+  //       const watchlist: string[] = [...wl.watchlist];
+  //       const watchlistPrice: WatchlistPrice = { watchlistId: wl._id, watchlistName: wl.name, user: wl.user, tickerPrices: [] };
+
+  //       const loadPrices = async () => Promise.all(watchlist.map(() => stockAPI.getTickerPrices()));
+
+  //       loadPrices().then(promise => {
+  //         for (let i = 0; i < promise.length; i++) {
+  //           watchlistPrice.tickerPrices.push({ symbol: watchlist[i], companyName: getTickerName(watchlist[i]), prices: promise[i].data.prices });
+  //         }
+  //         watchlistPrices.push(watchlistPrice);
+  //         dispatch(setWatchlistPrices(watchlistPrices));
+  //       });
+  //     });
+  //   }
+  // }, [prevAmount, dispatch, watchlists]);
 
   const logout = () => {
     dispatch(clearAccessToken());

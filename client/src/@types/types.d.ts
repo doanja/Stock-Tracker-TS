@@ -1,10 +1,3 @@
-type Watchlist = {
-  watchlist: string[];
-  _id: string;
-  name: string;
-  user: string;
-};
-
 type Article = {
   source: { name: string };
   publishedAt: string;
@@ -41,9 +34,16 @@ type Ticker = {
   Symbol: string;
 };
 
+type Watchlist = {
+  _id: string;
+  name: string;
+  user: string;
+  watchlist: string[];
+};
+
 type WatchlistPrice = {
-  watchlistId?: string;
-  watchlistName?: string;
+  _id?: string;
+  name?: string;
   user?: string;
   tickerPrices: TickerPrice[];
 };

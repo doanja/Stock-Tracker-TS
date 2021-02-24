@@ -66,8 +66,8 @@ const WatchlistSummaryTickerParent: React.FC<WatchlistSummaryTickerParentProps> 
               {watchlistPrices.map((wl: WatchlistPrice) => (
                 <WatchlistSummaryTickerChild
                   watchlistPrice={wl}
-                  key={wl.watchlistId}
-                  currentWatchlistId={currentWatchlist?.watchlistId}
+                  key={wl._id}
+                  currentWatchlistId={currentWatchlist?._id}
                   setCurrentWatchlist={setCurrentWatchlist}
                 />
               ))}
