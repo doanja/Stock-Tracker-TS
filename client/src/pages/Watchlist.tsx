@@ -31,7 +31,7 @@ const Watchlist: React.FC = () => {
   const requestAccessToken = useCallback(() => {
     console.log('request access token');
     // check refresh token expiry
-    if (!checkTokenExp(refreshToken)) {
+    if (!checkTokenExp(refreshToken) && !showModal) {
       console.log('in if');
       setShowModal(!showModal);
     } else {
