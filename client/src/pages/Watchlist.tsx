@@ -7,8 +7,6 @@ import { Home } from './';
 import axios from 'axios';
 import { checkTokenExp, getTickerName } from '../helper';
 
-import { AxiosResponse } from 'axios';
-
 // redux
 import { useSelector, useDispatch } from 'react-redux';
 import { RootStore } from '../redux/Store';
@@ -29,7 +27,6 @@ const Watchlist: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
 
   const requestAccessToken = useCallback(() => {
-    console.log('request access token');
     // check refresh token expiry
     if (!checkTokenExp(refreshToken) && !showModal) {
       console.log('in if');
@@ -67,65 +64,36 @@ const Watchlist: React.FC = () => {
     }
   }, [token, dispatch]);
 
-  // return promise array for each symbol in watchlist
-  const loadPrices = async (watchlist: string[]): Promise<AxiosResponse<TickerPrice>[]> => {
-    const stockAPI = new StockService();
-    return Promise.all(watchlist.map(() => stockAPI.getTickerPrices()));
-  };
-
-  // return promise array for each array in watchlistPrices
-  const generateTickerPrices = async (wl: Watchlist): Promise<WatchlistPrice[]> => {
-    const newWatchlistPrices: WatchlistPrice[] = [];
-
-    try {
-      const watchlistPrice: WatchlistPrice = { _id: wl._id, name: wl.name, user: wl.user, tickerPrices: [] };
-
-      await loadPrices(wl.watchlist).then(promise => {
-        for (let i = 0; i < promise.length; i++) {
-          watchlistPrice.tickerPrices.push({
-            symbol: wl.watchlist[i],
-            companyName: getTickerName(wl.watchlist[i]),
-            prices: promise[i].data.prices,
-          });
-        }
-
-        newWatchlistPrices.push(watchlistPrice);
-      });
-
-      return newWatchlistPrices;
-    } catch (error) {
-      return newWatchlistPrices;
-    }
-  };
-
   useEffect(() => {
-    const load = async (wl: Watchlist) => await generateTickerPrices(wl);
+    const watchlistPrices: WatchlistPrice[] = [];
 
-    const load2 = async () => await Promise.all(watchlists.map((wl: Watchlist) => load(wl)));
-  }, []);
+    if (watchlists) {
+      const stockAPI = new StockService();
 
-  // useEffect(() => {
-  //   const watchlistPrices: WatchlistPrice[] = [];
+      // calc prices for each watchlist
+      watchlists.forEach(async (wl: Watchlist) => {
+        const watchlistPrice: WatchlistPrice = { _id: wl._id, name: wl.name, user: wl.user, tickerPrices: [] };
 
-  //   if (watchlists) {
-  //     const stockAPI = new StockService();
+        // get starting price for each symbol in the watchlist
+        const loadPrices = () => Promise.all(wl.watchlist.map(() => stockAPI.getTickerPrices()));
 
-  //     watchlists.forEach((wl: Watchlist) => {
-  //       const watchlist: string[] = [...wl.watchlist];
-  //       const watchlistPrice: WatchlistPrice = { watchlistId: wl._id, watchlistName: wl.name, user: wl.user, tickerPrices: [] };
+        // builds the TickerPrice object
+        await loadPrices().then(promise => {
+          for (let i = 0; i < promise.length; i++) {
+            watchlistPrice.tickerPrices.push({
+              symbol: wl.watchlist[i],
+              companyName: getTickerName(wl.watchlist[i]),
+              prices: promise[i].data.prices,
+            });
+          }
+          watchlistPrices.push(watchlistPrice);
 
-  //       const loadPrices = async () => Promise.all(watchlist.map(() => stockAPI.getTickerPrices()));
-
-  //       loadPrices().then(promise => {
-  //         for (let i = 0; i < promise.length; i++) {
-  //           watchlistPrice.tickerPrices.push({ symbol: watchlist[i], companyName: getTickerName(watchlist[i]), prices: promise[i].data.prices });
-  //         }
-  //         watchlistPrices.push(watchlistPrice);
-  //         dispatch(setWatchlistPrices(watchlistPrices));
-  //       });
-  //     });
-  //   }
-  // }, [prevAmount, dispatch, watchlists]);
+          // TODO: move dispatch method outside of loop after forEach loop ends
+          dispatch(setWatchlistPrices(watchlistPrices));
+        });
+      });
+    }
+  }, [prevAmount, dispatch, watchlists]);
 
   const logout = () => {
     dispatch(clearAccessToken());

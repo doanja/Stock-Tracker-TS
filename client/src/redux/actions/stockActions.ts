@@ -20,6 +20,7 @@ export const setCurrentTickerPrice = (tickerPrice: TickerPrice) => {
 };
 
 export const setWatchlistPrices = (watchlistPrices: WatchlistPrice[]) => {
+  console.log('setWatchlistPrices action dispatched');
   return { type: StockActionTypes.SET_WATCHLIST_PRICES, payload: watchlistPrices };
 };
 
@@ -50,16 +51,14 @@ export const getWatchlists: AppThunk = () => {
       const req: AxiosResponse<any> = await api.getWatchlists();
       const watchlist: Watchlist[] = req.data.watchlists;
 
+      console.log('watchlist', watchlist);
+
       return dispatch({
         type: StockActionTypes.GET_WATCHLISTS,
         payload: watchlist,
         token: req.headers.authorization,
       });
     } catch (error) {
-      console.log('----------------');
-      console.log('error', error);
-      console.log('error.response', error.response);
-      console.log('----------------');
       return dispatch({
         type: StockActionTypes.REQUEST_FAILED,
         error: error.response.data.name,

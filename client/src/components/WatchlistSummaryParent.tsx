@@ -1,7 +1,11 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import { WatchlistSummaryChild, WatchlistModal, CustomSearchBarModal, WatchlistSummaryButtons, WatchlistSummaryEmpty } from './';
 import { Container } from 'react-bootstrap';
 import '../styles/main.min.css';
+
+// redux
+import { useSelector, useDispatch } from 'react-redux';
+import { RootStore } from '../redux/Store';
 
 interface WatchlistSummaryParentProps {
   watchlistPrices: WatchlistPrice;
@@ -14,6 +18,18 @@ const WatchlistSummaryParent: React.FC<WatchlistSummaryParentProps> = ({ watchli
 
   const [showSearchModal, setShowSearchModal] = useState(false);
   const toggleSearchModal: ToggleModal = () => setShowSearchModal(!showSearchModal);
+
+  // redux
+  const { watchlists } = useSelector((state: RootStore) => state.stock);
+  const dispatch = useDispatch();
+
+  const [localTickerPrices, setLocalTickerPrices] = useState<TickerPrice[]>([]);
+
+  useEffect(() => {
+    console.log('watchlists', watchlists);
+    setLocalTickerPrices(watchlistPrices.tickerPrices);
+    console.log('watchlistPrices.tickerPrices', watchlistPrices.tickerPrices);
+  }, [watchlists]);
 
   return (
     <Container className='p-3 sub-container ticker-home-sub-wrap'>
