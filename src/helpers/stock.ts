@@ -1,8 +1,4 @@
-interface Prices {
-  price: number;
-  changePercent: number;
-  priceChange: number;
-}
+import tickers from '../tickers.json';
 
 /**
  * function to round a number to two decimal places
@@ -49,4 +45,17 @@ export const generatePrices = (days: number = 7200): Prices[] => {
   prices.shift();
 
   return prices;
+};
+
+/**
+ * function to get ticker name from the symbol
+ * @param {string} symbol the ticker's symbol
+ * @return {string} the ticker's company name otherwise N/A
+ */
+export const getTickerName = (symbol: string): string => {
+  symbol = symbol.toUpperCase();
+
+  let ticker: Ticker | undefined = tickers.find((obj: Ticker) => obj.Symbol === symbol);
+
+  return ticker ? ticker['Company Name'] : 'N/A';
 };

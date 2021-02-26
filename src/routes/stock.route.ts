@@ -9,7 +9,7 @@ export default class StockRoute {
   }
 
   public initializeRoutes() {
-    this.router.get('/stock/prices', getTickerPrices);
+    this.router.post('/stock/prices', getTickerPrices);
     this.router.get('/stock/pricesMin', getTickerPricesMin);
   }
 }

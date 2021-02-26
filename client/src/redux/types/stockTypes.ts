@@ -8,6 +8,7 @@ export interface StockState {
   readonly error?: string;
   readonly token: string;
   readonly isLoading: boolean;
+  readonly newSymbol: string;
 }
 
 export enum StockActionTypes {

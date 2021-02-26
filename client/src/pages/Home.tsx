@@ -10,10 +10,9 @@ import {
   MarketTrendsContainer,
   TickerContainerWrap,
 } from '../components';
-import { StockService } from '../services';
 import { useHistory } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
-import { getTickerName, generateWatchlist } from '../helper';
+import { generateWatchlist, loadPrices, getTickerName } from '../helper';
 
 // redux
 import { useSelector, useDispatch } from 'react-redux';
@@ -32,18 +31,18 @@ const Home: React.FC = () => {
     if (loginStatus) history.push('/watchlist');
     //  else if not login, generate some watchlist
     else {
-      const stockAPI = new StockService();
-      const watchlist: string[] = generateWatchlist(5);
       const watchlistPrices: WatchlistPrice[] = [];
       const watchlistPrice: WatchlistPrice = { tickerPrices: [] };
 
-      const loadPrices = async () => Promise.all(watchlist.map(() => stockAPI.getTickerPrices()));
+      loadPrices(generateWatchlist(5)).then(res => {
+        const prices: TickerPrice[] = res.data.tickerPrices;
 
-      loadPrices().then(promise => {
-        for (let i = 0; i < promise.length; i++) {
-          watchlistPrice.tickerPrices.push({ symbol: watchlist[i], companyName: getTickerName(watchlist[i]), prices: promise[i].data.prices });
+        for (let i = 0; i < prices.length; i++) {
+          watchlistPrice.tickerPrices.push(prices[i]);
         }
         watchlistPrices.push(watchlistPrice);
+
+        // TODO: move dispatch method outside of loop after forEach loop ends
         dispatch(setWatchlistPrices(watchlistPrices));
       });
     }
@@ -51,25 +50,22 @@ const Home: React.FC = () => {
 
   useEffect(() => {
     if (currentTicker) {
-      const stockAPI = new StockService();
       // search for ticker in default watchlist
       const tickerPrice: TickerPrice | undefined = watchlistPrices[watchlistPrices.length - 1].tickerPrices.find(
         (tp: TickerPrice) => tp.symbol === currentTicker
       );
 
       if (tickerPrice) dispatch(setCurrentTickerPrice(tickerPrice));
+      // if tickerPrice wasn't found, get the tickerPrice from the API
+      else {
+        const arr = [];
 
-      const tickerPriceData = async () => stockAPI.getTickerPrices();
+        arr.push(currentTicker);
 
-      tickerPriceData().then(promise => {
-        dispatch(
-          setCurrentTickerPrice({
-            symbol: currentTicker,
-            companyName: getTickerName(currentTicker),
-            prices: promise.data.prices,
-          })
-        );
-      });
+        loadPrices(arr).then(res => {
+          dispatch(setCurrentTickerPrice(res.data.tickerPrices[0]));
+        });
+      }
 
       window.scrollTo(0, 0);
     }

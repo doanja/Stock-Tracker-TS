@@ -11,6 +11,7 @@ const initialState: StockState = {
   error: undefined,
   token: '',
   isLoading: false,
+  newSymbol: '',
 };
 
 const stockReducer: Reducer<StockState> = (state = initialState, action) => {
@@ -36,9 +37,9 @@ const stockReducer: Reducer<StockState> = (state = initialState, action) => {
     case StockActionTypes.UPDATE_WATCHLIST_NAME:
       return { ...state, error: state.error, isLoading: false, watchlists: action.payload, token: action.token };
     case StockActionTypes.ADD_TICKER:
-      return { ...state, error: state.error, isLoading: false, watchlists: action.payload, token: action.token };
+      return { ...state, error: state.error, isLoading: false, watchlists: action.payload, token: action.token, newSymbol: action.newSymbol };
     case StockActionTypes.REMOVE_TICKER:
-      return { ...state, error: state.error, isLoading: false, watchlists: action.payload, token: action.token };
+      return { ...state, error: state.error, isLoading: false, watchlists: action.payload, token: action.token, newSymbol: action.newSymbol };
     case StockActionTypes.DELETE_WATCHLIST:
       return { ...state, error: state.error, isLoading: false, watchlists: action.payload, token: action.token };
     case StockActionTypes.REQUEST_FAILED:

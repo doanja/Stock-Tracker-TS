@@ -1,11 +1,10 @@
 import React, { useState, useEffect, Fragment, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
-import { usePrevious } from '../helper/hooks';
 import { AuthService, StockService } from '../services';
 import { CustomModal } from '../components';
 import { Home } from './';
 import axios from 'axios';
-import { checkTokenExp, getTickerName } from '../helper';
+import { checkTokenExp } from '../helper';
 
 // redux
 import { useSelector, useDispatch } from 'react-redux';
@@ -18,10 +17,8 @@ const Watchlist: React.FC = () => {
 
   // redux
   const { loginStatus, refreshToken } = useSelector((state: RootStore) => state.auth);
-  const { watchlists, error, token, watchlistPrices } = useSelector((state: RootStore) => state.stock);
+  const { watchlists, error, token, watchlistPrices, newSymbol } = useSelector((state: RootStore) => state.stock);
   const dispatch = useDispatch();
-
-  const prevAmount = usePrevious(watchlists);
 
   // modal
   const [showModal, setShowModal] = useState(false);
@@ -67,7 +64,7 @@ const Watchlist: React.FC = () => {
   useEffect(() => {
     const watchlistPrices: WatchlistPrice[] = [];
 
-    if (watchlists) {
+    if (watchlists.length > 0 && watchlistPrices.length < 1) {
       const stockAPI = new StockService();
 
       // calc prices for each watchlist
@@ -75,25 +72,22 @@ const Watchlist: React.FC = () => {
         const watchlistPrice: WatchlistPrice = { _id: wl._id, name: wl.name, user: wl.user, tickerPrices: [] };
 
         // get starting price for each symbol in the watchlist
-        const loadPrices = () => Promise.all(wl.watchlist.map(() => stockAPI.getTickerPrices()));
+        const loadPrices = async (watchlist: string[]) => stockAPI.getTickerPrices(watchlist);
 
         // builds the TickerPrice object
-        await loadPrices().then(promise => {
-          for (let i = 0; i < promise.length; i++) {
-            watchlistPrice.tickerPrices.push({
-              symbol: wl.watchlist[i],
-              companyName: getTickerName(wl.watchlist[i]),
-              prices: promise[i].data.prices,
-            });
+        await loadPrices(wl.watchlist).then(res => {
+          const prices: TickerPrice[] = res.data.tickerPrices;
+
+          for (let i = 0; i < prices.length; i++) {
+            watchlistPrice.tickerPrices.push(prices[i]);
           }
           watchlistPrices.push(watchlistPrice);
 
-          // TODO: move dispatch method outside of loop after forEach loop ends
           dispatch(setWatchlistPrices(watchlistPrices));
         });
       });
     }
-  }, [prevAmount, dispatch, watchlists]);
+  }, [dispatch, watchlists, newSymbol]);
 
   const logout = () => {
     dispatch(clearAccessToken());

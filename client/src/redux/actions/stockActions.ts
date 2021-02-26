@@ -118,6 +118,7 @@ export const addToWatchlist: ActionCreator<ThunkAction<void, StockState, Watchli
         type: StockActionTypes.ADD_TICKER,
         payload: watchlist,
         token: req.headers.authorization,
+        newSymbol: ticker,
       });
     } catch (error) {
       return dispatch({
@@ -138,6 +139,7 @@ export const removeFromWatchlist: ActionCreator<ThunkAction<void, StockState, Wa
         type: StockActionTypes.REMOVE_TICKER,
         payload: watchlist,
         token: req.headers.authorization,
+        newSymbol: ticker,
       });
     } catch (error) {
       return dispatch({

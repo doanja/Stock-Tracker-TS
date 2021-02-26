@@ -1,6 +1,5 @@
 import React, { Fragment, useState, useEffect } from 'react';
-import { formatPrice, getTickerName } from '../helper';
-import { StockService } from '../services';
+import { formatPrice, loadPrices } from '../helper';
 import { CustomSpinner } from './';
 import tickers from '../tickers.json';
 
@@ -17,17 +16,15 @@ const SearchBarDropdown: React.FC<SearchBarDropdownProps> = ({ searchTerm }) => 
     setIsMounted(true);
 
     if (searchResults) {
-      const stockAPI = new StockService();
-
       const watchlist: string[] = searchResults.map((ticker: Ticker) => ticker.Symbol);
-
-      const loadPrices = async () => Promise.all(watchlist.map(() => stockAPI.getTickerPrices()));
 
       const tickerPrices: TickerPrice[] = [];
 
-      loadPrices().then(promise => {
-        for (let i = 0; i < promise.length; i++) {
-          tickerPrices.push({ symbol: watchlist[i], companyName: getTickerName(watchlist[i]), prices: promise[i].data.prices });
+      loadPrices(watchlist).then(res => {
+        const prices: TickerPrice[] = res.data.tickerPrices;
+
+        for (let i = 0; i < prices.length; i++) {
+          tickerPrices.push(prices[i]);
         }
         setTickerPrices(tickerPrices);
       });

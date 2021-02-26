@@ -1,6 +1,5 @@
 import React, { Fragment, useState, useEffect } from 'react';
-import { getTickerName } from '../helper';
-import { StockService } from '../services';
+import { loadPrices } from '../helper';
 import { CustomSpinner, SearchResultsChild } from './';
 import tickers from '../tickers.json';
 
@@ -30,23 +29,26 @@ const SearchResults: React.FC<SearchResultsProps> = ({ searchTerm, watchlistId }
 
   // build price data
   useEffect(() => {
+    setIsLoading(true);
+
     if (searchResults) {
-      setIsLoading(true);
-      const stockAPI = new StockService();
       const watchlist: string[] = searchResults.map((ticker: Ticker) => ticker.Symbol);
-      const loadPrices = async () => Promise.all(watchlist.map(() => stockAPI.getTickerPrices()));
+
       const tickerPrices: TickerPrice[] = [];
 
-      loadPrices().then(promise => {
-        for (let i = 0; i < promise.length; i++) {
-          tickerPrices.push({ symbol: watchlist[i], companyName: getTickerName(watchlist[i]), prices: promise[i].data.prices });
+      loadPrices(watchlist).then(res => {
+        const prices: TickerPrice[] = res.data.tickerPrices;
+
+        for (let i = 0; i < prices.length; i++) {
+          tickerPrices.push(prices[i]);
         }
         setTickerPrices(tickerPrices);
-        setIsLoading(false);
       });
     } else {
       setTickerPrices([]);
     }
+
+    setIsLoading(false);
   }, [searchResults]);
 
   return (
