@@ -5,10 +5,6 @@ export default class StockService {
     return axios.post<any>('/stock/prices/', { watchlist });
   }
 
-  public getTickerPricesMin(): Promise<AxiosResponse<any>> {
-    return axios.get<any>('/stock/pricesMin');
-  }
-
   public getWatchlists(): Promise<AxiosResponse<any>> {
     return axios.get<any>('/watchlist');
   }

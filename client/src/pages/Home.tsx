@@ -12,7 +12,7 @@ import {
 } from '../components';
 import { useHistory } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
-import { generateWatchlist, loadPrices, getTickerName } from '../helper';
+import { generateWatchlist, loadPrices } from '../helper';
 
 // redux
 import { useSelector, useDispatch } from 'react-redux';
@@ -57,15 +57,7 @@ const Home: React.FC = () => {
 
       if (tickerPrice) dispatch(setCurrentTickerPrice(tickerPrice));
       // if tickerPrice wasn't found, get the tickerPrice from the API
-      else {
-        const arr = [];
-
-        arr.push(currentTicker);
-
-        loadPrices(arr).then(res => {
-          dispatch(setCurrentTickerPrice(res.data.tickerPrices[0]));
-        });
-      }
+      else loadPrices([currentTicker]).then(res => dispatch(setCurrentTickerPrice(res.data.tickerPrices[0])));
 
       window.scrollTo(0, 0);
     }
