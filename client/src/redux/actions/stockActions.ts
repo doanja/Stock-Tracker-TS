@@ -20,7 +20,6 @@ export const setCurrentTickerPrice = (tickerPrice: TickerPrice) => {
 };
 
 export const setWatchlistPrices = (watchlistPrices: WatchlistPrice[]) => {
-  console.log('setWatchlistPrices action dispatched');
   return { type: StockActionTypes.SET_WATCHLIST_PRICES, payload: watchlistPrices };
 };
 
@@ -50,8 +49,6 @@ export const getWatchlists: AppThunk = () => {
     try {
       const req: AxiosResponse<any> = await api.getWatchlists();
       const watchlist: Watchlist[] = req.data.watchlists;
-
-      console.log('watchlist', watchlist);
 
       return dispatch({
         type: StockActionTypes.GET_WATCHLISTS,

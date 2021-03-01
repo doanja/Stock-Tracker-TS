@@ -4,7 +4,7 @@ import { AuthService, StockService } from '../services';
 import { CustomModal } from '../components';
 import { Home } from './';
 import axios from 'axios';
-import { checkTokenExp } from '../helper';
+import { checkTokenExp, loadPrices } from '../helper';
 
 // redux
 import { useSelector, useDispatch } from 'react-redux';
@@ -61,33 +61,60 @@ const Watchlist: React.FC = () => {
     }
   }, [token, dispatch]);
 
-  useEffect(() => {
+  const test = async (watchlists: Watchlist[]): Promise<WatchlistPrice[]> => {
     const watchlistPrices: WatchlistPrice[] = [];
 
-    if (watchlists.length > 0 && watchlistPrices.length < 1) {
-      const stockAPI = new StockService();
+    await watchlists.forEach(async (wl: Watchlist) => {
+      const watchlistPrice: WatchlistPrice = { _id: wl._id, name: wl.name, user: wl.user, tickerPrices: [] };
+
+      await loadPrices(wl.watchlist).then(res => {
+        const prices: TickerPrice[] = res.data.tickerPrices;
+
+        for (let i = 0; i < prices.length; i++) {
+          watchlistPrice.tickerPrices.push(prices[i]);
+        }
+        watchlistPrices.push(watchlistPrice);
+      });
+      console.log('wl.name', wl.name);
+    });
+    console.log('---------------------------------------------');
+    return watchlistPrices;
+  };
+
+  useEffect(() => {
+    if (watchlists.length > 0 /*&& watchlistPrices.length < 1*/) {
+      // const watchlistPrices: WatchlistPrice[] = [];
 
       // calc prices for each watchlist
-      watchlists.forEach(async (wl: Watchlist) => {
-        const watchlistPrice: WatchlistPrice = { _id: wl._id, name: wl.name, user: wl.user, tickerPrices: [] };
+      // watchlists.forEach((wl: Watchlist) => {
+      // const watchlistPrice: WatchlistPrice = { _id: wl._id, name: wl.name, user: wl.user, tickerPrices: [] };
+      // get starting price for each symbol in the watchlist & builds the TickerPrice object
+      // loadPrices(wl.watchlist).then(res => {
+      //   const prices: TickerPrice[] = res.data.tickerPrices;
+      //   for (let i = 0; i < prices.length; i++) {
+      //     watchlistPrice.tickerPrices.push(prices[i]);
+      //   }
+      //   watchlistPrices.push(watchlistPrice);
+      //   dispatch(setWatchlistPrices(watchlistPrices));
+      // });
 
-        // get starting price for each symbol in the watchlist
-        const loadPrices = async (watchlist: string[]) => stockAPI.getTickerPrices(watchlist);
-
-        // builds the TickerPrice object
-        await loadPrices(wl.watchlist).then(res => {
-          const prices: TickerPrice[] = res.data.tickerPrices;
-
-          for (let i = 0; i < prices.length; i++) {
-            watchlistPrice.tickerPrices.push(prices[i]);
-          }
-          watchlistPrices.push(watchlistPrice);
-
-          dispatch(setWatchlistPrices(watchlistPrices));
-        });
+      test(watchlists).then(watchlistPrices => {
+        console.log('watchlistPrices', watchlistPrices);
+        // dispatch(setWatchlistPrices(watchlistPrices));
       });
+      // });
     }
   }, [dispatch, watchlists, newSymbol]);
+
+  useEffect(() => {
+    // TODO: resolve issue where watchlist would update, but watchlistPrices does not update
+    // change backend add ticker / remove ticker from watchlist to return the ticker that was added/removed
+    // make sure user sends watchlist id and ticker symbol
+    // change redux to filter out the ticker symbol
+    // console.log('################################################');
+    // console.log('watchlists', watchlists[0]);
+    // console.log('watchlistPrices', watchlistPrices[0]);
+  }, [watchlists]);
 
   const logout = () => {
     dispatch(clearAccessToken());
