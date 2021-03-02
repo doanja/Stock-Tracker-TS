@@ -1,6 +1,6 @@
 import React, { useState, useEffect, Fragment, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
-import { AuthService, StockService } from '../services';
+import { AuthService } from '../services';
 import { CustomModal } from '../components';
 import { Home } from './';
 import axios from 'axios';
@@ -9,7 +9,7 @@ import { checkTokenExp, getTickerPrices } from '../helper';
 // redux
 import { useSelector, useDispatch } from 'react-redux';
 import { RootStore } from '../redux/Store';
-import { getWatchlists, setWatchlistPrices } from '../redux/actions/stockActions';
+import { getWatchlists, setCurrentWatchlistPrice } from '../redux/actions/stockActions';
 import { clearAccessToken, clearLoginStatus, clearRefreshToken, setAccessToken } from '../redux/actions/authActions';
 
 const Watchlist: React.FC = () => {
@@ -17,7 +17,7 @@ const Watchlist: React.FC = () => {
 
   // redux
   const { loginStatus, refreshToken } = useSelector((state: RootStore) => state.auth);
-  const { watchlists, error, token, watchlistPrices, newSymbol } = useSelector((state: RootStore) => state.stock);
+  const { watchlists, error, token, currentWatchlist } = useSelector((state: RootStore) => state.stock);
   const dispatch = useDispatch();
 
   // modal
@@ -61,51 +61,25 @@ const Watchlist: React.FC = () => {
     }
   }, [token, dispatch]);
 
-  // TODO: change watchlistPrices to currentWatchlistPrice -> only keep current watchlistPrice in memory
-  const getWatchlistPrices = async (watchlists: Watchlist[]): Promise<WatchlistPrice[]> => {
-    const watchlistPrices: WatchlistPrice[] = [];
+  useEffect(() => {
+    // if currentWatchlist exist
+    if (currentWatchlist) {
+      console.log('currentWatchlist', currentWatchlist);
 
-    await watchlists.forEach(async (wl: Watchlist) => {
-      const watchlistPrice: WatchlistPrice = { _id: wl._id, name: wl.name, user: wl.user, tickerPrices: [] };
+      const watchlistPrice: WatchlistPrice = { tickerPrices: [] };
 
-      await getTickerPrices(wl.watchlist).then(res => {
+      getTickerPrices(currentWatchlist.watchlist).then(res => {
         const prices: TickerPrice[] = res.data.tickerPrices;
 
         for (let i = 0; i < prices.length; i++) {
           watchlistPrice.tickerPrices.push(prices[i]);
         }
-        watchlistPrices.push(watchlistPrice);
+
+        // TODO: move dispatch method outside of loop after forEach loop ends
+        dispatch(setCurrentWatchlistPrice(watchlistPrice));
       });
-      console.log('wl.name', wl.name);
-    });
-    console.log('---------------------------------------------');
-    return watchlistPrices;
-  };
-
-  useEffect(() => {
-    if (watchlists.length > 0 /*&& watchlistPrices.length < 1*/) {
-      // const watchlistPrices: WatchlistPrice[] = [];
-
-      // calc prices for each watchlist
-      // watchlists.forEach((wl: Watchlist) => {
-      // const watchlistPrice: WatchlistPrice = { _id: wl._id, name: wl.name, user: wl.user, tickerPrices: [] };
-      // get starting price for each symbol in the watchlist & builds the TickerPrice object
-      // loadPrices(wl.watchlist).then(res => {
-      //   const prices: TickerPrice[] = res.data.tickerPrices;
-      //   for (let i = 0; i < prices.length; i++) {
-      //     watchlistPrice.tickerPrices.push(prices[i]);
-      //   }
-      //   watchlistPrices.push(watchlistPrice);
-      //   dispatch(setWatchlistPrices(watchlistPrices));
-      // });
-
-      getWatchlistPrices(watchlists).then(watchlistPrices => {
-        console.log('watchlistPrices', watchlistPrices);
-        // dispatch(setWatchlistPrices(watchlistPrices));
-      });
-      // });
     }
-  }, [dispatch, watchlists, newSymbol]);
+  }, [currentWatchlist]);
 
   useEffect(() => {
     // TODO: resolve issue where watchlist would update, but watchlistPrices does not update

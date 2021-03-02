@@ -21,12 +21,13 @@ const Reconmended: React.FC<ReconmendedProps> = ({ tickerPrice }) => {
   const [isWatching, setIsWatching] = useState(false);
 
   // redux
-  const { watchlists } = useSelector((state: RootStore) => state.stock);
+  const { watchlists, currentWatchlist } = useSelector((state: RootStore) => state.stock);
   const { loginStatus } = useSelector((state: RootStore) => state.auth);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (loginStatus && watchlists.length > 0) watchlists[0].watchlist.includes(tickerPrice.symbol) ? setIsWatching(true) : setIsWatching(false);
+    if (loginStatus && currentWatchlist && currentWatchlist.watchlist.length > 0)
+      currentWatchlist.watchlist.includes(tickerPrice.symbol) ? setIsWatching(true) : setIsWatching(false);
   }, [watchlists, tickerPrice.symbol, loginStatus]);
 
   const saveTicker = (saveTicker: boolean, ticker: string): void => {

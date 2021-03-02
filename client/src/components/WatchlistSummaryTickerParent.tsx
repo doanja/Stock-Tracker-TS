@@ -1,5 +1,5 @@
 import React, { useState, useRef, Fragment } from 'react';
-import { WatchlistSummaryTickerChild, WatchlistModal } from '.';
+import { WatchlistSummaryTickerChild, WatchlistModal } from './';
 import { Container } from 'react-bootstrap';
 import '../styles/main.min.css';
 
@@ -7,12 +7,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronCircleRight, faChevronCircleLeft, faPlus } from '@fortawesome/free-solid-svg-icons';
 
 interface WatchlistSummaryTickerParentProps {
-  watchlistPrices: WatchlistPrice[];
-  currentWatchlist: WatchlistPrice | undefined;
-  setCurrentWatchlist: SetCurrentWatchlist;
+  watchlists: Watchlist[];
 }
 
-const WatchlistSummaryTickerParent: React.FC<WatchlistSummaryTickerParentProps> = ({ watchlistPrices, currentWatchlist, setCurrentWatchlist }) => {
+const WatchlistSummaryTickerParent: React.FC<WatchlistSummaryTickerParentProps> = ({ watchlists }) => {
   // modal
   const [showModal, setShowModal] = useState(false);
   const toggleModal: ToggleModal = () => setShowModal(!showModal);
@@ -61,15 +59,10 @@ const WatchlistSummaryTickerParent: React.FC<WatchlistSummaryTickerParentProps> 
           onClick={() => shiftDiscoverContainer('right')}
         />
         <Container className='mt-3 watchlist-container' ref={discContainerRef}>
-          {watchlistPrices.length > 0 ? (
+          {watchlists.length > 0 ? (
             <Fragment>
-              {watchlistPrices.map((wl: WatchlistPrice) => (
-                <WatchlistSummaryTickerChild
-                  watchlistPrice={wl}
-                  key={wl._id}
-                  currentWatchlistId={currentWatchlist?._id}
-                  setCurrentWatchlist={setCurrentWatchlist}
-                />
+              {watchlists.map((wl: Watchlist) => (
+                <WatchlistSummaryTickerChild watchlist={wl} key={wl._id} />
               ))}
             </Fragment>
           ) : null}

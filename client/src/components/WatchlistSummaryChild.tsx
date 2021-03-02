@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import { formatPrice } from '../helper';
 import '../styles/main.min.css';
 import '../styles/ticker.min.css';
 
@@ -8,7 +9,6 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons';
 // redux
 import { useDispatch } from 'react-redux';
 import { setTicker, removeFromWatchlist } from '../redux/actions/stockActions';
-import { formatPrice } from '../helper';
 
 interface WatchlistSummaryChildProps {
   tickerPrice: TickerPrice;

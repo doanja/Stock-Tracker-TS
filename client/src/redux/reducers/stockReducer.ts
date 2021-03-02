@@ -11,7 +11,8 @@ const initialState: StockState = {
   error: undefined,
   token: '',
   isLoading: false,
-  newSymbol: '',
+  currentWatchlist: undefined,
+  currentWatchlistPrice: null,
 };
 
 const stockReducer: Reducer<StockState> = (state = initialState, action) => {
@@ -46,6 +47,13 @@ const stockReducer: Reducer<StockState> = (state = initialState, action) => {
       return { ...state, error: action.error };
     case StockActionTypes.SET_IS_LOADING:
       return { ...state, isLoading: true };
+
+    case StockActionTypes.SET_CURRENT_WATCHLIST:
+      return { ...state, currentWatchlist: action.payload };
+
+    case StockActionTypes.SET_CURRENT_WATCHLIST_PRICE:
+      return { ...state, currentWatchlistPrice: action.payload };
+
     default:
       return state;
   }

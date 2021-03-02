@@ -4,10 +4,11 @@ import { Container } from 'react-bootstrap';
 import '../styles/main.min.css';
 
 interface WatchlistSummaryParentProps {
-  watchlistPrices: WatchlistPrice;
+  currentWatchlist: Watchlist;
+  currentWatchlistPrice: WatchlistPrice;
 }
 
-const WatchlistSummaryParent: React.FC<WatchlistSummaryParentProps> = ({ watchlistPrices }) => {
+const WatchlistSummaryParent: React.FC<WatchlistSummaryParentProps> = ({ currentWatchlist, currentWatchlistPrice }) => {
   // modal
   const [showModal, setShowModal] = useState(false);
   const toggleModal: ToggleModal = () => setShowModal(!showModal);
@@ -21,20 +22,20 @@ const WatchlistSummaryParent: React.FC<WatchlistSummaryParentProps> = ({ watchli
         showModal={showModal}
         toggleModal={toggleModal}
         title={'Update Watchlist Name'}
-        placeholder={watchlistPrices.name}
+        placeholder={currentWatchlistPrice.name}
         buttonText={'Update'}
         dispatchFunction={'updateWatchlistName'}
-        watchlistName={watchlistPrices.name}
-        watchlistId={watchlistPrices._id}
+        watchlistName={currentWatchlistPrice.name}
+        watchlistId={currentWatchlistPrice._id}
       />
-      <CustomSearchBarModal toggleModal={toggleSearchModal} showModal={showSearchModal} watchlistId={watchlistPrices._id as string} />
+      <CustomSearchBarModal toggleModal={toggleSearchModal} showModal={showSearchModal} watchlistId={currentWatchlistPrice._id as string} />
 
-      <WatchlistSummaryButtons watchlistPrices={watchlistPrices} toggleSearchModal={toggleSearchModal} toggleModal={toggleModal} />
+      <WatchlistSummaryButtons currentWatchlistPrice={currentWatchlistPrice} toggleSearchModal={toggleSearchModal} toggleModal={toggleModal} />
 
-      {watchlistPrices && watchlistPrices.tickerPrices.length > 0 ? (
+      {currentWatchlist && currentWatchlistPrice && currentWatchlistPrice.tickerPrices.length > 0 ? (
         <Fragment>
-          {watchlistPrices.tickerPrices.map((price: TickerPrice) => (
-            <WatchlistSummaryChild tickerPrice={price} key={price.companyName} watchlistId={watchlistPrices._id} />
+          {currentWatchlistPrice.tickerPrices.map((price: TickerPrice) => (
+            <WatchlistSummaryChild tickerPrice={price} key={price.companyName} watchlistId={currentWatchlist._id} />
           ))}
         </Fragment>
       ) : (

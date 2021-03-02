@@ -43,6 +43,14 @@ export const clearTicker = () => {
   return { type: StockActionTypes.CLEAR_TICKER };
 };
 
+export const setCurrentWatchlist = (watchlist: Watchlist) => {
+  return { type: StockActionTypes.SET_CURRENT_WATCHLIST, payload: watchlist };
+};
+
+export const setCurrentWatchlistPrice = (watchlistPrice: WatchlistPrice) => {
+  return { type: StockActionTypes.SET_CURRENT_WATCHLIST_PRICE, payload: watchlistPrice };
+};
+
 export const getWatchlists: AppThunk = () => {
   return async (dispatch: Dispatch) => {
     dispatch(setIsLoading());

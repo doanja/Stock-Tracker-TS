@@ -24,7 +24,7 @@ const Home: React.FC = () => {
 
   // redux
   const { loginStatus } = useSelector((state: RootStore) => state.auth);
-  const { currentTickerPrice, watchlistPrices, currentTicker } = useSelector((state: RootStore) => state.stock);
+  const { currentTickerPrice, watchlistPrices, currentTicker, currentWatchlistPrice } = useSelector((state: RootStore) => state.stock);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -49,11 +49,9 @@ const Home: React.FC = () => {
   }, [loginStatus, history, dispatch]);
 
   useEffect(() => {
-    if (currentTicker) {
+    if (currentTicker && currentWatchlistPrice) {
       // search for ticker in default watchlist
-      const tickerPrice: TickerPrice | undefined = watchlistPrices[watchlistPrices.length - 1].tickerPrices.find(
-        (tp: TickerPrice) => tp.symbol === currentTicker
-      );
+      const tickerPrice: TickerPrice | undefined = currentWatchlistPrice.tickerPrices.find((tp: TickerPrice) => tp.symbol === currentTicker);
 
       if (tickerPrice) dispatch(setCurrentTickerPrice(tickerPrice));
       // if tickerPrice wasn't found, get the tickerPrice from the API
@@ -70,9 +68,9 @@ const Home: React.FC = () => {
         <SearchBar />
 
         {currentTicker && currentTickerPrice ? (
-          <TickerContainerWrap watchlistPrices={watchlistPrices} currentTicker={currentTicker} currentTickerPrice={currentTickerPrice} />
+          <TickerContainerWrap currentWatchlistPrice={currentWatchlistPrice} currentTicker={currentTicker} currentTickerPrice={currentTickerPrice} />
         ) : (
-          <HomeContainer loginStatus={loginStatus} watchlistPrices={watchlistPrices} />
+          <HomeContainer />
         )}
 
         <div className='my-3 ticker-home-wrap'>

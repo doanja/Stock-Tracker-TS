@@ -3,16 +3,16 @@ import { TickerLineContainer, TickerSaveButton, TickerContainer, CustomSpinner }
 import '../styles/main.min.css';
 
 interface TickerContainerWrapProps {
-  watchlistPrices: WatchlistPrice[];
+  currentWatchlistPrice: WatchlistPrice | null;
   currentTicker: string;
   currentTickerPrice: TickerPrice;
 }
 
-const TickerContainerWrap: React.FC<TickerContainerWrapProps> = ({ watchlistPrices, currentTicker, currentTickerPrice }) => {
+const TickerContainerWrap: React.FC<TickerContainerWrapProps> = ({ currentWatchlistPrice, currentTicker, currentTickerPrice }) => {
   return (
     <Fragment>
-      {watchlistPrices.length > 0 ? (
-        <TickerLineContainer tickerPrices={watchlistPrices[watchlistPrices.length - 1].tickerPrices} />
+      {currentWatchlistPrice && currentWatchlistPrice.tickerPrices.length > 0 ? (
+        <TickerLineContainer tickerPrices={currentWatchlistPrice.tickerPrices} />
       ) : (
         <CustomSpinner />
       )}

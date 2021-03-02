@@ -8,7 +8,8 @@ export interface StockState {
   readonly error?: string;
   readonly token: string;
   readonly isLoading: boolean;
-  readonly newSymbol: string;
+  readonly currentWatchlist: Watchlist | undefined;
+  readonly currentWatchlistPrice: WatchlistPrice | null;
 }
 
 export enum StockActionTypes {
@@ -33,4 +34,7 @@ export enum StockActionTypes {
 
   REQUEST_FAILED = 'REQUEST_FAILED',
   SET_IS_LOADING = 'SET_IS_LOADING',
+
+  SET_CURRENT_WATCHLIST = 'SET_CURRENT_WATCHLIST',
+  SET_CURRENT_WATCHLIST_PRICE = 'SET_CURRENT_WATCHLIST_PRICE',
 }
