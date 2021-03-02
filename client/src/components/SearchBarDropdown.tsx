@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useEffect } from 'react';
-import { formatPrice, loadPrices } from '../helper';
+import { formatPrice, getTickerPrices } from '../helper';
 import { CustomSpinner } from './';
 import tickers from '../tickers.json';
 
@@ -20,7 +20,7 @@ const SearchBarDropdown: React.FC<SearchBarDropdownProps> = ({ searchTerm }) => 
 
       const tickerPrices: TickerPrice[] = [];
 
-      loadPrices(watchlist).then(res => {
+      getTickerPrices(watchlist).then(res => {
         const prices: TickerPrice[] = res.data.tickerPrices;
 
         for (let i = 0; i < prices.length; i++) {

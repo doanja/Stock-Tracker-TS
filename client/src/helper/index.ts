@@ -174,7 +174,7 @@ export const bulkUpdatePrices = (tickerPrices: TickerPrice[]): TickerPrice[] => 
  * @param {string[]} watchlist an array of strings containing the tickers
  * @return {Promise<AxiosResponse<TickerPrice>[]>} an array of promises containing the TickerPrices
  */
-export const loadPrices = async (watchlist: string[]): Promise<AxiosResponse<any>> => {
+export const getTickerPrices = async (watchlist: string[]): Promise<AxiosResponse<any>> => {
   const stockAPI = new StockService();
   return stockAPI.getTickerPrices(watchlist);
 };
@@ -188,7 +188,7 @@ export const generateTickerPrices = async (sampleWatchlist: string[]): Promise<T
   const tickerPrices: TickerPrice[] = [];
 
   try {
-    await loadPrices(sampleWatchlist).then(res => {
+    await getTickerPrices(sampleWatchlist).then(res => {
       const prices: TickerPrice[] = res.data.tickerPrices;
 
       for (let i = 0; i < res.data.tickerPrices.length; i++) {

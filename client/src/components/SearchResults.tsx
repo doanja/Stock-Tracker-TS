@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useEffect } from 'react';
-import { loadPrices } from '../helper';
+import { getTickerPrices } from '../helper';
 import { CustomSpinner, SearchResultsChild } from './';
 import tickers from '../tickers.json';
 
@@ -36,7 +36,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({ searchTerm, watchlistId }
 
       const tickerPrices: TickerPrice[] = [];
 
-      loadPrices(watchlist).then(res => {
+      getTickerPrices(watchlist).then(res => {
         const prices: TickerPrice[] = res.data.tickerPrices;
 
         for (let i = 0; i < prices.length; i++) {

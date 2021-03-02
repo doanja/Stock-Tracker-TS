@@ -4,7 +4,7 @@ import { AuthService, StockService } from '../services';
 import { CustomModal } from '../components';
 import { Home } from './';
 import axios from 'axios';
-import { checkTokenExp, loadPrices } from '../helper';
+import { checkTokenExp, getTickerPrices } from '../helper';
 
 // redux
 import { useSelector, useDispatch } from 'react-redux';
@@ -61,13 +61,14 @@ const Watchlist: React.FC = () => {
     }
   }, [token, dispatch]);
 
-  const test = async (watchlists: Watchlist[]): Promise<WatchlistPrice[]> => {
+  // TODO: change watchlistPrices to currentWatchlistPrice -> only keep current watchlistPrice in memory
+  const getWatchlistPrices = async (watchlists: Watchlist[]): Promise<WatchlistPrice[]> => {
     const watchlistPrices: WatchlistPrice[] = [];
 
     await watchlists.forEach(async (wl: Watchlist) => {
       const watchlistPrice: WatchlistPrice = { _id: wl._id, name: wl.name, user: wl.user, tickerPrices: [] };
 
-      await loadPrices(wl.watchlist).then(res => {
+      await getTickerPrices(wl.watchlist).then(res => {
         const prices: TickerPrice[] = res.data.tickerPrices;
 
         for (let i = 0; i < prices.length; i++) {
@@ -98,7 +99,7 @@ const Watchlist: React.FC = () => {
       //   dispatch(setWatchlistPrices(watchlistPrices));
       // });
 
-      test(watchlists).then(watchlistPrices => {
+      getWatchlistPrices(watchlists).then(watchlistPrices => {
         console.log('watchlistPrices', watchlistPrices);
         // dispatch(setWatchlistPrices(watchlistPrices));
       });

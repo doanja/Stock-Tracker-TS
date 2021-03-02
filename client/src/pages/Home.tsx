@@ -12,7 +12,7 @@ import {
 } from '../components';
 import { useHistory } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
-import { generateWatchlist, loadPrices } from '../helper';
+import { generateWatchlist, getTickerPrices } from '../helper';
 
 // redux
 import { useSelector, useDispatch } from 'react-redux';
@@ -34,7 +34,7 @@ const Home: React.FC = () => {
       const watchlistPrices: WatchlistPrice[] = [];
       const watchlistPrice: WatchlistPrice = { tickerPrices: [] };
 
-      loadPrices(generateWatchlist(5)).then(res => {
+      getTickerPrices(generateWatchlist(5)).then(res => {
         const prices: TickerPrice[] = res.data.tickerPrices;
 
         for (let i = 0; i < prices.length; i++) {
@@ -57,7 +57,7 @@ const Home: React.FC = () => {
 
       if (tickerPrice) dispatch(setCurrentTickerPrice(tickerPrice));
       // if tickerPrice wasn't found, get the tickerPrice from the API
-      else loadPrices([currentTicker]).then(res => dispatch(setCurrentTickerPrice(res.data.tickerPrices[0])));
+      else getTickerPrices([currentTicker]).then(res => dispatch(setCurrentTickerPrice(res.data.tickerPrices[0])));
 
       window.scrollTo(0, 0);
     }
