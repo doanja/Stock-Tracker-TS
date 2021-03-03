@@ -3,7 +3,7 @@ import { Modal, Form, InputGroup, Button } from 'react-bootstrap';
 
 // redux
 import { useDispatch } from 'react-redux';
-import { createWatchlist, setCurrentWatchlist, updateWatchlistName } from '../redux/actions/stockActions';
+import { createWatchlist, updateWatchlistName } from '../redux/actions/stockActions';
 
 interface WatchlistModalProps {
   toggleModal: ToggleModal;

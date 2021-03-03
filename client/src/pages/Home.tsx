@@ -66,7 +66,7 @@ const Home: React.FC = () => {
 
       window.scrollTo(0, 0);
     }
-  }, [currentTicker, currentWatchlistPrice, dispatch]);
+  }, [currentTicker, currentWatchlistPrice, watchlistPrices, dispatch]);
 
   return (
     <Fragment>
