@@ -24,7 +24,7 @@ const Home: React.FC = () => {
 
   // redux
   const { loginStatus } = useSelector((state: RootStore) => state.auth);
-  const { currentTickerPrice, watchlistPrices, currentTicker, currentWatchlistPrice } = useSelector((state: RootStore) => state.stock);
+  const { currentTickerPrice, currentTicker, currentWatchlistPrice } = useSelector((state: RootStore) => state.stock);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -59,7 +59,7 @@ const Home: React.FC = () => {
 
       window.scrollTo(0, 0);
     }
-  }, [currentTicker, watchlistPrices, dispatch]);
+  }, [currentTicker, currentWatchlistPrice, dispatch]);
 
   return (
     <Fragment>

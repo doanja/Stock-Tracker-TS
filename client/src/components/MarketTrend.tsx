@@ -20,22 +20,22 @@ const MarketTrend: React.FC<MarketTrendProps> = ({ tickerPrice }) => {
   const [isWatching, setIsWatching] = useState(false);
 
   // redux
-  const { watchlists, currentWatchlist } = useSelector((state: RootStore) => state.stock);
+  const { currentWatchlist } = useSelector((state: RootStore) => state.stock);
   const { loginStatus } = useSelector((state: RootStore) => state.auth);
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (loginStatus && currentWatchlist && currentWatchlist.watchlist.length > 0)
       currentWatchlist.watchlist.includes(tickerPrice.symbol) ? setIsWatching(true) : setIsWatching(false);
-  }, [watchlists, tickerPrice.symbol, loginStatus]);
+  }, [currentWatchlist, tickerPrice.symbol, loginStatus]);
 
   const saveTicker = (saveTicker: boolean, ticker: string): void => {
-    if (loginStatus && watchlists.length > 0) {
+    if (loginStatus && currentWatchlist) {
       if (saveTicker) {
-        dispatch(addToWatchlist(watchlists[0]._id, ticker));
+        dispatch(addToWatchlist(currentWatchlist._id, ticker));
         setIsWatching(true);
       } else {
-        dispatch(removeFromWatchlist(watchlists[0]._id, ticker));
+        dispatch(removeFromWatchlist(currentWatchlist, ticker));
         setIsWatching(false);
       }
     } else history.push('/login');
