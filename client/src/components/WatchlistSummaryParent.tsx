@@ -22,17 +22,17 @@ const WatchlistSummaryParent: React.FC<WatchlistSummaryParentProps> = ({ current
         showModal={showModal}
         toggleModal={toggleModal}
         title={'Update Watchlist Name'}
-        placeholder={currentWatchlistPrice.name}
+        placeholder={currentWatchlist.name}
         buttonText={'Update'}
         dispatchFunction={'updateWatchlistName'}
-        watchlistName={currentWatchlistPrice.name}
-        watchlistId={currentWatchlistPrice._id}
+        watchlistName={currentWatchlist.name}
+        watchlistId={currentWatchlist._id}
       />
-      <CustomSearchBarModal toggleModal={toggleSearchModal} showModal={showSearchModal} watchlistId={currentWatchlistPrice._id as string} />
+      <CustomSearchBarModal toggleModal={toggleSearchModal} showModal={showSearchModal} watchlistId={currentWatchlist._id as string} />
 
-      <WatchlistSummaryButtons currentWatchlistPrice={currentWatchlistPrice} toggleSearchModal={toggleSearchModal} toggleModal={toggleModal} />
+      <WatchlistSummaryButtons currentWatchlist={currentWatchlist} toggleSearchModal={toggleSearchModal} toggleModal={toggleModal} />
 
-      {currentWatchlist && currentWatchlistPrice && currentWatchlistPrice.tickerPrices.length > 0 ? (
+      {currentWatchlistPrice && currentWatchlistPrice.tickerPrices.length > 0 ? (
         <Fragment>
           {currentWatchlistPrice.tickerPrices.map((price: TickerPrice) => (
             <WatchlistSummaryChild tickerPrice={price} key={price.companyName} watchlistId={currentWatchlist._id} />

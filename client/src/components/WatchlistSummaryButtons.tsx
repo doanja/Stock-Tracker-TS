@@ -7,18 +7,18 @@ import { useDispatch } from 'react-redux';
 import { deleteWatchlist } from '../redux/actions/stockActions';
 
 interface WatchlistSummaryButtonsProps {
-  currentWatchlistPrice: WatchlistPrice;
+  currentWatchlist: Watchlist;
   toggleSearchModal: ToggleSearchModal;
   toggleModal: ToggleModal;
 }
 
-const WatchlistSummaryButtons: React.FC<WatchlistSummaryButtonsProps> = ({ currentWatchlistPrice, toggleSearchModal, toggleModal }) => {
+const WatchlistSummaryButtons: React.FC<WatchlistSummaryButtonsProps> = ({ currentWatchlist, toggleSearchModal, toggleModal }) => {
   // redux
   const dispatch = useDispatch();
 
   return (
     <div className='position-relative'>
-      <h2 className='sub-heading mb-3'>{currentWatchlistPrice?.name}</h2>
+      <h2 className='sub-heading mb-3'>{currentWatchlist.name}</h2>
       <div className='dropdown-buttons'>
         <Dropdown>
           <Dropdown.Toggle variant='dark' size='sm'>
@@ -31,7 +31,7 @@ const WatchlistSummaryButtons: React.FC<WatchlistSummaryButtonsProps> = ({ curre
             <Dropdown.Item as='button' onClick={() => toggleModal()}>
               Rename
             </Dropdown.Item>
-            <Dropdown.Item as='button' onClick={() => dispatch(deleteWatchlist(currentWatchlistPrice!._id))}>
+            <Dropdown.Item as='button' onClick={() => dispatch(deleteWatchlist(currentWatchlist._id))}>
               Delete
             </Dropdown.Item>
           </Dropdown.Menu>

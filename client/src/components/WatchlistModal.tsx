@@ -3,7 +3,7 @@ import { Modal, Form, InputGroup, Button } from 'react-bootstrap';
 
 // redux
 import { useDispatch } from 'react-redux';
-import { createWatchlist, updateWatchlistName } from '../redux/actions/stockActions';
+import { createWatchlist, setCurrentWatchlist, updateWatchlistName } from '../redux/actions/stockActions';
 
 interface WatchlistModalProps {
   toggleModal: ToggleModal;
@@ -44,7 +44,14 @@ const WatchlistModal: React.FC<WatchlistModalProps> = ({
 
   const handleSubmit = (e: React.FormEvent): void => {
     e.preventDefault();
-    dispatchFunction === 'createWatchlist' ? dispatch(createWatchlist(input)) : dispatch(updateWatchlistName(watchlistId, input));
+    if (dispatchFunction === 'createWatchlist') {
+      dispatch(createWatchlist(input));
+      // TODO: set currentWatchlist to newly created watchlist
+      // dispatch(setCurrentWatchlist())
+    } else {
+      dispatch(updateWatchlistName(watchlistId, input));
+    }
+    // dispatchFunction === 'createWatchlist' ? dispatch(createWatchlist(input)) : dispatch(updateWatchlistName(watchlistId, input));
     closeModal();
   };
 
