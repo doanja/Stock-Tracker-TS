@@ -8,7 +8,7 @@ export interface StockState {
   readonly error?: string;
   readonly token: string;
   readonly isLoading: boolean;
-  readonly currentWatchlist: Watchlist | undefined;
+  readonly currentWatchlist: Watchlist | null;
   readonly currentWatchlistPrice: WatchlistPrice | null;
 }
 

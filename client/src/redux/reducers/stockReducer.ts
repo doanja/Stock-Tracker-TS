@@ -11,7 +11,7 @@ const initialState: StockState = {
   error: undefined,
   token: '',
   isLoading: false,
-  currentWatchlist: undefined,
+  currentWatchlist: null,
   currentWatchlistPrice: null,
 };
 
@@ -22,7 +22,7 @@ const stockReducer: Reducer<StockState> = (state = initialState, action) => {
     case StockActionTypes.SET_CURRENT_TICKER_PRICE:
       return { ...state, currentTickerPrice: action.payload };
     case StockActionTypes.SET_WATCHLIST_PRICES:
-      return { ...state, watchlistPrices: action.payload };
+      return { ...state, watchlistPrices: [...action.payload] };
     case StockActionTypes.SET_SEARCH_QUERY:
       return { ...state, searchQuery: action.payload };
     case StockActionTypes.CLEAR_SEARCH_QUERY:
@@ -32,17 +32,17 @@ const stockReducer: Reducer<StockState> = (state = initialState, action) => {
     case StockActionTypes.CLEAR_TICKER:
       return { ...state, currentTicker: null };
     case StockActionTypes.GET_WATCHLISTS:
-      return { ...state, error: state.error, isLoading: false, watchlists: action.payload, token: action.token };
+      return { ...state, error: state.error, isLoading: false, watchlists: [...action.payload], token: action.token };
     case StockActionTypes.CREATE_WATCHLIST:
-      return { ...state, error: state.error, isLoading: false, watchlists: action.payload, token: action.token };
+      return { ...state, error: state.error, isLoading: false, watchlists: [...action.payload], token: action.token };
     case StockActionTypes.UPDATE_WATCHLIST_NAME:
-      return { ...state, error: state.error, isLoading: false, watchlists: action.payload, token: action.token };
+      return { ...state, error: state.error, isLoading: false, watchlists: [...action.payload], token: action.token };
     case StockActionTypes.ADD_TICKER:
-      return { ...state, error: state.error, isLoading: false, watchlists: action.payload, token: action.token, newSymbol: action.newSymbol };
+      return { ...state, error: state.error, isLoading: false, watchlists: [...action.payload], token: action.token, newSymbol: action.newSymbol };
     case StockActionTypes.REMOVE_TICKER:
-      return { ...state, error: state.error, isLoading: false, watchlists: action.payload, token: action.token, newSymbol: action.newSymbol };
+      return { ...state, error: state.error, isLoading: false, watchlists: [...action.payload], token: action.token, newSymbol: action.newSymbol };
     case StockActionTypes.DELETE_WATCHLIST:
-      return { ...state, error: state.error, isLoading: false, watchlists: action.payload, token: action.token };
+      return { ...state, error: state.error, isLoading: false, watchlists: [...action.payload], token: action.token };
     case StockActionTypes.REQUEST_FAILED:
       return { ...state, error: action.error };
     case StockActionTypes.SET_IS_LOADING:

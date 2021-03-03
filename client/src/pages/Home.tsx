@@ -24,7 +24,7 @@ const Home: React.FC = () => {
 
   // redux
   const { loginStatus } = useSelector((state: RootStore) => state.auth);
-  const { currentTickerPrice, currentTicker, currentWatchlistPrice } = useSelector((state: RootStore) => state.stock);
+  const { currentTickerPrice, currentTicker, currentWatchlistPrice, watchlistPrices } = useSelector((state: RootStore) => state.stock);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -49,13 +49,20 @@ const Home: React.FC = () => {
   }, [loginStatus, history, dispatch]);
 
   useEffect(() => {
-    if (currentTicker && currentWatchlistPrice) {
-      // search for ticker in default watchlist
-      const tickerPrice: TickerPrice | undefined = currentWatchlistPrice.tickerPrices.find((tp: TickerPrice) => tp.symbol === currentTicker);
+    if (currentTicker) {
+      let tickerPrice: TickerPrice | undefined;
 
-      if (tickerPrice) dispatch(setCurrentTickerPrice(tickerPrice));
-      // if tickerPrice wasn't found, get the tickerPrice from the API
-      else getTickerPrices([currentTicker]).then(res => dispatch(setCurrentTickerPrice(res.data.tickerPrices[0])));
+      if (currentWatchlistPrice) {
+        tickerPrice = currentWatchlistPrice.tickerPrices.find((tp: TickerPrice) => tp.symbol === currentTicker);
+      } else if (currentTicker && !currentWatchlistPrice) {
+        tickerPrice = watchlistPrices[watchlistPrices.length - 1].tickerPrices.find((tp: TickerPrice) => tp.symbol === currentTicker);
+      }
+
+      if (tickerPrice) {
+        dispatch(setCurrentTickerPrice(tickerPrice));
+      } else {
+        getTickerPrices([currentTicker]).then(res => dispatch(setCurrentTickerPrice(res.data.tickerPrices[0])));
+      }
 
       window.scrollTo(0, 0);
     }
