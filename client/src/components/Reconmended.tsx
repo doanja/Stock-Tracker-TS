@@ -56,7 +56,7 @@ const Reconmended: React.FC<ReconmendedProps> = ({ tickerPrice }) => {
         </div>
 
         <div className='price-text-wrap'>
-          <p className='price-text'>${tickerPrice.prices[0].price}</p>
+          <p className='price-text'>${formatPrice(tickerPrice.prices[0].price)}</p>
         </div>
         {tickerPrice.prices[0].priceChange > 0 ? (
           <Fragment>

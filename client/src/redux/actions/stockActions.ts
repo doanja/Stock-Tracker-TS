@@ -44,10 +44,12 @@ export const clearTicker = () => {
 };
 
 export const setCurrentWatchlist = (watchlist: Watchlist) => {
+  console.log('SET_CURRENT_WATCHLIST CALLED', watchlist);
   return { type: StockActionTypes.SET_CURRENT_WATCHLIST, payload: watchlist };
 };
 
 export const setCurrentWatchlistPrice = (watchlistPrice: WatchlistPrice) => {
+  console.log('SET_CURRENT_WATCHLIST_PRICE CALLED');
   return { type: StockActionTypes.SET_CURRENT_WATCHLIST_PRICE, payload: watchlistPrice };
 };
 

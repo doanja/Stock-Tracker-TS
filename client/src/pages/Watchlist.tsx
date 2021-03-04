@@ -61,24 +61,25 @@ const Watchlist: React.FC = () => {
     }
   }, [token, dispatch]);
 
+  // useEffect(() => {
+  //   const abc: Watchlist | undefined = watchlists.find((wl: Watchlist) => wl._id === currentWatchlist?._id);
+  //   // console.log('watchlist grabbed', abc);
+  //   // console.log('a', a);
+
+  //   if (abc) {
+  //     // console.log('################################################');
+  //     // console.log('abc IN IF', abc);
+  //     // console.log('watchlists', watchlists);
+  //     // console.log('currentWatchlist', currentWatchlist);
+  //     setCurrentWatchlist({ watchlist: [], _id: 'asdjfkl', user: 'jalskdjf', name: 'jaksldf' });
+  //   }
+  // }, [watchlists, currentWatchlist]);
+
   useEffect(() => {
-    const watchlist: Watchlist | undefined = watchlists.find((wl: Watchlist) => wl._id === currentWatchlist?._id);
-
-    // console.log('a', a);
-
-    if (watchlist) {
-      console.log('################################################');
-      console.log('watchlist', watchlist);
-      // console.log('watchlists', watchlists);
-      console.log('currentWatchlist', currentWatchlist);
-      setCurrentWatchlist(watchlist);
-    }
-  }, [watchlists]);
-
-  useEffect(() => {
+    // console.log('currentWatchlist changed');
     // if currentWatchlist exist
     if (currentWatchlist) {
-      //       console.log('watchlists', watchlists);
+      // console.log('watchlists', watchlists);
       // console.log('currentWatchlist', currentWatchlist);
 
       const watchlistPrice: WatchlistPrice = { tickerPrices: [] };
