@@ -34,7 +34,14 @@ const stockReducer: Reducer<StockState> = (state = initialState, action) => {
     case StockActionTypes.GET_WATCHLISTS:
       return { ...state, error: state.error, isLoading: false, watchlists: [...action.payload], token: action.token };
     case StockActionTypes.CREATE_WATCHLIST:
-      return { ...state, error: state.error, isLoading: false, watchlists: [...action.payload], token: action.token };
+      return {
+        ...state,
+        error: state.error,
+        isLoading: false,
+        watchlists: [...action.payload],
+        token: action.token,
+        currentWatchlist: action.newWatchlist,
+      };
     case StockActionTypes.UPDATE_WATCHLIST_NAME:
       return { ...state, error: state.error, isLoading: false, watchlists: [...action.payload], token: action.token };
     case StockActionTypes.ADD_TICKER:
@@ -50,6 +57,9 @@ const stockReducer: Reducer<StockState> = (state = initialState, action) => {
 
     case StockActionTypes.SET_CURRENT_WATCHLIST:
       return { ...state, currentWatchlist: action.payload };
+
+    case StockActionTypes.CLEAR_CURRENT_WATCHLIST:
+      return { ...state, currentWatchlist: null };
 
     case StockActionTypes.SET_CURRENT_WATCHLIST_PRICE:
       return { ...state, currentWatchlistPrice: action.payload };

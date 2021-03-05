@@ -34,7 +34,6 @@ const WatchlistModal: React.FC<WatchlistModalProps> = ({
   useEffect(() => {
     if (watchlistId && watchlistName) {
       setInput(watchlistName);
-      // placeholder = watchlistName;
     }
   }, [watchlistId, watchlistName]);
 
@@ -44,14 +43,7 @@ const WatchlistModal: React.FC<WatchlistModalProps> = ({
 
   const handleSubmit = (e: React.FormEvent): void => {
     e.preventDefault();
-    if (dispatchFunction === 'createWatchlist') {
-      dispatch(createWatchlist(input));
-      // TODO: set currentWatchlist to newly created watchlist
-      // dispatch(set CurrentWatchlist())
-    } else {
-      dispatch(updateWatchlistName(watchlistId, input));
-    }
-    // dispatchFunction === 'createWatchlist' ? dispatch(createWatchlist(input)) : dispatch(updateWatchlistName(watchlistId, input));
+    dispatchFunction === 'createWatchlist' ? dispatch(createWatchlist(input)) : dispatch(updateWatchlistName(watchlistId, input));
     closeModal();
   };
 

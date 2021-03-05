@@ -4,7 +4,7 @@ import '../styles/main.min.css';
 
 // redux
 import { useDispatch } from 'react-redux';
-import { deleteWatchlist } from '../redux/actions/stockActions';
+import { deleteWatchlist, clearCurrentWatchlist } from '../redux/actions/stockActions';
 
 interface WatchlistSummaryButtonsProps {
   currentWatchlist: Watchlist;
@@ -31,7 +31,12 @@ const WatchlistSummaryButtons: React.FC<WatchlistSummaryButtonsProps> = ({ curre
             <Dropdown.Item as='button' onClick={() => toggleModal()}>
               Rename
             </Dropdown.Item>
-            <Dropdown.Item as='button' onClick={() => dispatch(deleteWatchlist(currentWatchlist._id))}>
+            <Dropdown.Item
+              as='button'
+              onClick={() => {
+                dispatch(deleteWatchlist(currentWatchlist._id));
+                dispatch(clearCurrentWatchlist());
+              }}>
               Delete
             </Dropdown.Item>
           </Dropdown.Menu>

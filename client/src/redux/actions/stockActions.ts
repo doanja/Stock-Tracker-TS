@@ -47,6 +47,10 @@ export const setCurrentWatchlist = (watchlist: Watchlist) => {
   return { type: StockActionTypes.SET_CURRENT_WATCHLIST, payload: watchlist };
 };
 
+export const clearCurrentWatchlist = () => {
+  return { type: StockActionTypes.CLEAR_CURRENT_WATCHLIST };
+};
+
 export const setCurrentWatchlistPrice = (watchlistPrice: WatchlistPrice) => {
   return { type: StockActionTypes.SET_CURRENT_WATCHLIST_PRICE, payload: watchlistPrice };
 };
@@ -78,11 +82,13 @@ export const createWatchlist: AppThunk = (name: string) => {
     try {
       const req: AxiosResponse<any> = await api.createWatchlist(name);
       const watchlist: Watchlist[] = req.data.watchlists;
+      const newWatchlist: Watchlist = req.data.watchlists[req.data.watchlists.length - 1];
 
       return dispatch({
         type: StockActionTypes.CREATE_WATCHLIST,
         payload: watchlist,
         token: req.headers.authorization,
+        newWatchlist,
       });
     } catch (error) {
       return dispatch({
