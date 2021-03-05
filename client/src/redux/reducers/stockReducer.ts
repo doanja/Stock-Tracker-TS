@@ -49,13 +49,9 @@ const stockReducer: Reducer<StockState> = (state = initialState, action) => {
       return { ...state, isLoading: true };
 
     case StockActionTypes.SET_CURRENT_WATCHLIST:
-      console.log('##########################################');
-      console.log('action.payload', action.payload);
       return { ...state, currentWatchlist: action.payload };
 
     case StockActionTypes.SET_CURRENT_WATCHLIST_PRICE:
-      console.log('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$');
-      console.log('action.payload', action.payload);
       return { ...state, currentWatchlistPrice: action.payload };
 
     default:

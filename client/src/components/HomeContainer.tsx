@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 import { RootStore } from '../redux/Store';
 
 const HomeContainer: React.FC = () => {
-  // TODO: figure out how to setCurrentWatchlist to recently created list
+  // TODO: figure out how to set CurrentWatchlist to recently created list
   // TODO: find way to not refresh entire watchlistPrices so WatchlistSummaryTickerParent doesn't have to refresh 20x
 
   // redux

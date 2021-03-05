@@ -47,7 +47,7 @@ const WatchlistModal: React.FC<WatchlistModalProps> = ({
     if (dispatchFunction === 'createWatchlist') {
       dispatch(createWatchlist(input));
       // TODO: set currentWatchlist to newly created watchlist
-      // dispatch(setCurrentWatchlist())
+      // dispatch(set CurrentWatchlist())
     } else {
       dispatch(updateWatchlistName(watchlistId, input));
     }

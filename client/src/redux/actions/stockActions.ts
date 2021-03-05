@@ -44,12 +44,10 @@ export const clearTicker = () => {
 };
 
 export const setCurrentWatchlist = (watchlist: Watchlist) => {
-  console.log('SET_CURRENT_WATCHLIST CALLED', watchlist);
   return { type: StockActionTypes.SET_CURRENT_WATCHLIST, payload: watchlist };
 };
 
 export const setCurrentWatchlistPrice = (watchlistPrice: WatchlistPrice) => {
-  console.log('SET_CURRENT_WATCHLIST_PRICE CALLED');
   return { type: StockActionTypes.SET_CURRENT_WATCHLIST_PRICE, payload: watchlistPrice };
 };
 
@@ -120,7 +118,7 @@ export const addToWatchlist: ActionCreator<ThunkAction<void, StockState, Watchli
     try {
       const req: AxiosResponse<any> = await api.addToWatchlist(watchlistId, ticker);
       const watchlist: Watchlist[] = req.data.watchlists;
-      console.log('added');
+
       return dispatch({
         type: StockActionTypes.ADD_TICKER,
         payload: watchlist,
@@ -141,7 +139,7 @@ export const removeFromWatchlist: ActionCreator<ThunkAction<void, StockState, Wa
     try {
       const req: AxiosResponse<any> = await api.removeFromWatchlist(watchlistId, ticker);
       const watchlist: Watchlist[] = req.data.watchlists;
-      console.log('removed');
+
       return dispatch({
         type: StockActionTypes.REMOVE_TICKER,
         payload: watchlist,

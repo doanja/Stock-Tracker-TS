@@ -26,10 +26,10 @@ const Watchlist: React.FC = () => {
   const requestAccessToken = useCallback(() => {
     // check refresh token expiry
     if (!checkTokenExp(refreshToken) && !showModal) {
-      console.log('in if');
+      console.log('in if (logging out)');
       setShowModal(!showModal);
     } else {
-      console.log('in else');
+      console.log('in else (renewing token)');
       const authAPI = new AuthService();
       authAPI
         .getAccessToken(refreshToken)
@@ -61,55 +61,25 @@ const Watchlist: React.FC = () => {
     }
   }, [token, dispatch]);
 
-  // useEffect(() => {
-  //   const abc: Watchlist | undefined = watchlists.find((wl: Watchlist) => wl._id === currentWatchlist?._id);
-  //   // console.log('watchlist grabbed', abc);
-  //   // console.log('a', a);
-
-  //   if (abc) {
-  //     // console.log('################################################');
-  //     // console.log('abc IN IF', abc);
-  //     // console.log('watchlists', watchlists);
-  //     // console.log('currentWatchlist', currentWatchlist);
-  //     setCurrentWatchlist({ watchlist: [], _id: 'asdjfkl', user: 'jalskdjf', name: 'jaksldf' });
-  //   }
-  // }, [watchlists, currentWatchlist]);
-
   useEffect(() => {
-    // console.log('currentWatchlist changed');
-    // if currentWatchlist exist
-    if (currentWatchlist) {
-      // console.log('watchlists', watchlists);
-      // console.log('currentWatchlist', currentWatchlist);
+    const currentWatchlistRef: Watchlist | undefined = watchlists.find((wl: Watchlist) => wl._id === currentWatchlist?._id);
 
+    if (currentWatchlistRef) dispatch(setCurrentWatchlist(currentWatchlistRef));
+
+    if (currentWatchlist) {
       const watchlistPrice: WatchlistPrice = { tickerPrices: [] };
 
       getTickerPrices(currentWatchlist.watchlist).then(res => {
-        // console.log('currentWatchlist.watchlist', currentWatchlist.watchlist);
         const prices: TickerPrice[] = res.data.tickerPrices;
 
         for (let i = 0; i < prices.length; i++) {
           watchlistPrice.tickerPrices.push(prices[i]);
         }
 
-        // console.log('watchlistPrice', watchlistPrice);
-        // TODO: move dispatch method outside of loop after forEach loop ends
         dispatch(setCurrentWatchlistPrice(watchlistPrice));
       });
     }
   }, [watchlists, currentWatchlist]);
-
-  // useEffect(() => {
-  //   // TODO: resolve issue where watchlist would update, but watchlistPrices does not update
-  //   // change backend add ticker / remove ticker from watchlist to return the ticker that was added/removed
-  //   // make sure user sends watchlist id and ticker symbol
-  //   // change redux to filter out the ticker symbol
-  //   console.log('################################################');
-  //   // console.log('watchlists', watchlists[0]);
-  //   // console.log('watchlistPrices', watchlistPrices[0]);
-  //   console.log('watchlists', watchlists);
-  //   console.log('currentWatchlist', currentWatchlist);
-  // }, [watchlists, currentWatchlist]);
 
   const logout = () => {
     dispatch(clearAccessToken());
