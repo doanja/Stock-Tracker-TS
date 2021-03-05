@@ -5,8 +5,7 @@ import { faPlusCircle, faMinusCircle } from '@fortawesome/free-solid-svg-icons';
 import { StockService } from '../services';
 
 // redux
-import { useDispatch, useSelector } from 'react-redux';
-import { RootStore } from '../redux/Store';
+import { useDispatch } from 'react-redux';
 import { addToWatchlist, removeFromWatchlist } from '../redux/actions/stockActions';
 import { formatPrice } from '../helper';
 
@@ -15,12 +14,10 @@ interface SearchResultsChildProps {
   watchlistId: string;
 }
 
-// TODO: check if loginstatus needs to be in here
 const SearchResultsChild: React.FC<SearchResultsChildProps> = ({ ticker, watchlistId }) => {
   const history = useHistory();
 
   // redux
-  const { loginStatus } = useSelector((state: RootStore) => state.auth);
   const dispatch = useDispatch();
 
   const [isWatching, setIsWatching] = useState(false);
@@ -39,7 +36,7 @@ const SearchResultsChild: React.FC<SearchResultsChildProps> = ({ ticker, watchli
   }, [watchlistId, ticker.symbol]);
 
   const saveTicker = (saveTicker: boolean, ticker: string): void => {
-    if (loginStatus && watchlistId) {
+    if (watchlistId) {
       if (saveTicker) {
         dispatch(addToWatchlist(watchlistId, ticker));
         setIsWatching(true);

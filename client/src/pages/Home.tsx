@@ -42,7 +42,6 @@ const Home: React.FC = () => {
         }
         watchlistPrices.push(watchlistPrice);
 
-        // TODO: move dispatch method outside of loop after forEach loop ends
         dispatch(setWatchlistPrices(watchlistPrices));
       });
     }

@@ -27,9 +27,17 @@ const WatchlistModal: React.FC<WatchlistModalProps> = ({
   watchlistName,
 }) => {
   const [input, setInput] = useState('');
+  const [isMounted, setIsMounted] = useState(false);
 
   // redux
   const dispatch = useDispatch();
+
+  // TODO: check if this is needed
+  useEffect(() => {
+    setIsMounted(true);
+
+    return () => setIsMounted(false);
+  }, []);
 
   useEffect(() => {
     if (watchlistId && watchlistName) {
@@ -54,6 +62,8 @@ const WatchlistModal: React.FC<WatchlistModalProps> = ({
     } else setInput('');
     toggleModal();
   };
+
+  if (!isMounted) return null;
 
   return (
     <Modal show={showModal} onHide={closeModal} backdrop={true} animation={true}>

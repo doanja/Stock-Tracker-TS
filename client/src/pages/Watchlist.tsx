@@ -79,7 +79,7 @@ const Watchlist: React.FC = () => {
         dispatch(setCurrentWatchlistPrice(watchlistPrice));
       });
     }
-  }, [watchlists, currentWatchlist]);
+  }, [watchlists, currentWatchlist, dispatch]);
 
   const logout = () => {
     dispatch(clearAccessToken());
