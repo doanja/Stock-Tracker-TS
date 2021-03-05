@@ -205,6 +205,31 @@ export const generateTickerPrices = async (sampleWatchlist: string[]): Promise<T
 /**
  * function that converts a number to a string with 2 decimal places
  * @param {number} price the price to be converted
+ * @param {TickerPrice} startingPrice the starting ticker price
  * @return {string} the price converted to string formatted to two decimal places
  */
 export const formatPrice = (price: number): string => (Math.round(price * 100) / 100).toFixed(2);
+
+/**
+ * function to build an array of prices
+ * @param {number} days the number of days to generate prices for
+ * @return {Prices[]} an array of prices
+ */
+export const generatePrices = (days: number, startingPrice: TickerPrice): Prices[] => {
+  const prices: Prices[] = [];
+
+  const price = startingPrice.prices[0].price;
+  const changePercent = startingPrice.prices[0].changePercent;
+  const priceChange = startingPrice.prices[0].priceChange;
+
+  prices.push({ price, changePercent, priceChange });
+
+  for (let i = 0; i < days; i++) {
+    const { price, changePercent, priceChange } = getNextPrice(prices[i].price);
+    prices.push({ price, changePercent, priceChange });
+  }
+
+  prices.shift();
+
+  return prices;
+};

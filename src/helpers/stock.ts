@@ -28,7 +28,12 @@ export const getNextPrice = (oldPrice: number): Prices => {
   return { price, changePercent, priceChange };
 };
 
-export const generatePrices = (days: number = 7200): Prices[] => {
+/**
+ * function to build an array of prices
+ * @param {number} days the number of days to generate prices for
+ * @return {Prices[]} an array of prices
+ */
+export const generatePrices = (days: number): Prices[] => {
   const prices: Prices[] = [];
   const min = Math.random() * 300;
   const max = Math.random() * 300 + min;

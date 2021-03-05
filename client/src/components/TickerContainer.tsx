@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useReducer } from 'react';
 import { TickerHeader, TickerPrice, GraphButtons, Graph } from './';
-import { parseArr, generateTimstamps, getFirstAndLastValues } from '../helper';
+import { parseArr, generateTimstamps, getFirstAndLastValues, generatePrices } from '../helper';
 import '../styles/ticker.min.css';
 
 // redux
@@ -19,7 +19,11 @@ const TickerContainer: React.FC<TickerContainerProps> = ({ tickerPrice, ticker }
   const dispatch = useDispatch();
 
   const [timeframe, setTimeframe] = useState('1D');
-  const currentPrices: number[] = tickerPrice.prices.map(a => a.price);
+  const [currentPrices, setCurrentPrices] = useState<number[]>([]);
+
+  useEffect(() => {
+    setCurrentPrices(generatePrices(7200, tickerPrice).map(a => a.price));
+  }, [tickerPrice, ticker]);
 
   const initialState: ChartData = {
     labels: [],
