@@ -53,7 +53,7 @@ const Home: React.FC = () => {
 
       if (currentWatchlistPrice) {
         tickerPrice = currentWatchlistPrice.tickerPrices.find((tp: TickerPrice) => tp.symbol === currentTicker);
-      } else if (currentTicker && !currentWatchlistPrice) {
+      } else if (watchlistPrices && watchlistPrices.length > 0) {
         tickerPrice = watchlistPrices[watchlistPrices.length - 1].tickerPrices.find((tp: TickerPrice) => tp.symbol === currentTicker);
       }
 

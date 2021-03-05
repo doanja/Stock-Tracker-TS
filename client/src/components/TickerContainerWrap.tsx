@@ -13,9 +13,7 @@ const TickerContainerWrap: React.FC<TickerContainerWrapProps> = ({ currentWatchl
     <Fragment>
       {currentWatchlistPrice && currentWatchlistPrice.tickerPrices.length > 0 ? (
         <TickerLineContainer tickerPrices={currentWatchlistPrice.tickerPrices} />
-      ) : (
-        <CustomSpinner />
-      )}
+      ) : null}
       <TickerSaveButton ticker={currentTicker} />
       <TickerContainer tickerPrice={currentTickerPrice} ticker={currentTicker} />
     </Fragment>
