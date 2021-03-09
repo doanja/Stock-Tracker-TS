@@ -129,13 +129,17 @@ body {
   font-size: 1rem;
   font-weight: 500;
   line-height: 1.5rem;
-  border-top: 1px solid #dadce0;
+  border-top: 1px solid $grey;
 }
 
 .sub-container {
   background-color: $light;
   border-radius: 2.5px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.15);
+}
+
+.discover-sub-container {
+  background-color: $light;
 }
 
 .sub-heading {
@@ -189,7 +193,7 @@ body {
 .discover-card {
   cursor: pointer;
   margin-right: 1rem;
-  box-shadow: 0 1px 2px 0 rgb(197, 197, 197);
+  box-shadow: 0 1px 2px 0 $grey;
 
   display: flex;
   flex-direction: column;
@@ -202,10 +206,10 @@ body {
   width: 156px;
   height: 162px;
   flex: 1;
-  border: 1px solid #dadce0;
+  border: 1px solid $grey;
 
   &.discover-card:hover {
-    box-shadow: 0 4px 8px 0 rgb(197, 197, 197);
+    box-shadow: 0 4px 8px 0 $grey;
     transition: 0.2s;
   }
 }
@@ -318,11 +322,11 @@ body {
 .ticker-trend-wrap {
   display: flex;
   align-items: center;
-  border-top: 1px solid #dadce0;
+  border-top: 1px solid $grey;
   cursor: pointer;
 
   &:hover {
-    background-color: #edeff3;
+    background-color: $dark-grey;
   }
 }
 
@@ -439,7 +443,7 @@ body {
 .watchlist-ticker {
   background-color: $light;
   border-radius: 2.5px;
-  border: 1px solid #eee;
+  border: 1px solid $grey;
   padding: 10px 0px;
   margin: 1px;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.15);
@@ -526,12 +530,12 @@ body {
   justify-content: space-between;
   padding: 8px 20px;
   background-color: $light;
-  border-bottom: 1px solid #dadce0;
+  border-bottom: 1px solid $grey;
   cursor: pointer;
 }
 
 .search-dropdown-item:hover {
-  background-color: #eee;
+  background-color: $grey;
 }
 
 .search-dropdown-item-company-name {

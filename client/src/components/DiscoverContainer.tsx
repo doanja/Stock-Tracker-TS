@@ -42,7 +42,7 @@ const DiscoverContainer: React.FC<DiscoverContainerProps> = ({ heading }) => {
   if (!isMounted) return null;
 
   return (
-    <div className='p-3 sub-container'>
+    <div className='p-3 discover-sub-container'>
       <Container>
         <h3 className='sub-heading'>{heading}</h3>
       </Container>
