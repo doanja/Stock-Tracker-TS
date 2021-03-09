@@ -10,7 +10,7 @@ const MarketTrendsContainer: React.FC = () => {
   useEffect(() => {
     setIsMounted(true);
 
-    const loadTickerPrices = async () => setTickerPrices(await generateTickerPrices(generateWatchlist(10)));
+    const loadTickerPrices = async () => setTickerPrices(await generateTickerPrices(generateWatchlist(15)));
 
     loadTickerPrices();
 
