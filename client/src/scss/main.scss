@@ -3,7 +3,7 @@
 
 html,
 .wrap {
-  background-color: rgb(241, 244, 248);
+  background-color: $dark;
   font-family: $roboto;
 }
 
@@ -525,6 +525,7 @@ body {
   -webkit-box-pack: justify;
   justify-content: space-between;
   padding: 8px 20px;
+  background-color: $light;
   border-bottom: 1px solid #dadce0;
   cursor: pointer;
 }

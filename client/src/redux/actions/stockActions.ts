@@ -27,14 +27,6 @@ export const setIsLoading = () => {
   return { type: StockActionTypes.SET_IS_LOADING };
 };
 
-export const setSearchQuery = (searchQuery: string) => {
-  return { type: StockActionTypes.SET_SEARCH_QUERY, payload: searchQuery };
-};
-
-export const clearSearchQuery = () => {
-  return { type: StockActionTypes.CLEAR_SEARCH_QUERY };
-};
-
 export const setTicker = (ticker: string) => {
   return { type: StockActionTypes.SET_TICKER, payload: ticker };
 };

@@ -5,7 +5,6 @@ const initialState: StockState = {
   currentTickerPriceChange: { price: 0, percent: 0 },
   currentTickerPrice: null,
   watchlistPrices: [],
-  searchQuery: '',
   currentTicker: null,
   watchlists: [],
   error: undefined,
@@ -23,10 +22,6 @@ const stockReducer: Reducer<StockState> = (state = initialState, action) => {
       return { ...state, currentTickerPrice: action.payload };
     case StockActionTypes.SET_WATCHLIST_PRICES:
       return { ...state, watchlistPrices: [...action.payload] };
-    case StockActionTypes.SET_SEARCH_QUERY:
-      return { ...state, searchQuery: action.payload };
-    case StockActionTypes.CLEAR_SEARCH_QUERY:
-      return { ...state, searchQuery: '' };
     case StockActionTypes.SET_TICKER:
       return { ...state, currentTicker: action.payload };
     case StockActionTypes.CLEAR_TICKER:

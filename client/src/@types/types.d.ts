@@ -72,3 +72,5 @@ type LoginFormValues = {
   email: string;
   password: string;
 };
+
+type SetSearchTerm = (searchTerm: string) => void;
