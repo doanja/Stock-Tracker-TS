@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { TickerLineContainer, TickerSaveButton, TickerContainer, CustomSpinner } from './';
+import { TickerLineContainer, TickerSaveButton, TickerContainer } from './';
 import '../styles/main.min.css';
 
 interface TickerContainerWrapProps {
