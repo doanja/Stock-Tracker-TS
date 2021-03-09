@@ -32,7 +32,7 @@ const CustomNavbar: React.FC = () => {
   };
 
   return (
-    <Navbar bg='dark' variant='dark'>
+    <Navbar variant='dark' className='custom-navbar'>
       <Container>
         <Navbar.Brand className='brand' href='/'>
           Stock Tracker

@@ -4,7 +4,7 @@ import '../styles/main.min.css';
 
 const CustomFooter: React.FC = () => {
   return (
-    <Navbar bg='dark' variant='dark' className='custom-footer'>
+    <Navbar variant='dark' className='custom-footer'>
       <Container>
         <div className='text-center'>
           <Navbar.Brand className='brand' href='/'>

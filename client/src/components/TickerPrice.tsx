@@ -17,22 +17,22 @@ const TickerPrice: React.FC<TickerPriceProps> = ({ tickerPrice, tickerPriceChang
         <div className='list-inline'>
           <div className='list-inline-item ticker-price'>{formatPrice(tickerPrice.prices[0].price)}</div>
           <div className='d-inline ticker-price-percent ticker-badge-green font-green-dark'>
-            <FontAwesomeIcon className='ticker-icon' icon={faCaretSquareUp} /> {tickerPriceChange.percent}%
+            <FontAwesomeIcon className='ticker-icon' icon={faCaretSquareUp} /> {formatPrice(tickerPriceChange.percent)}%
           </div>
 
           <div className='list-inline-item ticker-price-change font-green-dark'>
-            +{tickerPriceChange.price} {timeframe}
+            +{formatPrice(tickerPriceChange.price)} {timeframe}
           </div>
         </div>
       ) : (
         <div className='list-inline'>
           <div className='list-inline-item ticker-price'>{formatPrice(tickerPrice.prices[0].price)}</div>
           <div className='d-inline ticker-price-percent ticker-badge-red font-red-dark'>
-            <FontAwesomeIcon className='ticker-icon' icon={faCaretSquareDown} /> {tickerPriceChange.percent}%
+            <FontAwesomeIcon className='ticker-icon' icon={faCaretSquareDown} /> {formatPrice(tickerPriceChange.percent)}%
           </div>
 
           <div className='list-inline-item ticker-price-change font-red-dark'>
-            {tickerPriceChange.price} {timeframe}
+            {formatPrice(tickerPriceChange.price)} {timeframe}
           </div>
         </div>
       )}

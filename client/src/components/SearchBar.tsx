@@ -47,7 +47,7 @@ const SearchBar: React.FC = () => {
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e)}
         />
         <InputGroup.Append>
-          <Button variant='dark' type='submit' onClick={handleSubmit}>
+          <Button variant='outline-light' type='submit' onClick={handleSubmit}>
             Search
           </Button>
         </InputGroup.Append>
