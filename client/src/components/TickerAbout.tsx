@@ -7,29 +7,28 @@ interface TickerAboutProps {
 }
 
 const TickerAbout: React.FC<TickerAboutProps> = ({ tickerPrice }) => {
-  const companyName = tickerPrice?.companyName;
+  const symbol = tickerPrice?.symbol;
   const [about, setAbout] = useState('');
 
   useEffect(() => {
-    if (companyName) {
+    if (symbol) {
       const stockAPI = new StockService();
       stockAPI
-        .getCompanyInfo(companyName)
-        .then(response => response.json())
+        .getCompanyInfo(symbol)
         .then(res => {
-          const response = res.query.pages;
+          const description = res.data.articles.description;
 
-          for (let prop in response) {
-            const aboutText = response[prop].extract;
-            if (aboutText) setAbout(aboutText.split('\n\n\n==')[0]);
-            else
-              setAbout(
+          description
+            ? setAbout(description)
+            : setAbout(
                 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
               );
-          }
+        })
+        .catch(error => {
+          console.log('error', error);
         });
     }
-  }, [companyName]);
+  }, [symbol]);
 
   return (
     <div className='p-3 sub-container ticker-home-sub-wrap flex-even'>

@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { getTickerPrices } from '../controllers/stock.controller';
+import { getCompanyInfo, getTickerPrices } from '../controllers/stock.controller';
 
 export default class StockRoute {
   public router: Router = Router();
@@ -10,5 +10,6 @@ export default class StockRoute {
 
   public initializeRoutes() {
     this.router.post('/stock/prices', getTickerPrices);
+    this.router.get('/stock/prices/:symbol', getCompanyInfo);
   }
 }

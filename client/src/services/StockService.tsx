@@ -33,9 +33,7 @@ export default class StockService {
     return axios.delete<any>(`/watchlist/${watchlistId}`);
   }
 
-  public getCompanyInfo(companyName: string): Promise<any> {
-    return fetch(`https://en.wikipedia.org/w/api.php?origin=*&format=json&action=query&prop=extracts&explaintext=1&titles=${companyName}`, {
-      method: 'GET',
-    });
+  public getCompanyInfo(symbol: string): Promise<any> {
+    return axios.get<any>(`/stock/prices/${symbol}`);
   }
 }
