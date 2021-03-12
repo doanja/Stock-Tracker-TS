@@ -1,11 +1,11 @@
 import React from 'react';
 
-interface TickerGraphButtonsProps {
+interface GraphButtonsProps {
   timeframe: string;
   setTimeframe: (timeframe: string) => void;
 }
 
-const TickerGraphButtons: React.FC<TickerGraphButtonsProps> = ({ timeframe, setTimeframe }) => {
+const GraphButtons: React.FC<GraphButtonsProps> = ({ timeframe, setTimeframe }) => {
   const arr = ['1D', '5D', '1M', '6M', '1Y', '5Y'];
 
   return (
@@ -22,4 +22,4 @@ const TickerGraphButtons: React.FC<TickerGraphButtonsProps> = ({ timeframe, setT
   );
 };
 
-export default TickerGraphButtons;
+export default GraphButtons;

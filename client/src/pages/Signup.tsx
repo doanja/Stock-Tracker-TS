@@ -19,15 +19,15 @@ const Signup: React.FC = () => {
   const { showModal } = useSelector((state: RootStore) => state.modal);
   const dispatch = useDispatch();
 
+  const history = useHistory();
+
   useEffect(() => {
     if (loginStatus) history.push('/');
-  }, []);
-
-  const api = new AuthService();
-  const history = useHistory();
+  }, [loginStatus, history]);
 
   const signup = (values: SignupFormValues) => {
     const { email, password } = values;
+    const api = new AuthService();
 
     api
       .signup(email, password)

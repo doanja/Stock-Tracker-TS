@@ -1,5 +1,4 @@
 import { Schema, model } from 'mongoose';
-import { string } from 'yup';
 import { IUser } from '../@types';
 
 const UserSchema: Schema = new Schema(
@@ -15,9 +14,8 @@ const UserSchema: Schema = new Schema(
       trim: true,
       required: true,
     },
-    watchlist: [{ type: String, trim: true }],
   },
-  { timestamps: true }
+  { timestamps: false }
 );
 
 export default model<IUser>('User', UserSchema);

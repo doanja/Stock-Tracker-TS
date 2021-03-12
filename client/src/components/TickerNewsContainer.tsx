@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { NewsService } from '../services';
 import moment from 'moment';
 import { TickerNews } from './';
@@ -9,8 +9,8 @@ interface TickerNewsContainerProps {
 }
 
 const TickerNewsContainer: React.FC<TickerNewsContainerProps> = ({ ticker }) => {
-  const api = new NewsService();
   const [articles, setArticles] = useState([]);
+  const [isMounted, setIsMounted] = useState(false);
 
   const getHoursFromCurrent = (time: string): string => {
     const then = moment(time).format();
@@ -18,17 +18,20 @@ const TickerNewsContainer: React.FC<TickerNewsContainerProps> = ({ ticker }) => 
     return moment.utc(moment(now).diff(moment(then))).format('H');
   };
 
-  const getTopHeadLines = () => {
-    api.getTopHeadlines().then(res => {
+  const getTopHeadLines = useCallback(() => {
+    const newsAPI = new NewsService();
+    newsAPI.getTopHeadlines().then(res => {
       const articles = res.data.articles;
       articles.forEach((article: Article) => (article.publishedAt = getHoursFromCurrent(article.publishedAt)));
       setArticles(articles.slice(0, 6));
     });
-  };
+  }, []);
 
   useEffect(() => {
+    setIsMounted(true);
     if (ticker) {
-      api.getNews(ticker).then(res => {
+      const newsAPI = new NewsService();
+      newsAPI.getNews(ticker).then(res => {
         const articles = res.data.articles;
         if (articles.length > 0) {
           articles.forEach((article: Article) => (article.publishedAt = getHoursFromCurrent(article.publishedAt)));
@@ -36,7 +39,10 @@ const TickerNewsContainer: React.FC<TickerNewsContainerProps> = ({ ticker }) => 
         } else getTopHeadLines();
       });
     } else getTopHeadLines();
-  }, [ticker]);
+    return () => setIsMounted(false);
+  }, [ticker, getTopHeadLines]);
+
+  if (!isMounted) return null;
 
   return (
     <div className='p-3 sub-container ticker-home-sub-wrap flex-even'>

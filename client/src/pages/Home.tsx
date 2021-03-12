@@ -2,71 +2,70 @@ import React, { useEffect, Fragment } from 'react';
 import {
   SearchBar,
   CustomNavbar,
-  TickerContainer,
-  TickerHome,
+  HomeContainer,
   TickerNewsContainer,
   TickerAbout,
   CustomFooter,
   DiscoverContainer,
-  SaveButton,
-  TickerLineContainer,
   MarketTrendsContainer,
+  TickerContainerWrap,
 } from '../components';
-import { StockService } from '../services';
 import { useHistory } from 'react-router-dom';
-import { Container, Spinner } from 'react-bootstrap';
-import { getTickerName, generateWatchlist } from '../helper';
+import { Container } from 'react-bootstrap';
+import { generateWatchlist, getTickerPrices } from '../helper';
 
 // redux
 import { useSelector, useDispatch } from 'react-redux';
-import { setTickerPrice, setTickerPrices } from '../redux/actions/stockActions';
+import { setCurrentTickerPrice, setWatchlistPrices } from '../redux/actions/stockActions';
 import { RootStore } from '../redux/Store';
 
 const Home: React.FC = () => {
-  const stockAPI = new StockService();
   const history = useHistory();
 
   // redux
   const { loginStatus } = useSelector((state: RootStore) => state.auth);
-  const { tickerPrice, tickerPrices, ticker } = useSelector((state: RootStore) => state.stock);
+  const { currentTickerPrice, currentTicker, currentWatchlistPrice, watchlistPrices } = useSelector((state: RootStore) => state.stock);
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (loginStatus) history.push('/watchlist');
     //  else if not login, generate some watchlist
     else {
-      const sampleWatchlist = generateWatchlist(5);
+      const watchlistPrices: WatchlistPrice[] = [];
+      const watchlistPrice: WatchlistPrice = { tickerPrices: [] };
 
-      const loadPrices = async () => Promise.all(sampleWatchlist.map(ticker => stockAPI.getTickerPrices()));
+      getTickerPrices(generateWatchlist(5)).then(res => {
+        const prices: TickerPrice[] = res.data.tickerPrices;
 
-      const tickerPrices: TickerPrice[] = [];
-
-      loadPrices().then(promise => {
-        for (let i = 0; i < promise.length; i++) {
-          tickerPrices.push({ symbol: sampleWatchlist[i], companyName: getTickerName(sampleWatchlist[i]), prices: promise[i].data.prices });
+        for (let i = 0; i < prices.length; i++) {
+          watchlistPrice.tickerPrices.push(prices[i]);
         }
-        dispatch(setTickerPrices(tickerPrices));
+        watchlistPrices.push(watchlistPrice);
+
+        dispatch(setWatchlistPrices(watchlistPrices));
       });
     }
-  }, []);
+  }, [loginStatus, history, dispatch]);
 
   useEffect(() => {
-    let currentTickerPrice: TickerPrice | undefined = tickerPrices.find((tick: TickerPrice) => tick.symbol === ticker);
+    if (currentTicker) {
+      let tickerPrice: TickerPrice | undefined;
 
-    if (currentTickerPrice) dispatch(setTickerPrice(currentTickerPrice));
+      if (currentWatchlistPrice) {
+        tickerPrice = currentWatchlistPrice.tickerPrices.find((tp: TickerPrice) => tp.symbol === currentTicker);
+      } else if (watchlistPrices && watchlistPrices.length > 0) {
+        tickerPrice = watchlistPrices[watchlistPrices.length - 1].tickerPrices.find((tp: TickerPrice) => tp.symbol === currentTicker);
+      }
 
-    // case for when searching for a stock
-    if (!currentTickerPrice && ticker) {
-      const tickerPriceData = async () => stockAPI.getTickerPrices();
+      if (tickerPrice) {
+        dispatch(setCurrentTickerPrice(tickerPrice));
+      } else {
+        getTickerPrices([currentTicker]).then(res => dispatch(setCurrentTickerPrice(res.data.tickerPrices[0])));
+      }
 
-      tickerPriceData().then(promise => {
-        currentTickerPrice = { symbol: ticker as string, companyName: getTickerName(ticker as string), prices: promise.data.prices };
-        dispatch(setTickerPrice(currentTickerPrice));
-      });
+      window.scrollTo(0, 0);
     }
-
-    window.scrollTo(0, 0);
-  }, [ticker]);
+  }, [currentTicker, currentWatchlistPrice, watchlistPrices, dispatch]);
 
   return (
     <Fragment>
@@ -74,26 +73,15 @@ const Home: React.FC = () => {
       <Container className='home-wrap'>
         <SearchBar />
 
-        {tickerPrices.length > 0 ? (
-          <TickerLineContainer tickerPrices={tickerPrices} />
+        {currentTicker && currentTickerPrice ? (
+          <TickerContainerWrap currentWatchlistPrice={currentWatchlistPrice} currentTicker={currentTicker} currentTickerPrice={currentTickerPrice} />
         ) : (
-          <div className='mt-3 text-center'>
-            <Spinner animation='border' variant='light' />
-          </div>
-        )}
-
-        {ticker && tickerPrice ? (
-          <div className='mt-3'>
-            <SaveButton ticker={ticker} />
-            <TickerContainer tickerPrice={tickerPrice} ticker={ticker} />
-          </div>
-        ) : (
-          <TickerHome />
+          <HomeContainer />
         )}
 
         <div className='my-3 ticker-home-wrap'>
-          <TickerNewsContainer ticker={ticker} />
-          {ticker && tickerPrice ? <TickerAbout tickerPrice={tickerPrice} /> : <MarketTrendsContainer />}
+          <TickerNewsContainer ticker={currentTicker} />
+          {currentTicker && currentTickerPrice ? <TickerAbout tickerPrice={currentTickerPrice} /> : <MarketTrendsContainer />}
         </div>
       </Container>
       <DiscoverContainer heading={'Discover more'} />

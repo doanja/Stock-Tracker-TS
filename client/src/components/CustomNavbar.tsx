@@ -8,6 +8,7 @@ import { faHeart, faHome } from '@fortawesome/free-solid-svg-icons';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootStore } from '../redux/Store';
 import { clearAccessToken, clearLoginStatus, clearRefreshToken } from '../redux/actions/authActions';
+import { clearCurrentWatchlist, clearTicker } from '../redux/actions/stockActions';
 
 const CustomNavbar: React.FC = () => {
   const history = useHistory();
@@ -15,6 +16,12 @@ const CustomNavbar: React.FC = () => {
   // redux
   const { loginStatus } = useSelector((state: RootStore) => state.auth);
   const dispatch = useDispatch();
+
+  const navigateHome = () => {
+    dispatch(clearTicker());
+    dispatch(clearCurrentWatchlist());
+    history.push('/login');
+  };
 
   const logout = () => {
     dispatch(clearAccessToken());
@@ -25,7 +32,7 @@ const CustomNavbar: React.FC = () => {
   };
 
   return (
-    <Navbar bg='dark' variant='dark'>
+    <Navbar variant='dark' className='custom-navbar'>
       <Container>
         <Navbar.Brand className='brand' href='/'>
           Stock Tracker
@@ -33,7 +40,7 @@ const CustomNavbar: React.FC = () => {
 
         <Nav className='ml-auto'>
           <div className='my-auto mr-3'>
-            <FontAwesomeIcon className='mx-2 icon-navbar' icon={faHome} onClick={() => history.push('/')} />
+            <FontAwesomeIcon className='mx-2 icon-navbar' icon={faHome} onClick={navigateHome} />
             <FontAwesomeIcon className='mx-2 icon-navbar' icon={faHeart} onClick={() => history.push('/watchlist')} />
           </div>
 

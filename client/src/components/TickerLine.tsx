@@ -8,6 +8,7 @@ import { faCaretSquareUp, faCaretSquareDown } from '@fortawesome/free-solid-svg-
 // redux
 import { useDispatch } from 'react-redux';
 import { setTicker } from '../redux/actions/stockActions';
+import { formatPrice } from '../helper';
 
 interface TickerLineProps {
   ticker: TickerPrice;
@@ -26,11 +27,11 @@ const TickerLine: React.FC<TickerLineProps> = ({ ticker }) => {
           </Col>
           <Col xs={5}>
             <p className='font-weight-bold'>{ticker.symbol}</p>
-            <p>{ticker.prices[0].price}</p>
+            <p>{formatPrice(ticker.prices[0].price)}</p>
           </Col>
           <Col xs={5} className='font-green-dark'>
-            <p>${ticker.prices[0].priceChange}</p>
-            <p>+{ticker.prices[0].changePercent}%</p>
+            <p>${formatPrice(ticker.prices[0].priceChange)}</p>
+            <p>+{formatPrice(ticker.prices[0].changePercent)}%</p>
           </Col>
         </Row>
       ) : (
@@ -40,11 +41,11 @@ const TickerLine: React.FC<TickerLineProps> = ({ ticker }) => {
           </Col>
           <Col xs={5}>
             <p className='font-weight-bold'>{ticker.symbol}</p>
-            <p>{ticker.prices[0].price}</p>
+            <p>{formatPrice(ticker.prices[0].price)}</p>
           </Col>
           <Col xs={5} className='font-red-dark'>
-            <p>${ticker.prices[0].priceChange * -1}</p>
-            <p>{ticker.prices[0].changePercent}%</p>
+            <p>${formatPrice(ticker.prices[0].priceChange * -1)}</p>
+            <p>{formatPrice(ticker.prices[0].changePercent)}%</p>
           </Col>
         </Row>
       )}

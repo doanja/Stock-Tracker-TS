@@ -16,7 +16,6 @@ import { setAccessToken, setLoginStatus, setRefreshToken } from '../redux/action
 import { toggleModal } from '../redux/actions/modalActions';
 
 const Login: React.FC = () => {
-  const api = new AuthService();
   const history = useHistory();
 
   // redux
@@ -26,10 +25,11 @@ const Login: React.FC = () => {
 
   useEffect(() => {
     if (loginStatus) history.push('/');
-  }, []);
+  }, [loginStatus, history]);
 
   const login = (values: LoginFormValues) => {
     const { email, password } = values;
+    const api = new AuthService();
 
     api
       .login(email, password)

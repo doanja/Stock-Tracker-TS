@@ -1,11 +1,17 @@
-interface Prices {
-  price: number;
-  changePercent: number;
-  priceChange: number;
-}
+import tickers from '../tickers.json';
 
+/**
+ * function to round a number to two decimal places
+ * @param {number} num the number to be rounded
+ * @return {number} return a number rounded to two decimal places
+ */
 const roundDecimals = (num: number): number => +(Math.round(num * 100) / 100).toFixed(2);
 
+/**
+ * function to generate the next price
+ * @param {number} oldPrice the previous price
+ * @return {Prices} a Price object containing the price, changePercent and priceChange
+ */
 export const getNextPrice = (oldPrice: number): Prices => {
   const volatility: number = Math.random() * 5 + 2;
   const rnd: number = Math.random();
@@ -22,7 +28,12 @@ export const getNextPrice = (oldPrice: number): Prices => {
   return { price, changePercent, priceChange };
 };
 
-export const generatePrices = (days: number = 7200): Prices[] => {
+/**
+ * function to build an array of prices
+ * @param {number} days the number of days to generate prices for
+ * @return {Prices[]} an array of prices
+ */
+export const generatePrices = (days: number): Prices[] => {
   const prices: Prices[] = [];
   const min = Math.random() * 300;
   const max = Math.random() * 300 + min;
@@ -39,4 +50,17 @@ export const generatePrices = (days: number = 7200): Prices[] => {
   prices.shift();
 
   return prices;
+};
+
+/**
+ * function to get ticker name from the symbol
+ * @param {string} symbol the ticker's symbol
+ * @return {string} the ticker's company name otherwise N/A
+ */
+export const getTickerName = (symbol: string): string => {
+  symbol = symbol.toUpperCase();
+
+  let ticker: Ticker | undefined = tickers.find((obj: Ticker) => obj.Symbol === symbol);
+
+  return ticker ? ticker['Company Name'] : 'N/A';
 };

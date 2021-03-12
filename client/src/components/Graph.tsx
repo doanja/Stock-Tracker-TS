@@ -15,7 +15,7 @@ const Graph: React.FC<GraphProps> = ({ chartData, tickerPriceChange }) => {
       chartData.datasets[0].borderColor = 'rgb(165, 14, 14)';
       chartData.datasets[0].backgroundColor = 'rgb(217, 83, 79, 0.25)';
     }
-  }, [chartData]);
+  }, [chartData, tickerPriceChange]);
 
   const options = {
     title: { display: false },

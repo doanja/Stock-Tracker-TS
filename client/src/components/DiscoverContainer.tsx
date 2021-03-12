@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { StockService } from '../services';
-import { generateWatchlist, getTickerName } from '../helper';
-import { DiscoverCard } from './';
-import { Container, Spinner } from 'react-bootstrap';
+import { generateWatchlist, generateTickerPrices } from '../helper';
+import { DiscoverCard, CustomSpinner } from './';
+import { Container } from 'react-bootstrap';
 import '../styles/main.min.css';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -13,29 +12,19 @@ interface DiscoverContainerProps {
 }
 
 const DiscoverContainer: React.FC<DiscoverContainerProps> = ({ heading }) => {
-  const stockAPI = new StockService();
   const [tickerPrices, setTickerPrices] = useState<TickerPrice[]>([]);
   const discContainerRef = useRef<null | HTMLDivElement>(null);
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
-    generateTickerPrices(18);
-  }, []);
+    setIsMounted(true);
 
-  /**
-   * function to pick and generate stock data for set amount of stocks
-   * @param {number} number the number of stock to generate
-   */
-  const generateTickerPrices = (number: number) => {
-    const sampleWatchlist = generateWatchlist(number);
-    const loadPrices = async () => Promise.all(sampleWatchlist.map(ticker => stockAPI.getTickerPricesMin()));
-    const tickerPrices: TickerPrice[] = [];
-    loadPrices().then(promise => {
-      for (let i = 0; i < promise.length; i++) {
-        tickerPrices.push({ symbol: sampleWatchlist[i], companyName: getTickerName(sampleWatchlist[i]), prices: promise[i].data.prices });
-      }
-      setTickerPrices(tickerPrices);
-    });
-  };
+    const loadTickerPrices = async () => setTickerPrices(await generateTickerPrices(generateWatchlist(18)));
+
+    loadTickerPrices();
+
+    return () => setIsMounted(false);
+  }, []);
 
   /**
    * function to navigate the scrollbar
@@ -50,8 +39,10 @@ const DiscoverContainer: React.FC<DiscoverContainerProps> = ({ heading }) => {
     }
   };
 
+  if (!isMounted) return null;
+
   return (
-    <div className='p-3 sub-container'>
+    <div className='p-3 discover-sub-container'>
       <Container>
         <h3 className='sub-heading'>{heading}</h3>
       </Container>
@@ -68,9 +59,7 @@ const DiscoverContainer: React.FC<DiscoverContainerProps> = ({ heading }) => {
           </Container>
         </Container>
       ) : (
-        <div className='mt-3 text-center'>
-          <Spinner animation='border' variant='dark' />
-        </div>
+        <CustomSpinner />
       )}
     </div>
   );

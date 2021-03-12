@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useReducer } from 'react';
-import { TickerHeader, TickerPrice, TickerGraphButtons, Graph } from './';
-import { parseArr, generateTimstamps, getFirstAndLastValues } from '../helper';
+import { TickerHeader, TickerPrice, GraphButtons, Graph } from './';
+import { parseArr, generateTimstamps, getFirstAndLastValues, generatePrices } from '../helper';
 import '../styles/ticker.min.css';
 
 // redux
 import { useSelector, useDispatch } from 'react-redux';
-import { setTickerPriceChange } from '../redux/actions/stockActions';
+import { setCurrentTickerPriceChange } from '../redux/actions/stockActions';
 import { RootStore } from '../redux/Store';
 
 interface TickerContainerProps {
@@ -15,11 +15,15 @@ interface TickerContainerProps {
 
 const TickerContainer: React.FC<TickerContainerProps> = ({ tickerPrice, ticker }) => {
   // redux
-  const { tickerPriceChange } = useSelector((state: RootStore) => state.stock);
+  const { currentTickerPriceChange } = useSelector((state: RootStore) => state.stock);
   const dispatch = useDispatch();
 
   const [timeframe, setTimeframe] = useState('1D');
-  const currentPrices: number[] = tickerPrice.prices.map(a => a.price);
+  const [currentPrices, setCurrentPrices] = useState<number[]>([]);
+
+  useEffect(() => {
+    setCurrentPrices(generatePrices(7200, tickerPrice).map(a => a.price));
+  }, [tickerPrice, ticker]);
 
   const initialState: ChartData = {
     labels: [],
@@ -31,27 +35,27 @@ const TickerContainer: React.FC<TickerContainerProps> = ({ tickerPrice, ticker }
     switch (action.type) {
       case '1D':
         data = currentPrices.slice(0, 24);
-        dispatch(setTickerPriceChange(getFirstAndLastValues(data)));
+        dispatch(setCurrentTickerPriceChange(getFirstAndLastValues(data)));
         return { labels: generateTimstamps(24, 30, 'minutes'), datasets: [{ data }] };
       case '5D':
         data = parseArr(currentPrices, 4).slice(0, 60);
-        dispatch(setTickerPriceChange(getFirstAndLastValues(data)));
+        dispatch(setCurrentTickerPriceChange(getFirstAndLastValues(data)));
         return { labels: generateTimstamps(60, 2, 'hours'), datasets: [{ data }] };
       case '1M':
         data = parseArr(currentPrices, 48).slice(0, 30);
-        dispatch(setTickerPriceChange(getFirstAndLastValues(data)));
+        dispatch(setCurrentTickerPriceChange(getFirstAndLastValues(data)));
         return { labels: generateTimstamps(30, 1, 'day'), datasets: [{ data }] };
       case '6M':
         data = parseArr(currentPrices, 48).slice(0, 24);
-        dispatch(setTickerPriceChange(getFirstAndLastValues(data)));
+        dispatch(setCurrentTickerPriceChange(getFirstAndLastValues(data)));
         return { labels: generateTimstamps(24, 1, 'week'), datasets: [{ data }] };
       case '1Y':
         data = parseArr(currentPrices, 48).slice(0, 48);
-        dispatch(setTickerPriceChange(getFirstAndLastValues(data)));
+        dispatch(setCurrentTickerPriceChange(getFirstAndLastValues(data)));
         return { labels: generateTimstamps(48, 1, 'week'), datasets: [{ data }] };
       case '5Y':
         data = parseArr(currentPrices, 360).slice(0, 20);
-        dispatch(setTickerPriceChange(getFirstAndLastValues(data)));
+        dispatch(setCurrentTickerPriceChange(getFirstAndLastValues(data)));
         return { labels: generateTimstamps(20, 4, 'months'), datasets: [{ data }] };
       default:
         return state;
@@ -61,15 +65,16 @@ const TickerContainer: React.FC<TickerContainerProps> = ({ tickerPrice, ticker }
   const [chartData, dispatchChartAction] = useReducer(reducer, initialState);
 
   useEffect(() => {
+    // TODO: fix warning cannot update component search bar
     dispatchChartAction({ type: timeframe });
   }, [timeframe, ticker]);
 
   return (
     <div className='mt-3 p-3 ticker-container'>
       <TickerHeader tickerPrice={tickerPrice} />
-      <TickerPrice tickerPrice={tickerPrice} tickerPriceChange={tickerPriceChange} timeframe={timeframe} />
-      <TickerGraphButtons timeframe={timeframe} setTimeframe={setTimeframe} />
-      <Graph chartData={chartData} tickerPriceChange={tickerPriceChange} />
+      <TickerPrice tickerPrice={tickerPrice} tickerPriceChange={currentTickerPriceChange} timeframe={timeframe} />
+      <GraphButtons timeframe={timeframe} setTimeframe={setTimeframe} />
+      <Graph chartData={chartData} tickerPriceChange={currentTickerPriceChange} />
     </div>
   );
 };

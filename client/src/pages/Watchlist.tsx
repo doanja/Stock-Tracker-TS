@@ -1,43 +1,57 @@
-import React, { useState, useEffect, Fragment } from 'react';
+import React, { useState, useEffect, Fragment, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
-import { usePrevious } from '../helper/hooks';
-import { AuthService, StockService } from '../services';
+import { AuthService } from '../services';
 import { CustomModal } from '../components';
 import { Home } from './';
 import axios from 'axios';
-import { checkTokenExp, getTickerName } from '../helper';
+import { checkTokenExp, getTickerPrices } from '../helper';
 
 // redux
 import { useSelector, useDispatch } from 'react-redux';
 import { RootStore } from '../redux/Store';
-import { getWatchlist, setTickerPrices } from '../redux/actions/stockActions';
+import { getWatchlists, setCurrentWatchlist, setCurrentWatchlistPrice } from '../redux/actions/stockActions';
 import { clearAccessToken, clearLoginStatus, clearRefreshToken, setAccessToken } from '../redux/actions/authActions';
 
 const Watchlist: React.FC = () => {
-  const authAPI = new AuthService();
-  const stockAPI = new StockService();
   const history = useHistory();
 
   // redux
   const { loginStatus, refreshToken } = useSelector((state: RootStore) => state.auth);
-  const { watchlist, error, token } = useSelector((state: RootStore) => state.stock);
+  const { watchlists, error, token, currentWatchlist } = useSelector((state: RootStore) => state.stock);
   const dispatch = useDispatch();
-
-  const prevAmount = usePrevious(watchlist);
 
   // modal
   const [showModal, setShowModal] = useState(false);
-  const toggleModal: ToggleModal = () => setShowModal(!showModal);
+
+  const requestAccessToken = useCallback(() => {
+    // check refresh token expiry
+    if (!checkTokenExp(refreshToken) && !showModal) {
+      console.log('in if (logging out)');
+      setShowModal(!showModal);
+    } else {
+      console.log('in else (renewing token)');
+      const authAPI = new AuthService();
+      authAPI
+        .getAccessToken(refreshToken)
+        .then(res => {
+          const accessToken = `Bearer ${res.data.accessToken}`;
+          dispatch(setAccessToken(accessToken));
+          axios.defaults.headers.common.Authorization = accessToken;
+          dispatch(getWatchlists());
+        })
+        .catch(err => setShowModal(!showModal));
+    }
+  }, [refreshToken, dispatch, showModal, setShowModal]);
 
   useEffect(() => {
     if (error === 'TokenExpiredError') requestAccessToken();
-  }, [error]);
+  }, [error, requestAccessToken]);
 
   useEffect(() => {
     if (!loginStatus) history.push('/login');
 
-    dispatch(getWatchlist());
-  }, []);
+    dispatch(getWatchlists());
+  }, [loginStatus, history, dispatch]);
 
   useEffect(() => {
     if (token) {
@@ -45,44 +59,34 @@ const Watchlist: React.FC = () => {
       dispatch(setAccessToken(accessToken));
       axios.defaults.headers.common.Authorization = accessToken;
     }
-  }, [token]);
+  }, [token, dispatch]);
 
   useEffect(() => {
-    const loadPrices = async () => Promise.all(watchlist.map(ticker => stockAPI.getTickerPrices()));
+    const currentWatchlistRef: Watchlist | undefined = watchlists.find((wl: Watchlist) => wl._id === currentWatchlist?._id);
 
-    const tickerPrices: TickerPrice[] = [];
+    if (currentWatchlistRef) dispatch(setCurrentWatchlist(currentWatchlistRef));
 
-    loadPrices().then(promise => {
-      for (let i = 0; i < promise.length; i++) {
-        tickerPrices.push({ symbol: watchlist[i], companyName: getTickerName(watchlist[i]), prices: promise[i].data.prices });
-      }
+    if (currentWatchlist) {
+      const watchlistPrice: WatchlistPrice = { tickerPrices: [] };
 
-      dispatch(setTickerPrices(tickerPrices));
-    });
-  }, [prevAmount]);
+      getTickerPrices(currentWatchlist.watchlist).then(res => {
+        const prices: TickerPrice[] = res.data.tickerPrices;
+
+        for (let i = 0; i < prices.length; i++) {
+          watchlistPrice.tickerPrices.push(prices[i]);
+        }
+
+        dispatch(setCurrentWatchlistPrice(watchlistPrice));
+      });
+    }
+  }, [watchlists, currentWatchlist, dispatch]);
 
   const logout = () => {
     dispatch(clearAccessToken());
     dispatch(clearRefreshToken());
     dispatch(clearLoginStatus());
     window.localStorage.removeItem('store');
-    history.push('/login');
-  };
-
-  const requestAccessToken = () => {
-    // check refresh token expiry
-    if (!checkTokenExp(refreshToken)) toggleModal();
-    else {
-      authAPI
-        .getAccessToken(refreshToken)
-        .then(res => {
-          const accessToken = `Bearer ${res.data.accessToken}`;
-          dispatch(setAccessToken(accessToken));
-          axios.defaults.headers.common.Authorization = accessToken;
-          dispatch(getWatchlist());
-        })
-        .catch(err => toggleModal());
-    }
+    history.push('/');
   };
 
   return (

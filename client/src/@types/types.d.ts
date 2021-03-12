@@ -34,6 +34,20 @@ type Ticker = {
   Symbol: string;
 };
 
+type Watchlist = {
+  _id: string;
+  name: string;
+  user: string;
+  watchlist: string[];
+};
+
+type WatchlistPrice = {
+  _id?: string;
+  name?: string;
+  user?: string;
+  tickerPrices: TickerPrice[];
+};
+
 type TickerPrice = {
   symbol: string;
   companyName: string;
@@ -43,6 +57,8 @@ type TickerPrice = {
 type LoadTicker = (ticker: string) => void;
 
 type GetTickerPrice = () => void;
+
+type ToggleSearchModal = () => void;
 
 type ToggleModal = (errorText?: string) => void;
 
@@ -56,3 +72,5 @@ type LoginFormValues = {
   email: string;
   password: string;
 };
+
+type SetSearchTerm = (searchTerm: string) => void;

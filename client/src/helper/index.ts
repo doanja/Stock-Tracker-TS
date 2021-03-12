@@ -2,6 +2,8 @@ import { decode } from 'jsonwebtoken';
 import * as Yup from 'yup';
 import tickers from '../tickers.json';
 import moment from 'moment';
+import { StockService } from '../services';
+import { AxiosResponse } from 'axios';
 
 /**
  * function to check JWT expiration
@@ -35,12 +37,10 @@ export const signupSchema = Yup.object({
 export const validateTicker = (input: string): Ticker | undefined => {
   input = input.toUpperCase();
 
-  let ticker: Ticker | undefined = tickers.find((obj: Ticker) => obj.Symbol === input);
+  let ticker: Ticker | undefined = tickers.find((ticker: Ticker) => ticker.Symbol === input);
 
   // if symbol not found, search by company name
-  if (!ticker) {
-    ticker = tickers.find((obj: Ticker) => obj['Company Name'].toUpperCase().indexOf(input) > -1);
-  }
+  if (!ticker) ticker = tickers.find((obj: Ticker) => obj['Company Name'].toUpperCase().indexOf(input) > -1);
 
   return ticker;
 };
@@ -114,10 +114,16 @@ export const getFirstAndLastValues = (arr: number[]): { first: number; last: num
  */
 export const roundDecimals = (num: number): number => parseFloat((Math.round(num * 100) / 100).toFixed(2));
 
+/**
+ * function to generate the next price
+ * @param {number} oldPrice the previous price
+ * @return {Prices} a Price object containing the price, changePercent and priceChange
+ * @return {Price} the new price
+ */
 export const getNextPrice = (oldPrice: number): Prices => {
-  const volatility: number = Math.random() * 10 + 2;
+  const volatility: number = Math.random() * 0.05 + 0.02;
   const rnd: number = Math.random();
-  let changePercent = 0.5 * volatility * rnd;
+  let changePercent = 2 * volatility * rnd;
 
   if (changePercent > volatility) changePercent -= 2 * volatility;
 
@@ -131,12 +137,99 @@ export const getNextPrice = (oldPrice: number): Prices => {
 };
 
 /**
+ * function to calculate the change in percent and price
+ * @param {Price} newPrice the updated Price
+ * @param {Price} initialPrice the starting Price
+ * @return {Price} the new price
+ */
+export const getPriceDifference = (newPrice: Prices, initialPrice: Prices): Prices => {
+  const { price, changePercent, priceChange } = newPrice;
+
+  return {
+    price,
+    changePercent: roundDecimals(initialPrice.changePercent - changePercent),
+    priceChange: roundDecimals(initialPrice.priceChange - priceChange),
+  };
+};
+
+/**
  * function that updates the prices of an array of Ticker Prices
  * @param tickerPrices an array of Ticker Prices
  * @return {TickerPrice[]} an array of Ticker Prices
  */
 export const bulkUpdatePrices = (tickerPrices: TickerPrice[]): TickerPrice[] => {
-  let temp: TickerPrice[] = [...tickerPrices!];
-  temp.forEach(tickerPrice => (tickerPrice.prices[0] = getNextPrice(tickerPrice.prices[0].price)));
-  return temp;
+  const updatedPrices: TickerPrice[] = [...tickerPrices!];
+
+  updatedPrices.forEach(tickerPrice => {
+    const newPrice = getNextPrice(tickerPrice.prices[0].price);
+    const initialPrice = tickerPrice.prices[0];
+    tickerPrice.prices[0] = getPriceDifference(newPrice, initialPrice);
+  });
+
+  return updatedPrices;
+};
+
+/**
+ * function to create an array of promises containing the TickerPricese
+ * @param {string[]} watchlist an array of strings containing the tickers
+ * @return {Promise<AxiosResponse<TickerPrice>[]>} an array of promises containing the TickerPrices
+ */
+export const getTickerPrices = async (watchlist: string[]): Promise<AxiosResponse<any>> => {
+  const stockAPI = new StockService();
+  return stockAPI.getTickerPrices(watchlist);
+};
+
+/**
+ * function to generate stock data
+ * @param {string[]} sampleWatchlist an array of strings containing the tickers
+ * @return {Promise<TickerPrice[]} returns an array of TickerPrice
+ */
+export const generateTickerPrices = async (sampleWatchlist: string[]): Promise<TickerPrice[]> => {
+  const tickerPrices: TickerPrice[] = [];
+
+  try {
+    await getTickerPrices(sampleWatchlist).then(res => {
+      const prices: TickerPrice[] = res.data.tickerPrices;
+
+      for (let i = 0; i < res.data.tickerPrices.length; i++) {
+        tickerPrices.push(prices[i]);
+      }
+    });
+
+    return tickerPrices;
+  } catch (error) {
+    return [];
+  }
+};
+
+/**
+ * function that converts a number to a string with 2 decimal places
+ * @param {number} price the price to be converted
+ * @param {TickerPrice} startingPrice the starting ticker price
+ * @return {string} the price converted to string formatted to two decimal places
+ */
+export const formatPrice = (price: number): string => (Math.round(price * 100) / 100).toFixed(2);
+
+/**
+ * function to build an array of prices
+ * @param {number} days the number of days to generate prices for
+ * @return {Prices[]} an array of prices
+ */
+export const generatePrices = (days: number, startingPrice: TickerPrice): Prices[] => {
+  const prices: Prices[] = [];
+
+  const price = startingPrice.prices[0].price;
+  const changePercent = startingPrice.prices[0].changePercent;
+  const priceChange = startingPrice.prices[0].priceChange;
+
+  prices.push({ price, changePercent, priceChange });
+
+  for (let i = 0; i < days; i++) {
+    const { price, changePercent, priceChange } = getNextPrice(prices[i].price);
+    prices.push({ price, changePercent, priceChange });
+  }
+
+  prices.shift();
+
+  return prices;
 };
