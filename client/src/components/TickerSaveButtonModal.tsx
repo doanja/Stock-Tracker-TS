@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { TickerSaveButtonChild } from './';
 import { Modal, Form, Button } from 'react-bootstrap';
 
@@ -14,7 +14,7 @@ interface TickerSaveButtonModalProps {
 
 const TickerSaveButtonModal: React.FC<TickerSaveButtonModalProps> = ({ toggleModal, showModal, tickerSymbol }) => {
   // redux
-  const { watchlistPrices } = useSelector((state: RootStore) => state.stock);
+  const { watchlistPrices, watchlists } = useSelector((state: RootStore) => state.stock);
 
   return (
     <Modal show={showModal} onHide={toggleModal} backdrop={true} animation={true}>
@@ -23,9 +23,19 @@ const TickerSaveButtonModal: React.FC<TickerSaveButtonModalProps> = ({ toggleMod
           <Form.Label>Add or Remove from Watchlists</Form.Label>
         </Modal.Title>
 
-        {watchlistPrices.map((wl: WatchlistPrice) => (
-          <TickerSaveButtonChild key={wl._id} tickerSymbol={tickerSymbol} watchlistId={wl._id} watchlistName={wl.name} />
-        ))}
+        {watchlistPrices.length > 0 ? (
+          <Fragment>
+            {watchlistPrices.map((wl: WatchlistPrice) => (
+              <TickerSaveButtonChild key={wl._id} tickerSymbol={tickerSymbol} watchlistId={wl._id} watchlistName={wl.name} />
+            ))}
+          </Fragment>
+        ) : (
+          <Fragment>
+            {watchlists.map((wl: Watchlist) => (
+              <TickerSaveButtonChild key={wl._id} tickerSymbol={tickerSymbol} watchlistId={wl._id} watchlistName={wl.name} />
+            ))}
+          </Fragment>
+        )}
       </Modal.Body>
       <Modal.Footer>
         <Button variant='dark' type='submit' onClick={() => toggleModal()}>
