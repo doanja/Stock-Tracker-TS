@@ -1,6 +1,6 @@
 # Stock-Tracker-TS
 
-Stock Tracker is an app that allows users to follow stocks, create watchlists, and view stock trend data and news all in one place. 
+Stock Tracker is an app that allows users to follow stocks, create watchlists, and view stock trends and data and news all in one convenient place. 
 
 ## Demo
 
