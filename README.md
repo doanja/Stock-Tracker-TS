@@ -12,5 +12,5 @@ View live demo [here](https://doanja-stock-tracker-ts.herokuapp.com/).
 - Node
 - React
 - Redux
-- SCSS
+- SASS
 - MongoDB
