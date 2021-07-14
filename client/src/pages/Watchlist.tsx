@@ -64,7 +64,8 @@ const Watchlist: React.FC = () => {
   useEffect(() => {
     const currentWatchlistRef: Watchlist | undefined = watchlists.find((wl: Watchlist) => wl._id === currentWatchlist?._id);
 
-    if (currentWatchlistRef) dispatch(setCurrentWatchlist(currentWatchlistRef));
+    // check to see if a currentWatchlist is selected, otherwise used default watchlist
+    currentWatchlistRef ? dispatch(setCurrentWatchlist(currentWatchlistRef)) : dispatch(setCurrentWatchlist(watchlists[0]));
 
     if (currentWatchlist) {
       const watchlistPrice: WatchlistPrice = { tickerPrices: [] };
