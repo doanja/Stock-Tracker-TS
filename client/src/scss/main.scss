@@ -652,4 +652,8 @@ body {
   flex-direction: column;
 }
 
+.text-danger {
+  color: $dark-red;
+}
+
 @import 'mobile'; // for mobile
